@@ -165,7 +165,7 @@ void FwRtWaitForTermination(FwRtDesc_t rtDesc) {
 	int errCode;
 	void* status = 0;
 
-	if ((errCode = pthread_join(rtDesc->activationThread,status)) != 0) {
+	if ((errCode = pthread_join(rtDesc->activationThread,&status)) != 0) {
 		 rtDesc->errCode = errCode;
 		 rtDesc->state = rtJoinErr;
 		 return;
