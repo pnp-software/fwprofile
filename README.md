@@ -21,6 +21,8 @@ Its main features are:
 # Web-Based Modeling Tool and Code Generator
 A web-based modeling tool is freely available to help design FW Profile state machines and procedures, and to automate the generation of the C-code which configures them. The tool can be accessed from [here](http://pnp-software.com/fwprofile/editor/), the most recent version is **4.5**.
 
+FW Profile Editor is also available on Chrome Web Store. As an app for Chrome allows you to work offline. Search for FW Profile at Chrome Web Store, or try this link: https://chrome.google.com/webstore/search/FW%20Profile
+
 # Ownership
 The owner of the project is [P&P Software GmbH](http://pnp-software.com/).
 
