@@ -1,4 +1,4 @@
-The project ismigrated from [https://code.google.com/p/fwprofile/](https://code.google.com/p/fwprofile/).
+The project is migrated from [https://code.google.com/p/fwprofile/](https://code.google.com/p/fwprofile/).
 
 # FW Profile
 C Implementation of an unambiguous definition of State Machines and Activity Diagrams for Safety-Critical, Real-Time and Embedded Applications.
@@ -19,7 +19,7 @@ Its main features are:
 * **Simple programming interface**: allowing fast manual definition of state machines or activity diagrams directly at the C code level, or development of a code generator for a UML modeling tool.
 
 # Web-Based Modeling Tool and Code Generator
-A web-based modeling tool is freely available to help design FW Profile state machines and procedures, and to automate the generation of the C-code which configures them. The tool can be accessed from [here](http://pnp-software.com/fwprofile/editor/), the most recent version is **3.1**.
+A web-based modeling tool is freely available to help design FW Profile state machines and procedures, and to automate the generation of the C-code which configures them. The tool can be accessed from [here](http://pnp-software.com/fwprofile/editor/), the most recent version is **4.5**.
 
 # Ownership
 The owner of the project is [P&P Software GmbH](http://pnp-software.com/).
