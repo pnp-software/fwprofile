@@ -25,6 +25,9 @@ A web-based modeling tool is freely available to help design FW Profile state ma
 
 FW Profile Editor is also available on Chrome Web Store. As an app for Chrome allows you to work offline. Search for FW Profile at Chrome Web Store, or try this link: https://chrome.google.com/webstore/search/FW%20Profile
 
+# Examples
+A collection of examples is published by GitBook, get the online access [here](https://www.gitbook.com/book/cechticky/fw-profile-examples/details).
+
 # Ownership
 The owner of the project is [P&P Software GmbH](http://pnp-software.com/).
 
