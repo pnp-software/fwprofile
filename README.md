@@ -1,6 +1,8 @@
+# FW Profile
+[![Build Status](https://travis-ci.org/pnp-software/fwprofile.svg?branch=master)](https://travis-ci.org/pnp-software/fwprofile)
+
 The project is migrated from [https://code.google.com/p/fwprofile/](https://code.google.com/p/fwprofile/).
 
-# FW Profile
 C Implementation of an unambiguous definition of State Machines and Activity Diagrams for Safety-Critical, Real-Time and Embedded Applications.
 
 Its main features are:
