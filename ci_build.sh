@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+Import('env')
+
 env = Environment()
-env.Program('fwprofile', ['./src/*.c'])
+env.SharedLibrary('fwprofile', ['./src/*.c'])
 
