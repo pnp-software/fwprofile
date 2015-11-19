@@ -28,6 +28,9 @@ FW Profile Editor is also available on Chrome Web Store. As an app for Chrome al
 # Examples
 A collection of examples is published by GitBook, get the online access [here](https://www.gitbook.com/book/cechticky/fw-profile-examples/details).
 
+# Releases
+* Version [1.2.1](http://www.pnp-software.com/fwprofile/releases/FWProfile_C1_Impl_1.2.1_LGPLv3.zip), LGPLv3
+
 # Ownership
 The owner of the project is [P&P Software GmbH](http://pnp-software.com/).
 
