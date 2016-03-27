@@ -158,8 +158,8 @@ static void ExecTrans(FwSmDesc_t smDesc, SmTrans_t* trans) {
 	smDesc->smActions[trans->iTrAction](smDesc);
 
 	if (trans->dest > 0) {					/* destination is a proper state */
-		smDesc->stateExecCnt = 0;
 		smDesc->curState = trans->dest;
+		smDesc->stateExecCnt = 0;
 		pDest = &(smBase->pStates[(trans->dest)-1]);
 		/* execute entry action of destination state */
 		smDesc->smActions[pDest->iEntryAction](smDesc);
@@ -175,8 +175,8 @@ static void ExecTrans(FwSmDesc_t smDesc, SmTrans_t* trans) {
 				/* Execute transition from choice pseudo-state */
 				smDesc->smActions[cTrans->iTrAction](smDesc);
 				if (cTrans->dest > 0) {	/* destination is a proper state */
-					smDesc->stateExecCnt = 0;
 					smDesc->curState = cTrans->dest;
+					smDesc->stateExecCnt = 0;
 					pDest = &(smBase->pStates[(cTrans->dest)-1]);
 					/* execute entry action of destination state */
 					smDesc->smActions[pDest->iEntryAction](smDesc);
