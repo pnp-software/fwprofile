@@ -102,7 +102,8 @@ void FwPrRun(FwPrDesc_t prDesc);
  * The following convention is used:
  * - If the procedure is in the STOPPED state, this function returns 0.
  * - If the procedure is in the STARTED state but has not yet executed
- *   any action (because the guard from the initial node is still false),
+ *   any action (either because the procedure has not yet been executed or because it
+ *   has been executed but the guard from the initial node is false),
  *   this function returns -1.
  * - If the procedure is in the STARTED state and has already left the
  *   initial node, the procedure returns the identifier of the current node
