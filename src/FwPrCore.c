@@ -61,10 +61,11 @@ void FwPrExecute(FwPrDesc_t prDesc) {
 	if (prDesc->curNode == 0)   /* procedure is stopped */
 		return;
 	else {
-		prDesc->prExecCnt++;
-		prDesc->nodeExecCnt++;
+		prDesc->prExecCnt++;    /* Increment procedure execution counter */
+		prDesc->nodeExecCnt++;  /* Increment node execution counter */
 	}
 
+	/* Get the Control Flow issuing from the current node */
 	if (prDesc->curNode == -1)	/* procedure is at initial node */
 		flow = &(prBase->flows[0]);
 	else {
@@ -72,29 +73,36 @@ void FwPrExecute(FwPrDesc_t prDesc) {
 		flow = &(prBase->flows[curNode->iFlow]);
 	}
 
-	while (prDesc->prGuards[flow->iGuard](prDesc) != 0) {
+    /* Evaluate guard of control flow issuing from current node */
+	trueGuardFound = prDesc->prGuards[flow->iGuard](prDesc);
+
+	/* Execute loop until guard of control flow issuing from current node is true */
+	while (trueGuardFound != 0) {
 		/* Target of flow is a final node */
 		if (flow->dest == 0) {
-			prDesc->curNode = 0;
+			prDesc->curNode = 0;	/* Stop procedure */
 			return;
 		}
-		/* Target of flow is an action node */
-		if (flow->dest > 0) {
+
+		if (flow->dest > 0) {		/* Target of control flow is an action node */
 			prDesc->curNode = flow->dest;
 			prDesc->nodeExecCnt = 0;
 			curNode = &(prBase->aNodes[(prDesc->curNode)-1]);
 			prDesc->prActions[curNode->iAction](prDesc);
 			flow = &(prBase->flows[curNode->iFlow]);
+			trueGuardFound = prDesc->prGuards[flow->iGuard](prDesc);
 		} else {	/* Target of flow is a decision node */
 			trueGuardFound = 0;
 			decNode = &(prBase->dNodes[(-flow->dest)-1]);
+			/* Evaluate guards of control flows issuing from decision node */
 			for (i=0; i<decNode->nOfOutTrans; i++) {
 				flow = &(prBase->flows[decNode->outFlowIndex + i]);
 				if (prDesc->prGuards[flow->iGuard](prDesc) != 0) {
 					trueGuardFound = 1;
-					break;
+					break;	/* First control flow out of dec. node with true guard */
 				}
 			}
+			/* All control flows out of decision node have false guards */
 			if (trueGuardFound == 0) {
 				prDesc->errCode = prFlowErr;
 				return;
