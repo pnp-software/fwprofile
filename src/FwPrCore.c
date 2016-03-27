@@ -74,7 +74,7 @@ void FwPrExecute(FwPrDesc_t prDesc) {
 	}
 
     /* Evaluate guard of control flow issuing from current node */
-	trueGuardFound = prDesc->prGuards[flow->iGuard](prDesc);
+	trueGuardFound = (FwPrCounterS1_t)prDesc->prGuards[flow->iGuard](prDesc);
 
 	/* Execute loop until guard of control flow issuing from current node is true */
 	while (trueGuardFound != 0) {
@@ -90,7 +90,7 @@ void FwPrExecute(FwPrDesc_t prDesc) {
 			curNode = &(prBase->aNodes[(prDesc->curNode)-1]);
 			prDesc->prActions[curNode->iAction](prDesc);
 			flow = &(prBase->flows[curNode->iFlow]);
-			trueGuardFound = prDesc->prGuards[flow->iGuard](prDesc);
+			trueGuardFound = (FwPrCounterS1_t)prDesc->prGuards[flow->iGuard](prDesc);
 		} else {	/* Target of flow is a decision node */
 			trueGuardFound = 0;
 			decNode = &(prBase->dNodes[(-flow->dest)-1]);
