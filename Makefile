@@ -1,12 +1,26 @@
 #### PROJECT SETTINGS ####
-# The name of the executable to be created
-BIN_NAME := fwprofile.so
+# Root name of the library
+LIB_NAME := fwprofile
+# The full name incl extension of the library to be created
+BIN_PATH ?= bin
+BIN_NAME := lib$(LIB_NAME).so
 # Compiler used
 CC ?= gcc
 # Extension of source files used in the project
 SRC_EXT = c
 # Path to the source directory, relative to the makefile
 SRC_PATH = ./src
+# Path to the example directory, relative to the makefile
+EXAMPLES_PATH = ./examples
+EXAMPLES_SRC = $(shell find $(EXAMPLES_PATH)/ -name '*.$(SRC_EXT)')
+EXAMPLES_BIN = $(patsubst %.$(SRC_EXT),bin/%,$(EXAMPLES_SRC))
+# Path for the tests directory, relative to the makefile
+TESTS_PATH = ./tests
+TESTS_SRC = $(shell find $(TESTS_PATH)/ -name '*.$(SRC_EXT)')
+TESTS_BIN = bin/testsuite
+# Path to the tests directory, relative to the makefile
+TESTS_PATH = ./tests
+TESTS_SRC = $(shell find $(TESTS_PATH)/ -name '*.$(SRC_EXT)')
 # Space-separated pkg-config libraries used by this project
 LIBS =
 # General compiler flags
@@ -164,11 +178,28 @@ endif
 	@echo -n "Total build time: "
 	@$(END_TIME)
 
+# Create examples
+.PHONY: examples
+examples: dirs $(EXAMPLES_BIN)
+bin/%: %.$(SRC_EXT)
+	$(CMD_PREFIX)$(CC) $? $(INCLUDES) -l$(LIB_NAME) -L. -Wl,-rpath=. -o$@
+
+# Create tests
+.PHONY: test
+test: dirs $(TESTS_BIN)
+$(TESTS_BIN): $(TESTS_SRC)
+	$(CMD_PREFIX)$(CC) $? $(INCLUDES) -l$(LIB_NAME) -lpthread -L. -Wl,-rpath=. -o$@
+
+.PHONY: run-test
+run-test: test
+	$(TESTS_BIN)
+
 # Create the directories used in the build
 .PHONY: dirs
 dirs:
 	@echo "Creating directories"
 	@mkdir -p $(dir $(OBJECTS))
+	@mkdir -p $(dir $(EXAMPLES_BIN))
 	@mkdir -p $(BIN_PATH)
 
 # Installs to the set path

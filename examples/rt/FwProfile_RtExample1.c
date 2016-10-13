@@ -35,9 +35,10 @@
 #include <stdlib.h>
 
 /* Include FW Profile functions */
-#include "FwProfile/FwRtConstants.h"
-#include "FwProfile/FwRtConfig.h"
-#include "FwProfile/FwRtCore.h"
+#include "FwRtConstants.h"
+#include "FwRtConfig.h"
+#include "FwRtCore.h"
+
 #include <time.h>
 
 /** This variable holds a time duration of 10 ms */

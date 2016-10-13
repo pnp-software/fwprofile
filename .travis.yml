@@ -14,4 +14,4 @@ env:
 
 sudo: false
 
-script: make
+script: make clean && make && make examples && make test && make run-test

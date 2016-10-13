@@ -30,8 +30,8 @@
 #include <time.h>
 #include <pthread.h>
 #include <unistd.h>
-#include "FwProfile/FwRtConstants.h"
-#include "FwProfile/FwRtCore.h"
+#include "FwRtConstants.h"
+#include "FwRtCore.h"
 #include "FwRtTestCases.h"
 #include "FwRtMakeTest.h"
 

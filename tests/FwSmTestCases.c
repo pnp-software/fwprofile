@@ -27,11 +27,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "FwProfile/FwSmConfig.h"
-#include "FwProfile/FwSmSCreate.h"
-#include "FwProfile/FwSmDCreate.h"
-#include "FwProfile/FwSmAux.h"
-#include "FwProfile/FwSmPrivate.h"
+#include "FwSmConfig.h"
+#include "FwSmSCreate.h"
+#include "FwSmDCreate.h"
+#include "FwSmAux.h"
+#include "FwSmPrivate.h"
 #include "FwSmTestCases.h"
 #include "FwSmMakeTest.h"
 

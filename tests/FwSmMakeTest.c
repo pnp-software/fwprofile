@@ -26,11 +26,11 @@
  */
 
 #include "FwSmMakeTest.h"
-#include "FwProfile/FwSmCore.h"
-#include "FwProfile/FwSmConfig.h"
-#include "FwProfile/FwSmDCreate.h"
-#include "FwProfile/FwSmSCreate.h"
-#include "FwProfile/FwSmPrivate.h"	/* Needed for direct creation and configuration */
+#include "FwSmCore.h"
+#include "FwSmConfig.h"
+#include "FwSmDCreate.h"
+#include "FwSmSCreate.h"
+#include "FwSmPrivate.h"	/* Needed for direct creation and configuration */
 #include <stdlib.h>
 
 /**

@@ -43,10 +43,10 @@
 #include <stdlib.h>
 
 /* Include FW Profile functions */
-#include "FwProfile/FwSmConstants.h"
-#include "FwProfile/FwSmDCreate.h"
-#include "FwProfile/FwSmConfig.h"
-#include "FwProfile/FwSmCore.h"
+#include "FwSmConstants.h"
+#include "FwSmDCreate.h"
+#include "FwSmConfig.h"
+#include "FwSmCore.h"
 
 /* Define the constants used to configure the base state machine */
 #define NSTATES 2        /* The number of states						*/
