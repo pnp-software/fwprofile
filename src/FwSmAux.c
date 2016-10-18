@@ -76,8 +76,8 @@ void FwSmPrintConfig(FwSmDesc_t smDesc, FILE *stream) {
 	fprintf(stream, "%sSTATE MACHINE CONFIGURATION\n", prefix);
 	fprintf(stream, "%s---------------------------\n", prefix);
 	fprintf(stream, "%sThe error code is                        : %s\n", prefix, FwSmPrintErrCode(smDesc->errCode));
-	fprintf(stream, "%sThe SM Execution Counter is               : %d\n", prefix, smDesc->smExecCnt);
-	fprintf(stream, "%sThe State Execution Counter is            : %d\n", prefix, smDesc->stateExecCnt);
+	fprintf(stream, "%sThe SM Execution Counter is              : %u\n", prefix, smDesc->smExecCnt);
+	fprintf(stream, "%sThe State Execution Counter is           : %u\n", prefix, smDesc->stateExecCnt);
 	fprintf(stream, "%sThe outcome of the configuration check is: %s\n", prefix, FwSmPrintErrCode(FwSmCheck(smDesc)));
 	fprintf(stream, "%sNumber of configured states              : %d\n", prefix, actNOfPStates);
 	fprintf(stream, "%sNumber of configured choice pseudo-states: %d\n", prefix, actNOfCStates);
@@ -144,7 +144,7 @@ void FwSmPrintConfig(FwSmDesc_t smDesc, FILE *stream) {
 			if (smDesc->esmDesc[i] == NULL)
 				fprintf(stream, "\tNo state machine is embedded in this state\n");
 			else
-				fprintf(stream, "\tA state machins is embedded in this state\n");
+				fprintf(stream, "\tA state machine is embedded in this state\n");
 
 			baseLoc = smDesc->smBase->pStates[i].outTransIndex;
 			for (j=baseLoc; j<(baseLoc+smDesc->smBase->pStates[i].nOfOutTrans); j++) {
