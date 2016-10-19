@@ -26,7 +26,7 @@ RCOMPILE_FLAGS = -D NDEBUG
 # Additional debug-specific flags
 DCOMPILE_FLAGS = -D DEBUG
 # Additional coverage-specific flags
-CCOMPILE_FLAGS = -fprofile-arcs -ftest-coverage -O0
+CCOMPILE_FLAGS = --coverage -O0
 # Add additional include paths
 INCLUDES = -I $(SRC_PATH)/
 # General linker settings
@@ -36,7 +36,7 @@ RLINK_FLAGS =
 # Additional debug-specific linker settings
 DLINK_FLAGS =
 # Additional coverage-specific linker settings
-CLINK_FLAGS = -lgcov
+CLINK_FLAGS = --coverage
 # Destination directory, like a jail or mounted system
 DESTDIR = /
 # Install path (bin/ is appended automatically)
@@ -189,7 +189,11 @@ coverage: dirs
 
 .PHONY: coverage-info
 coverage-info:
+ifeq ($(CC), gcc)
 	@gcov build/coverage/*
+else
+	@llvm-cov gcov build/coverage/*
+endif
 
 # Create tests
 .PHONY: test
@@ -227,6 +231,7 @@ clean:
 	@$(RM) $(BIN_NAME)
 	@echo "Deleting directories"
 	@$(RM) -r build
+	@$(RM) *.gcov
 	@$(RM) -r bin
 
 # Main rule, checks the executable and symlinks to the output
