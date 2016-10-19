@@ -10,10 +10,6 @@ CC ?= gcc
 SRC_EXT = c
 # Path to the source directory, relative to the makefile
 SRC_PATH = ./src
-# Path to the example directory, relative to the makefile
-EXAMPLES_PATH = ./examples
-EXAMPLES_SRC = $(shell find $(EXAMPLES_PATH)/ -name '*.$(SRC_EXT)')
-EXAMPLES_BIN = $(patsubst %.$(SRC_EXT),bin/%,$(EXAMPLES_SRC))
 # Path for the tests directory, relative to the makefile
 TESTS_PATH = ./tests
 TESTS_SRC = $(shell find $(TESTS_PATH)/ -name '*.$(SRC_EXT)')
@@ -29,6 +25,8 @@ COMPILE_FLAGS = -std=c90 -O2 -g3 -pedantic -pedantic-errors -Wall -Wextra -Werro
 RCOMPILE_FLAGS = -D NDEBUG
 # Additional debug-specific flags
 DCOMPILE_FLAGS = -D DEBUG
+# Additional coverage-specific flags
+CCOMPILE_FLAGS = -fprofile-arcs -ftest-coverage -O0
 # Add additional include paths
 INCLUDES = -I $(SRC_PATH)/
 # General linker settings
@@ -37,6 +35,8 @@ LINK_FLAGS = -lpthread -shared
 RLINK_FLAGS =
 # Additional debug-specific linker settings
 DLINK_FLAGS =
+# Additional coverage-specific linker settings
+CLINK_FLAGS = -lgcov
 # Destination directory, like a jail or mounted system
 DESTDIR = /
 # Install path (bin/ is appended automatically)
@@ -81,12 +81,16 @@ release: export CFLAGS := $(CFLAGS) $(COMPILE_FLAGS) $(RCOMPILE_FLAGS)
 release: export LDFLAGS := $(LDFLAGS) $(LINK_FLAGS) $(RLINK_FLAGS)
 debug: export CFLAGS := $(CFLAGS) $(COMPILE_FLAGS) $(DCOMPILE_FLAGS)
 debug: export LDFLAGS := $(LDFLAGS) $(LINK_FLAGS) $(DLINK_FLAGS)
+coverage: export CFLAGS := $(CFLAGS) $(COMPILE_FLAGS) $(CCOMPILE_FLAGS)
+coverage: export LDFLAGS := $(LDFLAGS) $(LINK_FLAGS) $(CLINK_FLAGS)
 
 # Build and output paths
 release: export BUILD_PATH := build/release
 release: export BIN_PATH := bin/release
 debug: export BUILD_PATH := build/debug
 debug: export BIN_PATH := bin/debug
+coverage: export BUILD_PATH := build/coverage
+coverage: export BIN_PATH := bin/coverage
 install: export BIN_PATH := bin/release
 
 # Find all source files in the source directory, sorted by most
@@ -178,11 +182,14 @@ endif
 	@echo -n "Total build time: "
 	@$(END_TIME)
 
-# Create examples
-.PHONY: examples
-examples: dirs $(EXAMPLES_BIN)
-bin/%: %.$(SRC_EXT)
-	$(CMD_PREFIX)$(CC) $? $(INCLUDES) -l$(LIB_NAME) -L. -Wl,-rpath=. -o$@
+# Coverage build
+.PHONY: coverage
+coverage: dirs
+	@$(MAKE) all --no-print-directory
+
+.PHONY: coverage-info
+coverage-info:
+	@gcov build/coverage/*
 
 # Create tests
 .PHONY: test
@@ -199,7 +206,6 @@ run-test: test
 dirs:
 	@echo "Creating directories"
 	@mkdir -p $(dir $(OBJECTS))
-	@mkdir -p $(dir $(EXAMPLES_BIN))
 	@mkdir -p $(BIN_PATH)
 
 # Installs to the set path
