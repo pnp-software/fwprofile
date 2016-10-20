@@ -3,6 +3,7 @@
 language: c
 
 compiler:
+  - clang
   - gcc
 
 os:
@@ -15,7 +16,7 @@ sudo: false
 
 script:
   - make clean
-  - make coverage && make test && make run-test && make coverage-info
+  - make coverage && make test && make run-test
   - make && make run-test
 
 after_success:
