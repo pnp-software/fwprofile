@@ -191,7 +191,7 @@ coverage: dirs
 coverage-info:
 ifeq ($(CC), gcc)
 	cp build/coverage/*.gc* src/
-	@gcov -o build/coverage src/*
+	@gcov -o src/ src/*.c
 endif
 
 # Create tests
