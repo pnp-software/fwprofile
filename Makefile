@@ -192,7 +192,9 @@ coverage-info:
 ifeq ($(CC), gcc)
 	@gcov build/coverage/*
 else
-	@llvm-cov gcov build/coverage/*
+	llvm-cov -version
+	llvm-cov --help
+	@llvm-cov gcov build/coverage/*.gcno
 endif
 
 # Create tests
