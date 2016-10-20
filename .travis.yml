@@ -4,6 +4,7 @@ language: c
 
 compiler:
   - gcc
+  - clang
 
 os:
 - linux
@@ -16,6 +17,7 @@ sudo: false
 script:
   - make clean
   - make coverage && make test && make run-test && make coverage-info
+  - make && make run-test
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
