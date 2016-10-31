@@ -30,9 +30,9 @@
 #ifndef FWPR_MAKETESTRT_H_
 #define FWPR_MAKETESTRT_H_
 
-#include "FwProfile/FwRtConstants.h"
-#include "FwProfile/FwRtConfig.h"
-#include "FwProfile/FwRtCore.h"
+#include "FwRtConstants.h"
+#include "FwRtConfig.h"
+#include "FwRtCore.h"
 
 /** Maximum number of Test RT Container instances of type RT1 or RT2 */
 #define MAX_RT_INDEX 10

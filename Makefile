@@ -1,12 +1,22 @@
 #### PROJECT SETTINGS ####
-# The name of the executable to be created
-BIN_NAME := fwprofile.so
+# Root name of the library
+LIB_NAME := fwprofile
+# The full name incl extension of the library to be created
+BIN_PATH ?= bin
+BIN_NAME := lib$(LIB_NAME).so
 # Compiler used
 CC ?= gcc
 # Extension of source files used in the project
 SRC_EXT = c
 # Path to the source directory, relative to the makefile
 SRC_PATH = ./src
+# Path for the tests directory, relative to the makefile
+TESTS_PATH = ./tests
+TESTS_SRC = $(shell find $(TESTS_PATH)/ -name '*.$(SRC_EXT)')
+TESTS_BIN = bin/testsuite
+# Path to the tests directory, relative to the makefile
+TESTS_PATH = ./tests
+TESTS_SRC = $(shell find $(TESTS_PATH)/ -name '*.$(SRC_EXT)')
 # Space-separated pkg-config libraries used by this project
 LIBS =
 # General compiler flags
@@ -15,6 +25,8 @@ COMPILE_FLAGS = -std=c90 -O2 -g3 -pedantic -pedantic-errors -Wall -Wextra -Werro
 RCOMPILE_FLAGS = -D NDEBUG
 # Additional debug-specific flags
 DCOMPILE_FLAGS = -D DEBUG
+# Additional coverage-specific flags
+CCOMPILE_FLAGS = --coverage -O0
 # Add additional include paths
 INCLUDES = -I $(SRC_PATH)/
 # General linker settings
@@ -23,6 +35,8 @@ LINK_FLAGS = -lpthread -shared
 RLINK_FLAGS =
 # Additional debug-specific linker settings
 DLINK_FLAGS =
+# Additional coverage-specific linker settings
+CLINK_FLAGS = --coverage
 # Destination directory, like a jail or mounted system
 DESTDIR = /
 # Install path (bin/ is appended automatically)
@@ -67,12 +81,16 @@ release: export CFLAGS := $(CFLAGS) $(COMPILE_FLAGS) $(RCOMPILE_FLAGS)
 release: export LDFLAGS := $(LDFLAGS) $(LINK_FLAGS) $(RLINK_FLAGS)
 debug: export CFLAGS := $(CFLAGS) $(COMPILE_FLAGS) $(DCOMPILE_FLAGS)
 debug: export LDFLAGS := $(LDFLAGS) $(LINK_FLAGS) $(DLINK_FLAGS)
+coverage: export CFLAGS := $(CFLAGS) $(COMPILE_FLAGS) $(CCOMPILE_FLAGS)
+coverage: export LDFLAGS := $(LDFLAGS) $(LINK_FLAGS) $(CLINK_FLAGS)
 
 # Build and output paths
 release: export BUILD_PATH := build/release
 release: export BIN_PATH := bin/release
 debug: export BUILD_PATH := build/debug
 debug: export BIN_PATH := bin/debug
+coverage: export BUILD_PATH := build/coverage
+coverage: export BIN_PATH := bin/coverage
 install: export BIN_PATH := bin/release
 
 # Find all source files in the source directory, sorted by most
@@ -164,6 +182,28 @@ endif
 	@echo -n "Total build time: "
 	@$(END_TIME)
 
+# Coverage build
+.PHONY: coverage
+coverage: dirs
+	@$(MAKE) all --no-print-directory
+
+.PHONY: coverage-info
+coverage-info:
+ifeq ($(CC), gcc)
+	cp -r src/. build/coverage/
+	@gcov -o build/coverage build/coverage/*.c
+endif
+
+# Create tests
+.PHONY: test
+test: dirs $(TESTS_BIN)
+$(TESTS_BIN): $(TESTS_SRC)
+	$(CMD_PREFIX)$(CC) $? $(INCLUDES) -l$(LIB_NAME) -lpthread -L. -Wl,-rpath=. -o$@
+
+.PHONY: run-test
+run-test: test
+	$(TESTS_BIN)
+
 # Create the directories used in the build
 .PHONY: dirs
 dirs:
@@ -190,6 +230,7 @@ clean:
 	@$(RM) $(BIN_NAME)
 	@echo "Deleting directories"
 	@$(RM) -r build
+	@$(RM) *.gcov
 	@$(RM) -r bin
 
 # Main rule, checks the executable and symlinks to the output

@@ -33,9 +33,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "FwProfile/FwSmConstants.h"
-#include "FwProfile/FwPrConstants.h"
-#include "FwProfile/FwRtConstants.h"
+#include "FwSmConstants.h"
+#include "FwPrConstants.h"
+#include "FwRtConstants.h"
 #include "FwSmTestCases.h"
 #include "FwPrTestCases.h"
 #include "FwRtTestCases.h"

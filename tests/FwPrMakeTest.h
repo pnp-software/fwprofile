@@ -33,11 +33,11 @@
 #ifndef FWPR_MAKETESTPR_H_
 #define FWPR_MAKETESTPR_H_
 
-#include "FwProfile/FwPrConstants.h"
-#include "FwProfile/FwPrConfig.h"
-#include "FwProfile/FwPrDCreate.h"
-#include "FwProfile/FwPrSCreate.h"
-#include "FwProfile/FwPrCore.h"
+#include "FwPrConstants.h"
+#include "FwPrConfig.h"
+#include "FwPrDCreate.h"
+#include "FwPrSCreate.h"
+#include "FwPrCore.h"
 
 /** An action node identifier */
 #define N1 1

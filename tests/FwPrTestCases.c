@@ -27,9 +27,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "FwProfile/FwPrConstants.h"
-#include "FwProfile/FwPrDCreate.h"
-#include "FwProfile/FwPrSCreate.h"
+#include "FwPrConstants.h"
+#include "FwPrDCreate.h"
+#include "FwPrSCreate.h"
 #include "FwPrTestCases.h"
 #include "FwPrMakeTest.h"
 

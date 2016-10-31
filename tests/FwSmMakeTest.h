@@ -39,7 +39,7 @@
 #ifndef FWSM_MAKETESTSM_H_
 #define FWSM_MAKETESTSM_H_
 
-#include "FwProfile/FwSmCore.h"
+#include "FwSmCore.h"
 
 /** A state identifier */
 #define STATE_S1 1

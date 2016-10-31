@@ -26,7 +26,7 @@
  */
 
 #include "FwPrMakeTest.h"
-#include "FwProfile/FwPrSCreate.h"
+#include "FwPrSCreate.h"
 #include <stdlib.h>
 
 /**

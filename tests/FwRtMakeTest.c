@@ -26,8 +26,8 @@
  */
 
 #include "FwRtMakeTest.h"
-#include "FwProfile/FwRtConstants.h"
-#include "FwProfile/FwRtConfig.h"
+#include "FwRtConstants.h"
+#include "FwRtConfig.h"
 #include <stdlib.h>
 #include <time.h>
 
