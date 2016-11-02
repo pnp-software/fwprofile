@@ -1,0 +1,51 @@
+/**
+* @mainpage Introduction
+*
+* The C1 Implementation is a C-language implementation of the modelling concepts of 
+* the <strong>FW Profile</strong>.
+* It offers components to implement <strong>State Machines</strong>, 
+* <strong>Procedures</strong> (activity diagrams), and <strong>RT Containers</strong> (encapsulations of threads).
+* The FW Profile is a specification-level modelling language defined as a restriction of UML.
+* Its definition is publicly available on the <a href="http://www.pnp-software.com/fwprofile">FW Profile Web Site</a>.
+* <p></p>
+* The main features of the C1 Implementation are:
+* - <strong>Well-Defined Semantics</strong>: semantics of state machines and procedure fully and unambiguously
+*   defined by FW Profile. 
+* - <strong>Minimal Memory Requirements</strong>: core module footprint of a few kBytes.
+* - <strong>Small CPU Demands</strong>: one single level of indirection (due to actions and guards
+*   being implemented as function pointers).
+* - <strong>Excellent Scalability</strong>: code footprint and CPU requirement independent of number and size of state
+*   machine, procedure, and RT container instances.
+* - <strong>High Reliability</strong>: a test suite provides full code, branch, and condition coverage (with the exceptions
+*   error branches for system calls).
+* - <strong>Formal Specification</strong>: formal user requirements specify the implementation.
+* - <strong>Requirement Traceability</strong>: requirements individually traced to the source code and to the test 
+*   suite.
+* - <strong>Formal Verification</strong>: key requirements are formally verified using the Spin verifier on a Promela model.
+* - <strong>Documented Code</strong>: doxygen documentation for all the source code.
+* - <strong>Support for Extensibility</strong>: an inheritance-like mechanism is provided through which
+*   a <i>derived state machine</i> is created from a <i>base state machine</i> by overriding some of its actions or
+*   guards and a <i>derived procedure</i> is created from a <i>base procedure</i>.
+* .
+* These characteristics make the C1 Implementation especially well-suited for use in <strong>mission-critical 
+* applications</strong>.
+* <p></p>
+* This implementation of the FW Profile consists of the following items:
+* - An implementation for the @ref SmMain "State Machine Concept" of the FW Profile
+* - An implementation for the @ref PrMain "Procedure Concept" of the FW Profile
+* - An implementation for the @ref RtMain "RT Container Concept" of the FW Profile
+* - A @ref TsMain "Test Suite" to validate the implementation of the State Machine and Procedure concepts
+* - A @ref DaMain "Demo Application" to demonstrate the use of the State Machine and Procedure concepts
+* .
+* A <strong>Usage Example</strong> for the state machine implementation can be found @ref SmExample "here",
+* for the procedure implementation it can be found @ref PrExample "here", and for the RT Container implementation
+* it can be found @ref RtExample "here".
+*/
+
+
+
+
+
+
+
+

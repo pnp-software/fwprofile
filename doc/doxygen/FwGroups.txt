@@ -1,0 +1,38 @@
+/** @defgroup smGroup State Machine Module
+ *  Implementation of the State Machine Concept of the FW Profile
+ */
+
+/** @defgroup prGroup Procedure Module
+ *  Implementation of the Procedure Concept of the FW Profile
+ */
+ 
+ /** @defgroup rtGroup RT Container Module
+ *  Implementation of the RT Container Concept of the FW Profile
+ */
+
+/** @defgroup tsGroup Test Suite
+ *  Test Suite for the State Machine and Procedure Modules
+ */
+
+/** @defgroup tsSmGroup State Machine Test Cases
+ *  @ingroup tsGroup
+ *  Test Cases for the State Machine Module
+ */
+
+/** @defgroup tsRtGroup RT Container Test Cases
+ *  @ingroup tsGroup
+ *  Test Cases for the RT Container Module
+ */
+
+/** @defgroup tsPrGroup Procedure Test Cases
+ *  @ingroup tsGroup
+ *  Test Cases for the Procedure Module
+ */
+
+/** @defgroup daGroup Demo Application
+ *  Demo Application for the State Machine and Procedure Modules
+ */
+
+
+
+

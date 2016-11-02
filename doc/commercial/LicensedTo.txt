@@ -1,0 +1,3 @@
+This document is provided with the LGPLv3 of the 
+C1 Implementation of the FW Profile.
+ 

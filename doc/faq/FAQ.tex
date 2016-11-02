@@ -1,0 +1,830 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{array}
+\usepackage[pdftex]{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{color, colortbl}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage[compact]{titlesec}		% The 'compact' argument reduces spacing before and after headings
+
+% Start ---- Fix for bug in issue 2.10.1 of titlesec package
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+% End ---- Fix for bug in issue 2.10.1 of titlesec package
+
+\usepackage{verbatim}
+\usepackage{fancyhdr}
+  
+%---------------------------------------------
+% Management of Headings
+%---------------------------------------------
+% Introduce a page break before each section
+\let\stdsection\section
+\renewcommand\section{\newpage\stdsection}  
+
+% Define spacing to the left, before and after a subsection heading
+%\titlespacing\subsubsection{8pt}{12pt plus 4pt minus 2pt}{-10pt plus 0pt minus 0pt}
+\titlespacing\subsection{0pt}{5pt}{-3pt}
+
+\titleformat*{\subsection}{\normalsize\bfseries}
+  
+%---------------------------------------------
+% Management of Captions
+%---------------------------------------------
+\usepackage[labelfont=bf]{caption}	% The caption label for tables and figures is bolded
+\setlength{\abovecaptionskip}{0pt}	% Bring label close to figure or table
+\renewcommand{\figurename}{Fig.}	% The caption label for figures is: "Fig."
+%\captionsetup[table]{singlelinecheck=off,justification=raggedright}	% Justify the table captions to the left
+
+\pagestyle{fancy}
+
+%---------------------------------------------
+% Paragraph Layout
+%---------------------------------------------
+\setlength{\parindent}{0in}						% No indentation on first line of a new paragraph
+
+%---------------------------------------------
+% Headers and Footers
+%---------------------------------------------
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\lhead{PP-FQ-COR-0001}
+\chead{}
+\rhead{Revision 1.2.0}
+\lfoot{\textcopyright2012 P\&P Software GmbH. All Rights Reserved.} 
+\cfoot{\vspace{5mm}
+{\color{red}\verbatiminput{../commercial/LicensedTo.txt}}}
+\rfoot{\thepage}
+
+%---------------------------------------------
+% Management of lists
+%---------------------------------------------
+\setlist{nolistsep}								% No extra vertical space around a list		
+\newenvironment{fw_itemize}						% Control spacing between items in a list
+{\begin{itemize}
+  \setlength{\itemsep}{1mm}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}}
+{\end{itemize}}
+
+\newenvironment{fw_enumerate}					% Control spacing between items in an enumeration
+{\begin{enumerate}
+  \setlength{\itemsep}{1mm}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}}
+{\end{enumerate}}
+
+%---------------------------------------------
+% Definition of colours
+%---------------------------------------------
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{lightblue}{RGB}{128,179,255}
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+ 
+%---------------------------------------------
+% Options for the code listing boxes
+%---------------------------------------------
+\lstset{ 
+  language=C,                % the language of the code
+  aboveskip=\bigskipamount,			% vertical space above listing box
+  basicstyle=\footnotesize\ttfamily,    % use small size and mono-space font
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{lbcolor},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
+
+%--------------------------------------------------------------
+% Pdf Properties
+%--------------------------------------------------------------
+\hypersetup
+{
+    pdfauthor={Alessandro Pasetti, Vaclav Cechticky},
+    pdfsubject={This document is the FAQ for the C1 Implementation of the FW Profile},
+    pdftitle={FAQs - FW Profile},
+    pdfkeywords={Framework, UML, C-language, State Machine, Activity Diagrams, Embedded, Realtime}
+}
+
+% Title Page
+\title{\textsc{The Framework Profile} \\ \textsc{C1 Implementation} \\ \textsc{-FREQUENTLY ASKED QUESTIONS-}}
+\author{Alessandro Pasetti \& Vaclav Cechticky}
+\date{30 April 2013}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+Revision 1.2.0 \\
+PP-FQ-COR-0001
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+P\&P Software GmbH \\
+High Tech Center 1 \\
+8274 T\"{a}gerwilen \\
+Switzerland \\
+\vspace{2mm}
+Web site: \url{www.pnp-software.com}\\
+E-mail: \href{mailto:pnp-software@pnp-software.com}{\nolinkurl{pnp-software@pnp-software.com}} 
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{p{11.7cm}}
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\begin{abstract}
+This document is the FAQ for the C1 Implementation of the FW Profile. The FW Profile is a specification-level modelling language defined as a restriction of UML. The core modelling constructs offered by the FW Profile are State Machines, Procedures (equivalent to UML's Activity Diagrams), and RT Containers (encapsulations of threads).
+\par
+The FW Profile is implementation-independent. The C1 Implementation is a C language implementation of the modelling concepts of the FW Profile. The main features of the C1 Implementation are: small memory footprint, small CPU demands, scalability, and
+high reliability. 
+\par
+The C1 Implementation is provided with a Qualification Data Package which can be used to support the certification of applications built using its components.
+\end{abstract}
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{p{11.7cm}}
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\newpage
+\vspace*{\fill}
+\begin{center}
+No part of this publication may be reproduced, transmitted, transcribed, stored in any retrieval system, or translated into any language
+by any means without express prior written permission of P\&P Software GmbH.
+\end{center}
+
+\begin{center}
+Copyright \textcopyright 2012 P\&P Software GmbH. All Rights Reserved. 
+\end{center}
+\vspace*{\fill}
+
+\newpage
+
+%---------------------------------------------
+% Table of Contents
+%---------------------------------------------
+\tableofcontents
+\newpage
+
+%---------------------------------------------
+% Adjust distance between paragraphs (this cannot be done earlier or it also affects the TOC)
+%---------------------------------------------
+\setlength{\parskip}{3mm}						% Set distance between paragraphs
+
+%===================================================================================
+
+\section{General}
+\subsection{What is the C1 Implementation?}
+The C1 Implementation is a C-language implementation of the modelling concepts of the FW Profile of reference ~\cite{ref:fwprofile}. It offers components to build State Machines, Procedures (activity diagrams) and RT Containers (encapsulations of threads). It is extensively documented and tested and is provided both as free software (GNU GPLv3) and on a commercial license. Its main features are:
+
+\input{FwC1MainFeatures.tex}
+
+\subsection{What is the FW Profile?}\label{faq:FW_Profile}
+The FW Profile is a specification-level modelling language defined as a restriction of UML. It can be used to specify the behaviour of a software application in a manner that is independent of the application's implementation.
+
+The core modelling constructs of the FW Profile are \emph{state machines},  \emph{procedures}, and \emph{RT Containers}. State machines and procedures are used to model functional behaviour. RT Containers are used to model timing-related behaviour. Procedures are equivalent to UML's Activity Diagrams). The definition of state machines and activity diagrams in UML is complex and ambiguous. The FW Profile offers a simplified but clearer version of these concepts and fully and 
+unambiguously specifies their semantics. The definition of the FW Profile is publicly available from \url{http://www.pnp-software.com/fwprofile}.
+
+\subsection{What are the target applications for the C1 Implementation?}
+Its minimal memory and CPU requirements, its high reliability, and the availability of a Qualification Data Package (FAQ \ref{faq:qualification_data_package}) make the C1 Implementation especially well-suited for mission-critical embedded real-time applications. However, there is nothing to prevent the deployment of the C1 Implementation in any context where reliability and efficiency are valuable.
+
+\subsection{What is the Qualification Data Package?}\label{faq:qualification_data_package}
+The Qualification Data Package is a set of documents which demonstrate the correct specification and implementation of the C1 Implementation software. 
+It consists of the following items:
+
+\begin{fw_itemize} 
+\item A \textbf{Test Suite} with 100\% code, branch, and condition coverage for the entire implementation (excluding error branches for dynamic memory errors)
+\item A set of \textbf{User Requirements} which formally specify the implementation
+\item An \textbf{Implementation Traceability Matrix} which shows how each requirement is implemented
+\item A \textbf{Verification Traceability Matrix} which shows how the implementation of each requirement is verified
+\item A \textbf{Validation Traceability Matrix} which justifies each requirement with respect to the intended use of the C1 Implementation
+\item A \textbf{User Manual} which discusses implementation issues which are relevant to end-users
+\end{fw_itemize}
+
+The Qualification Data Package can be used by end-applications to support 
+the certification of their software.
+
+\subsection{Is the C1 Implementation certified?}
+We have not yet certified the C1 Implementation but we have put together the documentation required for the certification process in a Qualification 
+Data Package (FAQ \ref{faq:qualification_data_package}). The Qualification Data Package  can be used by end-applications to support the certification of their software.
+
+\subsection{How is the C1 Implementation documented?}
+The C1 Implementation is extensively documented both at source code level (doxygen comments) and through a User Manual and a User Requirements Document.
+
+\subsection{Is a GUI-Based Tool Available for the C1 Implementation?}
+Use of the C1 Implementation is straightforward and a GUI-based tool is hardly necessary. For convenience, a web application is provided which allows user to create state machine diagrams graphically and to generate their implementation code automatically. The web application is accessible from the FW Profile web site at: \url{http://www.pnp-software.com/fwprofile}.
+
+
+%===================================================================================
+\section{Distribution \& Installation}
+
+\subsection{How is the C1 Implementation distributed?}
+As one single zip file containing both the code and its documentation. Users who choose to use the C1 Implementation as free software in accordance with the terms of GNU's General Public Licence (GNU GPLv3) can download the delivery file from the distribution site at \url{http://code.google.com/p/fwprofile/}. Users who purchase a commercial licence receive the delivery file from the developers (\href{http://www.pnp-software.com/}{P\&P Software GmbH} of Switzerland).
+
+\subsection{How is the C1 Implementation installed?}
+No installation is required. The distribution zip file is unzipped and the source code is ready to be included in the target application. 
+
+Unix shell scripts provided with the distribution to build the demo application and the test suite.
+
+Use of the RT Containers (which is optional) requires an implementation of a C Posix library to be available. On most linux systems, a standard library called \texttt{libpthread} is available.  
+
+\subsection{Do I have to use all modules of the C1 Implementation?}
+Yes. The C1 Implementation offers three modules covering: State Machines, procedures and RT Containers. These three modules are completely independent of each other and can be used either together or separately.
+
+%===================================================================================
+\section{State Machine Definition}
+
+\subsection{Does the C1 Implementation comply with UML?}
+The definition of the State Machine concept in UML is complex, often unclear, and sometimes ambiguous. The C1 Implementation adopts the state machine model 
+of the FW Profile (see reference ~\cite{ref:fwprofile}). This is a subset of the UML model and it is clearly and unambiguously defined. 
+
+\subsection{Is embedding of State Machines supported?}
+Yes. There is no restriction on the depth of embedding of state machines.
+
+\subsection{What kind of pseudo-states are supported?}
+Obviously, we support the initial and final pseudo-states. We also support the choice pseudo-state with a semantic which allows it to also cover the 
+junction pseudo-state. 
+
+\subsection{How is the elapsing of time modelled?}
+Time is not modelled in the C1 Implementation. The State Machine Model underlying this implementation is that of the FW Profile 
+(see reference ~\cite{ref:fwprofile}) which only 
+includes the functional features of the standard UML State Machine Model. Thus, for instance, it is not possible to specify time-triggered transitions 
+in a state machine. Transitions in a state machine only take place in response to a transition command. 
+
+As a substitute for time, the FW Profile has introduced two \emph{Execution Counters}: the \emph{State Machine Execution Counter} counts the number 
+of times a state machine has been executed since it was started, and the \emph{State Execution Counter} counts the number of times a state machine 
+has been executed since the current state was entered. Since, in many applications, state machines will be executed periodically, the execution counters 
+can serve as proxies for time.  
+
+\subsection{Are do-actions supported?}
+Yes. A do-action can be attached to any state. The do-action is executed when the state machine is sent an "Execute" transition command. State machines 
+only perform some action in response to a transition command. The "Execute" transition command has a special status in the sense that, in addition 
+to potentially triggering a transition from one state to another, it also triggers the execution of the do-action of the current state.  
+
+\subsection{Are "else" guards supported?}
+"Else" guards are not directly supported but their effect can be achieved as follows. The out-going transitions from a choice pseudo-state are evaluated 
+in the order in which they were added to the state machine. If the last transitions to be added to a choice pseudo-state is given a guard which always 
+returns true, then this transition will behave like an "Else" transition.
+
+\subsection{Can transition commands carry parameters?}
+The FW Profile allows transition commands to carry parameters and to return values. The parameters represent the parameters passed to the actions 
+and guards triggered by the transition command and the return values represent the values returned by these actions. In the C1 Implementation 
+a transition command is represented by an integer identifier and does not directly carry parameters or generate return values. However, all actions 
+and guards triggered by a transition command are passed a State Machine Data (FAQ \ref{faq:state_machine_data}) which can be used to exchange data with them. 
+Thus, although callers cannot directly attach parameters to a transition command or receive return values from them, they can use the state machine 
+data to exchange data with the actions and guards of a state machine.
+
+\subsection{What is State Machine Extension?}\label{faq:SM_Extension}
+The C1 Implementation supports an extension mechanism for state machines which is similar to the inheritance-based extension mechanism of object-oriented languages.
+
+A state machine (the \emph{base state machine}) can be extended to create a new state machine (the \emph{derived state machine}). After being created, 
+a derived state machine is a clone of its base. It can then be configured by: overriding one or more of its actions; overriding one or more of its guards; 
+or embedding new state machines in its states.
+
+The extension mechanism is useful where there is a need to define a large number of state machines which share the same topology (same set of states, 
+of choice pseudo-states, and of transitions) but differ either in their actions, or in their guards, or in the internal behaviour of their states.
+
+As an example, consider an application which manages a set of external hardware devices all of which are characterized by the same basic 
+states (e.g. OFF, STANDBY, OPERATIONAL) and by the same behaviour in states OFF and OPERATIONAL but which have different -- and device-specific -- 
+behaviour in state STANDBY. In this case, it is convenient to proceed as follows:
+
+\begin{fw_itemize} 
+\item A base state machine is defined to model the behaviour which is shared by all devices
+\item For each device, a state machine is derived which overrides the behaviour in state STANDBY in a manner that is specific to each device.
+\end{fw_itemize}
+
+\subsection{In what order are out-going transitions evaluated?}
+When a state machine receives a transition command, it checks whether any out-going transition from the current state matches the transition command 
+and has a true guard. The FW Profile specifies that if a state or choice pseudo-state has two or more matching out-going transitions with a guard which 
+evaluates to true, the transition which will be executed is the one whose guard is evaluated first. The order of evaluation of the guards is, however, 
+left undefined by the FW Profile. 
+
+The C1 Implementation has made the following choice: outgoing transitions from the same state or choice pseudo-state are evaluated in the order in which 
+they were added to the state machine during the state machine configuration process.
+
+%===================================================================================
+\section{State Machine Usage}
+
+\subsection{Are there any usage examples?}
+Usage examples are provided in the distribution web site
+\url{http://code.google.com/p/fwprofile/}; in 
+the doxygen documentation which includes a \emph{state machine example} page which describes how a test state machine is created, configured and used; and in the User Manual.
+
+A \emph{Demo Application} is included in the distribution and can be used as a source of examples. In particular: modules 
+\texttt{FwDaHwDev.h} and \texttt{FwDaFDCheck.h} can serve as examples of how simple state machines are instantiated and configured and modules 
+\texttt{FwDaCurCheck.h}, \texttt{FwDaDeltaCheck.h} and \texttt{FwDaTempCheck.h} can serve as examples of how derived state machines can be created 
+by extending other state machines.
+
+Finally, a test suite (FAQ \ref{faq:test_suite}) is available. Its module \texttt{FwSmMakeTest.h} consists of a collection of functions each of 
+which creates and configures a state machine. This module can be used as an additional source of examples.
+
+\subsection{How is a new state machine created?}
+A state machine is created by instantiating its state machine descriptor (SMD) (FAQ \ref{faq:SMD}). The simplest way to do this is through function \texttt{FwSmCreate}. 
+This function, however, uses dynamic memory allocation. If this is undesirable, then either macro \texttt{FW\_SM\_INST} or
+macro \texttt{FW\_SM\_INST\_NOCPS} can be used to instantiate 
+the SMD data structures followed by a call to function \texttt{FwSmInit} to initialize them.
+
+After being created, an SMD must be configured (i.e. the states and transitions in the state machine must be defined). This is done using the functions 
+in the \texttt{FwSmConfig.h} header file.
+
+\subsection{How is a new state machine configured?}
+After being created, a state machine descriptor (SMD) (FAQ \ref{faq:SMD}) must be configured (i.e. the states and transitions in the state machine must be defined). 
+This is done using the functions in the \texttt{FwSmConfig.h} header file. Functions are provided to add a new state or a new transition to the SMD or 
+to embed a state machine within a state. At the end of the configuration process, function \texttt{FwSmCheck} allows correctness and completeness of 
+the configuration to be checked.
+
+\subsection{Can I check whether a state machine is correctly configured?}
+Yes, with function \texttt{FwSmCheck}.
+
+\subsection{Which operations can I perform on a state machine?}
+After being created and configured, state machines can be \emph{started} (with function \texttt{FwSmStart}), \emph{stopped} (with function 
+\texttt{FwSmStop}) and they can be sent state transition commands (with functions \texttt{FwSmMakeTrans} and \texttt{FwSmExecute}). 
+A state machine is initially stopped and, before being started, 
+it does not respond to state transition commands (but it is not an error to send a transition command to a state machine 
+which has not been started or has been stopped). 
+After it is started, the state machine responds to state transition commands (FAQ \ref{faq:SM_StateTransition}) 
+until it is stopped. A state machine can be started and stopped multiple times.
+
+
+\subsection{How are state machine actions and guards implemented?}
+As function pointers. The C1 Implementation defines the prototype for the state machine actions and guards (through a \texttt{typedef}) and users must 
+provide a function complying with this prototype for each action or guard defined in their state machine.  
+
+\subsection{How is the data upon which a state machine operates defined?}\label{faq:state_machine_data}
+The state machine descriptor (SMD) (FAQ \ref{faq:SMD}) includes a field holding a pointer to the \emph{State Machine Data}. The State Machine Data are data which 
+are manipulated by the state machine actions and guards. The exact type of the State Machine Data is defined by applications for each state machine. 
+In most cases, it will take the form a \texttt{struct} whose fields represents the inputs and outputs for the state machine actions and guards. 
+The SMD treats the pointer to the State Machine Data as a pointer to \texttt{void}. The C1 Implementation provides functions \texttt{FwSmSetData} 
+and \texttt{FwSmGetData} to set this pointer in, and to retrieve it from, an SMD.
+
+\subsection{How do I trigger a state transition?}\label{faq:SM_StateTransition}
+State transitions are exclusively triggered by transition commands. Each state machine reacts to a finite number of transition commands. Each transition 
+command has an identifier (a non-negative integer). Function \texttt{FwSmMakeTrans} is used to send a transition command to state machine.
+
+\subsection{Can I change the size of a state machine after creation?}
+No. When a state machine is created, the user must specify its size (number of states, of choice pseudo-states, of transitions, of actions and of guards) 
+and this is used to allocate the memory for the state machine descriptor (FAQ \ref{faq:SMD}). Changing the size dynamically would require re-allocating or 
+releasing memory. This is normally undesirable in mission-critical embedded applications and is therefore not allowed. 
+
+\subsection{How do I create and configure a derived state machine?}
+The simplest way to derive a state machine from an existing state machine is through function \texttt{FwSmCreateDer}. This function, however, 
+uses dynamic memory allocation. If this is undesirable, then macro \texttt{FW\_SM\_INST\_DER} can be used to instantiate the SMD data structures followed 
+by a call to function \texttt{FwSmInitDer} to initialize them. After being thus created, the derived state machine is a clone of its base. 
+Selected actions or guards can then be overriden using functions \texttt{FwSmOverrideAction} and \texttt{FwSmOverrideGuard}. New state machines can be embedded 
+in the states of the derived state machine with function \texttt{FwSmEmbed}.
+
+\subsection{Can I prevent an action/guard from being overridden?}
+The C1 Implementation does not offer any means to mark an action or guard in a base state machine as "final". However, a similar effect can be achieved as follows. 
+An action or a guard in a derived state machine is overridden by means of functions \texttt{FwSmOverrideAction} and \texttt{FwSmOverrideGuard}. 
+These functions require the name of the action or guard to be overridden to be known. Hence, a state machine can prevent one of its actions or guards 
+from being overridden by keeping the name of the function implementing it "hidden" (e.g. by declaring it as \texttt{static}).
+
+\subsection{Can I directly configure a state machine descriptor?}
+Yes, but you need to understand the internal structure of the state machine descriptor (this is defined in header file \texttt{FwSmPrivate.h}). 
+The potential advantage of direct instantiation and configuration is that a user no longer needs to link to the functions which perform instantiation and 
+configuration (these functions are declared in header files \texttt{FwSmDCreate.h}, \texttt{FwSmSCreate.h}, and \texttt{FwSmConfig.h}). 
+This reduces the memory footprint of the state machine module of the C1 Implementation to, typically, less than 2 kBytes. 
+This option is therefore interesting for applications which are severely memory-constrained.
+
+An example of direct configuration of a state machine descriptor can be found in function \texttt{FwSmMakeTestSM5Dir} in the Test Suite (FAQ \ref{faq:test_suite}).
+
+\subsection{Can I print the configuration state of a state machine?}
+Yes, with function \texttt{FwSmPrintConfig}.
+
+%===================================================================================
+\section{Procedure Definition}
+
+\subsection{What is a Procedure?}
+The FW Profile (FAQ \ref{faq:FW_Profile}) uses the name "Procedure" for the entity which in UML is represented as an Activity Diagram. Thus, procedures can be used 
+to model a sequential flow of conditionally executed actions. The definition of Activity Diagrams in UML is complex and often unclear. 
+The FW Profile (FAQ \ref{faq:FW_Profile}) has a adopted a simpler model which is clearly and unambiguously defined.
+
+\subsection{What are the constitutive elements of a Procedure?}
+They are a subset of the constitutive elements of a UML Activity Diagram: \emph{action nodes} (which model the execution of some behaviour), 
+\emph{decision nodes} (which model decision points), and \emph{control flows} (which connect nodes to each other). A procedure models a single flow of 
+execution which traverses a set of nodes in sequence.
+
+\subsection{What does it mean to "execute a procedure"?}\label{faq:PR_Execution}
+A procedure consists of a set of \emph{action nodes} and \emph{decision nodes} connected by \emph{control flows}. Control flows have \emph{guards}. 
+A control flow can only be traversed if its guard is true. When a procedure is executed, an attempt is made to move from the \emph{current node} 
+to the next node and, from there, to the following node and so on until either the procedure terminate or a guard is found which evaluates to false. 
+Every time an action node is traversed, its action is executed. 
+
+\subsection{How is the elapsing of time modelled?}
+Time is not modelled in the C1 Implementation. The Procedure Model underlying this implementation is that of the FW Profile (FAQ \ref{faq:FW_Profile}) which only 
+includes the functional features of the standard UML Activity Diagram Model. Thus, for instance, it is not possible to specify time-triggered transitions 
+in a procedure. Movement from one node to the next in a procedure only takes place in response to an execution request to the procedure. 
+
+As a substitute for time, the FW Profile has introduced two \emph{Execution Counters}: the \emph{Procedure Execution Counter} counts the number of times 
+a procedure has been executed since it was started, and the \emph{Node Execution Counter} counts the number of times a procedure has been executed since 
+the current node was entered. Since, in many applications, procedures will be executed periodically, the execution counters can serve as proxies for time.  
+
+\subsection{Can data be exchanged with a procedure?}
+The FW Profile allows execution commands to carry parameters and to return values. The parameters represent the parameters passed to the actions and guards 
+triggered by the execution request and the return values represent the values returned by these actions. In the C1 Implementation, the execution command 
+to a procedure does not directly carry any parameters. However, all actions and guards triggered by an execution request are passed the Procedure Data 
+(FAQ \ref{faq:procedure_data}) which can be used to exchange data with them. Thus, although callers cannot directly attach parameters 
+to an execution request to a procedure or receive return values from it, they can use the Procedure Data to exchange data with the actions and guards of a procedure.
+
+\subsection{Can a procedure remain stuck in an endless loop?}
+Yes, this possibility is inherent to the Procedure Concept. As an example, consider a procedure with 
+two actions nodes N1 and N2 and with a control flow from N1 to N2 and a control flow from N2 to N1. Suppose also that the guards on the two control flows 
+are both always true. In such a situation, the execution request that results in node N1 being entered with also cause the procedure to enter an endless 
+loop where nodes N1 and N2 are traversed in sequence and forever.
+
+\subsection{Are "else" guards supported?}
+"Else" guards are not directly supported but their effect can be achieved as follows. The out-going transitions from a decision node are evaluated 
+in the order in which they were added to the procedure when the procedure was configured. If the last transition to be added to a decision node is 
+given a guard which always returns true, then this transition will behave like an "Else" transition.
+
+\subsection{What is Procedure Extension?}\label{faq:PR_Extension}
+The C1 Implementation supports an extension mechanism for procedures which is similar to the inheritance-based extension mechanism of object-oriented languages.
+
+A procedure (the \emph{base procedure}) can be extended to create a new procedure (the \emph{derived procedure}). After being created, a derived procedure is 
+a clone of its base. It can then be configured by: overriding one or more of its actions; or overriding one or more of its guards.
+
+The extension mechanism is useful where there is a need to define a large number of procedures which share the same topology (same set of nodes and 
+control flows connecting them) but differ either in their actions or in their guards.
+
+As an example, consider an application which manages a set of external hardware devices all of which are characterized by the same basic switch-on 
+procedure consisting of the following steps: power-on, switch-on, execution of a self-test, collection and evaluation of self-test results, 
+start of normal operation. If the power-on and switch-on actions and the commands to start normal operation are the same for all hardware devices 
+but the self-test is device-specific, then, it is convenient to proceed as follows:
+
+\begin{fw_itemize} 
+\item A base procedure is defined to model the behaviour which is shared by all devices (sequence of operation and power-on, switch-on, and normal operation start commands) 
+\item For each device, a procedure is derived which overrides the actions associated to the nodes performing the self-test.
+\end{fw_itemize}
+
+\subsection{In what order are control flows out of a decision node evaluated?}
+When a procedure must traverse a decision node, it evaluates the guards of all out-going control flows from the decision node and selects the first 
+one which has a true guard. The order of evaluation of the guards is left undefined by the FW Profile. 
+
+The C1 Implementation has made the following choice: outgoing control flows from the same decision node are evaluated in the order in which they were added 
+to the procedure during the procedure configuration process.
+
+\subsection{Can (or must) procedures and state machines be used together?}
+Procedure and state machines are distinct and independent concepts both in the way they are defined by the FW Profile and in the way they are implemented 
+by the C1 Implementation. Users can make use of both concepts or of only one. 
+
+Often, procedures are used to model the do-actions associated to a state machine.
+
+%===================================================================================
+\section{Procedure Usage}
+
+\subsection{Are there any usage examples?}
+Usage examples are provided in the distribution web site 
+\url{http://code.google.com/p/fwprofile/}; in 
+the doxygen documentation which includes a \emph{procedure example} page which describes how a test state machine is created, configured and used; and in the User Manual.
+
+A \emph{Demo Application} is also provided and can be used as a source of examples. In particular modules \texttt{FwDaCurRecAction} and \texttt{FwDaTempRecAction} can serve as examples of how simple procedures are instantiated and configured.
+
+Finally, a test suite (FAQ \ref{faq:test_suite}) is available. Its module \texttt{FwPrMakeTest.h} consists of a collection of functions each 
+of which creates and configures a procedure. This module can be used as an additional source of examples.
+
+\subsection{How is a new procedure created?}
+A procedure is created by instantiating its procedure descriptor (PRD) (FAQ \ref{faq:PRD}). The simplest way to do this is through function \texttt{FwPrCreate}. 
+This function, however, uses dynamic memory allocation. If this is undesirable, then macro \texttt{FW\_PR\_INST} 
+or macro \texttt{FW\_PR\_INST\_NODEC} can be used to instantiate 
+the PRD data structures followed by a call to function \texttt{FwPrInit} to initialize them.
+
+After being created, a PRD must be configured (i.e. the nodes and control flows in the procedure must be defined). This is done using the functions 
+in \texttt{FwPrConfig.h}.
+
+\subsection{How is a new procedure configured?}
+After being created, a procedure descriptor (PRD) (FAQ \ref{faq:PRD}) must be configured (i.e. the nodes and control flows in the procedure must be defined). 
+This is done using the functions in the \texttt{FwPrConfig.h} header file. Functions are provided to add a new node or a new control flow to the PRD. 
+At the end of the configuration process, function \texttt{FwPrCheck} allows correctness and completeness of the configuration to be checked.
+
+\subsection{Which operations can I perform on a procedure}
+After being created and configured, procedures can be \emph{started} (with function \texttt{FwPrStart}), \emph{stopped} (with function 
+\texttt{FwPrStop}) and \emph{executed} (with function \texttt{FwPrExecute}). A procedure is initially stopped and, before being started, 
+it does not respond to execution commands (but it is not an error to execute a procedure which has not been started or has been stopped). 
+After it is started, the procedure responds to execution requests (FAQ \ref{faq:PR_Execution}) until it is stopped. A procedure can be started 
+and stopped multiple times.
+
+\subsection{Can I check whether a procedure is correctly configured?}
+Yes, with function \texttt{FwPrCheck}.
+
+\subsection{How are procedure actions and guards implemented?}
+As function pointers. The C1 Implementation defines the prototype for the procedure actions and guards (through a \texttt{typedef}) and users must provide 
+a function complying with this prototype for each action or guard defined in their procedure.  
+
+\subsection{How is the data upon which a procedure operates defined?}\label{faq:procedure_data}
+The procedure descriptor (PRD) (FAQ \ref{faq:PRD}) includes a field holding a pointer to the \emph{Procedure Data}. The Procedure Data are data which are manipulated 
+by the procedure actions and guards. The exact type of the Procedure Data is defined by applications for each procedure. In most cases, it will take 
+the form of a \texttt{struct} whose fields represents the inputs and outputs for the procedure actions and guards. The PRD treats the pointer to 
+the Procedure Data as a pointer to \texttt{void}. The C1 Implementation provides functions \texttt{FwPrSetData} and \texttt{FwPrGetData} to set 
+this pointer in, and to retrieve it from, a PRD.
+
+\subsection{Can I change the size of a procedure after creation?}
+No. When a procedure is created, the user must specify its size (number of action nodes, of decision nodes, of control flows, of actions and of guards) 
+and this is used to allocate the memory for the procedure descriptor (FAQ \ref{faq:PRD}). Changing the size dynamically would require re-allocating or 
+releasing memory. This is normally undesirable in mission-critical embedded applications and is therefore not allowed. 
+
+\subsection{How do I create and configure a derived procedure?}
+The simplest way to derive a procedure from an existing procedure is through function \texttt{FwPrCreateDer}. This function, however, 
+uses dynamic memory allocation. If this is undesirable, then macro \texttt{FW\_PR\_INST\_DER} can be used to instantiate the PRD data structures 
+followed by a call to function \texttt{FwPrInitDer} to initialize them. After being thus created, the derived procedure is a clone of its base. 
+Selected actions or guards can then be overriden using functions \texttt{FwPrOverrideAction} and \texttt{FwPrOverrideGuard}.
+
+\subsection{Can I prevent an action/guard from being overridden?}
+The C1 Implementation does not offer any means to mark an action or guard in a base procedure as "final". However, a similar effect can be achieved 
+as follows. An action or a guard in a derived procedure is overridden by means of functions \texttt{FwPrOverrideAction} and \texttt{FwPrOverrideGuard}. 
+These functions require the name of the action or guard to be overridden to be known. Hence, a procedure can prevent one of its actions or guards 
+from being overridden by keeping the name of the function implementing it "hidden" (e.g. by declaring it as \texttt{static}).
+
+\subsection{Can I directly configure a procedure descriptor?}
+Yes, but you need to understand the internal structure of the procedure descriptor (this is defined in header file \texttt{FwPrPrivate.h}). 
+The potential advantage of direct instantiation and configuration is that a user no longer needs to link to the functions which perform instantiation 
+and configuration (these functions are declared in header files \texttt{FwPrDCreate.h}, \texttt{FwPrSCreate.h}, and \texttt{FwPrConfig.h}). This reduces 
+the memory footprint of the procedure module of the C1 Implementation to, typically, less than 2 kBytes. This option is therefore interesting for 
+applications which are severely memory-constrained.
+
+An example of direct configuration of a procedure descriptor can be found in function \texttt{FwPrMakeTestPR2Dir} in the Test Suite (FAQ \ref{faq:test_suite}).
+
+\subsection{Can I print the configuration state of a procedure?}
+No. There is as yet no equivalent of function \texttt{FwSmPrintConfig} for procedures.
+
+%=============================================================================
+
+\section{RT Container Definition}
+
+\subsection{What are RT Containers?}
+RT Containers are one of the three modelling concepts offered by the FW Profile. State Machines and Procedures allow the functional aspects of a software application to be
+modelled. RT Containers complement them by offering a means to capture the
+time-related behaviour of an application. The acronym "RT" stands for "Real-Time".
+
+RT Containers provide a way to encapsulate the activation logic for a functional behaviour. A RT Container can be seen as a representation of a thread which controls the execution of some functional behaviour. The RT Container allows the conditions under which the thread is released to be specified.
+
+\subsection{What exactly is "functional behaviour"?}
+We use this term to designate behaviour which depends neither on time nor on the interaction of different flows of execution. We also say that functional behaviour has "zero logical execution time". The logical execution time of a function is the execution time of that function on a processor with infinite speed and in the absence of pre-emption by higher-priority activities or blocking by lower-priority activities. 
+
+Examples of non-functional behaviours include waiting for the elapsing of a certain time interval or waiting for a signal from another thread.
+
+In the FW Profile, functional behaviour is modelled using State Machines or Procedures and non-functional behaviour is modelled using RT Containers.
+
+\subsection{What is the advantage of RT Containers over plain threads?}
+Firstly, a RT Container wraps a thread and offers a ready-made and easy-to-use mechanism through which the thread can be created and notified. Secondly, the RT Container adds logic around a thread which guarantees certain aspects of the behaviour of the thread. For instance, it guarantees that all notifications will eventually be processed (unless the container is stopped); that certain actions (the "finalization actions") will eventually be executed if a container is stopped; that notifications will be correctly buffered and will never be lost; etc.
+
+\subsection{What is the threading model of RT Containers?}
+RT Containers are implemented on top of POSIX threads.
+
+\subsection{What if I do not have a POSIX library on my platform?}
+In this case, you cannot use the RT Container components of the C1 Implementation. Note that this neither limits nor constrains usage of the State Machine and Procedure components of the C1 Implementation.
+
+
+%=============================================================================
+\section{RT Container Usage}
+
+\subsection{Are there any usage examples?}
+Usage examples are provided in the distribution web site 
+\url{http://code.google.com/p/fwprofile/} and in the User Manual. Also, a test suite (FAQ \ref{faq:test_suite}) is available. Its module \texttt{FwRtMakeTest.h} consists of a collection of functions each 
+of which creates and configures a RT Container. This module can be used as an additional source of examples.
+
+\subsection{How is a new RT Container created?}
+A RT Container is created by instantiating its descriptor (RTD) (FAQ \ref{faq:RTD}). An RTD is an object of type \texttt{struct FwRtDesc}. Hence, a RT Container is created by simply instantiating a variable of this type. After being created, an RTD must be configured. This is done using the functions in \texttt{FwRtConfig.h}. 
+
+\subsection{How is a new RT Container configured?}
+After being created, a RT Container Descriptor (RTD) (FAQ \ref{faq:RTD}) must be configured. This is done using the functions in the \texttt{FwRtConfig.h} header file. Functions are provided to change the attributes of the POSIX objects in the container and to define the functional behaviour attached to the container. In all cases, defaults are pre-defined and hence configuration operations are optional. The only mandatory configuration operation is \texttt{FwRtInit} which initializes the internal data structures of the POSIX objects used by the RT Container.
+
+\subsection{Which operations can I perform on a RT Container}
+After being created and configured, RT Containers can be \emph{started} (with function \texttt{FwRtStart}), \emph{stopped} (with function 
+\texttt{FwRtStop}) and \emph{notified} (with function \texttt{FwRtNotify}). A container is initially stopped and, before being started, 
+it does not respond to notification requests (but it is not an error to notify a container which has not been started or has been stopped). 
+After it is started, the container responds to notification requests until it is stopped. A container can be started and stopped multiple times.
+
+\subsection{Can I attach data to a RT Container?}\label{faq:container_data}
+The RT Container descriptor (RTD) (FAQ \ref{faq:RTD}) includes a field holding a pointer to the \emph{Container Data}. The Container Data are data which are manipulated 
+by the functional behaviour attached to the container. The exact type of the Container Data is defined by applications for each container. In most cases, it will take 
+the form of a \texttt{struct} whose fields represents the inputs and outputs for the container actions. The RTD treats the pointer to the Container Data as a pointer to \texttt{void}. The C1 Implementation provides functions \texttt{FwRtSetData} and \texttt{FwRtGetData} to set this pointer in, and to retrieve it from, an RTD.
+
+\subsection{How do I attach a functional behaviour to a RT Container?}
+Functional behaviour is encapsulated in functions which are passed to the RT Container as function pointers. 
+
+\subsection{How do I notify the thread in a RT Container?}
+The RT Container component offers a function called \texttt{FwRtNotify}. With the default configuration of a RT Container, a call to this function causes the thread in the container to be notified. Additionally, users have the option to define a function which filters notifications. 
+
+\subsection{What kind of notification sources are possible?}
+There is no restriction. Typically, the setting up of a notification may consist of: (a) a request that the container's thread be notified at some time in the future; (b) a
+call-back registration to be notified when a certain software condition arises (e.g. a variable changes value, a message arrives, etc); (c) a request to be notified when a hardware interrupt is asserted. The notification source may change dynamically during the container's life.
+
+\subsection{How do I change thread characteristics?}
+RT Containers are built on POSIX threads. The characteristics of POSIX threads are encapsulated in "attribute" objects which define the thread's priority, stack size, etc. By default, a RT Container uses the POSIX-defined default values of these characteristics but it gives access to the thread's attribute object and users can therefore change its characteristics using standard POSIX functions. 
+
+
+%===================================================================================
+\section{Implementation Issues}
+
+\subsection{What is a State Machine Descriptor?}\label{faq:SMD}
+The C1 Implementation represents a state machine through a State Machine Descriptor (SMD). An SMD is a data structure which holds all the information 
+required to describe a state machine. Users normally only manipulate the pointer to an SMD. This is defined as an instance of type \texttt{FwSmDesc\_t}. Its internal structure is described in header file \texttt{FwSmPrivate.h}. Most applications need not be concerned with the internal structure of an SMD and can ignore this header file.
+
+Applications manipulate a state machine by passing its SMD to the functions defined by the C1 Implementation. Thus, for instance, an application executes 
+a state machine through the following function call: \texttt{FwSmExecute(smDesc)}. Here, \texttt{smDesc} is the pointer to the SMD of the state machine to be executed.
+
+\subsection{What is a Procedure Descriptor?}\label{faq:PRD}
+The C1 Implementation represents a procedure through a Procedure Descriptor (PRD). A PRD is a data structure which holds all the information required 
+to describe a procedure. Users normally only manipulate the pointer to a PRD. This is an instance of type \texttt{FwPrDesc\_t}. The internal structure of a PRD is described in header file \texttt{FwPrPrivate.h}. Most applications need not be concerned with the internal structure of a PRD and can ignore this header file.
+
+Applications manipulate a procedure by passing its PRD to the functions defined by the C1 Implementation. Thus, for instance, an application executes 
+a procedure through the following function call: \texttt{FwPrExecute(prDesc)}. Here, \texttt{prDesc} is the pointer to the PRD of the procedure to be executed.
+
+\subsection{What is a RT Container Descriptor?}\label{faq:RTD}
+The C1 Implementation represents a RT Container through a RT Container Descriptor (RTD). An RTD is a data structure which holds all the information required to describe a RT Container. It is defined as an instance of type \texttt{struct FwRtDesc}. Users normally only manipulate the pointer to an RTD. This is an instance of type \texttt{FwRtDesc\_t}. 
+
+The internal structure of an RTD is described in header file \texttt{FwRtConstants.h}. 
+Most applications need not be concerned with the internal structure of an RTD and can ignore this information.
+
+Applications manipulate a RT Container by passing its RTD to the functions defined by the C1 Implementation. Thus, for instance, an application notifies a container through the following function call: \texttt{FwRtNotify(rtDesc)}. Here, \texttt{rtDesc} is the pointer to the RTD of the container to be notified.
+
+\subsection{How much memory does a State Machine Descriptor take?}
+This depends on the size of the state machine and on the compiler. The C1 Implementation User Manual gives a formula which allows the size of the state machine descriptor to be computed from the number of: states, choice pseudo-states, 
+transitions, actions, and guards.
+
+In general, the C1 Implementation is optimized to minimize memory footprint. A medium-sized state machine with 5 states, 3 choice pseudo-states, 
+10 transitions and with 10 actions and 5 guards takes 195 bytes (assuming "tight" packing). 
+ 
+If the state machine has been derived (through the extension mechanism (FAQ \ref{faq:SM_Extension}) from another state machine, then its memory requirement 
+is reduced to 109 bytes.
+
+\subsection{How much memory does a Procedure Descriptor take?}
+This depends on the size of the procedure and on the compiler. The C1 Implementation User Manual gives a formula which allows the size of the procedure descriptor to be computed from the number of: action nodes, decision nodes, control flows, actions, and guards.
+
+In general, the C1 Implementation is optimized to minimize memory footprint. A medium-sized procedure with 5 action nodes, 3 decision nodes, 
+10 control flows and with 3 actions and 8 guards takes 104 bytes. 
+
+If the procedure has been derived (through the extension mechanism (FAQ \ref{faq:PR_Extension}) from another procedure, then its memory requirement 
+is reduced to 65 bytes.
+
+\subsection{How much memory does a RT Container Descriptor take?}
+This depends on the compiler and on your POSIX implementation. The C1 Implementation User Manual gives a formula which allows the memory used by the C1-specific data structures of a RT Container to be computed. In addition to this, a RT Container uses one POSIX thread, one POSIX mutex and one POSIX conditional variable.
+
+\subsection{What kind of error checking is performed?}
+The functions which operate on a state machine or on a procedure perform a limited amount of error checking. If they find an error, they report 
+it through the \emph{error code} which stores the identifier of the last error encountered by the implementation. The value of the error code can be read 
+with the \texttt{FwSmGetErrCode} function (state machines) or with the \texttt{FwPrGetErrCode} function (procedures). Nominally, the error code should 
+be equal to \texttt{smSuccess} for function \texttt{FwSmGetErrCode} and \texttt{prSuccess} for function \texttt{FwPrGetErrCode}. If this is not the case, the behaviour of the state machine or procedure is undefined.
+
+Functions which operate on a RT Container only report an error if a POSIX function call has failed. The error code is stored in the RTD and can be accessed with function \texttt{FwRtGetErrCode}. It should nominally be equal to zero. If this is not the case, the behaviour of the container is undefined.
+
+\subsection{Is the C1 Implementation thread-safe?}
+The functions offered by the state machine and procedure parts of the C1 Implementation do not use any global data and only operate on data passed as function argument. They are therefore inherently thread-safe in the sense that they can be used by different threads to operate on different state machine or procedure instances (but, obviously, if different threads try to manipulate the same state machine or procedure instance, conflicts may arise).
+
+The RT Container components of the C1 Implementation define data which may be accessed either by the container's internal thread (the Activation Thread) or by an external (user) thread. The functions to start, stop and notify a container (\texttt{FwRtStart}, \texttt{FwRtStop} and \texttt{FwRtNotify}) use a mutex to guarantee access in mutual exclusion and are therefore thread-safe. All other container functions (in particular its configuration functions) are not thread-safe and it is the responsibility of the user to ensure that they are called in mutual exclusion.
+
+\subsection{Does the C1 Implementation use dynamic memory allocation?}
+Users are given the option to create a new state machine or procedure instance using either dynamic memory allocation or static instantiation. In the latter case, a macro is provided to facilitate the instantiation of all data structures required to represent a state machine or a procedure.
+
+Instantiation of a RT Container does not require any dynamic memory allocation at the level of the C1 Implementation. However, a RT Container internally uses a POSIX thread, a POSIX mutex and a POSIX condition variable. These POSIX objects must be initialized as part of the container's configuration (this is done through function \texttt{FwRtInit}). Depending on the POSIX library implementation, this may entail dynamic memory allocation.
+
+\subsection{Does the C1 Implementation use recursion?}
+Yes. Use of recursion is inevitable because recursion is intrinsic to the execution model of state machines: a state machine may (recursively) 
+contain other state machine embedded in one of its states and transition requests are propagated (recursively) to the embedded state machines. 
+The depth of recursion is, however, bounded and it is equal to the depth of nesting of state machines.
+
+If an application wishes to avoid the use of recursion, it should not embed any state machine in the state of other state machines.  
+
+The procedure and RT Container part of the C1 Implementation do not use recursion.
+
+\subsection{Does the C1 Implementation require any special libraries?}
+The state machine and procedure parts of the C1 Implementation only need the \texttt{stdlib} of the C language. The RT Container part needs an implementation of the POSIX library. 
+
+\subsection{Does the C1 Implementation comply with a coding standard?}
+The C1 Implementation aims to comply with the Misra C coding standard with a small number of deviations which are individually justified. 
+The level of compliance has, however, not yet been fully verified.
+
+\subsection{How is the extension mechanism implemented?}\label{faq:SM_Extension_Impl}
+A state machine is represented by its state machine descriptor (SMD) (FAQ \ref{faq:SMD}). An SMD is split into two parts: the \emph{Base Descriptor} and 
+the \emph{Extension Descriptor} (see the \texttt{FwSmPrivate.h} header file for details). The Base Descriptor holds the information about 
+the state machine topology (its states, choice pseudo-states and their connections) whereas the Extension Descriptor holds the information 
+about the state machine actions and guards and its embedded state machines. During the extension process, only the Extension Descriptor 
+is duplicated whereas the Base Descriptor is shared between a state machine and its children. This significantly reduces memory occupation 
+in a situation where a large number of state machines are derived from the same base state machine. 
+
+A similar approach is adopted for procedures. A PRD is split into two parts: the \emph{Base Descriptor} and the \emph{Extension Descriptor} 
+(see the \texttt{FwPrPrivate.h} header file for details). The Base Descriptor holds the information about the procedure topology (its nodes and 
+the control flows connecting them) whereas the Extension Descriptor holds the information about the procedure actions and guards. 
+During the extension process, only the Extension Descriptor is duplicated whereas the Base Descriptor is shared between a procedure and its children.
+
+%===================================================================================
+\section{Verification \& Validation}
+
+\subsection{How are C1 Implementation requirements verified?}
+The objective of verification is to demonstrate that the requirements of the C1 Implementation are correctly implemented. For each requirement 
+one of the following verification methods is defined:
+
+\begin{fw_itemize} 
+\item \textbf{Verification by review}: the requirement is verified by reviewing the source code or its documentation
+\item \textbf{Verification by analysis}: the requirement is verified by analysing the source code (possibly with a tool)
+\item \textbf{Verification by testing}: the requirement is verified by means of a test in the test suite (FAQ \ref{faq:test_suite})
+\end{fw_itemize}
+
+The User Requirement Document in the qualification data package (FAQ \ref{faq:qualification_data_package}) shows 
+the result of the verification for each requirement in accordance with its verification method. 
+
+\subsection{How is the C1 Implementation validated?}
+The objective of validation is to demonstrate that the C1 Implementation meets its intended purpose. The intended purpose of the C1 Implementation 
+is to provide an implementation of the state machine and procedure concepts of the FW Profile (FAQ \ref{faq:FW_Profile}) adapted for use in 
+embedded mission-critical applications. Validation is therefore done by analysing each requirement and showing that it supports the implementation 
+of FW Profile in an environment where memory and processing resources are constrained and where high reliability is of paramount importance. 
+This analysis is performed in the User Requirement Document in the qualification data package (FAQ \ref{faq:qualification_data_package}).
+
+\subsection{What is the Test Suite?}\label{faq:test_suite}
+The Test Suite is a complete application which demonstrates all aspects of the behaviour of the C1 Implementation. 
+The main program is in file \texttt{FwTestSuite.c}. This program consists of a set of \emph{test cases}. The test cases are declared 
+in files \texttt{FwSmTestCases.h} (state machine test cases), \texttt{FwPrTestCases.h} (procedure test cases) and \texttt{FwRtTestCases.h} (RT container test cases). The test suite offers 100\% code, branch, and condition coverage (with the exception of branches entered when a system call fails). 
+
+
+\subsection{What is the Demo Application?}\label{faq:demo_application}
+The Demo Application is a complete application which demonstrates the use of the state machine and procedure modules of the C1 Implementation by implementing a simplified but realistic monitoring system for a \emph{Hardware Device}.
+
+The Hardware Device can be in several states and, when it is powered, it periodically generates a measurement of its temperature and of the current it absorbs. The Demo Application monitors the Hardware Device through three \emph{Failure Detection (FD) Checks}. When a FD Check detects a failure, it executes a Recovery Action which either switches off the Hardware Device or commands it into Stand-By. 
+
+The Demo Application models both the Hardware Device and the FD Checks through state machines. For the FD Checks, the state machine extension mechanism (FAQ \ref{faq:SM_Extension}) is used. This is useful to represent the fact that part of their behaviour is common to all FD Check whereas some of their behaviour is specific to each FD Check. The Recovery Actions are modelled as procedures.
+
+
+\subsection{How is test coverage measured?}
+Test coverage is measured with \texttt{gcov} which provides statistics on code and branch coverage. Since the C1 Implementation only uses simple boolean 
+expressions in \texttt{if} clauses, branch coverage is equivalent to condition coverage. 
+
+%===================================================================================
+\section{Licensing \& Support}\label{faq:licensing_issues}
+
+\subsection{How is the C1 Implementation licensed?}
+The C1 Implementation and its documentation are available both as free software under the terms of the GNU General Public License and on a commercial licence.
+
+\subsection{Why should I buy a commercial license?}
+The commercial licence allows the C1 Implementation to be bundled and distributed with proprietary software. 
+
+\subsection{How do I buy a commercial license?}
+By contacting the developers at \href{mailto:pnp-software@pnp-software.com}{\nolinkurl{pnp-software@pnp-software.com}}.
+
+\subsection{How do I get support?}
+Users can ask for direct support from \href{mailto:pnp-software@pnp-software.com}{\nolinkurl{pnp-software@pnp-software.com}}. Depending on the type of support required, this may be provided either on a goodwill basis or on a consulting basis.
+
+\subsection{How do I report a bug?}
+Users can either send an e-mail with a description of the problem to \href{mailto:pnp-software@pnp-software.com}{\nolinkurl{pnp-software@pnp-software.com}} 
+or else they can create an entry in the \href{http://www.pnp-software.com/mantisbt-1.2.5/login_page.php}{FW Profile Issue Tracker}. 
+The latter option requires a user to have an account on the bug tracker. This is provided on request: users should send an e-mail to 
+\href{mailto:pnp-software@pnp-software.com}{\nolinkurl{pnp-software@pnp-software.com}} stating their name and affiliation. 
+
+\newpage
+
+\begin{thebibliography}{6}
+
+\bibitem{ref:fwprofile} Alessandro Pasetti, Vaclav Cechticky:
+           {\sl The FW Profile}. PP-DF-COR-00001, Revision 1.3.0,
+           P\&P Software GmbH, Switzerland, 2013
+
+\bibitem{ref:reqs} Alessandro Pasetti, Vaclav Cechticky:
+           {\sl The Framework Profile - C1 Implementation User Requirements}. PP-SP-COR-00001, Revision 1.2.0,
+           P\&P Software GmbH, Switzerland, 2013
+
+\bibitem{ref:um} Alessandro Pasetti, Vaclav Cechticky:
+            {\sl The Framework Profile - C1 Implementation User Manual}. PP-UM-COR-0001, Revision 1.2.0,
+            P\&P Software GmbH, Switzerland, 2013   
+
+
+\end{thebibliography}
+
+\end{document}  

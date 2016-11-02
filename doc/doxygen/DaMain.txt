@@ -1,0 +1,133 @@
+/**
+* @page DaMain Demo Application
+*
+* The Demo Application demonstrates the use of the C1 Implementation by implementing a simplified 
+* but realistic monitoring system for a <i>Hardware Device</i>.
+* <p></p>
+* The Demo Application consists of several components as described in the table:
+* <table border="1" cellpadding="2">
+* <tr>
+* <th>Component</th> <th>Description</th> <th>Files</th>
+* </tr>
+* <tr>
+* <td><code>Hardware Device</code></td>
+* <td>Implements the state machine which models the Hardware Device.</td>
+* <td><code>FwDaHwDev.h</code>, <code>FwDaHwDev.c</code></td>
+* </tr>
+* <tr>
+* <td><code>FD Check</code></td>
+* <td>Implements the base state machine which models a generic <i>Failure Detection (FD) Check</i>.</td>
+* <td><code>FwDaFDCheck.h</code>, <code>FwDaFDCheck.c</code></td>
+* </tr>
+* <tr>
+* <td><code>Temperature FD Check</code></td>
+* <td>Implements the derived state machine which models the FD Check on the temperature of the Hardware Device.</td>
+* <td><code>FwDaTempCheck.h</code>, <code>FwDaTempCheck.c</code></td>
+* </tr>
+* <tr>
+* <td><code>Current FD Check</code></td>
+* <td>Implements the derived state machine which models the FD Check on the current absorbed by the Hardware Device.</td>
+* <td><code>FwDaCurCheck.h</code>, <code>FwDaCurCheck.c</code></td>
+* </tr>
+* <tr>
+* <td><code>Delta FD Check</code></td>
+* <td>Implements the derived state machine which models the FD Check on the change in temperature and current of
+*  the Hardware Device.</td>
+* <td><code>FwDaDeltaCheck.h</code>, <code>FwDaDeltaCheck.c</code></td>
+* </tr>
+* <tr>
+* <td><code>Current Recovery Action</code></td>
+* <td>Implements the procedure which models the recovery action for the Current FD Check on current absorbed 
+* by the Hardware Device.</td>
+* <td><code>FwDaCurRecAction.h</code>, <code>FwDaCurRecAction.c</code></td>
+* </tr>
+* <tr>
+* <td><code>Temperature Recovery Action</code></td>
+* <td>Implements the procedure which models the recovery action for the Temperature FD Check on the temperature
+* of the Hardware Device.</td>
+* <td><code>FwDaTempRecAction.h</code>, <code>FwDaTempRecAction.c</code></td>
+* </tr>
+* </table> 
+*
+* @section DaMain_2 Hardware Device
+* 
+* The Hardware Device can be either ON or OFF.
+* When it is ON, it can be either in STANDBY or it can be OPERATIONAL.
+* When it is ON, the Hardware Device periodically collects and makes available a measurement of its temperature
+* and of the current it absorbs.
+* The Demo Application models the measurement process as the generation of random number with a uniform distribution
+* within an interval representing the minimum and maximum temperature/current. 
+* <p></p>
+* The Demo Application models the Hardware Device as a state machine as in the figure.
+* The outer state machine models the ON/OFF behaviour of the device.
+* The state machine embedded in state ON models the STANDBY/OPERATIONAL behaviour.
+* The model of the Hardware Device is implemented in module <code>FwDaHwDev.h</code>. 
+* @image html HwDev.png
+*
+* @section DaMain_3 Failure Detection (FD) Checks
+* 
+* The Demo Application monitors the Hardware Device through three <i>Failure Detection (FD) Checks</i>.
+* Each FD Check implements an <i>Anomaly Detection Check</i> which periodically monitors one particular 
+* aspect of the behaviour of the Hardware Device.
+* The Anomaly Detection Check detects non-nominal behaviour of the Hardware Device.
+* A call to the Anomaly Detection Check has one of two outcomes: "no anomaly detected" or "anomaly detected".
+* <p></p>
+* An FD Check can be ENABLED or DISABLED.
+* When it is disabled, it does not perform any monitoring action.
+* When it is enabled, an FD Check can be in one of three states: HEALTHY, SUSPECTED or FAILED:
+* - The FD Check is in state HEALTHY if the Anomaly Detection Check has not detected any anomaly in the
+*   Hardware Device.
+* - The FD Check enters state SUSPECTED when the Anomaly Detection Check has detected an anomaly.
+* - The FD Check enters state FAILED when the Anomaly Detection Check has detected an anomaly for more
+*   than a predefined number of consecutive activation cycles.
+* .
+* When the FD Check enters state FAILED, it executes a <i>Recovery Action</i>.
+* <p></p>
+* The logic of an FD Check is modelled through the state machine shown in the figure.
+* The model of the FD Check is implemented in module <code>FwDaFailDetCheck.h</code>. 
+* @image html FailDetCheck.png  
+*
+* @section DaMain_4 FD Checks for Hardware Device
+* 
+* The Demo Application implements three concrete FD Checks which specialize the generic FD Check shown in
+* the figure:
+* - The <i>Temperature FD Check</i> monitors the temperature of the Hardware Device: it declares an 
+*   anomaly if the temperature exceeds a predefined threshold.
+* - The <i>Current FD Check</i> monitors the current absorbed by the Hardware Device: it declares an 
+*   anomaly if the absorbed current exceeds a predefined threshold.
+* - The <i>Delta FD Check</i> monitors the continuity of temperature and current measurements: it declares  
+*   an anomaly if either the temperature or the current measurement changes ("jumps") by more than a
+*   predefined threshold.
+* .
+* For each FD Check, a State Machine is defined which is derived from the generic FD Check State Machine.
+* The resulting state machine hierarchy is shown in the figure.
+* @image html FdCheckSm.png
+*
+* @section DaMain_5 FD Recovery Actions for Hardware Device
+*
+* When a FD Check finds a failure, it executes a Recovery Action. The recovery action for the three
+* FD Checks are as follows:
+* - <i>Temperature FD Check</i>: the recovery action consists in starting a procedure (the <i>Temperature
+*   Recovery Action</i>) which first commands the HW Device into STANDBY and then, after waiting for some
+*   time, it schecks its temperature.
+*   If the temperature is found to be too high, the device is switched off. Othersise, it is commanded back
+*   OPERATIONAL.
+* - <i>Current FD Check</i>: the recovery action consists in starting a procedure (the <i>Current
+*   Recovery Action</i>) which first commands the HW Device into STANDBY and then, after waiting for some
+*   time, switches it off.
+* - <i>Delta FD Check</i>: the recovery action consists in switching off the Hardware Device.
+* .
+*
+* @section DaMain_6 FD Demo Application Main Program
+* 
+* The Demo Application runs cyclically and in each cycle it executes the three FD Checks.
+* The main program for the Demo Application is in file <code>FwDaMain.c</code>.
+*/
+
+
+
+
+
+
+
+

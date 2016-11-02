@@ -1,0 +1,65 @@
+The RT Container logic defined in the previous section guarantees that certain properties (the \textit{RT Container Properties}) are satisfied when the usage of the RT Container complies with certain constraints (the \textit{RT Container Usage Constraints}). The properties are listed in table \ref{tab:RTContProp} in rows P-3 to P-7. The usage constraints are listed in the same table in rows C-1 to C-3.
+
+\begin{longtable}{|p{0.9cm}|p{10.3cm}|}
+\caption{RT Container Properties and Usage Constraints} \label{tab:RTContProp}\\
+\hline
+\rowcolor{lightblue}
+\textbf{N} & \textbf{RT Container Properties and Usage Constraint} \\
+\hline\hline
+\endfirsthead
+\rowcolor{lightblue}
+\textbf{N} & \textbf{RT Container Properties and Usage Constraint} \\
+\hline\hline
+\endhead
+P-3 & The Activation Thread shall never deadlock. \\
+\hline
+P-4 & If the RT Container is stopped after the Activation Thread has been released, then, at some later time, the Activation Procedure shall terminate. \\
+\hline
+P-5 & If the Activation Procedure stops or terminates (it enters the STOPPED state), then,
+at some later time, the RT Container shall be stopped. \\
+\hline
+P-6 & If the Activation Procedure stops or terminates (it enters the STOPPED state), then,
+at some later time, the Notification Procedure shall terminate. \\
+\hline
+P-7 & Whenever the Activation Procedure is running (it is in state STARTED), then the
+Notification Procedure shall be running, too (it shall be in state STARTED). \\
+\hline
+P-8 & If notifications cease but the RT Container and the Activation Procedure continue to run, then, at some later time, the Activation Thread shall consume all pending notifications (the Notification Counter will become equal to zero). \\
+\hline
+C-1 & If the RT Container is started and then, at some later time, it is stopped, then it can be re-started only after its Activation and Notification Procedures have terminated
+execution and after its Activation Thread has terminated (i.e. the user of a RT Container cannot re-start it before it has completed its orderly shutdown) \\
+\hline
+C-2 & The Activation Procedure is started, stopped and executed exclusively by the RT
+Container (i.e. the user of the container has no access to the Activation Procedure) \\
+\hline
+C-3 & The Notification Procedure is started and stopped exclusively by the RT Container
+itself (i.e. the user of the RT Container can execute the Notification Procedure through the Notify operation but it cannot start or stop it) \\
+\hline
+\end{longtable}
+
+The usage constraints define the conditions for the legal use of a RT Container. If these
+constraints are satisfied, then the user can assume that the RT Container will comply with its
+properties. Note that the container's properties hold under all circumstances, irrespective of the
+scheduling and notification/triggering policies adopted for the Activation Thread and for the
+thread controlling the Notification Procedure and irrespective of the way in which the
+adaptation points in the container's procedure are filled.
+
+Properties P-4 and P-5 guarantee that, if the RT Container is stopped or the Activation
+Procedure terminates, then the entire container will terminate in the sense that the container
+itself and its two procedures will all enter the STOPPED state. 
+Property P-8 ensures that, if thread scheduling is fair and the rate at which notifications are generated is compatible with the rate at which they are processed, then no backlog of unprocessed notifications will build up. 
+
+Some notifications may instead remain unprocessed if either the Activation Thread autonomously terminates or the RT Container is stopped by the user. Thus, in informal language, the semantics of the Stop operation on the RT Container is not: "Process all pending notifications and then terminate"; but rather: "Discard any pending notifications and then terminate". 
+
+Note that the container's procedures can only terminate execution “naturally” (as opposed to
+being forcefully stopped). This is because the RT Container logic never stops them and usage
+constraints C-2 and C-3 ensure that they are not stopped by any external agent. This is
+important because it means that the procedure will always execute their finalization behaviour
+before terminating.
+
+Constraint C-1 states that a RT Container can only be re-started after it has completed its
+shutdown. This is a legitimate constraint because properties P-4 and P-6 guarantee that,
+if the container is stopped, then its two procedures will eventually terminate. This means that
+the user of a RT Container can always rely on the container completing its shutdown in a finite
+amount of time.
+

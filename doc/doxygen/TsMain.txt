@@ -1,0 +1,30 @@
+/**
+* @page TsMain Test Suite
+*
+* The Test Suite is a complete application which demonstrates all aspects of the behaviour of the
+* State Machine, Procedure, and RT Container implementations. 
+* The main program is in file <code>FwTestSuite.c</code>.
+* This program consists of a set of <i>test cases</i>.
+* The test cases are declared in file <code>FwSmTestCases.h</code> for the state machine part, 
+* in file <code>FwPrTestCases.h</code> for the procedure part, and in file <code>FwRtTestCases.h</code>
+* for the RT container part.
+* Each test case exercises a specific aspect of the state machine, procedure or RT container behaviour.
+* <p></p>
+* The test cases operate on <i>test state machines</i>, <i>test procedures</i> and <i>test RT containers</i>.
+* The test state machines are declared in files <code>FwSmMakeTest.h</code>. 
+* The test procedures are declared in files <code>FwPrMakeTest.h</code>. 
+* The test RT containers are declared in files <code>FwRtMakeTest.h</code>. 
+* <p></p>
+* The test suite offers 100% code, branch, and condition coverage of the state machine modules
+* with the exception of the error branches in the creation and configuration
+* operations which are entered when the application runs out of memory (i.e. when <code>malloc</code> fails)
+* or when a POSIX system call fails.
+*/
+
+
+
+
+
+
+
+
