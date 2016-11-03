@@ -7,7 +7,7 @@
  * to be configured.
  * During the configuration process, the action nodes, the decision nodes and
  * the control flows of the procedure are defined.
- * 
+ *
  * There are two types of procedures: newly created procedures
  * (i.e. procedures which are created from scratch using <code>::FwPrCreate</code>
  * or <code>#FW_PR_INST</code>) and derived procedures (i.e. procedures
@@ -15,7 +15,7 @@
  * to <code>::FwPrCreateDer</code> or <code>#FW_PR_INST_DER</code>).
  * The functions declared in this header file can be used to configure both types
  * of procedures.
- * 
+ *
  * In the case of a newly created procedure, the mode of use of the
  * functions in this header file is as follows:
  * -# The action nodes of the procedure are added to its descriptor with
@@ -33,7 +33,7 @@
  * The only constraint on the order in which the above functions are called is
  * that a control flow from an action node or decision node can only be defined
  * after the source action node or decision node has been defined.
- * 
+ *
  * In the case of a derived procedure, the mode of use of the functions
  * declared in this header file is as follows:
  * -# An action can be overridden
@@ -44,7 +44,7 @@
  * .
  * There are no constraints on the order in which the above functions are
  * called.
- * 
+ *
  * Error handling is done as follows:
  * - Errors are reported through error codes. The range of error codes is
  *   defined in header file <code>FwPrConstant.h</code>. The error code is
@@ -100,7 +100,7 @@
  * In most cases, the procedure data will take the form of a <code>struct</code>
  * whose fields represent the inputs and outputs for the procedure actions
  * and guards.
- * 
+ *
  * The functions which implement the actions and guards access the procedure
  * data as follows:
  * - The functions implementing the actions and guards of a procedure
@@ -131,7 +131,7 @@ void FwPrSetData(FwPrDesc_t prDesc, void* prData);
  * @return the pointer to the procedure data or NULL if no procedure data
  * were defined for the procedure.
  */
- void* FwPrGetData(FwPrDesc_t prDesc);
+void* FwPrGetData(FwPrDesc_t prDesc);
 
 /**
  * Create an action node with the given characteristics and add it to a procedure.
@@ -393,7 +393,7 @@ FwPrErrCode_t FwPrCheck(FwPrDesc_t prDesc);
  * By default a derived procedure has the same actions as the base procedure
  * from which it was derived.
  * This function overrides one of the actions of the derived procedure.
- * 
+ *
  * As an example consider the case of a base procedure B and suppose that action
  * a1 is attached to node S1 and node S2.
  * If an application creates a derived procedure D from B (for instance, through
@@ -402,14 +402,14 @@ FwPrErrCode_t FwPrCheck(FwPrDesc_t prDesc);
  * This function can be used to change a1.
  * Note that a single invocation of this function will change the action of both
  * S1 and S2.
- * 
+ *
  * If an attempt is made to override a non-existent action, an error is declared
  * and the function returns without doing anything.
- * 
+ *
  * The override mechanism is only available for derived procedures.
  * If this function is called on a procedure which was not derived by extending
  * some other procedure, an error is declared.
- * 
+ *
  * This function reports the following errors in the error code of the procedure
  * descriptor:
  * - #prUndefAction: the action to be overridden does not exist
@@ -426,7 +426,7 @@ void FwPrOverrideAction(FwPrDesc_t prDesc, FwPrAction_t oldAction, FwPrAction_t 
  * By default a derived procedure has the same guards as the base procedure
  * from which it was derived.
  * This function overrides one of the guards of the derived procedure.
- * 
+ *
  * As an example consider the case of a base procedure B and suppose that
  * the control flows F1 and F2 both have the same guard g1.
  * If an application creates a derived procedure D from B (for instance, through
@@ -435,14 +435,14 @@ void FwPrOverrideAction(FwPrDesc_t prDesc, FwPrAction_t oldAction, FwPrAction_t 
  * This function can be used to change g1.
  * Note that a single invocation of this function will change the guard on both
  * control flows.
- * 
+ *
  * If an attempt is made to override a non-existent guard, the function declares
  * an error and returns.
- * 
+ *
  * The override mechanism is only available for derived procedures.
  * If this function is called on a procedure which was not derived by extending
  * some other procedure, an error is declared.
- * 
+ *
  * This function reports the following errors in the error code of the procedure
  * descriptor:
  * - #prUndefGuard: the guard to be overridden does not exist

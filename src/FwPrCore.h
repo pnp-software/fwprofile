@@ -7,7 +7,7 @@
  * The functions declared in this header file, take a procedure descriptor
  * as their first argument.
  * This represents the procedure upon which the functions operate.
- * 
+ *
  * The functions declared in this header file can only be used after a
  * procedure has been fully configured.
  * This is normally done using the configuration functions declared
@@ -18,7 +18,7 @@
  *    <code>::FwPrExecute</code>.
  * -# The procedure is stopped with function <code>::FwPrStop</code>.
  * .
- * 
+ *
  * The functions declared in this header file assume that they are passed
  * a valid procedure descriptor representing a correctly configured
  * procedure.
@@ -74,11 +74,11 @@ void FwPrStop(FwPrDesc_t prDesc);
  * by the following activity diagram (this is taken from figure 3.3-2 in the "FW Profile
  * Definition Document"):
  * @image html PR_Execution.png
- * 
+ *
  * If the execution of the procedure passes through a decision node and there are two
  * or more control flows out of that node which have guards which evaluate to true,
  * the control flow to be taken is the one which was added first to the procedure.
- * 
+ *
  * The FW Profile stipulates that at least one of the control flows out of a
  * decision node must have a guard evaluating to true. This constraint is not enforced
  * by this function.

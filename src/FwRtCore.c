@@ -26,8 +26,8 @@
 
 #include "FwRtCore.h"
 #include "FwRtConstants.h"
-#include <stdlib.h>
 #include <pthread.h>
+#include <stdlib.h>
 
 /**
  * The Activation Thread of the RT Container.
@@ -35,7 +35,7 @@
  * @param ptr this parameter is not used
  * @return this function always returns NULL
  */
-void* ExecActivThread(void *ptr);
+void* ExecActivThread(void* ptr);
 
 /**
  * Execute the loop in the Notification Procedure.
@@ -54,233 +54,232 @@ void ExecActivProcedure(FwRtDesc_t rtDesc);
 
 /*--------------------------------------------------------------------------------------*/
 void FwRtStart(FwRtDesc_t rtDesc) {
-	int errCode;
+  int errCode;
 
-	if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
-		 rtDesc->errCode = errCode;
-		 rtDesc->state = rtMutexLockErr;
-		 return;
-	}
+  if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
+    rtDesc->errCode = errCode;
+    rtDesc->state = rtMutexLockErr;
+    return;
+  }
 
-	if (rtDesc->state != rtContStopped) {
-		if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
-			 rtDesc->errCode = errCode;
-			 rtDesc->state = rtMutexUnlockErr;
-			 return;
-		}
-		return;
-	}
+  if (rtDesc->state != rtContStopped) {
+    if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
+      rtDesc->errCode = errCode;
+      rtDesc->state = rtMutexUnlockErr;
+      return;
+    }
+    return;
+  }
 
-	/* Start Notification Procedure */
-	rtDesc->notifPrStarted = 1;
-	/* Start Activation Procedure */
-	rtDesc->activPrStarted = 1;
+  /* Start Notification Procedure */
+  rtDesc->notifPrStarted = 1;
+  /* Start Activation Procedure */
+  rtDesc->activPrStarted = 1;
 
-	/* Execute Notification and Activation Procedures. Since the procedures have just been
-	 * started, this is equivalent to executing their initialization actions and (for the
-	 * Activation Procedure) its Set Up Notification action. */
-	rtDesc->initializeNotifPr(rtDesc);
-	rtDesc->initializeActivPr(rtDesc);
-	rtDesc->setUpNotification(rtDesc);
+  /* Execute Notification and Activation Procedures. Since the procedures have just been
+   * started, this is equivalent to executing their initialization actions and (for the
+   * Activation Procedure) its Set Up Notification action. */
+  rtDesc->initializeNotifPr(rtDesc);
+  rtDesc->initializeActivPr(rtDesc);
+  rtDesc->setUpNotification(rtDesc);
 
-	rtDesc->state = rtContStarted;
-	rtDesc->notifCounter = 0;
+  rtDesc->state = rtContStarted;
+  rtDesc->notifCounter = 0;
 
-	/* Create thread */
-	if ((errCode = pthread_create( &(rtDesc->activationThread), rtDesc->pThreadAttr,
-														ExecActivThread, rtDesc)) != 0) {
-		 rtDesc->errCode = errCode;
-		 rtDesc->state = rtThreadCreateErr;
-		 return;
-	}
+  /* Create thread */
+  if ((errCode = pthread_create(&(rtDesc->activationThread), rtDesc->pThreadAttr, ExecActivThread, rtDesc)) != 0) {
+    rtDesc->errCode = errCode;
+    rtDesc->state = rtThreadCreateErr;
+    return;
+  }
 
-	if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
-		 rtDesc->errCode = errCode;
-		 rtDesc->state = rtMutexUnlockErr;
-		 return;
-	}
+  if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
+    rtDesc->errCode = errCode;
+    rtDesc->state = rtMutexUnlockErr;
+    return;
+  }
 
-	return;
+  return;
 }
 
 /*--------------------------------------------------------------------------------------*/
 void FwRtStop(FwRtDesc_t rtDesc) {
-	int errCode;
+  int errCode;
 
-	if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
-		 rtDesc->errCode = errCode;
-		 rtDesc->state = rtMutexLockErr;
-		 return;
-	}
+  if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
+    rtDesc->errCode = errCode;
+    rtDesc->state = rtMutexLockErr;
+    return;
+  }
 
-	if (rtDesc->state != rtContStarted) {
-		if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
-			 rtDesc->errCode = errCode;
-			 rtDesc->state = rtMutexUnlockErr;
-			 return;
-		}
-		return;
-	}
+  if (rtDesc->state != rtContStarted) {
+    if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
+      rtDesc->errCode = errCode;
+      rtDesc->state = rtMutexUnlockErr;
+      return;
+    }
+    return;
+  }
 
-	/* Stop the RT Container */
-	rtDesc->state = rtContStopped;
+  /* Stop the RT Container */
+  rtDesc->state = rtContStopped;
 
-	/* Notify the Activation Thread */
-	rtDesc->notifCounter++;
+  /* Notify the Activation Thread */
+  rtDesc->notifCounter++;
 
-	if ((errCode = pthread_cond_signal(&(rtDesc->cond))) != 0) {
-		 rtDesc->errCode = errCode;
-		 rtDesc->state = rtCondSignalErr;
-		 return;
-	}
+  if ((errCode = pthread_cond_signal(&(rtDesc->cond))) != 0) {
+    rtDesc->errCode = errCode;
+    rtDesc->state = rtCondSignalErr;
+    return;
+  }
 
-	if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
-		 rtDesc->errCode = errCode;
-		 rtDesc->state = rtMutexUnlockErr;
-		 return;
-	}
+  if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
+    rtDesc->errCode = errCode;
+    rtDesc->state = rtMutexUnlockErr;
+    return;
+  }
 
-	return;
+  return;
 }
 
 /*--------------------------------------------------------------------------------------*/
 void FwRtNotify(FwRtDesc_t rtDesc) {
-	int errCode;
+  int errCode;
 
-	if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
-		 rtDesc->errCode = errCode;
-		 rtDesc->state = rtMutexLockErr;
-		 return;
-	}
-	ExecNotifProcedure(rtDesc);
-	if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
-		 rtDesc->errCode = errCode;
-		 rtDesc->state = rtMutexUnlockErr;
-		 return;
-	}
+  if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
+    rtDesc->errCode = errCode;
+    rtDesc->state = rtMutexLockErr;
+    return;
+  }
+  ExecNotifProcedure(rtDesc);
+  if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
+    rtDesc->errCode = errCode;
+    rtDesc->state = rtMutexUnlockErr;
+    return;
+  }
 }
 
 /*--------------------------------------------------------------------------------------*/
 void FwRtWaitForTermination(FwRtDesc_t rtDesc) {
-	int errCode;
-	void* status = 0;
+  int   errCode;
+  void* status = 0;
 
-	if ((errCode = pthread_join(rtDesc->activationThread,&status)) != 0) {
-		 rtDesc->errCode = errCode;
-		 rtDesc->state = rtJoinErr;
-		 return;
-	}
+  if ((errCode = pthread_join(rtDesc->activationThread, &status)) != 0) {
+    rtDesc->errCode = errCode;
+    rtDesc->state = rtJoinErr;
+    return;
+  }
 }
 
 /*--------------------------------------------------------------------------------------*/
 FwRtBool_t FwRtIsNotifPrStarted(FwRtDesc_t rtDesc) {
-	return rtDesc->notifPrStarted;
+  return rtDesc->notifPrStarted;
 }
 
 /*--------------------------------------------------------------------------------------*/
 FwRtBool_t FwRtIsActivPrStarted(FwRtDesc_t rtDesc) {
-	return rtDesc->activPrStarted;
+  return rtDesc->activPrStarted;
 }
 
 /*--------------------------------------------------------------------------------------*/
 FwRtState_t FwRtGetContState(FwRtDesc_t rtDesc) {
-	return rtDesc->state;
+  return rtDesc->state;
 }
 
 /*--------------------------------------------------------------------------------------*/
 int FwRtGetErrCode(FwRtDesc_t rtDesc) {
-	return rtDesc->errCode;
+  return rtDesc->errCode;
 }
 
 /*--------------------------------------------------------------------------------------*/
 FwRtCounterU2_t FwRtGetNotifCounter(FwRtDesc_t rtDesc) {
-	return rtDesc->notifCounter;
+  return rtDesc->notifCounter;
 }
 
 /*--------------------------------------------------------------------------------------*/
 void ExecNotifProcedure(FwRtDesc_t rtDesc) {
-	int errCode;
+  int errCode;
 
-	if (rtDesc->notifPrStarted == 0)
-		return;
+  if (rtDesc->notifPrStarted == 0)
+    return;
 
-	if (rtDesc->activPrStarted == 0) {
-		rtDesc->finalizeNotifPr(rtDesc);
-		rtDesc->notifPrStarted = 0;
-		return;
-	}
+  if (rtDesc->activPrStarted == 0) {
+    rtDesc->finalizeNotifPr(rtDesc);
+    rtDesc->notifPrStarted = 0;
+    return;
+  }
 
-	if (rtDesc->implementNotifLogic(rtDesc) == 1) {
-		rtDesc->notifCounter++;
-		if ((errCode = pthread_cond_signal(&(rtDesc->cond))) != 0) {
-			 rtDesc->errCode = errCode;
-			 rtDesc->state = rtCondSignalErr;
-			 return;
-		}
-	}
+  if (rtDesc->implementNotifLogic(rtDesc) == 1) {
+    rtDesc->notifCounter++;
+    if ((errCode = pthread_cond_signal(&(rtDesc->cond))) != 0) {
+      rtDesc->errCode = errCode;
+      rtDesc->state = rtCondSignalErr;
+      return;
+    }
+  }
 
-	return;
+  return;
 }
 
 /*--------------------------------------------------------------------------------------*/
 void ExecActivProcedure(FwRtDesc_t rtDesc) {
 
-	if (rtDesc->state == rtContStopped) {
-		rtDesc->finalizeActivPr(rtDesc);
-		rtDesc->activPrStarted = 0;
-		return;
-	}
+  if (rtDesc->state == rtContStopped) {
+    rtDesc->finalizeActivPr(rtDesc);
+    rtDesc->activPrStarted = 0;
+    return;
+  }
 
-	if (rtDesc->implementActivLogic(rtDesc) == 1) {		/* Execute functional behaviour */
-		if (rtDesc->execFuncBehaviour(rtDesc) == 1) {	/* Functional behaviour is terminated */
-			rtDesc->finalizeActivPr(rtDesc);
-			rtDesc->activPrStarted = 0;
-			return;
-		}
-	}
-	rtDesc->setUpNotification(rtDesc);
-	return;
+  if (rtDesc->implementActivLogic(rtDesc) == 1) { /* Execute functional behaviour */
+    if (rtDesc->execFuncBehaviour(rtDesc) == 1) { /* Functional behaviour is terminated */
+      rtDesc->finalizeActivPr(rtDesc);
+      rtDesc->activPrStarted = 0;
+      return;
+    }
+  }
+  rtDesc->setUpNotification(rtDesc);
+  return;
 }
 
 /*--------------------------------------------------------------------------------------*/
-void* ExecActivThread(void *ptr) {
-	FwRtDesc_t rtDesc = (FwRtDesc_t) ptr;
-	int errCode;
+void* ExecActivThread(void* ptr) {
+  FwRtDesc_t rtDesc = (FwRtDesc_t)ptr;
+  int        errCode;
 
-	while (1) {
-		if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
-			 rtDesc->errCode = errCode;
-			 rtDesc->state = rtMutexLockErr;
-			 return NULL;
-		}
-		while (rtDesc->notifCounter == 0) {
-			if ((errCode = pthread_cond_wait(&(rtDesc->cond),&(rtDesc->mutex))) != 0) {
-				 rtDesc->errCode = errCode;
-				 rtDesc->state = rtCondWaitErr;
-				 return NULL;
-			}
-		}
-		rtDesc->notifCounter--;
-		if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
-			 rtDesc->errCode = errCode;
-			 rtDesc->state = rtMutexUnlockErr;
-			 return NULL;
-		}
+  while (1) {
+    if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
+      rtDesc->errCode = errCode;
+      rtDesc->state = rtMutexLockErr;
+      return NULL;
+    }
+    while (rtDesc->notifCounter == 0) {
+      if ((errCode = pthread_cond_wait(&(rtDesc->cond), &(rtDesc->mutex))) != 0) {
+        rtDesc->errCode = errCode;
+        rtDesc->state = rtCondWaitErr;
+        return NULL;
+      }
+    }
+    rtDesc->notifCounter--;
+    if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
+      rtDesc->errCode = errCode;
+      rtDesc->state = rtMutexUnlockErr;
+      return NULL;
+    }
 
-		ExecActivProcedure(rtDesc);
+    ExecActivProcedure(rtDesc);
 
-		if (rtDesc->activPrStarted == 0) {
-			rtDesc->state = rtContStopped;	/* Put RT Container in state STOPPED */
-			FwRtNotify(rtDesc);	/* Execute Notification Procedure in mutual exclusion */
-			break;
-		}
+    if (rtDesc->activPrStarted == 0) {
+      rtDesc->state = rtContStopped; /* Put RT Container in state STOPPED */
+      FwRtNotify(rtDesc);            /* Execute Notification Procedure in mutual exclusion */
+      break;
+    }
 
-		if (rtDesc->state == rtContStopped) {
-			ExecActivProcedure(rtDesc);
-			FwRtNotify(rtDesc);	/* Execute Notification Procedure in mutual exclusion */
-			break;
-		}
-	}
+    if (rtDesc->state == rtContStopped) {
+      ExecActivProcedure(rtDesc);
+      FwRtNotify(rtDesc); /* Execute Notification Procedure in mutual exclusion */
+      break;
+    }
+  }
 
-	return NULL;
+  return NULL;
 }

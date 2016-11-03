@@ -7,7 +7,7 @@
  * statically (i.e. without using dynamic memory allocation).
  * In this sense, this interface is alternative to the dynamic creation
  * interface defined in <code>FwSmDCreate.h</code>.
- * 
+ *
  * A state machine can be created in two ways:
  * - It can be created from scratch, or
  * - It can be created by extending an existing state machine.
@@ -43,7 +43,7 @@
  * If the base state machine has embedded state machines, additional
  * initialization actions are required as described in the function
  * documentation.
- * 
+ *
  * After a state machine descriptor has been instantiated and
  * initialized, it will normally need to be configured.
  * Configuration of a state machine descriptor can be done using the
@@ -82,7 +82,7 @@
  * of choice pseudo-states NCPS and the number of transitions NTRANS is positive.
  * If there is a need to define a state machine with zero choice pseudo-states,
  * the <code>::FW_SM_INST_NOCPS</code> macro should be used.
- * 
+ *
  * The macro generates code that does the following:
  * - It defines an array of NS elements of type <code>SmPState_t</code> to
  *   represent the array holding the state machine states.
@@ -102,11 +102,11 @@
  *   <code>struct FwSmDesc</code> to represent the state machine descriptor.
  * .
  * All variables defined by this macro are <code>static</code>.
- * 
+ *
  * The state machine descriptor instantiated by the macro is only partially
  * initialized.
  * Full initialization is performed using function <code>::FwSmInit</code>.
- * 
+ *
  * Since the macro includes the declaration of several variables, it should be located
  * in the section of a c-file where variable declaration is legal.
  *
@@ -119,16 +119,26 @@
  * @param NG a non-negative integer representing the number of guards (i.e. the
  * number of transition actions which are defined on the state machine)
  */
-#define FW_SM_INST(SM_DESC, NS, NCPS, NTRANS, NA, NG) \
-static SmPState_t SM_DESC ## _pState[(NS)]; \
-static SmCState_t SM_DESC ## _cState[(NCPS)]; \
-static SmTrans_t SM_DESC ## _trans[(NTRANS)]; \
-static FwSmAction_t SM_DESC ## _actions[(NA)+1]; \
-static FwSmGuard_t SM_DESC ## _guards[(NG)+1]; \
-static FwSmDesc_t SM_DESC ## _esm[(NS)]; \
-static SmBaseDesc_t SM_DESC ## _base = {(SM_DESC ## _pState), (SM_DESC ## _cState), (SM_DESC ## _trans), NS, NCPS, NTRANS}; \
-static struct FwSmDesc (SM_DESC) = {&(SM_DESC ## _base), (SM_DESC ## _actions), (SM_DESC ## _guards), \
-	(SM_DESC ## _esm), NA+1, NG+1, 1, 0, 0, 0, smSuccess, NULL};
+#define FW_SM_INST(SM_DESC, NS, NCPS, NTRANS, NA, NG)                                                                  \
+  static SmPState_t   SM_DESC##_pState[(NS)];                                                                          \
+  static SmCState_t   SM_DESC##_cState[(NCPS)];                                                                        \
+  static SmTrans_t    SM_DESC##_trans[(NTRANS)];                                                                       \
+  static FwSmAction_t SM_DESC##_actions[(NA) + 1];                                                                     \
+  static FwSmGuard_t  SM_DESC##_guards[(NG) + 1];                                                                      \
+  static FwSmDesc_t   SM_DESC##_esm[(NS)];                                                                             \
+  static SmBaseDesc_t SM_DESC##_base = {(SM_DESC##_pState), (SM_DESC##_cState), (SM_DESC##_trans), NS, NCPS, NTRANS};  \
+  static struct FwSmDesc(SM_DESC) = {&(SM_DESC##_base),                                                                \
+                                     (SM_DESC##_actions),                                                              \
+                                     (SM_DESC##_guards),                                                               \
+                                     (SM_DESC##_esm),                                                                  \
+                                     NA + 1,                                                                           \
+                                     NG + 1,                                                                           \
+                                     1,                                                                                \
+                                     0,                                                                                \
+                                     0,                                                                                \
+                                     0,                                                                                \
+                                     smSuccess,                                                                        \
+                                     NULL};
 
 /**
  * Instantiate a state machine descriptor and its internal data structure.
@@ -138,7 +148,7 @@ static struct FwSmDesc (SM_DESC) = {&(SM_DESC ## _base), (SM_DESC ## _actions), 
  * pseudo-states.
  * If there is a need to define a state machine with one or more choice
  * pseudo-states, the <code>::FW_SM_INST</code> macro should be used.
- * 
+ *
  * The macro generates code that does the following:
  * - It defines an array of NS elements of type <code>SmPState_t</code> to
  *   represent the array holding the state machine states.
@@ -156,14 +166,14 @@ static struct FwSmDesc (SM_DESC) = {&(SM_DESC ## _base), (SM_DESC ## _actions), 
  *   <code>struct FwSmDesc</code> to represent the state machine descriptor.
  * .
  * All variables defined by this macro are <code>static</code>.
- * 
+ *
  * The state machine descriptor instantiated by the macro is only partially
  * initialized.
  * Full initialization is performed using function <code>::FwSmInit</code>.
- * 
+ *
  * Since the macro includes the declaration of several variables, it should be located
  * in the section of a c-file where variable declaration is legal.
- * 
+ *
  * @param SM_DESC the variable holding the state machine descriptor
  * @param NS a positive integer representing the number of states
  * @param NTRANS a positive integer representing the number of transitions
@@ -172,22 +182,32 @@ static struct FwSmDesc (SM_DESC) = {&(SM_DESC ## _base), (SM_DESC ## _actions), 
  * @param NG a non-negative integer representing the number of guards (i.e. the
  * number of transition actions which are defined on the state machine)
  */
-#define FW_SM_INST_NOCPS(SM_DESC, NS, NTRANS, NA, NG) \
-static SmPState_t SM_DESC ## _pState[(NS)]; \
-static SmTrans_t SM_DESC ## _trans[(NTRANS)]; \
-static FwSmAction_t SM_DESC ## _actions[(NA)+1]; \
-static FwSmGuard_t SM_DESC ## _guards[(NG)+1]; \
-static FwSmDesc_t SM_DESC ## _esm[(NS)]; \
-static SmBaseDesc_t SM_DESC ## _base = {(SM_DESC ## _pState), NULL, (SM_DESC ## _trans), NS, 0, NTRANS}; \
-static struct FwSmDesc (SM_DESC) = {&(SM_DESC ## _base), (SM_DESC ## _actions), (SM_DESC ## _guards), \
-	(SM_DESC ## _esm), NA+1, NG+1, 1, 0, 0, 0, smSuccess, NULL};
+#define FW_SM_INST_NOCPS(SM_DESC, NS, NTRANS, NA, NG)                                                                  \
+  static SmPState_t   SM_DESC##_pState[(NS)];                                                                          \
+  static SmTrans_t    SM_DESC##_trans[(NTRANS)];                                                                       \
+  static FwSmAction_t SM_DESC##_actions[(NA) + 1];                                                                     \
+  static FwSmGuard_t  SM_DESC##_guards[(NG) + 1];                                                                      \
+  static FwSmDesc_t   SM_DESC##_esm[(NS)];                                                                             \
+  static SmBaseDesc_t SM_DESC##_base = {(SM_DESC##_pState), NULL, (SM_DESC##_trans), NS, 0, NTRANS};                   \
+  static struct FwSmDesc(SM_DESC) = {&(SM_DESC##_base),                                                                \
+                                     (SM_DESC##_actions),                                                              \
+                                     (SM_DESC##_guards),                                                               \
+                                     (SM_DESC##_esm),                                                                  \
+                                     NA + 1,                                                                           \
+                                     NG + 1,                                                                           \
+                                     1,                                                                                \
+                                     0,                                                                                \
+                                     0,                                                                                \
+                                     0,                                                                                \
+                                     smSuccess,                                                                        \
+                                     NULL};
 
 /**
  * Instantiate a descriptor for a derived state machine.
  * A derived state machine is a state machine which is created by extending
  * another state machine.
  * The state machine which is thus extended is called base state machine.
- * 
+ *
  * A state machine descriptor consists of two parts: the base descriptor and
  * the extension descriptor (see <code>FwSmPrivate.h</code>).
  * A derived state machine and its base state machine share the same base descriptor
@@ -203,26 +223,26 @@ static struct FwSmDesc (SM_DESC) = {&(SM_DESC ## _base), (SM_DESC ## _actions), 
  *   <code>struct FwSmDesc</code> to represent the state machine descriptor.
  * .
  * All variables defined by this macro are <code>static</code>.
- * 
+ *
  * The state machine descriptor instantiated by the macro is only partially
  * initialized.
  * Full initialization is performed using function <code>::FwSmInitDer</code>.
- * 
+ *
  * Since the macro includes the declaration of several variables, it should be located
  * in the section of a c-file where variable declaration is legal.
- * 
+ *
  * @param SM_DESC the variable holding the state machine descriptor
  * @param NS a positive integer representing the number of states
  * @param NA a non-negative integer representing the number of actions (i.e. the
  * number of transition or state actions which are defined on the state machine)
  * @param NG a non-negative integer representing the number of guards
  */
-#define FW_SM_INST_DER(SM_DESC, NS, NA, NG) \
-static FwSmAction_t SM_DESC ## _actions[(NA)+1]; \
-static FwSmGuard_t SM_DESC ## _guards[(NG)+1]; \
-static FwSmDesc_t SM_DESC ## _esm[(NS)]; \
-static struct FwSmDesc (SM_DESC) = {NULL, (SM_DESC ## _actions), (SM_DESC ## _guards), \
-	(SM_DESC ## _esm), NA+1, NG+1, 1, 0, 0, 0, smSuccess, NULL};
+#define FW_SM_INST_DER(SM_DESC, NS, NA, NG)                                                                            \
+  static FwSmAction_t SM_DESC##_actions[(NA) + 1];                                                                     \
+  static FwSmGuard_t  SM_DESC##_guards[(NG) + 1];                                                                      \
+  static FwSmDesc_t   SM_DESC##_esm[(NS)];                                                                             \
+  static struct FwSmDesc(SM_DESC) = {                                                                                  \
+      NULL, (SM_DESC##_actions), (SM_DESC##_guards), (SM_DESC##_esm), NA + 1, NG + 1, 1, 0, 0, 0, smSuccess, NULL};
 
 /**
  * Initialize a state machine descriptor to represent an unconfigured state
@@ -231,11 +251,11 @@ static struct FwSmDesc (SM_DESC) = {NULL, (SM_DESC ## _actions), (SM_DESC ## _gu
  * After this function has been executed, the argument state machine descriptor
  * has the same content as a state machine descriptor which has been
  * created by calling <code>::FwSmCreate</code>.
- * 
+ *
  * This function is primarily intended to be used to initialize a state machine
  * descriptor which has been statically instantiated with macro
  * <code>#FW_SM_INST</code> or <code>#FW_SM_INST_NOCPS</code>.
- * 
+ *
  * If the function is called upon a state machine descriptor that had already been
  * initialized, the previous initialization values are lost.
  * In such a case, a memory leak is possible due to the potential loss of the pointers
@@ -260,7 +280,7 @@ void FwSmInit(FwSmDesc_t smDesc);
  * code to <code>#smWrongNOfActions</code>.
  * If the second constraint is not satisfied, the function sets the error
  * code to <code>#smWrongNOfGuards</code>.
- * 
+ *
  * If both constraints are satisfied, this function initializes a descriptor
  * as follows:
  * - It links it to the descriptor of the base state machine.
@@ -292,7 +312,7 @@ void FwSmInit(FwSmDesc_t smDesc);
  *   descriptor initialized by this function using the
  *   <code>::FwSmEmbed</code> function.
  * .
- * 
+ *
  * This function is primarily intended to be used to initialize a state machine
  * descriptor which has been statically instantiated with macro
  * <code>#FW_SM_INST_DER</code>.
@@ -304,6 +324,6 @@ void FwSmInit(FwSmDesc_t smDesc);
  * @param smDesc the state machine descriptor to be initialized.
  * @param smDescBase the state machine descriptor of the base state machine.
  */
- void FwSmInitDer(FwSmDesc_t smDesc, FwSmDesc_t smDescBase);
+void FwSmInitDer(FwSmDesc_t smDesc, FwSmDesc_t smDescBase);
 
 #endif /* FWSM_SCREATE_H_ */

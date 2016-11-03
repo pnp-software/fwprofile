@@ -45,7 +45,7 @@ typedef struct FwPrDesc* FwPrDesc_t;
  * A procedure action is a function which encapsulates an action of a
  * procedure node.
  * A procedure action takes the descriptor of the procedure as an argument.
- * 
+ *
  * Pointers to procedure actions are used when a new procedure is defined:
  * all the actions in the procedure must be defined as functions which conform
  * to the <code>FwPrAction_t</code> prototype and are loaded into the procedure
@@ -63,7 +63,7 @@ typedef int FwPrBool_t;
  * The procedure guard takes the descriptor of the procedure as an argument
  * and it returns 0 to signify that the guard is false or a non-zero value
  * (typically 1) to signify that the guard is true.
- * 
+ *
  * Pointers to procedure guards are used when a new procedure is defined:
  * all the guards in the procedure must be defined as functions which conform
  * to the <code>FwPrGuard_t</code> prototype and are loaded into the procedure
@@ -88,138 +88,138 @@ typedef signed char FwPrCounterS1_t;
 
 /** Error codes and function return codes for the procedure functions. */
 typedef enum {
-	/**
-	 * Return codes of a function which has completed execution without errors.
-	 */
-	prSuccess = 1,
-	/**
-	 * A call to <code>malloc</code> has failed (it has returned a NULL pointer).
-	 */
-	prOutOfMemory = 2,
-	/**
-	 * The number of actions in the base procedure is not the same as in the derived
-	 * procedure.
-	 */
-	prWrongNOfActions = 3,
-	/**
-	 * The number of guards in the base procedure is not the same as in the derived
-	 * procedure.
-	 */
-	prWrongNOfGuards = 4,
-	/**
-	 * An action node is added to a procedure with an illegal (out-of-range) identifier.
-	 */
-	prIllActNodeId = 5,
-	/**
-	 * An action node is added twice to the same procedure.
-	 */
-	prActNodeIdInUse = 6,
-	/**
-	 * A decision node is added to a procedure with an illegal (out-of-range) identifier.
-	 */
-	prIllDecNodeId = 7,
-	/**
-	 * A decision node is added twice to the same procedure.
-	 */
-	prDecNodeIdInUse = 8,
-	/**
-	 * The number of actions added to the procedure exceeds the number of actions declared
-	 * when the procedure descriptor was created.
-	 */
-	prTooManyActions = 9,
-	/**
-	 * The number of guards added to the procedure exceeds the number of guards declared
-	 * when the procedure descriptor was created.
-	 */
-	prTooManyGuards = 10,
-	/**
-	 * An action node is defined with a null action.
-	 */
-	prNullAction = 11,
-	/**
-	 * A node is added to a procedure which has more
-	 * out-going transitions than fit into the control flow array of the procedure descriptor.
-	 */
-	prTooManyOutFlows = 12,
-	/**
-	 * A choice pseudo-state is added to a procedure with less than 2 out-going control flows.
-	 */
-	prIllNOfOutFlows = 13,
-	/**
-	 * A control flow from a certain source is added
-	 * to a procedure but there isn't space for it in the control flow array of the
-	 * procedure descriptor.
-	 */
-	prTooManyFlows = 14,
-	/**
-	 * A control flow is added to a SM with a source which has an illegal value.
-	 */
-	prIllFlowSrc = 15,
-	/**
-	 * A configuration error has been detected during the procedure configuration process.
-	 */
-	prConfigErr = 16,
-	/**
-	 * There is an undefined action node in a procedure.
-	 */
-	prNullActNode = 17,
-	/**
-	 * There is an undefined decision node in a procedure.
-	 */
-	prNullDecNode = 18,
-	/**
-	 * There is an undefined control flow in a procedure.
-	 */
-	prNullFlow = 19,
-	/**
-	 * A control flow is added to a procedure with a source (either a state or a source
-	 * choice pseudo-state) which has not yet been defined.
-	 */
-	prUndefinedFlowSrc = 20,
-	/**
-	 * A control flow is added to a procedure with an illegal (out-of-range) action node destination.
-	 */
-	prIllegalADest = 21,
-	/**
-	 * A control flow is added to a procedure with an illegal (out-of-range) decision node destination.
-	 */
-	prIllegalDDest = 22,
-	/**
-	 * The number of actions added to the procedure is smaller than the number of actions declared
-	 * when the procedure descriptor was created.
-	 */
-	prTooFewActions = 23,
-	/**
-	 * The number of guards added to the procedure is smaller than the number of guards declared
-	 * when the procedure descriptor was created.
-	 */
-	prTooFewGuards = 24,
-	/**
-	 * An error was encountered while executing a transition in a procedure (see
-	 * <code>::FwPrExecute</code>).
-	 */
-	prFlowErr = 25,
-	/**
-	 * The overridden action in a derived procedure does not exist.
-	 */
-	prUndefAction = 26,
-	/**
-	 * The overridden guard in a derived procedure does not exist.
-	 */
-	prUndefGuard = 27,
-	/**
-	 * The procedure where an action or a guard is overridden or a procedure is embedded
-	 * is not a derived procedure.
-	 */
-	prNotDerivedPr = 28,
-	/**
-	 * The procedure has an action node which is not a destination of any control flow
-	 */
-	prUnreachableANode = 29,
-	/**
-	 * The procedure has a decision node which is not a destination of any control flow
-	 */
-	prUnreachableDNode = 30
+  /**
+   * Return codes of a function which has completed execution without errors.
+   */
+  prSuccess = 1,
+  /**
+   * A call to <code>malloc</code> has failed (it has returned a NULL pointer).
+   */
+  prOutOfMemory = 2,
+  /**
+   * The number of actions in the base procedure is not the same as in the derived
+   * procedure.
+   */
+  prWrongNOfActions = 3,
+  /**
+   * The number of guards in the base procedure is not the same as in the derived
+   * procedure.
+   */
+  prWrongNOfGuards = 4,
+  /**
+   * An action node is added to a procedure with an illegal (out-of-range) identifier.
+   */
+  prIllActNodeId = 5,
+  /**
+   * An action node is added twice to the same procedure.
+   */
+  prActNodeIdInUse = 6,
+  /**
+   * A decision node is added to a procedure with an illegal (out-of-range) identifier.
+   */
+  prIllDecNodeId = 7,
+  /**
+   * A decision node is added twice to the same procedure.
+   */
+  prDecNodeIdInUse = 8,
+  /**
+   * The number of actions added to the procedure exceeds the number of actions declared
+   * when the procedure descriptor was created.
+   */
+  prTooManyActions = 9,
+  /**
+   * The number of guards added to the procedure exceeds the number of guards declared
+   * when the procedure descriptor was created.
+   */
+  prTooManyGuards = 10,
+  /**
+   * An action node is defined with a null action.
+   */
+  prNullAction = 11,
+  /**
+   * A node is added to a procedure which has more
+   * out-going transitions than fit into the control flow array of the procedure descriptor.
+   */
+  prTooManyOutFlows = 12,
+  /**
+   * A choice pseudo-state is added to a procedure with less than 2 out-going control flows.
+   */
+  prIllNOfOutFlows = 13,
+  /**
+   * A control flow from a certain source is added
+   * to a procedure but there isn't space for it in the control flow array of the
+   * procedure descriptor.
+   */
+  prTooManyFlows = 14,
+  /**
+   * A control flow is added to a SM with a source which has an illegal value.
+   */
+  prIllFlowSrc = 15,
+  /**
+   * A configuration error has been detected during the procedure configuration process.
+   */
+  prConfigErr = 16,
+  /**
+   * There is an undefined action node in a procedure.
+   */
+  prNullActNode = 17,
+  /**
+   * There is an undefined decision node in a procedure.
+   */
+  prNullDecNode = 18,
+  /**
+   * There is an undefined control flow in a procedure.
+   */
+  prNullFlow = 19,
+  /**
+   * A control flow is added to a procedure with a source (either a state or a source
+   * choice pseudo-state) which has not yet been defined.
+   */
+  prUndefinedFlowSrc = 20,
+  /**
+   * A control flow is added to a procedure with an illegal (out-of-range) action node destination.
+   */
+  prIllegalADest = 21,
+  /**
+   * A control flow is added to a procedure with an illegal (out-of-range) decision node destination.
+   */
+  prIllegalDDest = 22,
+  /**
+   * The number of actions added to the procedure is smaller than the number of actions declared
+   * when the procedure descriptor was created.
+   */
+  prTooFewActions = 23,
+  /**
+   * The number of guards added to the procedure is smaller than the number of guards declared
+   * when the procedure descriptor was created.
+   */
+  prTooFewGuards = 24,
+  /**
+   * An error was encountered while executing a transition in a procedure (see
+   * <code>::FwPrExecute</code>).
+   */
+  prFlowErr = 25,
+  /**
+   * The overridden action in a derived procedure does not exist.
+   */
+  prUndefAction = 26,
+  /**
+   * The overridden guard in a derived procedure does not exist.
+   */
+  prUndefGuard = 27,
+  /**
+   * The procedure where an action or a guard is overridden or a procedure is embedded
+   * is not a derived procedure.
+   */
+  prNotDerivedPr = 28,
+  /**
+   * The procedure has an action node which is not a destination of any control flow
+   */
+  prUnreachableANode = 29,
+  /**
+   * The procedure has a decision node which is not a destination of any control flow
+   */
+  prUnreachableDNode = 30
 } FwPrErrCode_t;
 
 #endif /* FWPR_CONSTANTS_H_ */
