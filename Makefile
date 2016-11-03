@@ -267,3 +267,7 @@ style:
 .PHONY: analyse
 analyse:
 	$(MAKE) clean && scan-build -o ./build/analyse $(MAKE) debug
+
+.PHONY: tidy
+tidy:
+	clang-tidy -config="" -system-headers src/* -- > ./build/tidy.log

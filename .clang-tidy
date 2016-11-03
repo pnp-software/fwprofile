@@ -1,0 +1,4 @@
+---
+Checks:          '*,-llvm-header-guard'
+HeaderFilterRegex: '.*'
+AnalyzeTemporaryDtors: false
