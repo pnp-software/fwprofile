@@ -34,21 +34,26 @@ void FwPrInit(FwPrDesc_t prDesc) {
   FwPrCounterS1_t i;
   PrBaseDesc_t*   prBase = prDesc->prBase;
 
-  for (i = 0; i < prBase->nOfANodes; i++)
+  for (i = 0; i < prBase->nOfANodes; i++) {
     prBase->aNodes[i].iFlow = -1;
+  }
 
-  for (i = 0; i < prBase->nOfDNodes; i++)
+  for (i = 0; i < prBase->nOfDNodes; i++) {
     prBase->dNodes[i].outFlowIndex = -1;
+  }
 
-  for (i = 0; i < prBase->nOfFlows; i++)
+  for (i = 0; i < prBase->nOfFlows; i++) {
     prBase->flows[i].iGuard = -1;
+  }
 
-  for (i = 0; i < prDesc->nOfActions; i++)
+  for (i = 0; i < prDesc->nOfActions; i++) {
     prDesc->prActions[i] = NULL;
+  }
 
   prDesc->prGuards[0] = &PrDummyGuard;
-  for (i = 1; i < prDesc->nOfGuards; i++)
+  for (i = 1; i < prDesc->nOfGuards; i++) {
     prDesc->prGuards[i] = NULL;
+  }
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -72,22 +77,24 @@ void FwPrInitDer(FwPrDesc_t prDesc, FwPrDesc_t prDescBase) {
    * the number of actions (nOfActions) is always greater than
    * zero (since all procedures have at least one action node)
    */
-  for (i = 0; i < prDesc->nOfActions; i++)
+  for (i = 0; i < prDesc->nOfActions; i++) {
     prDesc->prActions[i] = prDescBase->prActions[i];
+  }
 
   /* This cycle will always be executed at least once because
    * the number of guards (nOfGuards) is always greater than
    * zero (since all procedures have at least the dummy guard)
    */
-  for (i = 0; i < prDesc->nOfGuards; i++)
+  for (i = 0; i < prDesc->nOfGuards; i++) {
     prDesc->prGuards[i] = prDescBase->prGuards[i];
+  }
 
   prDesc->errCode = prDescBase->errCode;
 
-  prDesc->flowCnt = 0;
-  prDesc->curNode = 0;
+  prDesc->flowCnt     = 0;
+  prDesc->curNode     = 0;
   prDesc->nodeExecCnt = 0;
-  prDesc->prExecCnt = 0;
+  prDesc->prExecCnt   = 0;
 
   return;
 }

@@ -131,7 +131,7 @@ void FwPrAddActionNode(FwPrDesc_t prDesc, FwPrCounterS1_t nodeId, FwPrAction_t a
   /* Initialize newly added state */
   aNode = &(prBase->aNodes[nodeId - 1]);
 
-  aNode->iFlow = prDesc->flowCnt;
+  aNode->iFlow    = prDesc->flowCnt;
   prDesc->flowCnt = (FwPrCounterS1_t)(prDesc->flowCnt + 1);
 
   aNode->iAction = AddAction(prDesc, action);
@@ -173,7 +173,7 @@ void FwPrAddDecisionNode(FwPrDesc_t prDesc, FwPrCounterS1_t nodeId, FwPrCounterS
   dNode = &(prBase->dNodes[nodeId - 1]);
 
   dNode->outFlowIndex = prDesc->flowCnt;
-  prDesc->flowCnt = (FwPrCounterS1_t)(prDesc->flowCnt + nOfOutFlows);
+  prDesc->flowCnt     = (FwPrCounterS1_t)(prDesc->flowCnt + nOfOutFlows);
 
   dNode->nOfOutTrans = nOfOutFlows;
 
@@ -243,7 +243,7 @@ static void AddFlow(FwPrDesc_t prDesc, FwPrCounterS1_t srcId, NodeType_t srcType
       prDesc->errCode = prUndefinedFlowSrc;
       return;
     }
-    baseLoc = prBase->aNodes[srcId - 1].iFlow;
+    baseLoc     = prBase->aNodes[srcId - 1].iFlow;
     nOfOutFlows = 1;
   }
   else if (srcType == decisionNode) {
@@ -259,11 +259,11 @@ static void AddFlow(FwPrDesc_t prDesc, FwPrCounterS1_t srcId, NodeType_t srcType
       prDesc->errCode = prUndefinedFlowSrc;
       return;
     }
-    baseLoc = prBase->dNodes[srcId - 1].outFlowIndex;
+    baseLoc     = prBase->dNodes[srcId - 1].outFlowIndex;
     nOfOutFlows = prBase->dNodes[srcId - 1].nOfOutTrans;
   }
   else { /* Source state is the stopped state */
-    baseLoc = 0;
+    baseLoc     = 0;
     nOfOutFlows = 1;
   }
 
@@ -281,11 +281,12 @@ static void AddFlow(FwPrDesc_t prDesc, FwPrCounterS1_t srcId, NodeType_t srcType
    * Note that the nOfOutFlows is guaranteed to be greater than zero by the way it is
    * initialized in the previous statements in this function. Hence, the loop will be
    * taken at least once. */
-  for (i = 0; i < nOfOutFlows; i++)
+  for (i = 0; i < nOfOutFlows; i++) {
     if (prBase->flows[baseLoc + i].iGuard == -1) {
       loc = (FwPrCounterS1_t)(baseLoc + i);
       break;
     }
+  }
   flow = &(prBase->flows[loc]);
 
   /* Assign control flow destination */
@@ -302,10 +303,12 @@ static FwPrCounterS1_t AddAction(FwPrDesc_t prDesc, FwPrAction_t action) {
   FwPrCounterS1_t i;
 
   for (i = 0; i < prDesc->nOfActions; i++) {
-    if (prDesc->prActions[i] == NULL)
+    if (prDesc->prActions[i] == NULL) {
       break;
-    if (action == prDesc->prActions[i])
+    }
+    if (action == prDesc->prActions[i]) {
       return i;
+    }
   }
 
   if (i < prDesc->nOfActions) {
@@ -321,14 +324,17 @@ static FwPrCounterS1_t AddAction(FwPrDesc_t prDesc, FwPrAction_t action) {
 static FwPrCounterS1_t AddGuard(FwPrDesc_t prDesc, FwPrGuard_t guard) {
   FwPrCounterS1_t i;
 
-  if (guard == NULL)
+  if (guard == NULL) {
     return 0;
+  }
 
   for (i = 1; i < prDesc->nOfGuards; i++) {
-    if (prDesc->prGuards[i] == NULL)
+    if (prDesc->prGuards[i] == NULL) {
       break;
-    if (guard == prDesc->prGuards[i])
+    }
+    if (guard == prDesc->prGuards[i]) {
       return i;
+    }
   }
 
   if (i < prDesc->nOfGuards) {
@@ -348,64 +354,81 @@ FwPrErrCode_t FwPrCheck(FwPrDesc_t prDesc) {
   FwPrBool_t      found;
 
   /* Check that no error occurred during the configuration process */
-  if (prDesc->errCode != prSuccess)
+  if (prDesc->errCode != prSuccess) {
     return prConfigErr;
+  }
 
   /* Check that all action nodes have been defined */
-  for (i = 0; i < prBase->nOfANodes; i++)
-    if (prBase->aNodes[i].iFlow == -1)
+  for (i = 0; i < prBase->nOfANodes; i++) {
+    if (prBase->aNodes[i].iFlow == -1) {
       return prNullActNode;
+    }
+  }
 
   /* Check that all decision nodes have been defined */
-  for (i = 0; i < prBase->nOfDNodes; i++)
-    if (prBase->dNodes[i].outFlowIndex == -1)
+  for (i = 0; i < prBase->nOfDNodes; i++) {
+    if (prBase->dNodes[i].outFlowIndex == -1) {
       return prNullDecNode;
+    }
+  }
 
   /* Check that all control flows have been defined */
-  for (i = 0; i < prBase->nOfFlows; i++)
-    if (prBase->flows[i].iGuard == -1)
+  for (i = 0; i < prBase->nOfFlows; i++) {
+    if (prBase->flows[i].iGuard == -1) {
       return prNullFlow;
+    }
+  }
 
   /* Check that all control flow destinations are legal action nodes or decision nodes */
   for (i = 0; i < prBase->nOfFlows; i++) {
-    if (prBase->flows[i].dest > prBase->nOfANodes)
+    if (prBase->flows[i].dest > prBase->nOfANodes) {
       return prIllegalADest;
-    if (prBase->flows[i].dest < -prBase->nOfDNodes)
+    }
+    if (prBase->flows[i].dest < -prBase->nOfDNodes) {
       return prIllegalDDest;
+    }
   }
 
   /* Check that all actions have been defined */
-  for (i = 0; i < prDesc->nOfActions; i++)
-    if (prDesc->prActions[i] == NULL)
+  for (i = 0; i < prDesc->nOfActions; i++) {
+    if (prDesc->prActions[i] == NULL) {
       return prTooFewActions;
+    }
+  }
 
   /* Check that all guards have been defined */
-  for (i = 0; i < prDesc->nOfGuards; i++)
-    if (prDesc->prGuards[i] == NULL)
+  for (i = 0; i < prDesc->nOfGuards; i++) {
+    if (prDesc->prGuards[i] == NULL) {
       return prTooFewGuards;
+    }
+  }
 
   /* Check that all action nodes are reachable */
   for (i = 1; i <= prBase->nOfANodes; i++) {
     found = 0;
-    for (j = 0; j < prBase->nOfFlows; j++)
+    for (j = 0; j < prBase->nOfFlows; j++) {
       if (prBase->flows[j].dest == i) {
         found = 1;
         break;
       }
-    if (found == 0)
+    }
+    if (found == 0) {
       return prUnreachableANode;
+    }
   }
 
   /* Check that all decision nodes are reachable */
   for (i = 1; i <= prBase->nOfDNodes; i++) {
     found = 0;
-    for (j = 0; j < prBase->nOfFlows; j++)
+    for (j = 0; j < prBase->nOfFlows; j++) {
       if (prBase->flows[j].dest == -i) {
         found = 1;
         break;
       }
-    if (found == 0)
+    }
+    if (found == 0) {
       return prUnreachableDNode;
+    }
   }
 
   return prSuccess;
@@ -420,11 +443,12 @@ void FwPrOverrideAction(FwPrDesc_t prDesc, FwPrAction_t oldAction, FwPrAction_t 
     return;
   }
 
-  for (i = 0; i < prDesc->nOfActions; i++)
+  for (i = 0; i < prDesc->nOfActions; i++) {
     if (prDesc->prActions[i] == oldAction) {
       prDesc->prActions[i] = newAction;
       return;
     }
+  }
 
   prDesc->errCode = prUndefAction;
 }
@@ -438,11 +462,12 @@ void FwPrOverrideGuard(FwPrDesc_t prDesc, FwPrGuard_t oldGuard, FwPrGuard_t newG
     return;
   }
 
-  for (i = 1; i < prDesc->nOfGuards; i++)
+  for (i = 1; i < prDesc->nOfGuards; i++) {
     if (prDesc->prGuards[i] == oldGuard) {
       prDesc->prGuards[i] = newGuard;
       return;
     }
+  }
 
   prDesc->errCode = prUndefGuard;
 }

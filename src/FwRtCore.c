@@ -58,14 +58,14 @@ void FwRtStart(FwRtDesc_t rtDesc) {
 
   if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtMutexLockErr;
+    rtDesc->state   = rtMutexLockErr;
     return;
   }
 
   if (rtDesc->state != rtContStopped) {
     if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
       rtDesc->errCode = errCode;
-      rtDesc->state = rtMutexUnlockErr;
+      rtDesc->state   = rtMutexUnlockErr;
       return;
     }
     return;
@@ -83,19 +83,19 @@ void FwRtStart(FwRtDesc_t rtDesc) {
   rtDesc->initializeActivPr(rtDesc);
   rtDesc->setUpNotification(rtDesc);
 
-  rtDesc->state = rtContStarted;
+  rtDesc->state        = rtContStarted;
   rtDesc->notifCounter = 0;
 
   /* Create thread */
   if ((errCode = pthread_create(&(rtDesc->activationThread), rtDesc->pThreadAttr, ExecActivThread, rtDesc)) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtThreadCreateErr;
+    rtDesc->state   = rtThreadCreateErr;
     return;
   }
 
   if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtMutexUnlockErr;
+    rtDesc->state   = rtMutexUnlockErr;
     return;
   }
 
@@ -108,14 +108,14 @@ void FwRtStop(FwRtDesc_t rtDesc) {
 
   if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtMutexLockErr;
+    rtDesc->state   = rtMutexLockErr;
     return;
   }
 
   if (rtDesc->state != rtContStarted) {
     if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
       rtDesc->errCode = errCode;
-      rtDesc->state = rtMutexUnlockErr;
+      rtDesc->state   = rtMutexUnlockErr;
       return;
     }
     return;
@@ -129,13 +129,13 @@ void FwRtStop(FwRtDesc_t rtDesc) {
 
   if ((errCode = pthread_cond_signal(&(rtDesc->cond))) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtCondSignalErr;
+    rtDesc->state   = rtCondSignalErr;
     return;
   }
 
   if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtMutexUnlockErr;
+    rtDesc->state   = rtMutexUnlockErr;
     return;
   }
 
@@ -148,13 +148,13 @@ void FwRtNotify(FwRtDesc_t rtDesc) {
 
   if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtMutexLockErr;
+    rtDesc->state   = rtMutexLockErr;
     return;
   }
   ExecNotifProcedure(rtDesc);
   if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtMutexUnlockErr;
+    rtDesc->state   = rtMutexUnlockErr;
     return;
   }
 }
@@ -166,7 +166,7 @@ void FwRtWaitForTermination(FwRtDesc_t rtDesc) {
 
   if ((errCode = pthread_join(rtDesc->activationThread, &status)) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtJoinErr;
+    rtDesc->state   = rtJoinErr;
     return;
   }
 }
@@ -200,8 +200,9 @@ FwRtCounterU2_t FwRtGetNotifCounter(FwRtDesc_t rtDesc) {
 void ExecNotifProcedure(FwRtDesc_t rtDesc) {
   int errCode;
 
-  if (rtDesc->notifPrStarted == 0)
+  if (rtDesc->notifPrStarted == 0) {
     return;
+  }
 
   if (rtDesc->activPrStarted == 0) {
     rtDesc->finalizeNotifPr(rtDesc);
@@ -213,7 +214,7 @@ void ExecNotifProcedure(FwRtDesc_t rtDesc) {
     rtDesc->notifCounter++;
     if ((errCode = pthread_cond_signal(&(rtDesc->cond))) != 0) {
       rtDesc->errCode = errCode;
-      rtDesc->state = rtCondSignalErr;
+      rtDesc->state   = rtCondSignalErr;
       return;
     }
   }
@@ -249,20 +250,20 @@ void* ExecActivThread(void* ptr) {
   while (1) {
     if ((errCode = pthread_mutex_lock(&(rtDesc->mutex))) != 0) {
       rtDesc->errCode = errCode;
-      rtDesc->state = rtMutexLockErr;
+      rtDesc->state   = rtMutexLockErr;
       return NULL;
     }
     while (rtDesc->notifCounter == 0) {
       if ((errCode = pthread_cond_wait(&(rtDesc->cond), &(rtDesc->mutex))) != 0) {
         rtDesc->errCode = errCode;
-        rtDesc->state = rtCondWaitErr;
+        rtDesc->state   = rtCondWaitErr;
         return NULL;
       }
     }
     rtDesc->notifCounter--;
     if ((errCode = pthread_mutex_unlock(&(rtDesc->mutex))) != 0) {
       rtDesc->errCode = errCode;
-      rtDesc->state = rtMutexUnlockErr;
+      rtDesc->state   = rtMutexUnlockErr;
       return NULL;
     }
 

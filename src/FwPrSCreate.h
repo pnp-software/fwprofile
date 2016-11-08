@@ -108,15 +108,15 @@
  * @param NG a non-negative integer representing the number of guards (i.e. the
  * number of transition actions which are defined on the procedure)
  */
-#define FW_PR_INST(PR_DESC, N, NDEC, NFLOWS, NA, NG)                                                                   \
-  static PrANode_t    PR_DESC##_aNodes[(N)];                                                                           \
-  static PrDNode_t    PR_DESC##_dNodes[(NDEC)];                                                                        \
-  static PrFlow_t     PR_DESC##_flows[(NFLOWS)];                                                                       \
-  static FwPrAction_t PR_DESC##_actions[(NA)];                                                                         \
-  static FwPrGuard_t  PR_DESC##_guards[(NG) + 1];                                                                      \
-  static PrBaseDesc_t PR_DESC##_base = {(PR_DESC##_aNodes), (PR_DESC##_dNodes), (PR_DESC##_flows), N, NDEC, NFLOWS};   \
-  static struct FwPrDesc(PR_DESC) = {                                                                                  \
-      &(PR_DESC##_base), (PR_DESC##_actions), (PR_DESC##_guards), NA, NG + 1, 1, 0, prSuccess, 0, 0, NULL};
+#define FW_PR_INST(PR_DESC, N, NDEC, NFLOWS, NA, NG)                                                                 \
+  static PrANode_t    PR_DESC##_aNodes[(N)];                                                                         \
+  static PrDNode_t    PR_DESC##_dNodes[(NDEC)];                                                                      \
+  static PrFlow_t     PR_DESC##_flows[(NFLOWS)];                                                                     \
+  static FwPrAction_t PR_DESC##_actions[(NA)];                                                                       \
+  static FwPrGuard_t  PR_DESC##_guards[(NG) + 1];                                                                    \
+  static PrBaseDesc_t PR_DESC##_base = {(PR_DESC##_aNodes), (PR_DESC##_dNodes), (PR_DESC##_flows), N, NDEC, NFLOWS}; \
+  static struct FwPrDesc(PR_DESC)    = {                                                                             \
+      &(PR_DESC##_base), (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, prSuccess, 0, 0, NULL};
 
 /**
  * Instantiate a procedure descriptor and its internal data structure.
@@ -159,14 +159,14 @@
  * @param NG a non-negative integer representing the number of guards (i.e. the
  * number of transition actions which are defined on the procedure)
  */
-#define FW_PR_INST_NODEC(PR_DESC, N, NFLOWS, NA, NG)                                                                   \
-  static PrANode_t    PR_DESC##_aNodes[(N)];                                                                           \
-  static PrFlow_t     PR_DESC##_flows[(NFLOWS)];                                                                       \
-  static FwPrAction_t PR_DESC##_actions[(NA)];                                                                         \
-  static FwPrGuard_t  PR_DESC##_guards[(NG) + 1];                                                                      \
-  static PrBaseDesc_t PR_DESC##_base = {(PR_DESC##_aNodes), NULL, (PR_DESC##_flows), N, 0, NFLOWS};                    \
-  static struct FwPrDesc(PR_DESC) = {                                                                                  \
-      &(PR_DESC##_base), (PR_DESC##_actions), (PR_DESC##_guards), NA, NG + 1, 1, 0, prSuccess, 0, 0, NULL};
+#define FW_PR_INST_NODEC(PR_DESC, N, NFLOWS, NA, NG)                                                \
+  static PrANode_t    PR_DESC##_aNodes[(N)];                                                        \
+  static PrFlow_t     PR_DESC##_flows[(NFLOWS)];                                                    \
+  static FwPrAction_t PR_DESC##_actions[(NA)];                                                      \
+  static FwPrGuard_t  PR_DESC##_guards[(NG) + 1];                                                   \
+  static PrBaseDesc_t PR_DESC##_base = {(PR_DESC##_aNodes), NULL, (PR_DESC##_flows), N, 0, NFLOWS}; \
+  static struct FwPrDesc(PR_DESC)    = {                                                            \
+      &(PR_DESC##_base), (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, prSuccess, 0, 0, NULL};
 
 /**
  * Instantiate a descriptor for a derived procedure.
@@ -203,11 +203,11 @@
  * @param NA a non-negative integer representing the number of actions
  * @param NG a non-negative integer representing the number of guards
  */
-#define FW_PR_INST_DER(PR_DESC, NA, NG)                                                                                \
-  static FwPrAction_t PR_DESC##_actions[(NA)];                                                                         \
-  static FwPrGuard_t  PR_DESC##_guards[(NG) + 1];                                                                      \
-  static struct FwPrDesc(PR_DESC) = {NULL, (PR_DESC##_actions), (PR_DESC##_guards), NA, NG + 1, 1, 0, prSuccess, 0, 0, \
-                                     NULL};
+#define FW_PR_INST_DER(PR_DESC, NA, NG)           \
+  static FwPrAction_t PR_DESC##_actions[(NA)];    \
+  static FwPrGuard_t  PR_DESC##_guards[(NG) + 1]; \
+  static struct FwPrDesc(PR_DESC) = {             \
+      NULL, (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, prSuccess, 0, 0, NULL};
 
 /**
  * Initialize a procedure descriptor to represent an unconfigured procedure

@@ -36,40 +36,51 @@ FwSmDesc_t FwSmCreate(FwSmCounterS1_t nOfStates, FwSmCounterS1_t nOfChoicePseudo
   SmBaseDesc_t*   smBase;
   FwSmDesc_t      smDesc;
 
-  if (nOfTrans < 1)
+  if (nOfTrans < 1) {
     return NULL;
+  }
 
-  if (nOfStates < 0)
+  if (nOfStates < 0) {
     return NULL;
+  }
 
-  if (nOfChoicePseudoStates < 0)
+  if (nOfChoicePseudoStates < 0) {
     return NULL;
+  }
 
-  if (nOfActions < 0)
+  if (nOfActions < 0) {
     return NULL;
+  }
 
-  if (nOfGuards < 0)
+  if (nOfGuards < 0) {
     return NULL;
+  }
 
   smDesc = (FwSmDesc_t)malloc(sizeof(struct FwSmDesc));
-  if (smDesc == NULL)
+  if (smDesc == NULL) {
     return NULL;
+  }
 
   smBase = (SmBaseDesc_t*)malloc(sizeof(SmBaseDesc_t));
-  if (smBase == NULL)
+  if (smBase == NULL) {
     return NULL;
+  }
 
   if (nOfStates > 0) {
     smBase->pStates = (SmPState_t*)malloc(((FwSmCounterU4_t)(nOfStates)) * sizeof(SmPState_t));
-    if (smBase->pStates == NULL)
+    if (smBase->pStates == NULL) {
       return NULL;
-    for (i = 0; i < nOfStates; i++)
+    }
+    for (i = 0; i < nOfStates; i++) {
       smBase->pStates[i].outTransIndex = 0;
+    }
     smDesc->esmDesc = (struct FwSmDesc**)malloc(((FwSmCounterU4_t)(nOfStates)) * sizeof(FwSmDesc_t));
-    if (smDesc->esmDesc == NULL)
+    if (smDesc->esmDesc == NULL) {
       return NULL;
-    for (i = 0; i < nOfStates; i++)
+    }
+    for (i = 0; i < nOfStates; i++) {
       smDesc->esmDesc[i] = NULL;
+    }
   }
   else {
     smBase->pStates = NULL;
@@ -78,46 +89,55 @@ FwSmDesc_t FwSmCreate(FwSmCounterS1_t nOfStates, FwSmCounterS1_t nOfChoicePseudo
 
   if (nOfChoicePseudoStates > 0) {
     smBase->cStates = (SmCState_t*)malloc(((FwSmCounterU4_t)(nOfChoicePseudoStates)) * sizeof(SmCState_t));
-    if (smBase->cStates == NULL)
+    if (smBase->cStates == NULL) {
       return NULL;
-    for (i = 0; i < nOfChoicePseudoStates; i++)
+    }
+    for (i = 0; i < nOfChoicePseudoStates; i++) {
       smBase->cStates[i].outTransIndex = 0;
+    }
   }
-  else
+  else {
     smBase->cStates = NULL;
+  }
 
   smBase->trans = (SmTrans_t*)malloc(((FwSmCounterU4_t)(nOfTrans)) * sizeof(SmTrans_t));
-  if (smBase->trans == NULL)
+  if (smBase->trans == NULL) {
     return NULL;
-  for (i = 0; i < nOfTrans; i++)
+  }
+  for (i = 0; i < nOfTrans; i++) {
     smBase->trans[i].iTrAction = -1;
+  }
 
   smDesc->smActions = (FwSmAction_t*)malloc(((FwSmCounterU4_t)(nOfActions + 1)) * sizeof(FwSmAction_t));
-  if (smDesc->smActions == NULL)
+  if (smDesc->smActions == NULL) {
     return NULL;
+  }
   smDesc->smActions[0] = &SmDummyAction;
-  for (i = 1; i <= nOfActions; i++)
+  for (i = 1; i <= nOfActions; i++) {
     smDesc->smActions[i] = NULL;
+  }
 
   smDesc->smGuards = (FwSmGuard_t*)malloc(((FwSmCounterU4_t)(nOfGuards + 1)) * sizeof(FwSmGuard_t));
-  if (smDesc->smGuards == NULL)
+  if (smDesc->smGuards == NULL) {
     return NULL;
+  }
   smDesc->smGuards[0] = &SmDummyGuard;
-  for (i = 1; i <= nOfGuards; i++)
+  for (i = 1; i <= nOfGuards; i++) {
     smDesc->smGuards[i] = NULL;
+  }
 
-  smBase->nOfCStates = nOfChoicePseudoStates;
-  smBase->nOfPStates = nOfStates;
-  smBase->nOfTrans = nOfTrans;
-  smDesc->smBase = smBase;
-  smDesc->curState = 0;
-  smDesc->smData = NULL;
-  smDesc->transCnt = 1;
-  smDesc->nOfActions = (FwSmCounterS1_t)(nOfActions + 1);
-  smDesc->nOfGuards = (FwSmCounterS1_t)(nOfGuards + 1);
-  smDesc->smExecCnt = 0;
+  smBase->nOfCStates   = nOfChoicePseudoStates;
+  smBase->nOfPStates   = nOfStates;
+  smBase->nOfTrans     = nOfTrans;
+  smDesc->smBase       = smBase;
+  smDesc->curState     = 0;
+  smDesc->smData       = NULL;
+  smDesc->transCnt     = 1;
+  smDesc->nOfActions   = (FwSmCounterS1_t)(nOfActions + 1);
+  smDesc->nOfGuards    = (FwSmCounterS1_t)(nOfGuards + 1);
+  smDesc->smExecCnt    = 0;
   smDesc->stateExecCnt = 0;
-  smDesc->errCode = smSuccess;
+  smDesc->errCode      = smSuccess;
 
   return smDesc;
 }
@@ -130,47 +150,57 @@ FwSmDesc_t FwSmCreateDer(FwSmDesc_t smDesc) {
 
   /* Create descriptor for derived SM */
   extSmDesc = (FwSmDesc_t)malloc(sizeof(struct FwSmDesc));
-  if (extSmDesc == NULL)
+  if (extSmDesc == NULL) {
     return NULL;
+  }
 
   /* Create array of embedded state machines in the derived SM */
   if (smBase->nOfPStates > 0) {
     extSmDesc->esmDesc = (struct FwSmDesc**)malloc(((FwSmCounterU4_t)(smBase->nOfPStates)) * sizeof(FwSmDesc_t));
-    if (extSmDesc->esmDesc == NULL)
+    if (extSmDesc->esmDesc == NULL) {
       return NULL;
+    }
   }
-  else
+  else {
     extSmDesc->esmDesc = NULL;
+  }
 
   /* Create array of actions in the derived SM */
   extSmDesc->smActions = (FwSmAction_t*)malloc(((FwSmCounterU4_t)(smDesc->nOfActions)) * sizeof(FwSmAction_t));
-  if (extSmDesc->smActions == NULL)
+  if (extSmDesc->smActions == NULL) {
     return NULL;
-  for (i = 0; i < smDesc->nOfActions; i++)
+  }
+  for (i = 0; i < smDesc->nOfActions; i++) {
     extSmDesc->smActions[i] = smDesc->smActions[i];
+  }
 
   /* Create array of guards in the derived SM */
   extSmDesc->smGuards = (FwSmGuard_t*)malloc(((FwSmCounterU4_t)(smDesc->nOfGuards)) * sizeof(FwSmGuard_t));
-  if (extSmDesc->smGuards == NULL)
+  if (extSmDesc->smGuards == NULL) {
     return NULL;
-  for (i = 0; i < smDesc->nOfGuards; i++)
+  }
+  for (i = 0; i < smDesc->nOfGuards; i++) {
     extSmDesc->smGuards[i] = smDesc->smGuards[i];
+  }
 
   /* Create embedded state machines */
-  for (i = 0; i < smBase->nOfPStates; i++)
-    if (smDesc->esmDesc[i] != NULL)
+  for (i = 0; i < smBase->nOfPStates; i++) {
+    if (smDesc->esmDesc[i] != NULL) {
       extSmDesc->esmDesc[i] = FwSmCreateDer(smDesc->esmDesc[i]);
-    else
+    }
+    else {
       extSmDesc->esmDesc[i] = NULL;
+    }
+  }
 
-  extSmDesc->smBase = smBase;
-  extSmDesc->curState = 0;
-  extSmDesc->smData = NULL;
-  extSmDesc->transCnt = 0;
-  extSmDesc->nOfActions = smDesc->nOfActions;
-  extSmDesc->nOfGuards = smDesc->nOfGuards;
-  extSmDesc->errCode = smDesc->errCode;
-  extSmDesc->smExecCnt = 0;
+  extSmDesc->smBase       = smBase;
+  extSmDesc->curState     = 0;
+  extSmDesc->smData       = NULL;
+  extSmDesc->transCnt     = 0;
+  extSmDesc->nOfActions   = smDesc->nOfActions;
+  extSmDesc->nOfGuards    = smDesc->nOfGuards;
+  extSmDesc->errCode      = smDesc->errCode;
+  extSmDesc->smExecCnt    = 0;
   extSmDesc->stateExecCnt = 0;
 
   return extSmDesc;
@@ -182,11 +212,8 @@ void FwSmRelease(FwSmDesc_t smDesc) {
 
   /* Release memory allocated to base descriptor */
   smBase = smDesc->smBase;
-  if (smBase->pStates != NULL)
-    free(smBase->pStates);
-
-  if (smBase->cStates != NULL)
-    free(smBase->cStates);
+  free(smBase->pStates);
+  free(smBase->cStates);
 
   /* Release pointer to transition array (note that the transition array is guaranteed to exist and to
    * have at least one element, see operation FwSmCreate) */
@@ -208,9 +235,7 @@ void FwSmReleaseDer(FwSmDesc_t smDesc) {
    * have non-zero length) */
   free(smDesc->smActions);
   free(smDesc->smGuards);
-
-  if (smDesc->esmDesc != NULL)
-    free(smDesc->esmDesc);
+  free(smDesc->esmDesc);
 
   /* Release pointer to state machine descriptor */
   free(smDesc);
@@ -224,9 +249,11 @@ void FwSmReleaseRec(FwSmDesc_t smDesc) {
   FwSmCounterS1_t i;
 
   /* Release memory used by the embedded state machines */
-  for (i = 0; i < smDesc->smBase->nOfPStates; i++)
-    if (smDesc->esmDesc[i] != NULL)
+  for (i = 0; i < smDesc->smBase->nOfPStates; i++) {
+    if (smDesc->esmDesc[i] != NULL) {
       FwSmReleaseRec(smDesc->esmDesc[i]);
+    }
+  }
 
   /* Release memory used by the embedding state machine */
   FwSmRelease(smDesc);

@@ -38,23 +38,23 @@
 FwRtOutcome_t DummyAction(FwRtDesc_t rtDesc);
 
 void FwRtReset(FwRtDesc_t rtDesc) {
-  rtDesc->state = rtContUninitialized;
-  rtDesc->activPrStarted = 0;
-  rtDesc->notifPrStarted = 0;
-  rtDesc->errCode = 0;
-  rtDesc->execFuncBehaviour = &DummyAction;
-  rtDesc->finalizeActivPr = &DummyAction;
-  rtDesc->finalizeNotifPr = &DummyAction;
+  rtDesc->state               = rtContUninitialized;
+  rtDesc->activPrStarted      = 0;
+  rtDesc->notifPrStarted      = 0;
+  rtDesc->errCode             = 0;
+  rtDesc->execFuncBehaviour   = &DummyAction;
+  rtDesc->finalizeActivPr     = &DummyAction;
+  rtDesc->finalizeNotifPr     = &DummyAction;
   rtDesc->implementActivLogic = &DummyAction;
   rtDesc->implementNotifLogic = &DummyAction;
-  rtDesc->initializeActivPr = &DummyAction;
-  rtDesc->initializeNotifPr = &DummyAction;
-  rtDesc->setUpNotification = &DummyAction;
-  rtDesc->notifCounter = 0;
-  rtDesc->pThreadAttr = NULL;
-  rtDesc->pCondAttr = NULL;
-  rtDesc->pMutexAttr = NULL;
-  rtDesc->rtData = NULL;
+  rtDesc->initializeActivPr   = &DummyAction;
+  rtDesc->initializeNotifPr   = &DummyAction;
+  rtDesc->setUpNotification   = &DummyAction;
+  rtDesc->notifCounter        = 0;
+  rtDesc->pThreadAttr         = NULL;
+  rtDesc->pCondAttr           = NULL;
+  rtDesc->pMutexAttr          = NULL;
+  rtDesc->rtData              = NULL;
 }
 
 /*--------------------------------------------------------------------------------------*/
@@ -67,40 +67,43 @@ void FwRtInit(FwRtDesc_t rtDesc) {
   }
 
   /* Initialize mutex attributes */
-  if (rtDesc->pMutexAttr != NULL)
+  if (rtDesc->pMutexAttr != NULL) {
     if ((errCode = pthread_mutexattr_init(rtDesc->pMutexAttr)) != 0) {
       rtDesc->errCode = errCode;
-      rtDesc->state = rtMutexAttrInitErr;
+      rtDesc->state   = rtMutexAttrInitErr;
       return;
     }
+  }
 
   /* Initialize condition variable attributes */
-  if (rtDesc->pCondAttr != NULL)
+  if (rtDesc->pCondAttr != NULL) {
     if ((errCode = pthread_condattr_init(rtDesc->pCondAttr)) != 0) {
       rtDesc->errCode = errCode;
-      rtDesc->state = rtCondAttrInitErr;
+      rtDesc->state   = rtCondAttrInitErr;
       return;
     }
+  }
 
   /* Initialize thread attributes */
-  if (rtDesc->pThreadAttr != NULL)
+  if (rtDesc->pThreadAttr != NULL) {
     if ((errCode = pthread_attr_init(rtDesc->pThreadAttr)) != 0) {
       rtDesc->errCode = errCode;
-      rtDesc->state = rtThreadAttrInitErr;
+      rtDesc->state   = rtThreadAttrInitErr;
       return;
     }
+  }
 
   /* Initialize mutex */
   if ((errCode = pthread_mutex_init(&(rtDesc->mutex), rtDesc->pMutexAttr)) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtMutexInitErr;
+    rtDesc->state   = rtMutexInitErr;
     return;
   }
 
   /* Initialize condition variable */
   if ((errCode = pthread_cond_init(&(rtDesc->cond), rtDesc->pCondAttr)) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtCondInitErr;
+    rtDesc->state   = rtCondInitErr;
     return;
   }
 
@@ -112,38 +115,41 @@ void FwRtShutdown(FwRtDesc_t rtDesc) {
   int errCode;
 
   /* Destroy mutex attributes */
-  if (rtDesc->pMutexAttr != NULL)
+  if (rtDesc->pMutexAttr != NULL) {
     if ((errCode = pthread_mutexattr_destroy(rtDesc->pMutexAttr)) != 0) {
       rtDesc->errCode = errCode;
-      rtDesc->state = rtMutexAttrDestroyErr;
+      rtDesc->state   = rtMutexAttrDestroyErr;
       return;
     }
+  }
 
   /* Destroy condition variable attributes */
-  if (rtDesc->pCondAttr != NULL)
+  if (rtDesc->pCondAttr != NULL) {
     if ((errCode = pthread_condattr_destroy(rtDesc->pCondAttr)) != 0) {
       rtDesc->errCode = errCode;
-      rtDesc->state = rtCondAttrDestroyErr;
+      rtDesc->state   = rtCondAttrDestroyErr;
       return;
     }
+  }
 
   /* Destroy thread attributes */
-  if (rtDesc->pThreadAttr != NULL)
+  if (rtDesc->pThreadAttr != NULL) {
     if ((errCode = pthread_attr_destroy(rtDesc->pThreadAttr)) != 0) {
       rtDesc->errCode = errCode;
-      rtDesc->state = rtThreadAttrDestroyErr;
+      rtDesc->state   = rtThreadAttrDestroyErr;
       return;
     }
+  }
 
   if ((errCode = pthread_cond_destroy(&(rtDesc->cond))) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtCondDestroyErr;
+    rtDesc->state   = rtCondDestroyErr;
     return;
   }
 
   if ((errCode = pthread_mutex_destroy(&(rtDesc->mutex))) != 0) {
     rtDesc->errCode = errCode;
-    rtDesc->state = rtMutexDestroyErr;
+    rtDesc->state   = rtMutexDestroyErr;
     return;
   }
 
@@ -160,8 +166,8 @@ void FwRtSetPosixAttr(FwRtDesc_t rtDesc, pthread_attr_t* pThreadAttr, pthread_mu
   }
 
   rtDesc->pThreadAttr = pThreadAttr;
-  rtDesc->pMutexAttr = pMutexAttr;
-  rtDesc->pCondAttr = pCondAttr;
+  rtDesc->pMutexAttr  = pMutexAttr;
+  rtDesc->pCondAttr   = pCondAttr;
 }
 
 /*--------------------------------------------------------------------------------------*/

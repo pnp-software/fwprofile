@@ -61,11 +61,12 @@ FwSmBool_t SmDummyGuard(FwSmDesc_t smDesc) {
 void FwSmStart(FwSmDesc_t smDesc) {
   SmTrans_t* trans;
 
-  if (smDesc->curState != 0) /* Check if SM is already STARTED */
+  if (smDesc->curState != 0) { /* Check if SM is already STARTED */
     return;
+  }
 
   /* Reset execution counters */
-  smDesc->smExecCnt = 0;
+  smDesc->smExecCnt    = 0;
   smDesc->stateExecCnt = 0;
 
   /* Execution transition into initial state */
@@ -76,17 +77,19 @@ void FwSmStart(FwSmDesc_t smDesc) {
 /* ----------------------------------------------------------------------------------------------------------------- */
 void FwSmStop(FwSmDesc_t smDesc) {
   SmPState_t*     pState;
-  SmBaseDesc_t*   smBase = smDesc->smBase;
+  SmBaseDesc_t*   smBase    = smDesc->smBase;
   FwSmCounterS1_t iCurState = smDesc->curState;
 
   /* check if state machine (SM) is already stopped */
-  if (iCurState == 0)
+  if (iCurState == 0) {
     return;
+  }
 
   pState = &(smBase->pStates[iCurState - 1]); /* get current state */
   /* If the current state (CS) has an embedded SM (ESM), stop it */
-  if (smDesc->esmDesc[iCurState - 1] != NULL)
+  if (smDesc->esmDesc[iCurState - 1] != NULL) {
     FwSmStop(smDesc->esmDesc[iCurState - 1]);
+  }
   /* execute exit action of current state */
   smDesc->smActions[pState->iExitAction](smDesc);
   /* set state of SM to "undefined" */
@@ -103,8 +106,9 @@ void FwSmMakeTrans(FwSmDesc_t smDesc, FwSmCounterU2_t transId) {
   SmBaseDesc_t*   smBase = smDesc->smBase;
 
   /* check if state machine (SM) is started */
-  if (smDesc->curState == 0)
+  if (smDesc->curState == 0) {
     return;
+  }
 
   /* get current state */
   curState = &(smBase->pStates[(smDesc->curState) - 1]);
@@ -118,24 +122,27 @@ void FwSmMakeTrans(FwSmDesc_t smDesc, FwSmCounterU2_t transId) {
 
   /* If there is an embedded SM (ESM), propagate transition trigger to it */
   esmDesc = smDesc->esmDesc[(smDesc->curState) - 1];
-  if (esmDesc != NULL)
+  if (esmDesc != NULL) {
     FwSmMakeTrans(esmDesc, transId);
+  }
 
   /* look for transition from CS matching transition trigger */
   for (i = 0; i < curState->nOfOutTrans; i++) {
     trans = &(smBase->trans[curState->outTransIndex + i]);
     /* check if outgoing transition responds to trigger tr_id */
-    if (trans->id == transId)
+    if (trans->id == transId) {
       /* check if outgoing transition has a true guard */
       if (smDesc->smGuards[trans->iTrGuard](smDesc) != 0) {
         /* If CS has an ESM, stop it before exiting the CS */
-        if (esmDesc != NULL)
+        if (esmDesc != NULL) {
           FwSmStop(esmDesc);
+        }
         /* Execute exit action of CS */
         smDesc->smActions[curState->iExitAction](smDesc);
         ExecTrans(smDesc, trans);
         return;
       }
+    }
   }
   return;
 }
@@ -158,17 +165,19 @@ static void ExecTrans(FwSmDesc_t smDesc, SmTrans_t* trans) {
   smDesc->smActions[trans->iTrAction](smDesc);
 
   if (trans->dest > 0) { /* destination is a proper state */
-    smDesc->curState = trans->dest;
+    smDesc->curState     = trans->dest;
     smDesc->stateExecCnt = 0;
-    pDest = &(smBase->pStates[(trans->dest) - 1]);
+    pDest                = &(smBase->pStates[(trans->dest) - 1]);
     /* execute entry action of destination state */
     smDesc->smActions[pDest->iEntryAction](smDesc);
     esmDesc = smDesc->esmDesc[(trans->dest) - 1];
-    if (esmDesc != NULL)
+    if (esmDesc != NULL) {
       FwSmStart(esmDesc);
+    }
     return;
   }
-  else if (trans->dest < 0) { /* destination is a choice pseudo-state */
+
+  if (trans->dest < 0) { /* destination is a choice pseudo-state */
     cDest = &(smBase->cStates[-(trans->dest) - 1]);
     for (i = 0; i < cDest->nOfOutTrans; i++) {
       cTrans = &(smBase->trans[cDest->outTransIndex + i]);
@@ -176,22 +185,24 @@ static void ExecTrans(FwSmDesc_t smDesc, SmTrans_t* trans) {
         /* Execute transition from choice pseudo-state */
         smDesc->smActions[cTrans->iTrAction](smDesc);
         if (cTrans->dest > 0) { /* destination is a proper state */
-          smDesc->curState = cTrans->dest;
+          smDesc->curState     = cTrans->dest;
           smDesc->stateExecCnt = 0;
-          pDest = &(smBase->pStates[(cTrans->dest) - 1]);
+          pDest                = &(smBase->pStates[(cTrans->dest) - 1]);
           /* execute entry action of destination state */
           smDesc->smActions[pDest->iEntryAction](smDesc);
           esmDesc = smDesc->esmDesc[(cTrans->dest) - 1];
-          if (esmDesc != NULL)
+          if (esmDesc != NULL) {
             FwSmStart(esmDesc);
+          }
           return;
         }
-        else if (cTrans->dest == 0) { /* destination is a final state */
+
+        if (cTrans->dest == 0) { /* destination is a final state */
           smDesc->curState = 0;
           return;
         }
-        else
-          break; /* this point is reached only if there is a transition from a CPS to a CPS */
+
+        break; /* this point is reached only if there is a transition from a CPS to a CPS */
       }
     }
     smDesc->errCode = smTransErr;
@@ -204,10 +215,11 @@ static void ExecTrans(FwSmDesc_t smDesc, SmTrans_t* trans) {
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 FwSmDesc_t FwSmGetEmbSmCur(FwSmDesc_t smDesc) {
-  if (smDesc->curState > 0)
+  if (smDesc->curState > 0) {
     return smDesc->esmDesc[(smDesc->curState) - 1];
-  else
-    return NULL;
+  }
+
+  return NULL;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -222,21 +234,23 @@ FwSmCounterS1_t FwSmGetCurState(FwSmDesc_t smDesc) {
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 FwSmCounterS1_t FwSmGetCurStateEmb(FwSmDesc_t smDesc) {
-  if (smDesc->curState == 0)
+  if (smDesc->curState == 0) {
     return -1;
+  }
 
-  if (smDesc->esmDesc[(smDesc->curState) - 1] != NULL)
+  if (smDesc->esmDesc[(smDesc->curState) - 1] != NULL) {
     return smDesc->esmDesc[(smDesc->curState) - 1]->curState;
+  }
 
   return -1;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 FwSmBool_t FwSmIsStarted(FwSmDesc_t smDesc) {
-  if (smDesc->curState != 0)
+  if (smDesc->curState != 0) {
     return 1;
-  else
-    return 0;
+  }
+  return 0;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */

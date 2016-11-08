@@ -36,83 +36,103 @@ FwPrDesc_t FwPrCreate(FwPrCounterS1_t nOfANodes, FwPrCounterS1_t nOfDNodes, FwPr
   PrBaseDesc_t*   prBase;
   FwPrDesc_t      prDesc;
 
-  if (nOfFlows < 2)
+  if (nOfFlows < 2) {
     return NULL;
+  }
 
-  if (nOfANodes < 1)
+  if (nOfANodes < 1) {
     return NULL;
+  }
 
-  if (nOfDNodes < 0)
+  if (nOfDNodes < 0) {
     return NULL;
+  }
 
-  if (nOfActions < 1)
+  if (nOfActions < 1) {
     return NULL;
+  }
 
-  if (nOfActions > nOfANodes)
+  if (nOfActions > nOfANodes) {
     return NULL;
+  }
 
-  if (nOfGuards < 0)
+  if (nOfGuards < 0) {
     return NULL;
+  }
 
-  if (nOfGuards > nOfFlows)
+  if (nOfGuards > nOfFlows) {
     return NULL;
+  }
 
   prDesc = (FwPrDesc_t)malloc(sizeof(struct FwPrDesc));
-  if (prDesc == NULL)
+  if (prDesc == NULL) {
     return NULL;
+  }
 
   prBase = (PrBaseDesc_t*)malloc(sizeof(PrBaseDesc_t));
-  if (prBase == NULL)
+  if (prBase == NULL) {
     return NULL;
+  }
 
   prBase->aNodes = (PrANode_t*)malloc(((FwPrCounterU4_t)(nOfANodes)) * sizeof(PrANode_t));
-  if (prBase->aNodes == NULL)
+  if (prBase->aNodes == NULL) {
     return NULL;
-  for (i = 0; i < nOfANodes; i++)
+  }
+  for (i = 0; i < nOfANodes; i++) {
     prBase->aNodes[i].iFlow = -1;
+  }
 
   if (nOfDNodes > 0) {
     prBase->dNodes = (PrDNode_t*)malloc(((FwPrCounterU4_t)(nOfDNodes)) * sizeof(PrDNode_t));
-    if (prBase->dNodes == NULL)
+    if (prBase->dNodes == NULL) {
       return NULL;
-    for (i = 0; i < nOfDNodes; i++)
+    }
+    for (i = 0; i < nOfDNodes; i++) {
       prBase->dNodes[i].outFlowIndex = -1;
+    }
   }
-  else
+  else {
     prBase->dNodes = NULL;
+  }
 
   prBase->flows = (PrFlow_t*)malloc(((FwPrCounterU4_t)(nOfFlows)) * sizeof(PrFlow_t));
-  if (prBase->flows == NULL)
+  if (prBase->flows == NULL) {
     return NULL;
-  for (i = 0; i < nOfFlows; i++)
+  }
+  for (i = 0; i < nOfFlows; i++) {
     prBase->flows[i].iGuard = -1;
+  }
 
   prDesc->prActions = (FwPrAction_t*)malloc(((FwPrCounterU4_t)(nOfActions)) * sizeof(FwPrAction_t));
-  if (prDesc->prActions == NULL)
+  if (prDesc->prActions == NULL) {
     return NULL;
-  for (i = 0; i < nOfActions; i++)
+  }
+  for (i = 0; i < nOfActions; i++) {
     prDesc->prActions[i] = NULL;
+  }
 
   prDesc->prGuards = (FwPrGuard_t*)malloc(((FwPrCounterU4_t)(nOfGuards + 1)) * sizeof(FwPrGuard_t));
-  if (prDesc->prGuards == NULL)
+  if (prDesc->prGuards == NULL) {
     return NULL;
+  }
 
-  for (i = 1; i <= nOfGuards; i++)
+  for (i = 1; i <= nOfGuards; i++) {
     prDesc->prGuards[i] = NULL;
+  }
   prDesc->prGuards[0] = &PrDummyGuard;
 
-  prBase->nOfANodes = nOfANodes;
-  prBase->nOfDNodes = nOfDNodes;
-  prBase->nOfFlows = nOfFlows;
-  prDesc->prBase = prBase;
-  prDesc->curNode = 0;
-  prDesc->prData = NULL;
-  prDesc->flowCnt = 1;
-  prDesc->nOfActions = nOfActions;
-  prDesc->nOfGuards = (FwPrCounterS1_t)(nOfGuards + 1);
-  prDesc->errCode = prSuccess;
+  prBase->nOfANodes   = nOfANodes;
+  prBase->nOfDNodes   = nOfDNodes;
+  prBase->nOfFlows    = nOfFlows;
+  prDesc->prBase      = prBase;
+  prDesc->curNode     = 0;
+  prDesc->prData      = NULL;
+  prDesc->flowCnt     = 1;
+  prDesc->nOfActions  = nOfActions;
+  prDesc->nOfGuards   = (FwPrCounterS1_t)(nOfGuards + 1);
+  prDesc->errCode     = prSuccess;
   prDesc->nodeExecCnt = 0;
-  prDesc->prExecCnt = 0;
+  prDesc->prExecCnt   = 0;
 
   return prDesc;
 }
@@ -125,32 +145,37 @@ FwPrDesc_t FwPrCreateDer(FwPrDesc_t prDesc) {
 
   /* Create descriptor for derived SM */
   extPrDesc = (FwPrDesc_t)malloc(sizeof(struct FwPrDesc));
-  if (extPrDesc == NULL)
+  if (extPrDesc == NULL) {
     return NULL;
+  }
 
   /* Create array of actions in the derived SM */
   extPrDesc->prActions = (FwPrAction_t*)malloc(((FwPrCounterU4_t)(prDesc->nOfActions)) * sizeof(FwPrAction_t));
-  if (extPrDesc->prActions == NULL)
+  if (extPrDesc->prActions == NULL) {
     return NULL;
-  for (i = 0; i < prDesc->nOfActions; i++)
+  }
+  for (i = 0; i < prDesc->nOfActions; i++) {
     extPrDesc->prActions[i] = prDesc->prActions[i];
+  }
 
   /* Create array of guards in the derived SM (NB: number of guards is guaranteed to be greater than 0 */
   extPrDesc->prGuards = (FwPrGuard_t*)malloc(((FwPrCounterU4_t)(prDesc->nOfGuards)) * sizeof(FwPrGuard_t));
-  if (extPrDesc->prGuards == NULL)
+  if (extPrDesc->prGuards == NULL) {
     return NULL;
-  for (i = 0; i < prDesc->nOfGuards; i++)
+  }
+  for (i = 0; i < prDesc->nOfGuards; i++) {
     extPrDesc->prGuards[i] = prDesc->prGuards[i];
+  }
 
-  extPrDesc->prBase = prBase;
-  extPrDesc->curNode = 0;
-  extPrDesc->prData = NULL;
-  extPrDesc->flowCnt = 0;
-  extPrDesc->nOfActions = prDesc->nOfActions;
-  extPrDesc->nOfGuards = prDesc->nOfGuards;
-  extPrDesc->errCode = prDesc->errCode;
+  extPrDesc->prBase      = prBase;
+  extPrDesc->curNode     = 0;
+  extPrDesc->prData      = NULL;
+  extPrDesc->flowCnt     = 0;
+  extPrDesc->nOfActions  = prDesc->nOfActions;
+  extPrDesc->nOfGuards   = prDesc->nOfGuards;
+  extPrDesc->errCode     = prDesc->errCode;
   extPrDesc->nodeExecCnt = 0;
-  extPrDesc->prExecCnt = 0;
+  extPrDesc->prExecCnt   = 0;
 
   return extPrDesc;
 }
@@ -168,8 +193,9 @@ void FwPrRelease(FwPrDesc_t prDesc) {
   free(prBase->aNodes);
 
   /* Release memory allocated to decision node array (this may be empty) */
-  if (prBase->dNodes != NULL)
+  if (prBase->dNodes != NULL) {
     free(prBase->dNodes);
+  }
 
   /* Release pointer to transition array (note that the transition array is guaranteed to exist and to
    * have at least one element, see operation FwPrCreate) */

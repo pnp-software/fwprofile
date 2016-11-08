@@ -1,4 +1,4 @@
 ---
-Checks:          '*,-llvm-header-guard'
-HeaderFilterRegex: '.*'
+Checks:          '*,-llvm-header-guard,-clang-analyzer-unix.Malloc'
+HeaderFilterRegex: '*linux-gnu*.*'
 AnalyzeTemporaryDtors: false

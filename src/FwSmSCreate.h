@@ -119,25 +119,25 @@
  * @param NG a non-negative integer representing the number of guards (i.e. the
  * number of transition actions which are defined on the state machine)
  */
-#define FW_SM_INST(SM_DESC, NS, NCPS, NTRANS, NA, NG)                                                                  \
-  static SmPState_t   SM_DESC##_pState[(NS)];                                                                          \
-  static SmCState_t   SM_DESC##_cState[(NCPS)];                                                                        \
-  static SmTrans_t    SM_DESC##_trans[(NTRANS)];                                                                       \
-  static FwSmAction_t SM_DESC##_actions[(NA) + 1];                                                                     \
-  static FwSmGuard_t  SM_DESC##_guards[(NG) + 1];                                                                      \
-  static FwSmDesc_t   SM_DESC##_esm[(NS)];                                                                             \
-  static SmBaseDesc_t SM_DESC##_base = {(SM_DESC##_pState), (SM_DESC##_cState), (SM_DESC##_trans), NS, NCPS, NTRANS};  \
-  static struct FwSmDesc(SM_DESC) = {&(SM_DESC##_base),                                                                \
-                                     (SM_DESC##_actions),                                                              \
-                                     (SM_DESC##_guards),                                                               \
-                                     (SM_DESC##_esm),                                                                  \
-                                     NA + 1,                                                                           \
-                                     NG + 1,                                                                           \
-                                     1,                                                                                \
-                                     0,                                                                                \
-                                     0,                                                                                \
-                                     0,                                                                                \
-                                     smSuccess,                                                                        \
+#define FW_SM_INST(SM_DESC, NS, NCPS, NTRANS, NA, NG)                                                                 \
+  static SmPState_t   SM_DESC##_pState[(NS)];                                                                         \
+  static SmCState_t   SM_DESC##_cState[(NCPS)];                                                                       \
+  static SmTrans_t    SM_DESC##_trans[(NTRANS)];                                                                      \
+  static FwSmAction_t SM_DESC##_actions[(NA) + 1];                                                                    \
+  static FwSmGuard_t  SM_DESC##_guards[(NG) + 1];                                                                     \
+  static FwSmDesc_t   SM_DESC##_esm[(NS)];                                                                            \
+  static SmBaseDesc_t SM_DESC##_base = {(SM_DESC##_pState), (SM_DESC##_cState), (SM_DESC##_trans), NS, NCPS, NTRANS}; \
+  static struct FwSmDesc(SM_DESC)    = {&(SM_DESC##_base),                                                            \
+                                     (SM_DESC##_actions),                                                             \
+                                     (SM_DESC##_guards),                                                              \
+                                     (SM_DESC##_esm),                                                                 \
+                                     (NA) + 1,                                                                        \
+                                     (NG) + 1,                                                                        \
+                                     1,                                                                               \
+                                     0,                                                                               \
+                                     0,                                                                               \
+                                     0,                                                                               \
+                                     smSuccess,                                                                       \
                                      NULL};
 
 /**
@@ -182,24 +182,24 @@
  * @param NG a non-negative integer representing the number of guards (i.e. the
  * number of transition actions which are defined on the state machine)
  */
-#define FW_SM_INST_NOCPS(SM_DESC, NS, NTRANS, NA, NG)                                                                  \
-  static SmPState_t   SM_DESC##_pState[(NS)];                                                                          \
-  static SmTrans_t    SM_DESC##_trans[(NTRANS)];                                                                       \
-  static FwSmAction_t SM_DESC##_actions[(NA) + 1];                                                                     \
-  static FwSmGuard_t  SM_DESC##_guards[(NG) + 1];                                                                      \
-  static FwSmDesc_t   SM_DESC##_esm[(NS)];                                                                             \
-  static SmBaseDesc_t SM_DESC##_base = {(SM_DESC##_pState), NULL, (SM_DESC##_trans), NS, 0, NTRANS};                   \
-  static struct FwSmDesc(SM_DESC) = {&(SM_DESC##_base),                                                                \
-                                     (SM_DESC##_actions),                                                              \
-                                     (SM_DESC##_guards),                                                               \
-                                     (SM_DESC##_esm),                                                                  \
-                                     NA + 1,                                                                           \
-                                     NG + 1,                                                                           \
-                                     1,                                                                                \
-                                     0,                                                                                \
-                                     0,                                                                                \
-                                     0,                                                                                \
-                                     smSuccess,                                                                        \
+#define FW_SM_INST_NOCPS(SM_DESC, NS, NTRANS, NA, NG)                                                \
+  static SmPState_t   SM_DESC##_pState[(NS)];                                                        \
+  static SmTrans_t    SM_DESC##_trans[(NTRANS)];                                                     \
+  static FwSmAction_t SM_DESC##_actions[(NA) + 1];                                                   \
+  static FwSmGuard_t  SM_DESC##_guards[(NG) + 1];                                                    \
+  static FwSmDesc_t   SM_DESC##_esm[(NS)];                                                           \
+  static SmBaseDesc_t SM_DESC##_base = {(SM_DESC##_pState), NULL, (SM_DESC##_trans), NS, 0, NTRANS}; \
+  static struct FwSmDesc(SM_DESC)    = {&(SM_DESC##_base),                                           \
+                                     (SM_DESC##_actions),                                            \
+                                     (SM_DESC##_guards),                                             \
+                                     (SM_DESC##_esm),                                                \
+                                     (NA) + 1,                                                       \
+                                     (NG) + 1,                                                       \
+                                     1,                                                              \
+                                     0,                                                              \
+                                     0,                                                              \
+                                     0,                                                              \
+                                     smSuccess,                                                      \
                                      NULL};
 
 /**
@@ -237,12 +237,14 @@
  * number of transition or state actions which are defined on the state machine)
  * @param NG a non-negative integer representing the number of guards
  */
-#define FW_SM_INST_DER(SM_DESC, NS, NA, NG)                                                                            \
-  static FwSmAction_t SM_DESC##_actions[(NA) + 1];                                                                     \
-  static FwSmGuard_t  SM_DESC##_guards[(NG) + 1];                                                                      \
-  static FwSmDesc_t   SM_DESC##_esm[(NS)];                                                                             \
-  static struct FwSmDesc(SM_DESC) = {                                                                                  \
-      NULL, (SM_DESC##_actions), (SM_DESC##_guards), (SM_DESC##_esm), NA + 1, NG + 1, 1, 0, 0, 0, smSuccess, NULL};
+#define FW_SM_INST_DER(SM_DESC, NS, NA, NG)                                                                          \
+  static FwSmAction_t SM_DESC##_actions[(NA) + 1];                                                                   \
+  static FwSmGuard_t  SM_DESC##_guards[(NG) + 1];                                                                    \
+  static FwSmDesc_t   SM_DESC##_esm[(NS)];                                                                           \
+  static struct FwSmDesc(SM_DESC) =                                                                                  \
+      {                                                                                                              \
+          NULL, (SM_DESC##_actions), (SM_DESC##_guards), (SM_DESC##_esm), (NA) + 1, (NG) + 1, 1, 0, 0, 0, smSuccess, \
+          NULL};
 
 /**
  * Initialize a state machine descriptor to represent an unconfigured state

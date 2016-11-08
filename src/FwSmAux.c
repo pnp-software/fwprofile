@@ -30,13 +30,13 @@
 
 /* ------------------------------------------------------------------------------- */
 void FwSmPrintConfig(FwSmDesc_t smDesc, FILE* stream) {
-  char            prefix[1] = "";
+  char            prefix[1]     = "";
   FwSmCounterS1_t actNOfPStates = 0;
   FwSmCounterS1_t actNOfCStates = 0;
-  FwSmCounterS1_t actNOfTrans = 0;
-  FwSmCounterS1_t actNOfEsm = 0;
+  FwSmCounterS1_t actNOfTrans   = 0;
+  FwSmCounterS1_t actNOfEsm     = 0;
   FwSmCounterS1_t actNOfActions = 0;
-  FwSmCounterS1_t actNOfGuards = 0;
+  FwSmCounterS1_t actNOfGuards  = 0;
   FwSmCounterS1_t i, j, baseLoc;
   SmTrans_t       trans;
 
@@ -45,29 +45,41 @@ void FwSmPrintConfig(FwSmDesc_t smDesc, FILE* stream) {
     return;
   }
 
-  for (i = 0; i < smDesc->smBase->nOfPStates; i++)
-    if (smDesc->smBase->pStates[i].outTransIndex != 0)
+  for (i = 0; i < smDesc->smBase->nOfPStates; i++) {
+    if (smDesc->smBase->pStates[i].outTransIndex != 0) {
       actNOfPStates++;
+    }
+  }
 
-  for (i = 0; i < smDesc->smBase->nOfCStates; i++)
-    if (smDesc->smBase->cStates[i].outTransIndex != 0)
+  for (i = 0; i < smDesc->smBase->nOfCStates; i++) {
+    if (smDesc->smBase->cStates[i].outTransIndex != 0) {
       actNOfCStates++;
+    }
+  }
 
-  for (i = 0; i < smDesc->smBase->nOfTrans; i++)
-    if (smDesc->smBase->trans[i].iTrAction != -1)
+  for (i = 0; i < smDesc->smBase->nOfTrans; i++) {
+    if (smDesc->smBase->trans[i].iTrAction != -1) {
       actNOfTrans++;
+    }
+  }
 
-  for (i = 0; i < smDesc->smBase->nOfPStates; i++)
-    if (smDesc->esmDesc[i] != NULL)
+  for (i = 0; i < smDesc->smBase->nOfPStates; i++) {
+    if (smDesc->esmDesc[i] != NULL) {
       actNOfEsm++;
+    }
+  }
 
-  for (i = 0; i < smDesc->nOfActions; i++)
-    if (smDesc->smActions[i] != NULL)
+  for (i = 0; i < smDesc->nOfActions; i++) {
+    if (smDesc->smActions[i] != NULL) {
       actNOfActions++;
+    }
+  }
 
-  for (i = 0; i < smDesc->nOfGuards; i++)
-    if (smDesc->smGuards[i] != NULL)
+  for (i = 0; i < smDesc->nOfGuards; i++) {
+    if (smDesc->smGuards[i] != NULL) {
       actNOfGuards++;
+    }
+  }
 
   fprintf(stream, "\n");
   fprintf(stream, "%sSTATE MACHINE SIZE\n", prefix);
@@ -91,31 +103,39 @@ void FwSmPrintConfig(FwSmDesc_t smDesc, FILE* stream) {
   fprintf(stream, "%sNumber of configured actions             : %d\n", prefix, actNOfActions - 1);
   fprintf(stream, "%sNumber of configured guards              : %d\n", prefix, actNOfGuards - 1);
   fprintf(stream, "%sNumber of embedded state machines        : %d\n", prefix, actNOfEsm);
-  if (FwSmIsStarted(smDesc) == 0)
+  if (FwSmIsStarted(smDesc) == 0) {
     fprintf(stream, "%sCurrent state machine state is           : STOPPED\n", prefix);
-  else
+  }
+  else {
     fprintf(stream, "%sState machine is STARTED and is in state : %d\n", prefix, FwSmGetCurState(smDesc));
+  }
   fprintf(stream, "\n");
 
   fprintf(stream, "%sCONFIGURATION OF INITIAL PSEUDO STATE\n", prefix);
   fprintf(stream, "%s-------------------------------------\n", prefix);
 
-  if (smDesc->smBase->trans[0].iTrAction == -1)
+  if (smDesc->smBase->trans[0].iTrAction == -1) {
     fprintf(stream, "%sThe transition from the initial pseudo-state is not defined\n", prefix);
+  }
   else {
-    if (smDesc->smBase->trans[0].dest > 0)
+    if (smDesc->smBase->trans[0].dest > 0) {
       fprintf(stream, "%sThe transition from the initial pseudo state is to state n. %d\n", prefix,
               smDesc->smBase->trans[0].dest);
-    else if (smDesc->smBase->trans[0].dest < 0)
+    }
+    else if (smDesc->smBase->trans[0].dest < 0) {
       fprintf(stream, "%sThe transition from the initial pseudo state is to choice pseudo-state n. %d\n", prefix,
               -smDesc->smBase->trans[0].dest);
-    else
+    }
+    else {
       fprintf(stream, "%sThe transition from the initial pseudo state is to the final pseudo-state.\n", prefix);
+    }
 
-    if (smDesc->smBase->trans[0].iTrAction != 0)
+    if (smDesc->smBase->trans[0].iTrAction != 0) {
       fprintf(stream, "\tTransition Action is action n. %d\n", smDesc->smBase->trans[0].iTrAction);
-    else
+    }
+    else {
       fprintf(stream, "\tNo Transition Action\n");
+    }
 
     fprintf(stream, "\tNo Transition Guard\n");
   }
@@ -127,60 +147,79 @@ void FwSmPrintConfig(FwSmDesc_t smDesc, FILE* stream) {
   }
 
   for (i = 0; i < smDesc->smBase->nOfPStates; i++) {
-    if (smDesc->smBase->pStates[i].outTransIndex == 0)
+    if (smDesc->smBase->pStates[i].outTransIndex == 0) {
       fprintf(stream, "%sState %d is not defined\n", prefix, i + 1);
+    }
     else {
       fprintf(stream, "%sState %d:\n", prefix, i + 1);
 
-      if (smDesc->smBase->pStates[i].iEntryAction != 0)
+      if (smDesc->smBase->pStates[i].iEntryAction != 0) {
         fprintf(stream, "\tEntry Action: action n. %d\n", smDesc->smBase->pStates[i].iEntryAction);
-      else
+      }
+      else {
         fprintf(stream, "\tNo entry action\n");
+      }
 
-      if (smDesc->smBase->pStates[i].iDoAction != 0)
+      if (smDesc->smBase->pStates[i].iDoAction != 0) {
         fprintf(stream, "\tDo-Action: action n. %d\n", smDesc->smBase->pStates[i].iDoAction);
-      else
+      }
+      else {
         fprintf(stream, "\tNo do-action\n");
+      }
 
-      if (smDesc->smBase->pStates[i].iExitAction != 0)
+      if (smDesc->smBase->pStates[i].iExitAction != 0) {
         fprintf(stream, "\tExit Action: action n. %d\n", smDesc->smBase->pStates[i].iExitAction);
-      else
+      }
+      else {
         fprintf(stream, "\tNo exit action\n");
+      }
 
-      if (smDesc->esmDesc[i] == NULL)
+      if (smDesc->esmDesc[i] == NULL) {
         fprintf(stream, "\tNo state machine is embedded in this state\n");
-      else
+      }
+      else {
         fprintf(stream, "\tA state machine is embedded in this state\n");
+      }
 
       baseLoc = smDesc->smBase->pStates[i].outTransIndex;
       for (j = baseLoc; j < (baseLoc + smDesc->smBase->pStates[i].nOfOutTrans); j++) {
         trans = smDesc->smBase->trans[j];
         if (trans.id == FW_TR_EXECUTE) {
-          if (trans.dest > 0)
+          if (trans.dest > 0) {
             fprintf(stream, "\t'Execute' transition to state %d\n", trans.dest);
-          else if (trans.dest < 0)
+          }
+          else if (trans.dest < 0) {
             fprintf(stream, "\t'Execute' transition to choice pseudo-state %d\n", -trans.dest);
-          else
+          }
+          else {
             fprintf(stream, "\t'Execute' transition to final pseudo-state\n");
+          }
         }
         else {
-          if (trans.dest > 0)
+          if (trans.dest > 0) {
             fprintf(stream, "\tTransition %d to state %d\n", trans.id, trans.dest);
-          else if (trans.dest < 0)
+          }
+          else if (trans.dest < 0) {
             fprintf(stream, "\tTransition %d to choice pseudo-state %d\n", trans.id, -trans.dest);
-          else
+          }
+          else {
             fprintf(stream, "\tTransition %d to final pseudo-state\n", trans.id);
+          }
         }
 
-        if (trans.iTrAction != 0)
+        if (trans.iTrAction != 0) {
           fprintf(stream, "\t\tTransition Action is action n. %d\n", trans.iTrAction);
-        else
+        }
+        else {
           fprintf(stream, "\t\tNo Transition Action\n");
+        }
 
-        if (trans.iTrGuard != 0)
+        if (trans.iTrGuard != 0) {
           fprintf(stream, "\t\tTransition Guard is guard n. %d\n", trans.iTrGuard);
-        else
+        }
+        else {
           fprintf(stream, "\t\tNo Transition Guard\n");
+        }
       }
     }
   }
@@ -192,30 +231,38 @@ void FwSmPrintConfig(FwSmDesc_t smDesc, FILE* stream) {
   }
 
   for (i = 0; i < smDesc->smBase->nOfCStates; i++) {
-    if (smDesc->smBase->cStates[i].outTransIndex == 0)
+    if (smDesc->smBase->cStates[i].outTransIndex == 0) {
       fprintf(stream, "%sChoice Pseudo-State %d is not defined\n", prefix, i + 1);
+    }
     else {
       fprintf(stream, "%sChoice Pseudo-State %d:\n", prefix, i + 1);
 
       baseLoc = smDesc->smBase->cStates[i].outTransIndex;
       for (j = baseLoc; j < (baseLoc + smDesc->smBase->cStates[i].nOfOutTrans); j++) {
-        if (smDesc->smBase->trans[j].dest > 0)
+        if (smDesc->smBase->trans[j].dest > 0) {
           fprintf(stream, "\tTransition to state %d\n", smDesc->smBase->trans[j].dest);
-        else if (smDesc->smBase->trans[j].dest < 0)
+        }
+        else if (smDesc->smBase->trans[j].dest < 0) {
           fprintf(stream, "\tTransition to choice pseudo-state %d (this is an illegal transition)\n",
                   -smDesc->smBase->trans[j].dest);
-        else
+        }
+        else {
           fprintf(stream, "\tTransition to final pseudo-state\n");
+        }
 
-        if (smDesc->smBase->trans[j].iTrAction != 0)
+        if (smDesc->smBase->trans[j].iTrAction != 0) {
           fprintf(stream, "\t\tTransition Action: action n. %d\n", smDesc->smBase->trans[j].iTrAction);
-        else
+        }
+        else {
           fprintf(stream, "\t\tNo Transition Action\n");
+        }
 
-        if (smDesc->smBase->trans[j].iTrGuard != 0)
+        if (smDesc->smBase->trans[j].iTrGuard != 0) {
           fprintf(stream, "\t\tTransition Guard: guard n. %d\n", smDesc->smBase->trans[j].iTrGuard);
-        else
+        }
+        else {
           fprintf(stream, "\t\tNo Transition Guard\n");
+        }
       }
     }
   }
@@ -230,8 +277,9 @@ void FwSmPrintConfigRec(FwSmDesc_t smDesc, FILE* stream) {
 
   for (i = 1; i <= smDesc->smBase->nOfPStates; ++i) {
     embDesc = FwSmGetEmbSm(smDesc, i);
-    if (NULL != embDesc)
+    if (NULL != embDesc) {
       FwSmPrintConfigRec(embDesc, stream);
+    }
   }
 }
 

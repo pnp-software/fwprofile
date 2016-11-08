@@ -133,14 +133,14 @@ void FwSmAddState(FwSmDesc_t smDesc, FwSmCounterS1_t stateId, FwSmCounterS1_t nO
   pState = &(smBase->pStates[stateId - 1]);
 
   pState->outTransIndex = smDesc->transCnt;
-  smDesc->transCnt = (FwSmCounterS1_t)(smDesc->transCnt + nOfOutTrans);
+  smDesc->transCnt      = (FwSmCounterS1_t)(smDesc->transCnt + nOfOutTrans);
 
-  pState->iDoAction = AddAction(smDesc, doAction);
+  pState->iDoAction    = AddAction(smDesc, doAction);
   pState->iEntryAction = AddAction(smDesc, entryAction);
-  pState->iExitAction = AddAction(smDesc, exitAction);
+  pState->iExitAction  = AddAction(smDesc, exitAction);
 
   smDesc->esmDesc[stateId - 1] = esmDesc;
-  pState->nOfOutTrans = nOfOutTrans;
+  pState->nOfOutTrans          = nOfOutTrans;
 
   return;
 }
@@ -179,7 +179,7 @@ void FwSmAddChoicePseudoState(FwSmDesc_t smDesc, FwSmCounterS1_t choiceId, FwSmC
   cState = &(smBase->cStates[choiceId - 1]);
 
   cState->outTransIndex = smDesc->transCnt;
-  smDesc->transCnt = (FwSmCounterS1_t)(smDesc->transCnt + nOfOutTrans);
+  smDesc->transCnt      = (FwSmCounterS1_t)(smDesc->transCnt + nOfOutTrans);
 
   cState->nOfOutTrans = nOfOutTrans;
 
@@ -248,7 +248,7 @@ static void AddTrans(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounterS1_t
       smDesc->errCode = smIllTransSrc;
       return;
     }
-    baseLoc = smBase->pStates[srcId - 1].outTransIndex;
+    baseLoc     = smBase->pStates[srcId - 1].outTransIndex;
     nOfOutTrans = smBase->pStates[srcId - 1].nOfOutTrans;
   }
   else if (srcType == choicePseudoState) {
@@ -260,11 +260,11 @@ static void AddTrans(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounterS1_t
       smDesc->errCode = smUndefinedTransSrc;
       return;
     }
-    baseLoc = smBase->cStates[srcId - 1].outTransIndex;
+    baseLoc     = smBase->cStates[srcId - 1].outTransIndex;
     nOfOutTrans = smBase->cStates[srcId - 1].nOfOutTrans;
   }
   else { /* Source state is the stopped state */
-    baseLoc = 0;
+    baseLoc     = 0;
     nOfOutTrans = 1;
   }
 
@@ -281,11 +281,12 @@ static void AddTrans(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounterS1_t
    * Note that the nOfOutTrans is guaranteed to be greater than zero by the way it is
    * initialized in the previous statements in this function. Hence, the loop will be
    * taken at least once. */
-  for (i = 0; i < nOfOutTrans; i++)
+  for (i = 0; i < nOfOutTrans; i++) {
     if (smBase->trans[baseLoc + i].iTrAction == -1) {
       loc = (FwSmCounterS1_t)(baseLoc + i);
       break;
     }
+  }
   trans = &(smBase->trans[loc]);
 
   /* Assign the transition identifier */
@@ -307,14 +308,17 @@ static void AddTrans(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounterS1_t
 static FwSmCounterS1_t AddAction(FwSmDesc_t smDesc, FwSmAction_t action) {
   FwSmCounterS1_t i;
 
-  if (action == NULL)
+  if (action == NULL) {
     return 0;
+  }
 
   for (i = 1; i < smDesc->nOfActions; i++) {
-    if (smDesc->smActions[i] == NULL)
+    if (smDesc->smActions[i] == NULL) {
       break;
-    if (action == smDesc->smActions[i])
+    }
+    if (action == smDesc->smActions[i]) {
       return i;
+    }
   }
 
   if (i < smDesc->nOfActions) {
@@ -330,14 +334,17 @@ static FwSmCounterS1_t AddAction(FwSmDesc_t smDesc, FwSmAction_t action) {
 static FwSmCounterS1_t AddGuard(FwSmDesc_t smDesc, FwSmGuard_t guard) {
   FwSmCounterS1_t i;
 
-  if (guard == NULL)
+  if (guard == NULL) {
     return 0;
+  }
 
   for (i = 1; i < smDesc->nOfGuards; i++) {
-    if (smDesc->smGuards[i] == NULL)
+    if (smDesc->smGuards[i] == NULL) {
       break;
-    if (guard == smDesc->smGuards[i])
+    }
+    if (guard == smDesc->smGuards[i]) {
       return i;
+    }
   }
 
   if (i < smDesc->nOfGuards) {
@@ -356,64 +363,81 @@ FwSmErrCode_t FwSmCheck(FwSmDesc_t smDesc) {
   SmBaseDesc_t*   smBase = smDesc->smBase;
 
   /* Check that no error occurred during the configuration process */
-  if (smDesc->errCode != smSuccess)
+  if (smDesc->errCode != smSuccess) {
     return smConfigErr;
+  }
 
   /* Check that all proper states have been defined */
-  for (i = 0; i < smBase->nOfPStates; i++)
-    if (smBase->pStates[i].outTransIndex == 0)
+  for (i = 0; i < smBase->nOfPStates; i++) {
+    if (smBase->pStates[i].outTransIndex == 0) {
       return smNullPState;
+    }
+  }
 
   /* Check that all choice pseudo-states have been defined */
-  for (i = 0; i < smBase->nOfCStates; i++)
-    if (smBase->cStates[i].outTransIndex == 0)
+  for (i = 0; i < smBase->nOfCStates; i++) {
+    if (smBase->cStates[i].outTransIndex == 0) {
       return smNullCState;
+    }
+  }
 
   /* Check that all transitions have been defined */
-  for (i = 0; i < smBase->nOfTrans; i++)
-    if (smBase->trans[i].iTrAction == -1)
+  for (i = 0; i < smBase->nOfTrans; i++) {
+    if (smBase->trans[i].iTrAction == -1) {
       return smNullTrans;
+    }
+  }
 
   /* Check that all transition destinations are legal states or choice pseudo-states */
   for (i = 0; i < smBase->nOfTrans; i++) {
-    if (smBase->trans[i].dest > smBase->nOfPStates)
+    if (smBase->trans[i].dest > smBase->nOfPStates) {
       return smIllegalPDest;
-    if (smBase->trans[i].dest < -smBase->nOfCStates)
+    }
+    if (smBase->trans[i].dest < -smBase->nOfCStates) {
       return smIllegalCDest;
+    }
   }
 
   /* Check that all actions have been defined */
-  for (i = 0; i < smDesc->nOfActions; i++)
-    if (smDesc->smActions[i] == NULL)
+  for (i = 0; i < smDesc->nOfActions; i++) {
+    if (smDesc->smActions[i] == NULL) {
       return smTooFewActions;
+    }
+  }
 
   /* Check that all guards have been defined */
-  for (i = 0; i < smDesc->nOfGuards; i++)
-    if (smDesc->smGuards[i] == NULL)
+  for (i = 0; i < smDesc->nOfGuards; i++) {
+    if (smDesc->smGuards[i] == NULL) {
       return smTooFewGuards;
+    }
+  }
 
   /* Check that all states are reachable */
   for (i = 1; i <= smBase->nOfPStates; i++) {
     found = 0;
-    for (j = 0; j < smBase->nOfTrans; j++)
+    for (j = 0; j < smBase->nOfTrans; j++) {
       if (smBase->trans[j].dest == i) {
         found = 1;
         break;
       }
-    if (found == 0)
+    }
+    if (found == 0) {
       return smUnreachablePState;
+    }
   }
 
   /* Check that all choice pseudo-states are reachable */
   for (i = 1; i <= smBase->nOfCStates; i++) {
     found = 0;
-    for (j = 0; j < smBase->nOfTrans; j++)
+    for (j = 0; j < smBase->nOfTrans; j++) {
       if (smBase->trans[j].dest == -i) {
         found = 1;
         break;
       }
-    if (found == 0)
+    }
+    if (found == 0) {
       return smUnreachableCState;
+    }
   }
 
   return smSuccess;
@@ -425,12 +449,14 @@ FwSmErrCode_t FwSmCheckRec(FwSmDesc_t smDesc) {
   FwSmCounterS1_t i;
 
   /* Check all embedded state machines */
-  for (i = 0; i < smDesc->smBase->nOfPStates; i++)
+  for (i = 0; i < smDesc->smBase->nOfPStates; i++) {
     if (smDesc->esmDesc[i] != NULL) {
       outcome = FwSmCheckRec(smDesc->esmDesc[i]);
-      if (outcome != smSuccess)
+      if (outcome != smSuccess) {
         return outcome;
+      }
     }
+  }
 
   return FwSmCheck(smDesc);
 }
@@ -444,11 +470,12 @@ void FwSmOverrideAction(FwSmDesc_t smDesc, FwSmAction_t oldAction, FwSmAction_t 
     return;
   }
 
-  for (i = 1; i < smDesc->nOfActions; i++)
+  for (i = 1; i < smDesc->nOfActions; i++) {
     if (smDesc->smActions[i] == oldAction) {
       smDesc->smActions[i] = newAction;
       return;
     }
+  }
 
   smDesc->errCode = smUndefAction;
 }
@@ -462,11 +489,12 @@ void FwSmOverrideGuard(FwSmDesc_t smDesc, FwSmGuard_t oldGuard, FwSmGuard_t newG
     return;
   }
 
-  for (i = 1; i < smDesc->nOfGuards; i++)
+  for (i = 1; i < smDesc->nOfGuards; i++) {
     if (smDesc->smGuards[i] == oldGuard) {
       smDesc->smGuards[i] = newGuard;
       return;
     }
+  }
 
   smDesc->errCode = smUndefGuard;
 }

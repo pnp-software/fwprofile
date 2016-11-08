@@ -37,8 +37,8 @@ FwPrBool_t PrDummyGuard(FwPrDesc_t prDesc) {
 /* ----------------------------------------------------------------------------------------------------------------- */
 void FwPrStart(FwPrDesc_t prDesc) {
   if (prDesc->curNode == 0) {
-    prDesc->curNode = -1;
-    prDesc->prExecCnt = 0;
+    prDesc->curNode     = -1;
+    prDesc->prExecCnt   = 0;
     prDesc->nodeExecCnt = 0;
   }
 }
@@ -58,19 +58,20 @@ void FwPrExecute(FwPrDesc_t prDesc) {
   FwPrCounterS1_t trueGuardFound;
 
   /* check if procedure is started */
-  if (prDesc->curNode == 0) /* procedure is stopped */
+  if (prDesc->curNode == 0) { /* procedure is stopped */
     return;
-  else {
-    prDesc->prExecCnt++;   /* Increment procedure execution counter */
-    prDesc->nodeExecCnt++; /* Increment node execution counter */
   }
 
+  prDesc->prExecCnt++;   /* Increment procedure execution counter */
+  prDesc->nodeExecCnt++; /* Increment node execution counter */
+
   /* Get the Control Flow issuing from the current node */
-  if (prDesc->curNode == -1) /* procedure is at initial node */
+  if (prDesc->curNode == -1) { /* procedure is at initial node */
     flow = &(prBase->flows[0]);
+  }
   else {
     curNode = &(prBase->aNodes[prDesc->curNode - 1]); /* procedure is at an action node */
-    flow = &(prBase->flows[curNode->iFlow]);
+    flow    = &(prBase->flows[curNode->iFlow]);
   }
 
   /* Evaluate guard of control flow issuing from current node */
@@ -85,16 +86,16 @@ void FwPrExecute(FwPrDesc_t prDesc) {
     }
 
     if (flow->dest > 0) { /* Target of control flow is an action node */
-      prDesc->curNode = flow->dest;
+      prDesc->curNode     = flow->dest;
       prDesc->nodeExecCnt = 0;
-      curNode = &(prBase->aNodes[(prDesc->curNode) - 1]);
+      curNode             = &(prBase->aNodes[(prDesc->curNode) - 1]);
       prDesc->prActions[curNode->iAction](prDesc);
-      flow = &(prBase->flows[curNode->iFlow]);
+      flow           = &(prBase->flows[curNode->iFlow]);
       trueGuardFound = (FwPrCounterS1_t)prDesc->prGuards[flow->iGuard](prDesc);
     }
     else { /* Target of flow is a decision node */
       trueGuardFound = 0;
-      decNode = &(prBase->dNodes[(-flow->dest) - 1]);
+      decNode        = &(prBase->dNodes[(-flow->dest) - 1]);
       /* Evaluate guards of control flows issuing from decision node */
       for (i = 0; i < decNode->nOfOutTrans; i++) {
         flow = &(prBase->flows[decNode->outFlowIndex + i]);
@@ -128,10 +129,11 @@ FwPrCounterS1_t FwPrGetCurNode(FwPrDesc_t prDesc) {
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 FwPrBool_t FwPrIsStarted(FwPrDesc_t prDesc) {
-  if (prDesc->curNode == 0)
+  if (prDesc->curNode == 0) {
     return 0;
-  else
-    return 1;
+  }
+
+  return 1;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
