@@ -259,3 +259,15 @@ $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
 	$(CMD_PREFIX)$(CC) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 	@echo -en "\t Compile time: "
 	@$(END_TIME)
+
+.PHONY: style
+style:
+	clang-format -style=file -i $(SRC_PATH)/*
+
+.PHONY: analyse
+analyse:
+	$(MAKE) clean && scan-build -o ./build/analyse $(MAKE) debug
+
+.PHONY: tidy
+tidy:
+	clang-tidy -config="" -system-headers src/* -- > ./build/tidy.log

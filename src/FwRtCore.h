@@ -25,7 +25,7 @@
  * This represents the RT Container upon which the functions operate.
  * The functions assume that the container has been fully and correctly configured
  * (this is done through the functions defined in <code>FwRtConfig.h</code>).
- * 
+ *
  * The basic mode of use of the functions defined in this header file is as follows:
  * -# The container is configured through the functions offered by
  *    <code>FwRtConfig.h</code>.

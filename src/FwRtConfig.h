@@ -48,8 +48,8 @@
 #ifndef FWRT_CONFIG_H_
 #define FWRT_CONFIG_H_
 
-#include <pthread.h>
 #include "FwRtConstants.h"
+#include <pthread.h>
 
 /**
  * Reset the RT Container descriptor (RTD).
@@ -168,8 +168,8 @@ void FwRtShutdown(FwRtDesc_t rtDesc);
  * @param pCondAttr the attributes of the container's mutex (or NULL if it is desired
  * to use default attribute for the condition variable)
  */
-void FwRtSetPosixAttr(FwRtDesc_t rtDesc, pthread_attr_t* pThreadAttr,
-		pthread_mutexattr_t* pMutexAttr, pthread_condattr_t* pCondAttr);
+void FwRtSetPosixAttr(FwRtDesc_t rtDesc, pthread_attr_t* pThreadAttr, pthread_mutexattr_t* pMutexAttr,
+                      pthread_condattr_t* pCondAttr);
 
 /**
  * Get the value of the attributes of the Activation Thread.
@@ -243,7 +243,7 @@ void FwRtSetData(FwRtDesc_t rtDesc, void* rtData);
  * @param rtDesc the RT Container descriptor.
  * @return the pointer to the container data.
  */
- void* FwRtGetData(FwRtDesc_t rtDesc);
+void* FwRtGetData(FwRtDesc_t rtDesc);
 
 /**
  * Define the function implementing the Initialization Action for the Notification

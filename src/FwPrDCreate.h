@@ -7,7 +7,7 @@
  * a procedure descriptor dynamically.
  * Dynamic creation and release of memory is done through calls to
  * <code>malloc</code> and <code>free</code>.
- * 
+ *
  * A procedure can be created in two ways:
  * - It can be created from scratch, or
  * - It can be created by extending an existing procedure.
@@ -16,7 +16,7 @@
  * procedure descriptor from scratch (<code>::FwPrCreate</code>) and
  * the extension of an existing procedure descriptor to create the
  * descriptor for a derived procedure (<code>::FwPrCreateDer</code>).
- * 
+ *
  * Both the creation and the extension functions create a new procedure
  * descriptor and return a pointer to the newly created descriptor instance.
  * The procedure descriptor returned by these functions is initialized
@@ -24,11 +24,11 @@
  * need to be configured.
  * Configuration can be done using the functions offered by
  * <code>FwPrConfig.h</code>.
- * 
+ *
  * The creation and the extension functions in this header file always check the
  * success of calls to <code>malloc</code>.
  * In case of failure, the caller aborts and returns a NULL pointer.
- * 
+ *
  * Applications which do not wish to use dynamic memory allocation can
  * create a procedure descriptor statically using the services offered
  * by <code>FwPrSCreate.h</code>.
@@ -66,7 +66,7 @@
  * If any of these calls fails, the function aborts and returns NULL.
  * In this case, there may be a memory leak if part of the procedure descriptor memory
  * had been allocated before the function was aborted.
- * 
+ *
  * It is legal to create a procedure descriptor with no decision
  * nodes but it is not legal to create a procedure descriptor with no
  * control flows or with no action nodes.
@@ -89,25 +89,25 @@
  * data structures to hold the procedure descriptor failed or one of the
  * function parameters had an illegal value).
  */
-FwPrDesc_t FwPrCreate(FwPrCounterS1_t nOfANodes, FwPrCounterS1_t nOfDNodes,
-		FwPrCounterS1_t nOfFlows, FwPrCounterS1_t nOfActions, FwPrCounterS1_t nOfGuards);
+FwPrDesc_t FwPrCreate(FwPrCounterS1_t nOfANodes, FwPrCounterS1_t nOfDNodes, FwPrCounterS1_t nOfFlows,
+                      FwPrCounterS1_t nOfActions, FwPrCounterS1_t nOfGuards);
 
 /**
  * Create the descriptor of a derived procedure.
  * A derived procedure is a procedure which is created by extending
  * another procedure.
  * The procedure which is thus extended is called base procedure.
- * 
+ *
  * This function takes a procedure as an argument and creates a derived
  * procedure from it.
  * The function returns the descriptor of the newly created derived procedure.
- * 
+ *
  * The base procedure should be fully and correctly configured (i.e. it should
  * pass the configuration check implemented by <code>::FwPrCheck</code>).
  * Compliance with this constraint is not checked by this function.
  * If the constraint is not satisfied, the behaviour of the derived procedure
  * is undefined.
- * 
+ *
  * After being created, the derived procedure has the following characteristics:
  * - It has the same number of action and decision nodes as the base procedure.
  * - Its action and decision nodes are connected by the same control flows as
@@ -118,7 +118,7 @@ FwPrDesc_t FwPrCreate(FwPrCounterS1_t nOfANodes, FwPrCounterS1_t nOfDNodes,
  *   the base procedure.
  * .
  * Thus, the derived procedure is a structural clone of its base procedure.
- * 
+ *
  * The attributes of the derived procedure are initialized as follows:
  * - The error code is the same as the error code of the base procedure.
  * - No procedure data are associated to the derived procedure.
@@ -135,7 +135,7 @@ FwPrDesc_t FwPrCreate(FwPrCounterS1_t nOfANodes, FwPrCounterS1_t nOfDNodes,
  * .
  * The functions to perform these reconfiguration operations are defined in
  * <code>FwPrConfig.h</code>.
- * 
+ *
  * A procedure descriptor consists of two parts: the base descriptor and
  * the extension descriptor (see <code>FwPrPrivate.h</code>).
  * A derived procedure and its base procedure share the same base descriptor
@@ -155,7 +155,7 @@ FwPrDesc_t FwPrCreateDer(FwPrDesc_t prDesc);
 /**
  * Release the memory which was allocated when the procedure descriptor was created.
  * After this operation is called, the procedure descriptor can no longer be used.
- * 
+ *
  * This function releases the memory of both the base and the extension parts of the
  * procedure descriptor.
  * Hence, if the argument procedure descriptor acted as base for other procedure

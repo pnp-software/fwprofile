@@ -7,7 +7,7 @@
  * The functions declared in this header file, take a state machine descriptor
  * as their first argument.
  * This represents the state machine upon which the functions operate.
- * 
+ *
  * The functions declared in this header file can only be used after a
  * state machine has been fully configured.
  * This is normally done using the configuration functions declared
@@ -18,7 +18,7 @@
  *    <code>::FwSmExecute</code> or <code>::FwSmMakeTrans</code>.
  * -# The state machine is stopped with function <code>::FwSmStop</code>.
  * .
- * 
+ *
  * The functions declared in this header file assume that they are passed
  * a valid state machine descriptor representing a correctly configured
  * state machine.
@@ -89,21 +89,21 @@ void FwSmStop(FwSmDesc_t smDesc);
  * This operation is recursive because a transition request is propagated to the
  * embedded state machine of the source state. The maximum depth of recursion is the
  * maximum depth of nesting of embedded state machines.
- * 
+ *
  * If there are two transitions out of the current state which are both activated by
  * this operation, the transition that will actually be taken is the one which was
  * added first to the state machine (i.e. transitions are evaluated in the order in
  * which they were added to the state machine).
- * 
+ *
  * Similarly, if the transition goes through a choice pseudo-state (CPS) and if
  * there are two transitions out of the CPS which have guards which evaluate to true,
  * the transition to be taken is the one which was added first to the state machine.
- * 
+ *
  * The FW Profile stipulates that at least one of the transitions out of a CPS
  * must have a guard evaluating to true. This constraint is not enforced by the
  * State Machine Module. If the constraint is violated, the error code is set to
  * #smTransErr.
- * 
+ *
  * This operation sets the error code to #smTransErr if either of the following non-nominal
  * situations occurs:
  * - the transition encounters a choice pseudo-state which has no out-going transitions
