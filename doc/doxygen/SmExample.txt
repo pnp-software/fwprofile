@@ -1,0 +1,266 @@
+/**
+* @page SmExample State Machine Example
+*
+* This page presents an example of how the functions provided by the C1 Implementation can be used to 
+* create, configure and use a state machine.
+* The example uses the Test State Machine SM5 of the figure. 
+* @image html SM5.png
+*
+* @section SmExample_1 State Machine Creation
+* 
+* The characteristics of the test state machine SM5 are: 2 states, 1 choice pseudo-state, 7 transitions, 4 actions and 2 guards. 
+* With reference to the number of actions and of guards, it is recalled that actions which appear more than once are counted only once 
+* (in state machine SM5, the state actions appear twice because the two states have the same actions and the transition action appears 
+* seven times because all transitions have the same transition action). 
+* Similarly, guards which appear more than once are counted only once (in state machine SM5, the guard <code>Flag_1</code> occurs 
+* four times and the guard <code>Flag_2</code> occurs once).
+* <p></p>
+* A state machine is represented by its @ref SmMain "state machine descriptor" (SMD).
+* There are three ways in which an SMD can be created.
+* Dynamic creation (the simplest of the three creation methods) is done as follows: 
+* <pre>
+* // Create and initialize the SMD 
+* FwSmDesc_t smDesc = FwSmCreate(2, 1, 7, 4, 2);
+* </pre>
+* The arguments to the <code>FwSmCreate</code> call are: the number of states, of choice pseudo-states, of transitions, of actions 
+* and of guards.
+*
+* Users who wish to avoid use of dynamic memory allocation can instantiate and initialize the SMD statically as follows:
+* <pre>
+* // Instantiate data structures for SMD 
+* %FW_SM_INST(smDesc, 2, 1, 7, 4, 2)
+*
+* // Initialize data structures for SMD 
+* FwSmInit(\&smDesc);
+* </pre>
+* Note that, in the dynamic creation case, the variable <code>smDesc</code> holds a pointer to the SMD whereas, in the static 
+* creation case, it holds the SMD itself. 
+* <p></p>
+* Most users should use either of the two approaches presented above. 
+* Users who are severely memory constrained may consider performing a direct instantiation and initialization of the SMD
+* and its internal data structures.
+* This approach requires a detailed understanding of the internal organization of an SMD but it does not require linking the
+* <code>FwSmDCreate</code> and <code>FwSmSCreate</code> modules and will therefore reduce the memory footprint of the target
+* application by, perhaps, 2-3 Kbytes.
+* Direct instantiation and initialization of the SMD in the case of the SM5 state machine is done as follows:
+* <pre>
+* // Instantiate data structures for state machine descriptor 
+* static %SmTrans_t trans[7];
+* static %FwSmAction_t actions[5];
+* static %FwSmGuard_t guards[3];
+* static %SmPState_t pStates[2];
+* static %SmCState_t cStates[1];
+* static %FwSmDesc_t esmDesc[2];
+* static struct %FwSmDesc smDesc;
+* static %SmBaseDesc_t smBase;
+* 
+* // Initialize state machine descriptor 
+* smBase.pStates = pStates;
+* smBase.cStates = cStates;
+* smBase.trans = trans;
+* smBase.nOfPStates = 2;
+* smBase.nOfCStates = 1;
+* smBase.nOfTrans = 7;
+* smDesc.smBase = \&smBase;
+* smDesc.transCnt = 0;
+* smDesc.curState = 0;
+* smDesc.smData = NULL;
+* smDesc.nOfActions = 5;
+* smDesc.nOfGuards = 3;
+* smDesc.smActions = actions;
+* smDesc.smGuards = guards;
+* smDesc.esmDesc = esmDesc;
+* smDesc.errCode = success;
+* smDesc.smData = NULL;
+* </pre>
+*
+* @section SmExample_2 State Machine Descriptor Configuration
+* 
+* After the SMD has been created, it must be configured.
+* The next pseudo-code example illustrates the following configuration steps: (a)
+* The states of the state machine are defined with the <code>::FwSmAddState</code> function;
+* (b) The choice pseudo-states of the state machine are defined with the <code>::FwSmAddChoicePseudoState</code> function;
+* (c) The transitions of the state machine are defined with the <code>FwSmAddTrans*</code> functions 
+* (there are several of these functions, one for each type of transition source and destination):
+* <pre>
+* // Configure the states 
+* FwSmAddState(smDesc, STATE_S1, 1, \&incrCnt1By1, \&incrCnt1By4, \&incrCnt1By2, NULL);
+* FwSmAddState(smDesc, STATE_S2, 3, \&incrCnt1By1, \&incrCnt1By4, \&incrCnt1By2, NULL);
+* 
+* // Configure  the choice pseudo-state 
+* FwSmAddChoicePseudoState(smDesc, CPS1, 2);
+* 
+* // Configure the state transitions 
+* FwSmAddTransIpsToSta(smDesc, STATE_S1, \&incrCnt2By1);
+* FwSmAddTransStaToSta(smDesc, TR2, STATE_S1, STATE_S2, \&incrCnt2By1, \&retFlag1);
+* FwSmAddTransStaToCps(smDesc, TR6, STATE_S2, CPS1, \&incrCnt2By1, NULL);
+* FwSmAddTransCpsToSta(smDesc, CPS1, STATE_S1, \&incrCnt2By1, \&retFlag1);
+* FwSmAddTransCpsToSta(smDesc, CPS1, STATE_S2, \&incrCnt2By1, \&retFlag2);
+* FwSmAddTransStaToFps(smDesc, TR5, STATE_S2, \&incrCnt2By1, \&retFlag1);
+* FwSmAddTransStaToSta(smDesc, TR4, STATE_S2, STATE_S2, \&incrCnt2By1, \&retFlag1);
+* </pre>
+* The variables with names like <code>incrCnt2By1</code> or <code>retFlag1</code> are function pointers which point to the
+* functions which implement the state machine actions and guards. 
+* These functions must conform to prototypes (<code>::FwSmAction_t</code> for actions and <code>::FwSmGuard_t</code> for guards) 
+* which are provided by the C1 Implementation.
+* 
+* The configuration functions used in this example are defined in <code>FwSmConfig.h</code>.
+* Users who are severely constrained in memory can avoid linking this module by directly configuring the SMD and
+* its internal data structures.
+* This, however, requires a detailed understanding of how the SMD is organized internally.
+* In the case of the test state machine SM5, direct configuration can be done as follows:
+*
+* <pre>
+* // Configure the array of state machine actions 
+* actions[0] = \&SmDummyAction;
+* actions[1] = \&incrCnt1By1;
+* actions[2] = \&incrCnt1By2;
+* actions[3] = \&incrCnt1By4;
+* actions[4] = \&incrCnt2By1;
+* 
+* // Configure the array of state machine guards 
+* guards[0] = \&SmDummyGuard;
+* guards[1] = \&retFlag1;
+* guards[2] = \&retFlag2;
+* 
+* // Configure the array of embedded state machines 
+* esmDesc[0] = NULL;
+* esmDesc[1] = NULL;
+* 
+* // Configure the array of proper states 
+* pStates[0].outTransIndex = 1;
+* pStates[0].nOfOutTrans = 1;
+* pStates[0].iEntryAction = 1;
+* pStates[0].iDoAction = 2;
+* pStates[0].iExitAction = 3;
+* 
+* pStates[1].outTransIndex = 2;
+* pStates[1].nOfOutTrans = 3;
+* pStates[1].iEntryAction = 1;
+* pStates[1].iDoAction = 2;
+* pStates[1].iExitAction = 3;
+* 
+* // Configure the array of choice pseudo-states 
+* cStates[0].outTransIndex = 5;
+* cStates[0].nOfOutTrans = 2;
+* 
+* // Configure the array of transitions 
+* trans[0].dest = STATE_S1;
+* trans[0].id = 0;
+* trans[0].iTrAction = 4;
+* trans[0].iTrGuard = 0;
+* 
+* trans[1].dest = STATE_S2;
+* trans[1].id = TR2;
+* trans[1].iTrAction = 4;
+* trans[1].iTrGuard = 1;
+* 
+* trans[2].dest = -CPS1;
+* trans[2].id = TR6;
+* trans[2].iTrAction = 4;
+* trans[2].iTrGuard = 0;
+* 
+* trans[3].dest = 0;
+* trans[3].id = TR5;
+* trans[3].iTrAction = 4;
+* trans[3].iTrGuard = 1;
+* 
+* trans[4].dest = STATE_S2;
+* trans[4].id = TR4;
+* trans[4].iTrAction = 4;
+* trans[4].iTrGuard = 1;
+* 
+* trans[5].dest = STATE_S1;
+* trans[5].id = -1;
+* trans[5].iTrAction = 4;
+* trans[5].iTrGuard = 1;
+* 
+* trans[6].dest = STATE_S2;
+* trans[6].id = -1;
+* trans[6].iTrAction = 4;
+* trans[6].iTrGuard = 2;
+* </pre>
+* 
+* @section SmExample_3 State Machine Execution
+*
+* The following example shows a short commanding sequence for the SM5 state machine. 
+* In the pseudo-code, variable <code>smDesc</code> holds the pointer to the SMD (i.e. variable <code>smDesc</code> 
+* is of type <code>FwSmDesc_t</code>). 
+* The state machine is first started. 
+* This brings it to state S1. 
+* The state machine is then sent transition commands TR2 and TR6. 
+* The response of the state machine to these commands depends on the values of the flags <code>Flag_1</code> and <code>Flag_2</code>. 
+* If, for instance, <code>Flag_1</code> is true and <code>Flag_2</code> is false, then the first transition command brings 
+* the state machine to S2 and the second one brings it back to S1.
+* 
+* <pre>
+* // Start the state machine 
+* FwSmStart(smDesc);
+*
+* // Send transition command TR2 to the state machine 
+* FwSmMakeTrans(smDesc, TR2);
+*
+* // Send transition command TR6 to the state machine 
+* FwSmMakeTrans(smDesc, TR2);
+*
+* // Stop the state machine 
+* FwSmStop(smDesc);
+* </pre> 
+*
+* @section SmExample_4 State Machine Extension
+*
+* The pseudo-code below offers an example of creation and configuration of a derived state machine. 
+* The test state machine SM5 acts as <i>base state machine</i> and it is extended to create a new state machine 
+* (the <i>derived state machine</i>) as shown in the figure below. 
+* The derived state machine has overridden the entry action of the two states and the guard on the transition 
+* from the choice pseudo-state to state S2. 
+* Note that it would not have been possible to override only the entry action of state S1. 
+* The entry actions of the two states S1 and S2 have been defined to be identical and are 
+* implemented by the same function <code>incrCnt1By1</code> (see configuration examples in the previous sections) 
+* and can therefore only be overridden together. 
+*
+* <pre>
+* // Create the derived state machine (smDesc is the pointer to the SMD of the base SM) 
+* FwSmDesc_t smDescDer = FwSmCreateDer(smDesc);
+*
+* // Override Action incrCnt1By1 with action incrCnt1By8 
+* FwSmOverrideAction(smDescDer, \&incrCnt1By1, \&incrCnt1By8);
+*
+* // Override Guard retFlag1 with guard retFlag3 
+* FwSmOverrideGuard(smDescDer, \&retFlag1, \&retFlag3);
+* </pre>
+*
+* In the previous pseudo-code example, the descriptor of the derived state machine is created dynamically 
+* by function <code>::FwSmCreateDer</code>. 
+* For users who do not wish to rely on dynamic memory allocation, an alternative approach is available 
+* which is illustrated in the next example. 
+* Note that in the previous example variable <code>smDescDer</code> is a pointer to the SMD 
+* whereas in the next example it is the state machine descriptor itself.
+* 
+* <pre>
+* // Instantiate the derived SM with 2 states, 4 actions and 2 guards 
+* %FW_SM_INST_DER(smDescDer, 1, 3, 1)
+*
+* // Initialize the derived state machine (smDesc is the pointer to the SMD of the base SM) 
+* FwSmInitDer(\&smDescDer, smDesc);
+*
+* // Override Action incrCnt1By1 with action incrCnt1By8 
+* FwSmOverrideAction(\&smDescDer, \&incrCnt1By1, \&incrCnt1By8);
+*
+* // Override Guard retFlag1 with guard retFlag3 
+* FwSmOverrideGuard(\&smDescDer, \&retFlag1, \&retFlag3);
+* </pre>
+*
+* Use of the derived state machines is done as in the case of non-derived state machines and the examples 
+* of the previous section remain therefore applicable.
+*
+* @image html SM5Der.png
+*/
+
+
+
+
+
+
+
+

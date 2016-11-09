@@ -1,0 +1,136 @@
+/**
+* @page RtMain RT Container Implementation
+*
+* RT Containers are one of the three modelling concepts offered by the FW Profile. 
+* State Machines and Procedures allow the functional aspects of a software application to be modelled. 
+* RT Containers complement them by offering the means to capture the time-related behaviour of an application. 
+* The acronym "RT" stands for "Real-Time".
+*
+* RT Containers provide a way to encapsulate the activation logic for a functional behaviour. 
+* A RT Container can be seen as a representation of a thread which controls the execution of some functional behaviour. 
+* The RT Container allows the conditions under which the thread is released to be specified.
+*
+* The C1 Implementation represents a RT Container through a <i>RT Container Descriptor</i> (RTD).
+* An RTD is a data structure which holds all the information required to describe a RT Container.
+* It is defined as an instance of type <code>struct FwRtDesc</code>.
+* Users normally only manipulate pointers to RTD which are defined as instances of type <code>::FwRtDesc_t</code>.
+* The internal structure of an RTD is described in <code>FwRtConstants.h</code>. 
+* Most applications are not concerned with the internal structure of an RTD and can ignore this header file.
+* <p></p>
+* Applications manipulate a RT Container by passing its RTD to the functions defined by the C1 Implementation.
+* Thus, for instance, an application sends a notification to a RT Container through the following function call: 
+* <code>FwRtNotify(rtDesc)</code>. 
+* Here, <code>rtDesc</code> is the pointer to the RTD of the RT Container to be notified. 
+*
+* @section RtMain_2 RT Container Modules
+* 
+* The implementation of the RT Container concept consists of several modules as described in the table:
+* <table border="1" cellpadding="2">
+* <tr>
+* <th>Module</th> <th>Description</th> <th>Files</th>
+* </tr>
+* <tr>
+* <td><code>Core</code></td>
+* <td>Provides an interface to start, stop, and notify a RT Container.</td>
+* <td><code>FwRtCore.h</code>, <code>FwRtCore.c</code></td>
+* </tr>
+* <tr>
+* <td><code>Config</code></td>
+* <td>Provides an interface to configure a newly created RTD and shut it down after use.</td>
+* <td><code>FwRtConfig.h</code>, <code>FwRtConfig.c</code></td>
+* </tr>
+* </table> 
+* 
+* @section RtMain_3 RT Container Attributes and Behaviours
+* 
+* RT Containers are built upon POSIX threads.
+* A RT Container encapsulates one POSIX thread, one POSIX mutex and one POSIX condition variable.
+* By default, the RT Container is instantiated with POSIX-defined default values for all the attributes 
+* of its POSIX objects.
+* If these default values are not adequate, they can be changed with functions offered by the
+* the configuration interface in <code>FwRtConfig.h</code>.
+*
+* The RT Container must be configured with its functional behaviour.
+* Functional behaviour is encapsulated in functions which must be implemented by the user and which, at configuration
+* time, are passed to the container as function pointers.  
+*
+* @section RtMain_4 RT Container Data
+* 
+* The RTD includes a field holding a pointer to the <i>Container Data</i>.
+* The Container Data are data which are manipulated by the functional behaviour attached to the container.
+* The exact type of the Container Data is defined by applications for each RT Container.
+* In most cases, it will take the form a <code>struct</code>
+* whose fields represent the inputs and outputs for the container actions.
+* The RTD treats the pointer to the Container Data as a pointer to <code>void</code>.
+* Functions <code>::FwRtSetData</code> and <code>::FwRtGetData</code> allow this pointer to be
+* set in, and to be retrieved from, an RTD.  
+*
+* @section RtMain_4b RT Container States
+*
+* A RT Container has a <i>state</i> which can be accessed with function <code>::FwRtGetContState</code>.
+* Three nominal states are defined for a RT Container:
+* - <code>::rtContUninitialized</code>: this is the state of the container when it is being configured, i.e.
+*   before it is initialized for the first time with function <code>::FwRtInit</code> or after it has
+*   been shut down with function <code>::FwRtShutdown</code>.
+* - <code>::rtContStopped</code>: this is the state of the container after it has successfully completed
+*   its configuration and after it has been stopped with function <code>::FwRtStop</code>.
+* - <code>::rtContStarted</code>: this is the state of the container after it has been successfully started
+*   with function <code>::FwRtStart</code> and before it is stopped with function <code>::FwRtStop</code>.
+* .
+* Additionally, the container may be in a number of error states as described in the next section. 
+* The range of container states is defined by type <code>::FwRtState_t</code>. 
+*
+* @section RtMain_5 Error Checking
+* 
+* Two forms of error checks are performed by the RT Container functions:
+* - It is checked that POSIX system calls are successful. A POSIX system call fails if it returns an
+*   error code. In that case, the error code is stored in the <i>error code</i> field of the RTD and
+*   the state of the RT Container is set to an error state which depends on the system call
+*   which reported the error (see list of RT Container states in <code>::FwRtState_t</code>).
+* - It is checked that configuration functions are not called on the container during its normal operation
+*   (i.e. after the container has been initialized with <code>::FwRtInit</code> and before it is
+*   shut down with <code>::FwRtShutdown</code>). If a configuration function is called during normal
+*   operation, the state of the RT Container is set to the error state <code>::rtConfigErr</code>. 
+* .
+* The container state can be access with <code>::FwRtGetContState</code>.
+* If the RT Container is in an error state, its behaviour is undefined.
+*
+* @section RtMain_8 Thread Safety
+*
+* The RT Container components of the C1 Implementation define data which may be accessed either by the 
+* container's internal thread (the Activation Thread) or by an external user thread (the thread responsible for
+* making notification requests). 
+* The functions to start, stop and notify a thread use the container's mutex to guarantee access in mutual exclusion
+* and are therefore thread-safe. 
+* All other container functions (e.g. the configuration functions) are not intended for use
+* during the real-time operation of the container and are not thread-safe. 
+* It is the responsibility of the user to ensure that they are called in mutual exclusion.
+*
+* @section RtMain_6 Basic Usage
+* 
+* The basic usage of a RT Container within an application is as follows:
+* -# The RT Container is configured through the functions offered by
+*    <code>FwRtConfig.h</code>.
+* -# The RT Container is started with function <code>::FwRtStart</code>.
+* -# The RT Container is sent one or more notifications by calling function
+*    <code>::FwRtNotify</code>. 
+* -# The RT Container is stopped with function <code>::FwRtStop</code>.
+* .
+* After the container has been stopped and after its activation thread has terminated
+* execution, it can be re-started.
+* Function <code>::FwRtWaitForTermination</code> can be used to wait for the termination of the Activation Thread.
+* When the container is no longer needed, it should be shut down with function <code>::FwRtShutdown</code>.
+* <p></p>
+* Examples of creation and configuration of RT Containers can be found in module <code>FwRtMakeTest.h</code>.
+* Examples of operation of a RT Container can be found in module <code>FwRtTestCases.h</code>.
+*
+* 
+*/
+
+
+
+
+
+
+
+

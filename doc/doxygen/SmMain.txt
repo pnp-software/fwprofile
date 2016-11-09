@@ -1,0 +1,161 @@
+/**
+* @page SmMain State Machine Implementation
+*
+* The C1 Implementation represents a state machine through a <i>state machine descriptor</i> (SMD).
+* A SMD is a data structure which holds all the information required to describe a state machine.
+* Users do not normally manipulate the PRD directly. Instead, they manipulate the pointer to the PRD
+* which is defined as an instance of type <code>::FwSmDesc_t</code>. 
+* Its internal structure is described in <code>FwSmPrivate.h</code>. Most applications are not concerned
+* with the internal structure of an SMD and can ignore this header file.
+* <p></p>
+* Applications manipulate a state machine by passing its SMD to the functions defined by the C1 Implementation.
+* Thus, for instance, an application executes a state machine through the following function call: 
+* <code>FwSmExecute(smDesc)</code>. 
+* Here, <code>smDesc</code> is the SMD of the state machine to be executed. 
+*
+* @section SmMain_2 State Machine Modules
+* 
+* The implementation of the state machine concept consists of several modules as described in the table:
+* <table border="1" cellpadding="2">
+* <tr>
+* <th>Module</th> <th>Description</th> <th>Files</th>
+* </tr>
+* <tr>
+* <td><code>Core</code></td>
+* <td>Provides an interface to start and stop a state machine and to send a transition command to it.</td>
+* <td><code>FwSmCore.h</code>, <code>FwSmCore.c</code></td>
+* </tr>
+* <tr>
+* <td><code>DCreate</code></td>
+* <td>Provides an interface to create a new SMD. The functions in this module are simple
+* to use but rely on dynamic memory allocation. Applications which wish to avoid dynamic memory allocation
+* can use the alternative <code>SCreate</code> module.</td>
+* <td><code>FwSmDCreate.h</code>, <code>FwSmDCreate.c</code></td>
+* </tr>
+* <tr>
+* <td><code>SCreate</code></td>
+* <td>Provides macros to instantiate a new SMD (without using dynamic memory allocation) and functions
+* to initialize it.
+* This module is alternative to the <code>DCreate</code> module.</td>
+* <td><code>FwSmSCreate.h</code>, <code>FwSmSCreate.c</code></td>
+* </tr>
+* <tr>
+* <td><code>Config</code></td>
+* <td>Provides an interface to configure a newly created SMD by defining its states and transitions.</td>
+* <td><code>FwSmConfig.h</code>, <code>FwSmConfig.c</code></td>
+* </tr>
+* <tr>
+* <td><code>Aux</code></td>
+* <td>Provides an interface to auxiliary services which are useful during the application development phase.</td>
+* <td><code>FwSmAux.h</code>, <code>FwSmAux.c</code></td>
+* </tr>
+* </table> 
+* The <code>Aux</code> module is not intended for inclusion in the final application.
+* The <code>DCreate</code> and <code>SCreate</code> modules are normally alternative to each other
+* (but deployment of both in the same application is possible). 
+* Applications which are severely constrained in memory can instantiate and configure the SMDs of their
+* state machines by directly manipulating their internal fields. 
+* This requires a detailed understanding of the internal structure of the SMD but allows an application 
+* to dispense with both the <code>DCreate</code>/<code>SCreate</code> modules and with the 
+* <code>Config</code> module. 
+* An example of direct instantiation and configuration of an SMD is provided in <code>::FwSmMakeTestSM5Dir</code>. 
+* 
+* @section SmMain_3 State Machine Actions and Guards
+* 
+* The state machine actions and guards are defined as function pointers of type, respectively,
+* <code>::FwSmAction_t</code> and <code>::FwSmGuard_t</code>.
+* Applications must provide functions of these two types to implement the actions and guards
+* of their state machines.
+* Both the guard and the action functions are called with the SMD as an argument.
+* <p></p>
+* Note that, if a state machine uses the same action or the same guard more than once, the 
+* associated function pointer is only stored once in the SMD. 
+*
+* @section SmMain_4 State Machine Data
+* 
+* The SMD includes a field holding a pointer to the <i>state machine data</i>.
+* The state machine data are data which are manipulated by the state machine actions and guards.
+* The exact type of the state machine data is defined by applications for each state machine.
+* In most cases, it will take the form a <code>struct</code>
+* whose fields represents the inputs and outputs for the state machine actions
+* and guards.
+* The SMD treats the pointer to the state machine data as a pointer to <code>void</code>.
+* Functions <code>::FwSmSetData</code> and <code>::FwSmGetData</code> allow this pointer to be
+* set in, and be retrieved from an SMD.  
+*
+* @section SmMain_5 Error Checking
+* 
+* The state machine functions perform a limited amount of error checking.
+* If they find an error, this is reported through the <i>error code</i> which stores the identifier
+* of the last error encountered by the implementation.
+* The value of the error code can be read with the <code>::FwSmGetErrCode</code> function.
+* Nominally, the error code should be equal to <code>#smSuccess</code>.
+* If this is not the case, the behaviour of the state machine is undefined.
+*
+* @section SmMain_8 Thread Safety
+*
+* The functions defined by the C1 Implementation do not use any global data. 
+* They operate exclusively on the data passed to them as arguments.
+* They are therefore inherently thread-safe.
+*
+* @section SmMain_6 Basic Usage
+* 
+* The basic usage of a state machine instance within an application is as follows:
+* -# The state machine descriptor is created. This is most conveniently done using the <code>FwSmDCreate.h</code> module
+*    but may also be done using the <code>FwSmSCreate.h</code> module (if it is desired to avoid use of dynamic memory
+*    allocation).
+* -# The data upon which the state machine operates is loaded into the state machine by means of function 
+*    <code>::FwSmSetData</code>.
+* -# The state machine is configured by means of the <code>add*</code> functions in the <code>FwSmConfig.h</code>
+*    module which allow an application to define the states and the transitions of the state machine.
+* -# The configuration of the state machine may be checked through function <code>::FwSmCheck</code> and it may be
+*    printed with function <code>::FwSmPrintConfig</code>.
+* -# The state machine is started with function <code>::FwSmStart</code>.
+* -# Transitions are commanded to the state machine with functions <code>::FwSmExecute</code> and 
+*    <code>::FwSmMakeTrans</code>.
+* -# The state machine is stopped with function <code>::FwSmStop</code>.
+* -# If the state machine descriptor was created using the <code>FwSmDCreate.h</code> module, the memory allocated 
+*    to the state machine may be released with functions <code>::FwSmRelease</code> or <code>::FwSmReleaseRec</code>.
+* <p></p>
+* Examples of creation and configuration of state machines can be found in file <code>FwSmMakeTest.c</code>.
+* Examples of operation of a state machine can be found in file <code>FwSmTestCases.c</code> or in the
+* @ref DaMain "Demo Application".
+*
+* @section SmMain_7 State Machine Extension
+*
+* The C1 Implementation supports an extension mechanism for state machines which is similar to the inheritance-based
+* extension mechanism of object-oriented languages.
+* <p></p>
+* A state machine (the <i>base state machine</i>) can be <i>extended</i> to create a new state machine
+* (the <i>derived state machine</i>).
+* A derived state machine can either be created dynamically with the <code>::FwSmCreateDer</code> function
+* or else it can be instantiated statically with macro <code>#FW_SM_INST_DER</code> and initialized
+* with function <code>::FwSmInitDer</code>. 
+* <p></p>
+* After being created, a derived state machine is a clone of its base.
+* It can then be configured by: overriding its actions (through function <code>::FwSmOverrideAction</code>),
+* overriding its guards (through function <code>::FwSmOverrideGuard</code>), or embedding new state machines
+* in its states (through function <code>::FwSmEmbed</code>).
+* <p></p>
+* The internal structure of the SMD is designed to minimize the memory requirements of derived state machines.
+* An SMD is split into two parts: the <i>Base Descriptor</i> and the <i>Extension Descriptor</i> (see 
+* <code>FwSmPrivate.h</code> module).
+* The Base Descriptor holds the information about the state machine topology (its states, choice pseudo-states and 
+* their connections) whereas the Extension Descriptor holds the information about the state machine actions and
+* guards and its embedded state machines.
+* During the extension process, only the Extension Descriptor is duplicated
+* whereas the Base Descriptor is shared between a state machine and its children. 
+* This significantly reduces memory occupation in a situation where a large number of state machines are
+* derived from the same base state machine.
+* The internal structure of a state machine descriptor is shown in the figure.
+* @image html SMDExtension.png
+*
+*/
+
+
+
+
+
+
+
+

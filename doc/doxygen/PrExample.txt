@@ -1,0 +1,230 @@
+/**
+* @page PrExample Procedure Example
+*
+* This page presents an example of how the functions provided by the C1 Implementation can be used to 
+* create, configure and use a procedure. The example uses the Test Procedure PR2 of the figure. 
+* @image html PR2.png
+*
+* @section PrExample_1 Procedure Creation
+* 
+* The characteristics of the test procedure PR2 are: 3 action nodes, 2 decision nodes, 9 control flows, 1 action (used
+* in several actions nodes), and 8 guards. 
+* With reference to the number of actions and of guards, it is recalled that actions and guards which appear more than once 
+* are counted only once.
+* <p></p>
+* A procedure is represented by its @ref PrMain "procedure descriptor" (PRD).
+* There are three ways in which a PRD can be created.
+* Dynamic creation is the simplest of the three ways and, for the example procedure, is done as follows: 
+* <pre>
+* // Create and initialize the PRD 
+* FwPrDesc_t prDesc = FwPrCreate(3, 2, 9, 1, 8);
+* </pre>
+*
+* Users who wish to avoid use of dynamic memory allocation can instantiate and initialize the PRD statically as follows:
+* <pre>
+* // Instantiate data structures for PRD 
+* %FW_PR_INST(prDesc, 3, 2, 9, 1, 8)
+*
+* // Initialize data structures for PRD 
+* FwPrInit(\&prDesc);
+* </pre>
+* Note that, in the dynamic creation case, the variable <code>prDesc</code> holds a pointer to the PRD whereas, in the static
+* creation case, it holds the PRD itself. 
+* <p></p>
+* Most users should use either of the two approaches presented above. 
+* Users who are severely memory constrained may consider performing a direct instantiation and initialization of the PRD
+* and its internal data structures.
+* This approach requires a detailed understanding of the internal organization of a PRD but it does not require linking the
+* <code>FwPrDCreate</code> and <code>FwPrSCreate</code> modules and will therefore reduce the memory footprint of the target
+* application by, perhaps, 2-3 Kbytes.
+* Direct instantiation and initialization of the PRD in the case of the PR2 procedure is done as follows:
+* <pre>
+* // Instantiate data structures for procedure descriptor 
+* static %PrANode_t aNodes[3];	        
+* static %PrDNode_t dNodes[2]; 	        
+* static %PrFlow_t flows[9];	        
+* static %FwPrAction_t actions[1]; 
+* static %FwPrGuard_t guards[9];	
+* static %PrBaseDesc_t prBase;
+* static struct %FwPrDesc prDesc;
+*
+* // Initialize procedure descriptor 
+* prBase.aNodes = aNodes;
+* prBase.dNodes = dNodes;
+* prBase.flows = flows;
+* prBase.nOfANodes = 3;
+* prBase.nOfDNodes = 2;
+* prBase.nOfFlows = 9;
+* prDesc.curNode = 0;
+* prDesc.errCode = prSuccess;
+* prDesc.flowCnt = 0;
+* prDesc.nOfActions = 1;
+* prDesc.nOfGuards = 9;
+* prDesc.prActions = actions;
+* prDesc.prBase = \&prBase;
+* prDesc.prData = prData;
+* prDesc.prGuards = guards;
+* prDesc.prData = NULL;
+* </pre>
+*
+* @section PrExample_2 Procedure Descriptor Configuration
+* 
+* After the PRD has been created, it must be configured.
+* The next pseudo-code example illustrates the following configuration steps: (a)
+* The action nodes of the procedure are defined with the <code>::FwPrAddActionNode</code> function;
+* (b) The decision nodes of the procedure are defined with the <code>::FwPrAddDecisionNode</code> function;
+* (c) The control flow of the procedure are defined with the <code>FwPrAddFlow*</code> functions 
+* (there are several of these functions, one for each type of transition source and destination):
+* <pre>
+* // Configure the action nodes 
+* FwPrAddActionNode(prDesc, N1, \&incrCnt1By1);
+* FwPrAddActionNode(prDesc, N2, \&incrCnt1By1);
+* FwPrAddActionNode(prDesc, N3, \&incrCnt1By1);
+* 
+* // Configure  the decision nodes 
+* FwPrAddDecisionNode(prDesc, D1, 3);
+* FwPrAddDecisionNode(prDesc, D2, 2);
+* 
+* // Configure the control flows 
+* FwPrAddFlowIniToAct(prDesc, N1, \&retFlag1);
+* FwPrAddFlowActToAct(prDesc, N1, N2, \&retFlag2);
+* FwPrAddFlowActToDec(prDesc, N2, D1, NULL);
+* FwPrAddFlowDecToFin(prDesc, D1, \&retFlag3);
+* FwPrAddFlowDecToDec(prDesc, D1, D2, \&retFlag4);
+* FwPrAddFlowDecToAct(prDesc, D1, N3, \&retFlag5);
+* FwPrAddFlowActToAct(prDesc, N3, N2, \&retFlag6);
+* FwPrAddFlowDecToAct(prDesc, D2, N3, \&returnCounter1SmallerThan6);
+* FwPrAddFlowDecToFin(prDesc, D2, \&returnCounter1GreaterThan5);
+* </pre>
+* The variables with names like <code>incrCnt1By1</code> or <code>retFlag1</code> are function pointers which point to the
+* functions which implement the procedure actions and guards. 
+* These functions must conform to prototypes (<code>::FwPrAction_t</code> for actions and <code>::FwPrGuard_t</code> for guards) 
+* which are provided by the C1 Implementation.
+*
+* The configuration functions used in this example are defined in <code>FwPrConfig.h</code>.
+* Users who are severely constrained in memory can avoid linking this module by directly configuring the PRD and
+* its internal data structures.
+* This, however, requires a detailed understanding of how the PRD is organized internally.
+* In the case of the test procedure PR2, direct configuration can be done as follows:
+* <pre>
+* // Configure the array of procedure actions 
+* actions[0] = \&incrCnt1By1;
+* 
+* // Configure the array of procedure guards 
+* guards[0] = \&PrDummyGuard;
+* guards[1] = \&retFlag1;
+* guards[2] = \&retFlag2;
+* guards[3] = \&retFlag3;
+* guards[4] = \&retFlag4;
+* guards[5] = \&retFlag5;
+* guards[6] = \&retFlag6;
+* guards[7] = \&returnCounter1GreaterThan5;
+* guards[8] = \&returnCounter1SmallerThan6;
+* 
+* // Configure the array of action nodes 
+* aNodes[0].iAction = 0;
+* aNodes[0].iFlow = 1;
+* aNodes[1].iAction = 0;
+* aNodes[1].iFlow = 2;
+* aNodes[2].iAction = 0;
+* aNodes[2].iFlow = 3;
+* 
+* // Configure the array of decision nodes
+* dNodes[0].nOfOutTrans = 3;
+* dNodes[0].outFlowIndex = 4;
+* dNodes[1].nOfOutTrans = 2;
+* dNodes[1].outFlowIndex = 7;
+* 
+* // Configure the array of control flows
+* flows[0].dest = 1;
+* flows[0].iGuard = 1;
+* flows[1].dest = 2;
+* flows[1].iGuard = 2;
+* flows[2].dest = -1;
+* flows[2].iGuard = 0;
+* flows[3].dest = 2;
+* flows[3].iGuard = 6;
+* flows[4].dest = 3;
+* flows[4].iGuard = 5;
+* flows[5].dest = -2;
+* flows[5].iGuard = 4;
+* flows[6].dest = 0;
+* flows[6].iGuard = 3;
+* flows[7].dest = 3;
+* flows[7].iGuard = 8;
+* flows[8].dest = 0;
+* flows[8].iGuard = 7;
+* </pre>
+* 
+* @section PrExample_3 Procedure Execution
+*
+* The following example shows a short commanding sequence for the PR2 procedure. 
+* In the pseudo-code, variable <code>prDesc</code> holds the pointer to the PRD (i.e. variable <code>prDesc</code> 
+* is of type <code>FwPrDesc_t</code>). 
+* The procedure is first started. 
+* It is then executed twice and it is finally stopped. 
+* The response of the procedure to these commands depends on the values of the flags <code>Flag_1</code> and <code>Flag_2</code>. 
+* If, for instance, <code>Flag_1</code> is true and <code>Flag_2</code> is false, then the first execution command brings 
+* the procedure to N1 (causing its action to be executed) and the second one has no effect.
+* 
+* <pre>
+* // Start the procedure 
+* FwPrStart(prDesc);
+*
+* // Execute procedure twice 
+* FwPrExecute(prDesc);
+* FwPrExecute(prDesc);
+*
+* // Stop the procedure 
+* FwPrStop(prDesc);
+* </pre> 
+*
+* @section PrExample_4 Procedure Extension
+*
+* The pseudo-code below offers an example of creation and configuration of a derived procedure. 
+* The test procedure PR2 acts as <i>base procedure</i> and it is extended to create a new procedure 
+* (the <i>derived procedure</i>). 
+* The derived procedure differs from the base procedure in that it has a different action
+* (<code>incrCnt1By8</code> instead of <code>incrCnt1By1</code>) in its three nodes N1, N2 and N3.
+* Note that it would not have been possible to override only the action of state N1. 
+* The actions of the three nodes N1 to N3 have been defined to be identical and are 
+* implemented by the same function <code>incrCnt1By1</code> (see configuration examples in the previous sections) 
+* and can therefore only be overridden together. 
+*
+* <pre>
+* // Create the derived procedure (prDesc is the pointer to the PRD of the base SM) 
+* FwPrDesc_t prDescDer = FwPrCreateDer(prDesc);
+*
+* // Override Action incrCnt1By1 with action incrCnt1By8 
+* FwPrOverrideAction(prDescDer, \&incrCnt1By1, \&incrCnt1By8);
+* </pre>
+*
+* In the previous pseudo-code example, the descriptor of the derived procedure is created dynamically 
+* by function <code>::FwPrCreateDer</code>. 
+* For users who do not wish to rely on dynamic memory allocation, an alternative approach is available 
+* which is illustrated in the next example. 
+* Note that in the previous example variable <code>prDescDer</code> is a pointer to the PRD 
+* whereas in the next example it is the procedure descriptor itself.
+* 
+* <pre>
+* // Instantiate the derived procedure with 1 action and 8 guards 
+* %FW_PR_INST_DER(prDescDer, 1, 8)
+*
+* // Initialize the derived procedure (prDesc is the pointer to the PRD of the base procedure) 
+* FwPrInitDer(\&prDescDer, prDesc);
+*
+* // Override Action incrCnt1By1 with action incrCnt1By8 
+* FwPrOverrideAction(\&prDescDer, \&incrCnt1By1, \&incrCnt1By8);
+* </pre>
+*
+* Use of the derived procedure is done as in the case of non-derived procedures and the examples 
+* of the previous section remain therefore applicable.
+*/
+
+
+
+
+
+
+
+

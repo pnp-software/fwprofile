@@ -1,0 +1,103 @@
+/**
+* @page RtExample RT Container Example
+*
+* This page presents an example of how the functions provided by the C1 Implementation can be used to 
+* create, configure and use a RT Container. 
+* This example considers a very simple RT Container which, every time it receives a notification, writes a message to
+* standard output.  
+* The full code for the example is defined in the "RT Container Coding Example 1" (file <code>FwProfile_RtExample1.c</code>) 
+* in the delivery file of the C1 Implementation.
+*
+* @section RtExample_1 RT Container Creation
+* 
+* A RT Container is created by creating its descriptor.
+* A RT Container Descriptor (RTD) is a variable of type <code>struct FwRtDesc</code>.
+* The container instance is therefore created as follows: 
+* <pre>
+*   // Create and initialize the RTD
+*   struct %FwRtDesc rtDesc;
+* </pre>
+*
+* @section RtExample_2 RT Container Configuration
+* 
+* After the RTD has been created, it must be configured.
+* The next pseudo-code example illustrates the following configuration steps: (a) the internal data structures of the
+* RTD are reset; 
+* (b) the functional behaviour encapsulated by the container is attached to the container;
+* (c) the internal data structures of the RTD are initialized:
+* <pre>
+*   // Reset the RT Container 
+*   FwRtReset(\&rtDesc);
+*
+*   // Attach functional behaviour to RT Container
+*   FwRtSetExecFuncBehaviour(\&rtDesc,\&UserFunctionalBehaviour);
+*
+*   // Initialize the RT Container 
+*   FwRtInit(\&rtDesc);
+* </pre>
+* The variable <code>UserFunctionalBehaviour</code> is the function which implements the functional behaviour
+* executed by the container when it is notified. 
+* In the case of this example, this function is defined as follows:
+* <pre>
+*   FwRtOutcome_t UserFunctionalBehaviour(FwRtDesc_t rtDesc) {
+*	  static int i = 1;
+*	  printf("Activation Thread: Notification %i has been received!\n",i);
+*	  i++;
+*	  return 0;
+*   }
+* </pre>
+* This function must conform to the prototype <code>::FwRtAction_t</code>  
+* which is provided by the C1 Implementation.
+*
+* In this example, only one user-defined function is associated to the RT Container. 
+* In a more realistic example, other functions might be associated to the RT Container representing, for instance,
+* the initialization and finalization behaviour for the container; the behaviour which filters incoming notifications;
+* the behaviour which sets up notification requests; etc. In all cases, however, the container behaviour must be provided
+* by the user in functions conforming to the <code>::FwRtAction_t</code> stereotype which are loaded into the container
+* at configuration time using functions defined in <code>FwRtConfig.h</code>.
+*
+* @section RtExample_3 RT Container Notification
+*
+* The following example shows a short commanding sequence for the example RT Container. 
+* In the pseudo-code, the container is sent a sequence of 10 notifications separated by a wait time of 10 ms.
+* Note that, before being sent notifications, the container must be started.
+* 
+* <pre>
+*  // Start the RT Container and send a few notifications to it 
+*  FwRtStart(\&rtDesc);
+*  for (i=0; i<10; i++) {
+*	 printf("Sending notification %i to container ...\n",i+1);
+*	 nanosleep(\&ten_ms,NULL);	// wait ten ms 
+*  }
+*  // Stop the RT Container 
+*  FwRtStopt(\&rtDesc);
+* </pre> 
+*
+* After the container has been stopped, it will no longer process notification requests.
+* After being stopped, the container can be re-started.
+*   
+* @section RtExample_4 RT Container Shutdown
+*
+* When the container is no longer needed, it should be shut down.
+* The Shutdown operation ensures that any memory which was allocated during the initialization of the POSIX objects
+* used by the container is released.
+* When the container is stopped, its Activation Thread terminates.
+* This may take some time.
+* Hence, before shutting down the container, the program should wait until the thread has terminated:
+* <pre>
+*  // To ensure orderly shutdown: wait until container thread has terminated
+*  FwRtWaitForTermination(\&rtDesc);
+*
+*  // Shutdown the RT Container 
+*  FwRtShutdown(\&rtDesc);
+* </pre>
+*
+*/
+
+
+
+
+
+
+
+
