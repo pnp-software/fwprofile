@@ -77,8 +77,8 @@ void FwPrExecute(FwPrDesc_t prDesc) {
   /* Evaluate guard of control flow issuing from current node */
   trueGuardFound = (FwPrCounterS1_t)prDesc->prGuards[flow->iGuard](prDesc);
 
-  /* Execute loop until guard of control flow issuing from current node is true */
-  while (trueGuardFound != 0) {
+  /* Execute loop as long as guard of control flow issuing from current node is true */
+  while (trueGuardFound) {
     /* Target of flow is a final node */
     if (flow->dest == 0) {
       prDesc->curNode = 0; /* Stop procedure */
