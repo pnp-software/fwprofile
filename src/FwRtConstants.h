@@ -67,53 +67,51 @@ typedef FwRtOutcome_t (*FwRtAction_t)(FwRtDesc_t);
  * the RT Container Descriptor.
  */
 typedef enum {
-	/** The RT Container has not yet been initialized */
-	rtContUninitialized = 0,
-	/** The RT Container is in state STOPPED */
-	rtContStopped = 3,
-	/** The RT Container is in state STARTED */
-	rtContStarted = 4,
-	/** The function to create the Activation Thread has reported an error */
-	rtThreadCreateErr = 5,
-	/** The function to initialize the container mutex has reported an error */
-	rtMutexInitErr = 6,
-	/** The function to destroy the container mutex has reported an error */
-	rtMutexDestroyErr = 7,
-	/** The function to initialize the container condition has reported an error */
-	rtCondInitErr = 8,
-	/** The function to destroy the container condition has reported an error */
-	rtCondDestroyErr = 9,
-	/** The function to lock the container mutex has reported an error */
-	rtMutexLockErr = 10,
-	/** The function to unlock the container mutex has reported an error */
-	rtMutexUnlockErr = 11,
-	/** The function to signal a condition has reported an error */
-	rtCondSignalErr = 12,
-	/** The function to wait on a condition has reported an error */
-	rtCondWaitErr = 13,
-	/** The function to initialize a mutex attribute has reported an error */
-	rtMutexAttrInitErr = 14,
-	/** The function to initialize a mutex attribute has reported an error */
-	rtCondAttrInitErr = 15,
-	/** The function to initialize a thread attribute has reported an error */
-	rtThreadAttrInitErr = 16,
-	/** The function to destroy a mutex attribute has reported an error */
-	rtMutexAttrDestroyErr = 17,
-	/** The function to destroy a mutex attribute has reported an error */
-	rtCondAttrDestroyErr = 18,
-	/** The function to destroy a thread attribute has reported an error */
-	rtThreadAttrDestroyErr = 19,
-	/** The function to wait on a thread join has reported an error */
-	rtJoinErr = 20,
-	/** A configuration function has been called during the container's normal operation
-	 * (i.e. after <code>::FwRtInit</code> has been called but before <code>::FwRtShutdown</code>
-	 * is called) */
-	rtConfigErr = 21
+  /** The RT Container has not yet been initialized */
+  rtContUninitialized = 0,
+  /** The RT Container is in state STOPPED */
+  rtContStopped = 3,
+  /** The RT Container is in state STARTED */
+  rtContStarted = 4,
+  /** The function to create the Activation Thread has reported an error */
+  rtThreadCreateErr = 5,
+  /** The function to initialize the container mutex has reported an error */
+  rtMutexInitErr = 6,
+  /** The function to destroy the container mutex has reported an error */
+  rtMutexDestroyErr = 7,
+  /** The function to initialize the container condition has reported an error */
+  rtCondInitErr = 8,
+  /** The function to destroy the container condition has reported an error */
+  rtCondDestroyErr = 9,
+  /** The function to lock the container mutex has reported an error */
+  rtMutexLockErr = 10,
+  /** The function to unlock the container mutex has reported an error */
+  rtMutexUnlockErr = 11,
+  /** The function to signal a condition has reported an error */
+  rtCondSignalErr = 12,
+  /** The function to wait on a condition has reported an error */
+  rtCondWaitErr = 13,
+  /** The function to initialize a mutex attribute has reported an error */
+  rtMutexAttrInitErr = 14,
+  /** The function to initialize a mutex attribute has reported an error */
+  rtCondAttrInitErr = 15,
+  /** The function to initialize a thread attribute has reported an error */
+  rtThreadAttrInitErr = 16,
+  /** The function to destroy a mutex attribute has reported an error */
+  rtMutexAttrDestroyErr = 17,
+  /** The function to destroy a mutex attribute has reported an error */
+  rtCondAttrDestroyErr = 18,
+  /** The function to destroy a thread attribute has reported an error */
+  rtThreadAttrDestroyErr = 19,
+  /** The function to wait on a thread join has reported an error */
+  rtJoinErr = 20,
+  /** A configuration function has been called during the container's normal operation
+   * (i.e. after <code>::FwRtInit</code> has been called but before <code>::FwRtShutdown</code>
+   * is called) */
+  rtConfigErr = 21
 } FwRtState_t;
 
-typedef enum {
-	rtSampleEnumItem
-} FwRtSampleEnum;
+typedef enum { rtSampleEnumItem } FwRtSampleEnum;
 
 /**
  * Structure representing a RT Container Descriptor.
@@ -137,133 +135,133 @@ typedef enum {
  * non-NULL.
  */
 struct FwRtDesc {
-	/** The state of the RT Container. */
-	FwRtState_t state;
-	/**
-	 * The pointer to the Activation Thread attributes.
-	 * The default value of NULL indicates the default values of a pthread
-	 * attributes should be used.
-	 */
-	pthread_attr_t* pThreadAttr;
-	/**
-	 * The pointer to the mutex attributes.
-	 * The default value of NULL indicates the default values of a pthread
-	 * mutex attributes should be used.
-	 */
-	pthread_mutexattr_t* pMutexAttr;
-	/**
-	 * The pointer to the condition variable attributes.
-	 * The default value of NULL indicates the default values of a pthread
-	 * condition variable attributes should be used.
-	 */
-	pthread_condattr_t* pCondAttr;
-	/** The thread associated to the RT Container. */
-	pthread_t activationThread;
-	/** The mutex associated to the RT Container. */
-	pthread_mutex_t mutex;
-	/** The condition variable associated to the RT Container */
-	pthread_cond_t cond;
-	/** The notification counter */
-	FwRtCounterU2_t notifCounter;
-	/**
-	 * Pointer to the function encapsulating the initialization action for the
-	 * Notification Procedure.
-	 * This is a user-defined function.
-	 * This function is called once when the Notification Procedure is executed
-	 * for the first time.
-	 * It should perform any initialization action which is required by the
-	 * Notification Procedure.
-	 * The function always returns a value of 1.
-	 */
-	FwRtAction_t initializeNotifPr;
-	/**
-	 * Pointer to the function encapsulating the finalization action for the
-	 * Notification Procedure.
-	 * This is a user-defined function.
-	 * This function is called just before the Notification Procedure terminates.
-	 * It should perform any finalization action which is required by the
-	 * Notification Procedure.
-	 * The function always returns a value of 1.
-	 */
-	FwRtAction_t finalizeNotifPr;
-	/**
-	 * Pointer to the function encapsulating the implementation of the notification
-	 * logic.
-	 * This is a user-defined function.
-	 * After the Notification Procedure has been executed for the first time,
-	 * this function is called every time the procedure is executed as long as
-	 * the Notification Procedure has not been stopped.
-	 * This procedure should implement the logic which decides whether the Activation
-	 * Thread should be notified.
-	 * The function returns 1 if the Activation Thread is to be notified or it returns
-	 * 0 if the notification of the Activation Thread should be skipped.
-	 */
-	FwRtAction_t implementNotifLogic;
-	/**
-	 * Pointer to the function encapsulating the initialization action for the
-	 * Activation Procedure.
-	 * This is a user-defined function.
-	 * This function is called once when the Activation Procedure is executed
-	 * for the first time.
-	 * It should perform any initialization action which is required by the
-	 * Activation Procedure.
-	 * The function always returns a value of 1.
-	 */
-	FwRtAction_t initializeActivPr;
-	/**
-	 * Pointer to the function encapsulating the finalization action for the
-	 * Activation Procedure.
-	 * This is a user-defined function.
-	 * This function is called just before the Activation Procedure terminates.
-	 * It should perform any finalization action which is required by the
-	 * Activation Procedure.
-	 * The function always returns a value of 1.
-	 */
-	FwRtAction_t finalizeActivPr;
-	/**
-	 * Pointer to the function encapsulating the logic to set up the notification
-	 * for the RT Container.
-	 * This is a user-defined function.
-	 * This function is called each time the Activation Procedure is executed.
-	 * This function may be used to implement the logic which determines when the
-	 * next notification is sent to the RT Container.
-	 * The function always returns a value of 1.
-	 */
-	FwRtAction_t setUpNotification;
-	/**
-	 * Pointer to the function encapsulating the implementation of the activation
-	 * logic.
-	 * This is a user-defined function.
-	 * After the Activation Procedure has been executed for the first time,
-	 * this function is called every time the procedure is executed as long as
-	 * the RT Container has not been stopped.
-	 * This procedure should implement the logic which decides whether the Functional
-	 * Behaviour associated to the RT Container is executed.
-	 * The function returns 1 if the container's functional behaviour should be executed
-	 * and it returns 0 if the container's functional behaviour should not be executed.
-	 */
-	FwRtAction_t implementActivLogic;
-	/**
-	 * Pointer to the function encapsulating the execution of the functional behaviour
-	 * associated to the RT Container.
-	 * This is a user-defined function.
-	 * After the Activation Procedure has been executed for the first time,
-	 * this function is called every time the procedure is executed as long as
-	 * the RT Container has not been stopped.
-	 * This procedure should implement the functional behaviour associated to the
-	 * RT Container.
-	 * The function returns 1 if the execution of the functional behaviour has terminated
-	 * and it returns 0 if the execution of the functional behaviour is not yet terminated.
-	 */
-	FwRtAction_t execFuncBehaviour;
-	/** The flag indicating whether the Notification Procedure is STÂRTED. */
-	FwRtBool_t notifPrStarted;
-	/** The flag indicating whether the Activation Procedure is STÂRTED. */
-	FwRtBool_t activPrStarted;
-	/** The return value of the last system call which failed. */
-	int errCode;
-	/** The pointer to the RT Container data. */
-	void* rtData;
+  /** The state of the RT Container. */
+  FwRtState_t state;
+  /**
+   * The pointer to the Activation Thread attributes.
+   * The default value of NULL indicates the default values of a pthread
+   * attributes should be used.
+   */
+  pthread_attr_t* pThreadAttr;
+  /**
+   * The pointer to the mutex attributes.
+   * The default value of NULL indicates the default values of a pthread
+   * mutex attributes should be used.
+   */
+  pthread_mutexattr_t* pMutexAttr;
+  /**
+   * The pointer to the condition variable attributes.
+   * The default value of NULL indicates the default values of a pthread
+   * condition variable attributes should be used.
+   */
+  pthread_condattr_t* pCondAttr;
+  /** The thread associated to the RT Container. */
+  pthread_t activationThread;
+  /** The mutex associated to the RT Container. */
+  pthread_mutex_t mutex;
+  /** The condition variable associated to the RT Container */
+  pthread_cond_t cond;
+  /** The notification counter */
+  FwRtCounterU2_t notifCounter;
+  /**
+   * Pointer to the function encapsulating the initialization action for the
+   * Notification Procedure.
+   * This is a user-defined function.
+   * This function is called once when the Notification Procedure is executed
+   * for the first time.
+   * It should perform any initialization action which is required by the
+   * Notification Procedure.
+   * The function always returns a value of 1.
+   */
+  FwRtAction_t initializeNotifPr;
+  /**
+   * Pointer to the function encapsulating the finalization action for the
+   * Notification Procedure.
+   * This is a user-defined function.
+   * This function is called just before the Notification Procedure terminates.
+   * It should perform any finalization action which is required by the
+   * Notification Procedure.
+   * The function always returns a value of 1.
+   */
+  FwRtAction_t finalizeNotifPr;
+  /**
+   * Pointer to the function encapsulating the implementation of the notification
+   * logic.
+   * This is a user-defined function.
+   * After the Notification Procedure has been executed for the first time,
+   * this function is called every time the procedure is executed as long as
+   * the Notification Procedure has not been stopped.
+   * This procedure should implement the logic which decides whether the Activation
+   * Thread should be notified.
+   * The function returns 1 if the Activation Thread is to be notified or it returns
+   * 0 if the notification of the Activation Thread should be skipped.
+   */
+  FwRtAction_t implementNotifLogic;
+  /**
+   * Pointer to the function encapsulating the initialization action for the
+   * Activation Procedure.
+   * This is a user-defined function.
+   * This function is called once when the Activation Procedure is executed
+   * for the first time.
+   * It should perform any initialization action which is required by the
+   * Activation Procedure.
+   * The function always returns a value of 1.
+   */
+  FwRtAction_t initializeActivPr;
+  /**
+   * Pointer to the function encapsulating the finalization action for the
+   * Activation Procedure.
+   * This is a user-defined function.
+   * This function is called just before the Activation Procedure terminates.
+   * It should perform any finalization action which is required by the
+   * Activation Procedure.
+   * The function always returns a value of 1.
+   */
+  FwRtAction_t finalizeActivPr;
+  /**
+   * Pointer to the function encapsulating the logic to set up the notification
+   * for the RT Container.
+   * This is a user-defined function.
+   * This function is called each time the Activation Procedure is executed.
+   * This function may be used to implement the logic which determines when the
+   * next notification is sent to the RT Container.
+   * The function always returns a value of 1.
+   */
+  FwRtAction_t setUpNotification;
+  /**
+   * Pointer to the function encapsulating the implementation of the activation
+   * logic.
+   * This is a user-defined function.
+   * After the Activation Procedure has been executed for the first time,
+   * this function is called every time the procedure is executed as long as
+   * the RT Container has not been stopped.
+   * This procedure should implement the logic which decides whether the Functional
+   * Behaviour associated to the RT Container is executed.
+   * The function returns 1 if the container's functional behaviour should be executed
+   * and it returns 0 if the container's functional behaviour should not be executed.
+   */
+  FwRtAction_t implementActivLogic;
+  /**
+   * Pointer to the function encapsulating the execution of the functional behaviour
+   * associated to the RT Container.
+   * This is a user-defined function.
+   * After the Activation Procedure has been executed for the first time,
+   * this function is called every time the procedure is executed as long as
+   * the RT Container has not been stopped.
+   * This procedure should implement the functional behaviour associated to the
+   * RT Container.
+   * The function returns 1 if the execution of the functional behaviour has terminated
+   * and it returns 0 if the execution of the functional behaviour is not yet terminated.
+   */
+  FwRtAction_t execFuncBehaviour;
+  /** The flag indicating whether the Notification Procedure is STÂRTED. */
+  FwRtBool_t notifPrStarted;
+  /** The flag indicating whether the Activation Procedure is STÂRTED. */
+  FwRtBool_t activPrStarted;
+  /** The return value of the last system call which failed. */
+  int errCode;
+  /** The pointer to the RT Container data. */
+  void* rtData;
 };
 
 #endif /* FWRT_CONSTANTS_H_ */

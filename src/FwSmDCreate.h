@@ -7,7 +7,7 @@
  * a state machine descriptor dynamically.
  * Dynamic creation and release of memory is done through calls to
  * <code>malloc</code> and <code>free</code>.
- * 
+ *
  * A state machine can be created in two ways:
  * - It can be created from scratch, or
  * - It can be created by extending an existing state machine.
@@ -16,7 +16,7 @@
  * state machine descriptor from scratch (<code>::FwSmCreate</code>) and
  * the extension of an existing state machine descriptor to create the
  * descriptor for a derived state machine (<code>::FwSmCreateDer</code>).
- * 
+ *
  * Both the creation and the extension functions create a new state machine
  * descriptor and return a pointer to the newly created descriptor instance.
  * The state machine descriptor returned by these functions is initialized
@@ -24,11 +24,11 @@
  * need to be configured.
  * Configuration can be done using the functions offered by the
  * <code>FwSmConfig.h</code> file.
- * 
+ *
  * The creation and the extension functions in this header file always check the
  * success of calls to <code>malloc</code>.
  * In case of failure, the caller aborts and returns a NULL pointer.
- * 
+ *
  * Applications which do not wish to use dynamic memory allocation can
  * create a state machine descriptor statically using the services offered
  * by <code>FwSmSCreate.h</code>.
@@ -66,7 +66,7 @@
  * If any of these calls fails, the function aborts and returns NULL.
  * In this case, there may be a memory leak if part of the state machine descriptor memory
  * had been allocated before the function was aborted.
- * 
+ *
  * It is legal to create a state machine descriptor with no states or with no choice
  * pseudo-states but it is not legal to create a state machine descriptor with no
  * transitions.
@@ -88,25 +88,25 @@
  * data structures to hold the state machine descriptor failed or one of the
  * function parameters had an illegal value).
  */
-FwSmDesc_t FwSmCreate(FwSmCounterS1_t nOfStates, FwSmCounterS1_t nOfChoicePseudoStates,
-		FwSmCounterS1_t nOfTrans, FwSmCounterS1_t nOfActions, FwSmCounterS1_t nOfGuards);
+FwSmDesc_t FwSmCreate(FwSmCounterS1_t nOfStates, FwSmCounterS1_t nOfChoicePseudoStates, FwSmCounterS1_t nOfTrans,
+                      FwSmCounterS1_t nOfActions, FwSmCounterS1_t nOfGuards);
 
 /**
  * Create the descriptor of a derived state machine.
  * A derived state machine is a state machine which is created by extending
  * another state machine.
  * The state machine which is thus extended is called base state machine.
- * 
+ *
  * This function takes a state machine as an argument and creates a derived
  * state machine from it.
  * The function returns the descriptor of the newly created derived state machine.
- * 
+ *
  * The base state machine should be fully and correctly configured (i.e. it should
  * pass the configuration check implemented by <code>::FwSmCheck</code>).
  * Compliance with this constraint is not checked by this function.
  * If the constraint is not satisfied, the behaviour of the derived state machine
  * is undefined.
- * 
+ *
  * After being created, the derived state machine has the following characteristics:
  * - It has the same number of states, choice pseudo-states and transitions as
  *   the base state machine.
@@ -124,7 +124,7 @@ FwSmDesc_t FwSmCreate(FwSmCounterS1_t nOfStates, FwSmCounterS1_t nOfChoicePseudo
  *   derived by extending SM1).
  * .
  * Thus, the derived state machine is a structural clone of its base state machine.
- * 
+ *
  * The attributes of the derived state machine are initialized as
  * follows:
  * - The error code is the same as the error code of the base state machine.
@@ -144,7 +144,7 @@ FwSmDesc_t FwSmCreate(FwSmCounterS1_t nOfStates, FwSmCounterS1_t nOfChoicePseudo
  * .
  * The functions to perform these reconfiguration operations are defined in
  * <code>FwSmConfig.h</code>.
- * 
+ *
  * A state machine descriptor consists of two parts: the base descriptor and
  * the extension descriptor (see <code>FwSmPrivate.h</code>).
  * A derived state machine and its base state machine share the same base descriptor
@@ -164,13 +164,13 @@ FwSmDesc_t FwSmCreateDer(FwSmDesc_t smDesc);
 /**
  * Release the memory which was allocated when the state machine descriptor.
  * After this operation is called, the state machine descriptor can no longer be used.
- * 
+ *
  * This function releases the memory of both the base and the extension parts of the
  * state machine descriptor.
  * Hence, if the argument state machine descriptor acted as base for other state
  * machine descriptors, the derived state machine descriptors are no longer usable
  * after the function has been called.
- * 
+ *
  * This function only releases the memory of the argument state machine.
  * The memory allocated to embedded state machines is not affected.
  *
@@ -193,7 +193,7 @@ void FwSmRelease(FwSmDesc_t smDesc);
  * be used.
  * The state machine descriptor of the base state machine is unaffected by this
  * function.
- * 
+ *
  * This function only releases the memory of the argument state machine.
  * The memory allocated to embedded state machines is not affected.
  *
@@ -215,7 +215,7 @@ void FwSmReleaseDer(FwSmDesc_t smDesc);
  * After this operation is called, the state machine descriptor can no longer be used.
  * This operation also (recursively) releases the memory of the state machines embedded
  * in the argument state machine.
- * 
+ *
  * The release of the memory for the state machine and its embedded state machines
  * is done by means of function <code>FwSmRelease</code>.
  * The same constraints defined for <code>FwSmRelease</code> therefore also apply

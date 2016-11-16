@@ -4,14 +4,14 @@
  * Declaration of the internal data structures of the FW State Machine
  * Module.
  * Users should not normally be concerned with these data structures.
- * 
+ *
  * The data structures declared in this header file are used to define the state
  * machine descriptor.
  * A state machine descriptor holds all the information related to a certain state
  * machine.
  * A state machine descriptor consists of two parts: the base descriptor and
  * the extension descriptor.
- * 
+ *
  * The base descriptor holds the information which is not changed when the state
  * machine is extended.
  * This consists of:
@@ -19,7 +19,7 @@
  * - The list of choice pseudo-states in the state machine
  * - The list of transitions in the state machine
  * .
- * 
+ *
  * The extension descriptor holds the information which may be overridden when the
  * state machine is extended.
  * This consists of:
@@ -64,18 +64,18 @@
  * Enumerated type for the type of a state in a state machine.
  */
 typedef enum {
-	/**
-	 * A proper state in a state machine.
-	 */
-	properState = 1,
-	/**
-	 * A choice pseudo-state in a state machine.
-	 */
-	choicePseudoState = 2,
-	/**
-	 * Either the initial or the final pseudo-state.
-	 */
-	stoppedState = 3
+  /**
+   * A proper state in a state machine.
+   */
+  properState = 1,
+  /**
+   * A choice pseudo-state in a state machine.
+   */
+  choicePseudoState = 2,
+  /**
+   * Either the initial or the final pseudo-state.
+   */
+  stoppedState = 3
 } StateType_t;
 
 /**
@@ -114,7 +114,7 @@ FwSmBool_t SmDummyGuard(FwSmDesc_t smDesc);
  * Thus, for instance, if a state has 3 out-going transitions and if its
  * <code>outTransIndex</code> field has value 4, then the three out-going transitions
  * are located in elements 4, 5 and 6 of the array of transitions.
- * 
+ *
  * The state actions are integers which identify locations in the action array
  * of the state machine descriptor where the action is stored.
  * Thus, for instance, if the <code>iEntryAction</code> field for state S is equal to 5,
@@ -123,21 +123,21 @@ FwSmBool_t SmDummyGuard(FwSmDesc_t smDesc);
  * If an action is not defined, a value of zero is used to point to the first
  * location of the action array where the dummy action <code>::SmDummyAction</code> is stored
  * which returns without doing anything.
- * 
+ *
  * By convention, the implementation treats a state as uninitialized if its
  * <code>outTransIndex</code> field is equal to zero.
  */
 typedef struct {
-	/** index of first out-going transition in the transition array of <code>::SmBaseDesc_t</code> */
-	FwSmCounterS1_t outTransIndex;
-	/** number of outgoing transitions */
-	FwSmCounterS1_t nOfOutTrans;
-	/** the entry action for the state */
-	FwSmCounterS1_t iEntryAction;
-	/** the do action for the state */
-	FwSmCounterS1_t iDoAction;
-	/** the exit action for the state */
-	FwSmCounterS1_t iExitAction;
+  /** index of first out-going transition in the transition array of <code>::SmBaseDesc_t</code> */
+  FwSmCounterS1_t outTransIndex;
+  /** number of outgoing transitions */
+  FwSmCounterS1_t nOfOutTrans;
+  /** the entry action for the state */
+  FwSmCounterS1_t iEntryAction;
+  /** the do action for the state */
+  FwSmCounterS1_t iDoAction;
+  /** the exit action for the state */
+  FwSmCounterS1_t iExitAction;
 } SmPState_t;
 
 /**
@@ -151,15 +151,15 @@ typedef struct {
  * Thus, for instance, if a choice pseudo-state has 3 out-going transitions and if its
  * <code>outTransIndex</code> field has value 4, then the three out-going transitions
  * are located in elements 4, 5 and 6 of the array of transitions.
- * 
+ *
  * By convention, the implementation treats a choice pseudo-state as uninitialized if its
  * <code>outTransIndex</code> field is equal to zero.
  */
 typedef struct {
-	/** index of first out-going transition in transition array of <code>::SmBaseDesc_t</code> */
-	FwSmCounterS1_t outTransIndex;
-	/** number of outgoing transitions from the choice pseudo-state */
-	FwSmCounterS1_t nOfOutTrans;
+  /** index of first out-going transition in transition array of <code>::SmBaseDesc_t</code> */
+  FwSmCounterS1_t outTransIndex;
+  /** number of outgoing transitions from the choice pseudo-state */
+  FwSmCounterS1_t nOfOutTrans;
 } SmCState_t;
 
 /**
@@ -183,33 +183,33 @@ typedef struct {
  * #FW_TR_EXECUTE) and should not be used for user-defined transitions.
  * The name of a transition is "don't care" in the case of transitions out of
  * pseudo-states.
- * 
+ *
  * The transition action is an integer which identifies the location in the
  * action array of the state machine descriptor (see <code>FwSmDesc</code>)
  * where the action is stored as a function pointer.
  * If no action is associated to the transition, a value of zero is used to
  * point to the first element of the action array which holds a dummy action
  * which returns without doing anything.
- * 
+ *
  * The guard is an integer which identifies the location in the
  * guard array of the state machine descriptor (see <code>FwSmDesc</code>)
  * where the guard is stored as a function pointer.
  * If no guard is associated to the transition, a value of zero is used to
  * point to the first element of the guard array which holds a dummy guard
  * which always returns "true".
- * 
+ *
  * By convention, the implementation treats a transition as uninitialized if its
  * <code>trAction</code> field is equal to -1.
  */
 typedef struct {
-	/** the index of the destination of the transition */
-	FwSmCounterS1_t dest;
-	/** the identifier (the "name") of the transition */
-	FwSmCounterU2_t id;
-	/** the index of the action associated to the transition */
-	FwSmCounterS1_t iTrAction;
-	/** the index of the guard associated to the transition */
-	FwSmCounterS1_t iTrGuard;
+  /** the index of the destination of the transition */
+  FwSmCounterS1_t dest;
+  /** the identifier (the "name") of the transition */
+  FwSmCounterU2_t id;
+  /** the index of the action associated to the transition */
+  FwSmCounterS1_t iTrAction;
+  /** the index of the guard associated to the transition */
+  FwSmCounterS1_t iTrGuard;
 } SmTrans_t;
 
 /**
@@ -226,13 +226,13 @@ typedef struct {
  * number of proper states).
  * The i-th state is stored in the (i-1)-th location of <code>pStates</code>.
  * The number of states is stored in field <code>nOfPStates</code>.
- * 
+ *
  * Array <code>cStates</code> holds the choice pseudo-states in the state machine.
  * The choice pseudo-states are identified by an integer in the range [1,M] (M is the total
  * number of choice pseudo-states).
  * The i-th choice pseudo-state is stored in the (i-1)-th location of <code>cStates</code>.
  * The number of choice pseudo-states is stored in field <code>nOfCStates</code>.
- * 
+ *
  * Array <code>trans</code> holds the transitions in the state machine.
  * The transition out of the initial pseudo-state is stored in the first location of
  * array <code>trans</code>.
@@ -242,18 +242,18 @@ typedef struct {
  * The number of transitions is stored in field <code>nOfTrans</code>.
  */
 typedef struct {
-	/** array holding the proper states in the state machine */
-	SmPState_t* pStates;
-	/** array holding the choice pseudo-states in the state machine */
-	SmCState_t* cStates;
-	/** array holding the transitions in the state machine */
-	SmTrans_t* trans;
-	/** the number of states in the state machine */
-	FwSmCounterS1_t nOfPStates;
-	/** the number of choice pseudo-states in the state machine */
-	FwSmCounterS1_t nOfCStates;
-	/** the number of transitions in SM */
-	FwSmCounterS1_t nOfTrans;
+  /** array holding the proper states in the state machine */
+  SmPState_t* pStates;
+  /** array holding the choice pseudo-states in the state machine */
+  SmCState_t* cStates;
+  /** array holding the transitions in the state machine */
+  SmTrans_t* trans;
+  /** the number of states in the state machine */
+  FwSmCounterS1_t nOfPStates;
+  /** the number of choice pseudo-states in the state machine */
+  FwSmCounterS1_t nOfCStates;
+  /** the number of transitions in SM */
+  FwSmCounterS1_t nOfTrans;
 } SmBaseDesc_t;
 
 /**
@@ -261,7 +261,7 @@ typedef struct {
  * Field <code>smBase</code> points to the base descriptor for the state machine
  * which holds the information about the states, choice pseudo-states and the
  * transitions connecting them.
- * 
+ *
  * Array <code>smActions</code> holds the list of all actions in the state machine
  * (including both state and transition actions).
  * The first element of the array holds a dummy action which returns without
@@ -269,32 +269,32 @@ typedef struct {
  * Each distinct action only appears once in the action array.
  * If the same action is used several times in a state machine, only one instance is
  * registered in the action array.
- * 
+ *
  * Array <code>smGuards</code> holds the list of all transition guards in the
  * state machine.
  * The first element of the array holds a dummy guard which always returns true.
  * Each distinct guard only appears once in the guard array.
  * If the same guard is used several times in a state machine, only one instance is
  * registered in the guard array.
- * 
+ *
  * The i-th element of array <code>esmDesc</code> holds the state machine embedded
  * in the i-th state of the state machine (or NULL if no state machine is embedded).
- * 
+ *
  * When a new state or choice pseudo-state is added to the state machine, field
  * <code>transCnt</code> holds the position in the transition array where its
  * first out-going transition will be stored.
- * 
+ *
  * The identifier of the current state (which can only be a proper state) is
  * stored in <code>curState</code>.
  * If this is equal to zero, then the state machine is stopped.
- * 
+ *
  * If during the creation, configuration or execution of the state machine, an error is
  * encountered, the corresponding error code is stored in field <code>errCode</code>.
  * This field is initialized to <code>#smSuccess</code> and should nominally remain
  * unchanged throughout the life of the state machine.
  * If the error code has a value other than <code>#smSuccess</code>, the behaviour of
  * the state machine is undefined.
- * 
+ *
  * There are two types of state machines: base state machines (i.e.
  * state machines which are created from scratch using <code>::FwSmCreate</code> or
  * <code>#FW_SM_INST</code>) and derived state machines (i.e. state
@@ -302,7 +302,7 @@ typedef struct {
  * to <code>::FwSmCreateDer</code> or <code>#FW_SM_INST_DER</code>).
  * By convention, a derived state machine is characterized by field
  * <code>transCnt</code> being equal to zero.
- * 
+ *
  * Two counters are associated to a sttae machine: the State Machine Execution Counter
  * and the State Execution Counter.
  * The State Machine Execution Counter holds the number of execution cycles since
@@ -310,30 +310,30 @@ typedef struct {
  * since the current state was entered.
  */
 struct FwSmDesc {
-	/** pointer to the base descriptor */
-	SmBaseDesc_t* smBase;
-	/** the state machine actions (state and transition actions) */
-	FwSmAction_t* smActions;
-	/** the transition guards in the state machine */
-	FwSmGuard_t* smGuards;
-	/** the state machines embedded in the state machine */
-	struct FwSmDesc** esmDesc;
-	/** the number of actions (state actions + transition actions) in the state machine */
-	FwSmCounterS1_t nOfActions;
-	/** the number of guards in the state machine */
-	FwSmCounterS1_t nOfGuards;
-	/** the counter for the number of transitions added to the state machine */
-	FwSmCounterS1_t transCnt;
-	/** the current state of the state machine */
-	FwSmCounterS1_t curState;
-	/** the state machine execution counter */
-	FwSmCounterU3_t smExecCnt;
-	/** the state execution counter */
-	FwSmCounterU3_t stateExecCnt;
-	/** either 'success' or the code of the last error encountered by the state machine */
-	FwSmErrCode_t errCode;
-	/** the pointer to the data manipulated by the state machine actions and guards */
-	void* smData;
+  /** pointer to the base descriptor */
+  SmBaseDesc_t* smBase;
+  /** the state machine actions (state and transition actions) */
+  FwSmAction_t* smActions;
+  /** the transition guards in the state machine */
+  FwSmGuard_t* smGuards;
+  /** the state machines embedded in the state machine */
+  struct FwSmDesc** esmDesc;
+  /** the number of actions (state actions + transition actions) in the state machine */
+  FwSmCounterS1_t nOfActions;
+  /** the number of guards in the state machine */
+  FwSmCounterS1_t nOfGuards;
+  /** the counter for the number of transitions added to the state machine */
+  FwSmCounterS1_t transCnt;
+  /** the current state of the state machine */
+  FwSmCounterS1_t curState;
+  /** the state machine execution counter */
+  FwSmCounterU3_t smExecCnt;
+  /** the state execution counter */
+  FwSmCounterU3_t stateExecCnt;
+  /** either 'success' or the code of the last error encountered by the state machine */
+  FwSmErrCode_t errCode;
+  /** the pointer to the data manipulated by the state machine actions and guards */
+  void* smData;
 };
 
 #endif /* FWSM_PRIVATE_H_ */

@@ -4,13 +4,13 @@
  * Declaration of the internal data structures of the FW Procedure
  * Module.
  * Users should not normally be concerned with these data structures.
- * 
+ *
  * The data structures declared in this header file are used to define the
  * procedure descriptor.
  * A procedure descriptor holds all the information related to a certain procedure.
  * A procedure descriptor consists of two parts: the base descriptor and
  * the extension descriptor.
- * 
+ *
  * The base descriptor holds the information which is not changed when the
  * procedure is extended.
  * This consists of:
@@ -18,7 +18,7 @@
  * - The list of decision nodes in the procedure
  * - The list of control flows in the procedure
  * .
- * 
+ *
  * The extension descriptor holds the information which may be overridden when the
  * procedure is extended.
  * This consists of:
@@ -60,18 +60,18 @@
  * Enumerated type for the type of a node in a procedure.
  */
 typedef enum {
-	/**
-	 * An action state in a procedure.
-	 */
-	actionNode = 1,
-	/**
-	 * A decision node in a procedure.
-	 */
-	decisionNode = 2,
-	/**
-	 * Either the initial or the final node.
-	 */
-	stoppedNode = 3
+  /**
+   * An action state in a procedure.
+   */
+  actionNode = 1,
+  /**
+   * A decision node in a procedure.
+   */
+  decisionNode = 2,
+  /**
+   * Either the initial or the final node.
+   */
+  stoppedNode = 3
 } NodeType_t;
 
 /**
@@ -94,21 +94,21 @@ FwPrBool_t PrDummyGuard(FwPrDesc_t prDesc);
  * Thus, for instance, if the <code>iFlow</code> field for node N is equal to 5,
  * then the out-going control flow of node N is the one stored at location 5 of the
  * control flow array of that procedure.
- * 
+ *
  * The node action is identified by an integer pointing at the location in the
  * action array of the procedure descriptor where the action is stored.
  * Thus, for instance, if the <code>iAction</code> field for node N is equal to 5,
  * then the action of node N is the one stored at location 5 of the
  * action array of that procedure.
- * 
+ *
  * By convention, the implementation treats an action node as uninitialized if its
  * <code>iFlow</code> field is equal to -1.
  */
 typedef struct {
-	/** index of out-going control flows */
-	FwPrCounterS1_t iFlow;
-	/** index of the action attached to the node */
-	FwPrCounterS1_t iAction;
+  /** index of out-going control flows */
+  FwPrCounterS1_t iFlow;
+  /** index of the action attached to the node */
+  FwPrCounterS1_t iAction;
 } PrANode_t;
 
 /**
@@ -123,15 +123,15 @@ typedef struct {
  * Thus, for instance, if a decision node has 3 out-going control flows and if its
  * <code>outFlowIndex</code> field has value 4, then the three out-going control flows
  * are located in elements 4, 5 and 6 of the array of control flows.
- * 
+ *
  * By convention, the implementation treats a decision node as uninitialized if its
  * <code>outFlowIndex</code> field is equal to -1.
  */
 typedef struct {
-	/** index of first out-going control flow in control flow array */
-	FwPrCounterS1_t outFlowIndex;
-	/** number of outgoing control flows from the decision node */
-	FwPrCounterS1_t nOfOutTrans;
+  /** index of first out-going control flow in control flow array */
+  FwPrCounterS1_t outFlowIndex;
+  /** number of outgoing control flows from the decision node */
+  FwPrCounterS1_t nOfOutTrans;
 } PrDNode_t;
 
 /**
@@ -154,15 +154,15 @@ typedef struct {
  * Control flows which do not have a guard associated to them, set <code>iGuard</code>
  * equal to zero (the zero-th location in the guard array holds the "dummy
  * guard" <code>::PrDummyGuard</code> which always returns 1).
- * 
+ *
  * By convention, the implementation treats a control flow as uninitialized if its
  * <code>iGuard</code> field is equal to -1.
  */
 typedef struct {
-	/** the index of the destination of the control flow */
-	FwPrCounterS1_t dest;
-	/** the index of the guard associated to the control flow */
-	FwPrCounterS1_t iGuard;
+  /** the index of the destination of the control flow */
+  FwPrCounterS1_t dest;
+  /** the index of the guard associated to the control flow */
+  FwPrCounterS1_t iGuard;
 } PrFlow_t;
 
 /**
@@ -179,13 +179,13 @@ typedef struct {
  * number of nodes).
  * The i-th action node is stored in the (i-1)-th location of <code>aNodes</code>.
  * The number of action nodes is stored in field <code>nOfANodes</code>.
- * 
+ *
  * Array <code>dNodes</code> holds the decision nodes in the procedure.
  * The decision nodes are identified by an integer in the range [1,M] (M is the total
  * number of decision nodes).
  * The i-th decision node is stored in the (i-1)-th location of <code>dNodes</code>.
  * The number of decision nodes is stored in field <code>nOfDNodes</code>.
- * 
+ *
  * Array <code>flows</code> holds the control flows in the procedure.
  * The control flows are stored in groups of adjacent locations where each group
  * holds the control flows out of the same node (see also
@@ -193,18 +193,18 @@ typedef struct {
  * The number of control flows is stored in field <code>nOfFlows</code>.
  */
 typedef struct {
-	/** array holding the action nodes in the procedure */
-	PrANode_t* aNodes;
-	/** array holding the decision nodes in the procedure */
-	PrDNode_t* dNodes;
-	/** array holding the control flows in the procedure */
-	PrFlow_t* flows;
-	/** the number of action nodes in the procedure */
-	FwPrCounterS1_t nOfANodes;
-	/** the number of decision nodes in the procedure */
-	FwPrCounterS1_t nOfDNodes;
-	/** the number of control flows in the procedure (excluding control flow from initial node) */
-	FwPrCounterS1_t nOfFlows;
+  /** array holding the action nodes in the procedure */
+  PrANode_t* aNodes;
+  /** array holding the decision nodes in the procedure */
+  PrDNode_t* dNodes;
+  /** array holding the control flows in the procedure */
+  PrFlow_t* flows;
+  /** the number of action nodes in the procedure */
+  FwPrCounterS1_t nOfANodes;
+  /** the number of decision nodes in the procedure */
+  FwPrCounterS1_t nOfDNodes;
+  /** the number of control flows in the procedure (excluding control flow from initial node) */
+  FwPrCounterS1_t nOfFlows;
 } PrBaseDesc_t;
 
 /**
@@ -212,23 +212,23 @@ typedef struct {
  * Field <code>prBase</code> points to the base descriptor for the procedure
  * which holds the information about the action nodes, decision nodes and the
  * control flows connecting them.
- * 
+ *
  * Array <code>prActions</code> holds the list of all actions in the procedure.
  * Each distinct action only appears once in the action array.
  * If the same action is used several times in a procedure, only one instance is
  * registered in the action array.
- * 
+ *
  * Array <code>prGuards</code> holds the list of all control flow guards in the
  * procedure.
  * If the same guard is used several times in a procedure, only one instance is
  * registered in the guard array.
  * The first location in the guard array (location 0) holds the "dummy guard"
  * <code>::PrDummyGuard</code> which always returns 1.
- * 
+ *
  * When a new action node is added to the procedure, field
  * <code>flowCnt</code> holds the position in the control flow array where its
  * out-going control flow will be stored.
- * 
+ *
  * The identifier of the current node is stored in <code>curNode</code>.
  * The following convention is used:
  * - A value of 0 indicates that the procedure is in the STOPPED state;
@@ -238,14 +238,14 @@ typedef struct {
  * - A value of i (a positive integer) indicates that the procedure is in the
  *   STARTED state and i is the identifier of its current node.
  * .
- * 
+ *
  * If during the creation, configuration or execution of the procedure, an error is
  * encountered, the corresponding error code is stored in field <code>errCode</code>.
  * This field is initialized to <code>#prSuccess</code> and should nominally remain
  * unchanged throughout the life of the procedure.
  * If the error code has a value other than <code>#prSuccess</code>, the behaviour of
  * the procedure is undefined.
- * 
+ *
  * There are two types of procedures: base procedures (i.e.
  * procedures which are created from scratch using <code>::FwPrCreate</code> or
  * <code>#FW_SM_INST</code>) and derived procedures (i.e. procedures
@@ -253,7 +253,7 @@ typedef struct {
  * to <code>::FwPrCreateDer</code> or <code>#FW_PR_INST_DER</code>).
  * By convention, a derived procedure is characterized by field
  * <code>flowCnt</code> being equal to zero.
- * 
+ *
  * Two counters are associated to a procedure: the Procedure Execution Counter
  * and the Node Execution Counter.
  * The Procedure Execution Counter holds the number of execution cycles since
@@ -261,28 +261,28 @@ typedef struct {
  * since the current node was entered.
  */
 struct FwPrDesc {
-	/** pointer to the base descriptor */
-	PrBaseDesc_t* prBase;
-	/** the procedure actions */
-	FwPrAction_t* prActions;
-	/** the control flow guards in the procedure */
-	FwPrGuard_t* prGuards;
-	/** the number of actions in the procedure */
-	FwPrCounterS1_t nOfActions;
-	/** the number of guards in the procedure */
-	FwPrCounterS1_t nOfGuards;
-	/** the counter for the number of control flows added to the procedure */
-	FwPrCounterS1_t flowCnt;
-	/** the current node of the procedure */
-	FwPrCounterS1_t curNode;
-	/** either 'success' or the code of the last error encountered by the procedure */
-	FwPrErrCode_t errCode;
-	/** the procedure execution counter */
-	FwPrCounterU3_t prExecCnt;
-	/** the node execution counter */
-	FwPrCounterU3_t nodeExecCnt;
-	/** the pointer to the data manipulated by the procedure actions and guards */
-	void* prData;
+  /** pointer to the base descriptor */
+  PrBaseDesc_t* prBase;
+  /** the procedure actions */
+  FwPrAction_t* prActions;
+  /** the control flow guards in the procedure */
+  FwPrGuard_t* prGuards;
+  /** the number of actions in the procedure */
+  FwPrCounterS1_t nOfActions;
+  /** the number of guards in the procedure */
+  FwPrCounterS1_t nOfGuards;
+  /** the counter for the number of control flows added to the procedure */
+  FwPrCounterS1_t flowCnt;
+  /** the current node of the procedure */
+  FwPrCounterS1_t curNode;
+  /** either 'success' or the code of the last error encountered by the procedure */
+  FwPrErrCode_t errCode;
+  /** the procedure execution counter */
+  FwPrCounterU3_t prExecCnt;
+  /** the node execution counter */
+  FwPrCounterU3_t nodeExecCnt;
+  /** the pointer to the data manipulated by the procedure actions and guards */
+  void* prData;
 };
 
 #endif /* FWPR_PRIVATE_H_ */

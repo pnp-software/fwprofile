@@ -7,7 +7,7 @@
  * to be configured.
  * During the configuration process, the states, the choice pseudo-states and
  * the transitions of the state machine are defined.
- * 
+ *
  * There are two types of state machines: newly created state machines
  * (i.e. state machines which are created from scratch using <code>::FwSmCreate</code>
  * or <code>#FW_SM_INST</code>) and derived state machines (i.e. state
@@ -15,7 +15,7 @@
  * to <code>::FwSmCreateDer</code> or <code>#FW_SM_INST_DER</code>).
  * The functions declared in this header file can be used to configure both types
  * of state machines.
- * 
+ *
  * In the case of a newly created state machine, the mode of use of the
  * functions in this header file is as follows:
  * -# The states of the state machine are added to its descriptor with
@@ -34,7 +34,7 @@
  * The only constraint on the order in which the above functions are called is
  * that a transition from a state or choice pseudo-state can only be defined
  * after the source state or choice pseudo-state has been defined.
- * 
+ *
  * In the case of a derived state machine, the mode of use of the functions
  * declared in this header file is as follows:
  * -# An action (either a state or a transition action) can be overridden
@@ -48,7 +48,7 @@
  * .
  * There are no constraints on the order in which the above functions are
  * called.
- * 
+ *
  * Error handling is done as follows:
  * - Errors are reported through error codes. The range of error codes is
  *   defined in header file <code>FwSmConstant.h</code>. The error code is
@@ -104,7 +104,7 @@
  * In most cases, the state machine data will take the form of a <code>struct</code>
  * whose fields represents the inputs and outputs for the state machine actions
  * and guards.
- * 
+ *
  * The functions which implement the actions and guards access the state machine
  * data as follows:
  * - The functions implementing the actions and guards of a state machine
@@ -134,7 +134,7 @@ void FwSmSetData(FwSmDesc_t smDesc, void* smData);
  * @return the pointer to the state machine data or NULL if no state machine data
  * were defined for the state machine.
  */
- void* FwSmGetData(FwSmDesc_t smDesc);
+void* FwSmGetData(FwSmDesc_t smDesc);
 
 /**
  * Create a state with the given characteristics and add it to a state machine.
@@ -161,8 +161,8 @@ void FwSmSetData(FwSmDesc_t smDesc, void* smData);
  * @param esmDesc the descriptor of the state machine embedded in the new state or NULL
  * if no state machine is embedded in the new state.
  */
-void FwSmAddState(FwSmDesc_t smDesc, FwSmCounterS1_t stateId, FwSmCounterS1_t nOfOutTrans,
-		FwSmAction_t entryAction, FwSmAction_t exitAction, FwSmAction_t doAction, FwSmDesc_t esmDesc);
+void FwSmAddState(FwSmDesc_t smDesc, FwSmCounterS1_t stateId, FwSmCounterS1_t nOfOutTrans, FwSmAction_t entryAction,
+                  FwSmAction_t exitAction, FwSmAction_t doAction, FwSmDesc_t esmDesc);
 
 /**
  * Create a choice pseudo-state with the given characteristics and add it to a state machine.
@@ -246,8 +246,8 @@ void FwSmAddTransIpsToCps(FwSmDesc_t smDesc, FwSmCounterS1_t destId, FwSmAction_
  * @param trGuard the transition guard (a function pointer) or NULL if no guard is associated
  * to this transition.
  */
-void FwSmAddTransStaToSta(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounterS1_t srcId,
-		FwSmCounterS1_t destId, FwSmAction_t trAction, FwSmGuard_t trGuard);
+void FwSmAddTransStaToSta(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounterS1_t srcId, FwSmCounterS1_t destId,
+                          FwSmAction_t trAction, FwSmGuard_t trGuard);
 
 /**
  * Create a transition from a proper state to a choice pseudo-state and add it to a state machine.
@@ -277,8 +277,8 @@ void FwSmAddTransStaToSta(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounte
  * @param trGuard the transition guard (a function pointer) or NULL if no guard is associated
  * to this transition.
  */
-void FwSmAddTransStaToCps(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounterS1_t srcId,
-		FwSmCounterS1_t destId, FwSmAction_t trAction, FwSmGuard_t trGuard);
+void FwSmAddTransStaToCps(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounterS1_t srcId, FwSmCounterS1_t destId,
+                          FwSmAction_t trAction, FwSmGuard_t trGuard);
 
 /**
  * Create a transition from a choice pseudo-state to a proper state and add it to a state machine.
@@ -305,8 +305,8 @@ void FwSmAddTransStaToCps(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounte
  * @param trGuard the transition guard (a function pointer) or NULL if no guard is associated
  * to this transition.
  */
-void FwSmAddTransCpsToSta(FwSmDesc_t smDesc, FwSmCounterS1_t srcId, FwSmCounterS1_t destId,
-		FwSmAction_t trAction, FwSmGuard_t trGuard);
+void FwSmAddTransCpsToSta(FwSmDesc_t smDesc, FwSmCounterS1_t srcId, FwSmCounterS1_t destId, FwSmAction_t trAction,
+                          FwSmGuard_t trGuard);
 
 /**
  * Create a transition from a proper state to the final pseudo-state and add it to a state machine.
@@ -334,8 +334,8 @@ void FwSmAddTransCpsToSta(FwSmDesc_t smDesc, FwSmCounterS1_t srcId, FwSmCounterS
  * @param trGuard the transition guard (a function pointer) or NULL if no guard is associated
  * to this transition.
  */
-void FwSmAddTransStaToFps(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounterS1_t srcId,
-		FwSmAction_t trAction, FwSmGuard_t trGuard);
+void FwSmAddTransStaToFps(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounterS1_t srcId, FwSmAction_t trAction,
+                          FwSmGuard_t trGuard);
 
 /**
  * Create a transition from a choice pseudo-state to the final pseudo-state and add it to a state machine.
@@ -361,8 +361,7 @@ void FwSmAddTransStaToFps(FwSmDesc_t smDesc, FwSmCounterU2_t transId, FwSmCounte
  * @param trGuard the transition guard (a function pointer) or NULL if no guard is associated
  * to this transition
  */
-void FwSmAddTransCpsToFps(FwSmDesc_t smDesc, FwSmCounterS1_t srcId, FwSmAction_t trAction,
-		FwSmGuard_t trGuard);
+void FwSmAddTransCpsToFps(FwSmDesc_t smDesc, FwSmCounterS1_t srcId, FwSmAction_t trAction, FwSmGuard_t trGuard);
 
 /**
  * Check the correctness and completeness of the configuration of a state machine descriptor.
@@ -435,7 +434,7 @@ FwSmErrCode_t FwSmCheckRec(FwSmDesc_t smDesc);
  * By default a derived state machine has the same actions as the base state machine
  * from which it was derived.
  * This function overrides one of the actions of the derived state machine.
- * 
+ *
  * As an example consider the case of a base state machine B and suppose that action
  * a1 is used as entry action of state S1 and as exit action of state S2.
  * If an application creates a derived state machine D from B (for instance, through
@@ -444,17 +443,17 @@ FwSmErrCode_t FwSmCheckRec(FwSmDesc_t smDesc);
  * This function can be used to change a1.
  * Note that a single invocation of this function will change both the entry action
  * of S1 and the exit action of S2.
- * 
+ *
  * A call to this function on a state machine D has no effect on the actions of
  * the state machines which are embedded in the states of D.
- * 
+ *
  * If an attempt is made to override a non-existent action, an error is declared
  * and the function returns without doing anything.
- * 
+ *
  * The override mechanism is only available for derived state machines.
  * If this function is called on a state machine which was not derived by extending
  * some other state machine, an error is declared.
- * 
+ *
  * This function reports the following errors in the error code of the state
  * machine descriptor:
  * - #smUndefAction: the action to be overridden does not exist
@@ -471,7 +470,7 @@ void FwSmOverrideAction(FwSmDesc_t smDesc, FwSmAction_t oldAction, FwSmAction_t 
  * By default a derived state machine has the same guards as the base state machine
  * from which it was derived.
  * This function overrides one of the guards of the derived state machine.
- * 
+ *
  * As an example consider the case of a base state machine B and suppose that
  * the transitions from state S1 to state S2 and the transition from state S3 to
  * state S4 both have the same guard g1.
@@ -481,17 +480,17 @@ void FwSmOverrideAction(FwSmDesc_t smDesc, FwSmAction_t oldAction, FwSmAction_t 
  * This function can be used to change g1.
  * Note that a single invocation of this function will change the guard on both
  * transitions.
- * 
+ *
  * A call to this function on a state machine D has no effect on the guards of
  * the state machines which are embedded in the states of D.
- * 
+ *
  * If an attempt is made to override a non-existent guard, the function declares
  * an error and returns.
- * 
+ *
  * The override mechanism is only available for derived state machines.
  * If this function is called on a state machine which was not derived by extending
  * some other state machine, an error is declared.
- * 
+ *
  * This function reports the following errors in the error code of the state
  * machine descriptor:
  * - #smUndefGuard: the guard to be overridden does not exist
@@ -511,22 +510,22 @@ void FwSmOverrideGuard(FwSmDesc_t smDesc, FwSmGuard_t oldGuard, FwSmGuard_t newG
  * of the derived state machine.
  * A state machine can only be embedded in an "empty" state (i.e. a state which,
  * in the base state machine, had no embedded state).
- * 
+ *
  * As an example consider the case of a base state machine B and suppose that
  * state S1 in this state machine has not embedded state machine.
  * If an application creates a derived state machine D from B (for instance, through
  * function <code>::FwSmCreateDer</code>), then, after creation, state S1 in the
  * derived state machine has no embedded state machine.
  * This function allows a state machine to be embedded in S1.
- * 
+ *
  * If an attempt is made to embed a state machine in a non-empty state, the
  * function returns with an error but does not modify in any way the state
  * machine descriptor.
- * 
+ *
  * The override mechanism is only available for derived state machines.
  * If this function is called on a base state machine, an error is returned
  * and the function returns without doing anything.
- * 
+ *
  * This function reports the following errors in the error code of the state
  * machine descriptor:
  * - #smUndefGuard: the action to be overridden does not exist

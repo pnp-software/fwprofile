@@ -7,7 +7,7 @@
  * statically (i.e. without using dynamic memory allocation).
  * In this sense, this interface is alternative to the dynamic creation
  * interface defined in <code>FwPrDCreate.h</code>.
- * 
+ *
  * A procedure can be created in two ways:
  * - It can be created from scratch, or
  * - It can be created by extending an existing procedure.
@@ -73,7 +73,7 @@
  * of decision NDEC and the number of control flows NFLOWS is positive.
  * If there is a need to define a procedure with zero decision nodes,
  * the <code>::FW_PR_INST_NODEC</code> macro should be used.
- * 
+ *
  * The macro generates code that does the following:
  * - It defines an array of N elements of type <code>PrANode_t</code> to
  *   represent the array holding the procedure action nodes.
@@ -93,11 +93,11 @@
  *   <code>struct FwPrDesc</code> to represent the procedure descriptor.
  * .
  * All variables defined by this macro are <code>static</code>.
- * 
+ *
  * The procedure descriptor instantiated by the macro is only partially
  * initialized.
  * Full initialization is performed using function <code>::FwPrInit</code>.
- * 
+ *
  * Since the macro includes the declaration of several variables, it should be located
  * in the section of a c-file where variable declaration is legal.
  * @param PR_DESC the variable holding the procedure descriptor
@@ -108,15 +108,15 @@
  * @param NG a non-negative integer representing the number of guards (i.e. the
  * number of transition actions which are defined on the procedure)
  */
-#define FW_PR_INST(PR_DESC, N, NDEC, NFLOWS, NA, NG) \
-static PrANode_t PR_DESC ## _aNodes[(N)]; \
-static PrDNode_t PR_DESC ## _dNodes[(NDEC)]; \
-static PrFlow_t PR_DESC ## _flows[(NFLOWS)]; \
-static FwPrAction_t PR_DESC ## _actions[(NA)]; \
-static FwPrGuard_t PR_DESC ## _guards[(NG)+1]; \
-static PrBaseDesc_t PR_DESC ## _base = {(PR_DESC ## _aNodes), (PR_DESC ## _dNodes), (PR_DESC ## _flows), N, NDEC, NFLOWS}; \
-static struct FwPrDesc (PR_DESC) = {&(PR_DESC ## _base), (PR_DESC ## _actions), (PR_DESC ## _guards), \
-	NA, NG+1, 1, 0, prSuccess, 0, 0, NULL};
+#define FW_PR_INST(PR_DESC, N, NDEC, NFLOWS, NA, NG)                                                                 \
+  static PrANode_t    PR_DESC##_aNodes[(N)];                                                                         \
+  static PrDNode_t    PR_DESC##_dNodes[(NDEC)];                                                                      \
+  static PrFlow_t     PR_DESC##_flows[(NFLOWS)];                                                                     \
+  static FwPrAction_t PR_DESC##_actions[(NA)];                                                                       \
+  static FwPrGuard_t  PR_DESC##_guards[(NG) + 1];                                                                    \
+  static PrBaseDesc_t PR_DESC##_base = {(PR_DESC##_aNodes), (PR_DESC##_dNodes), (PR_DESC##_flows), N, NDEC, NFLOWS}; \
+  static struct FwPrDesc(PR_DESC)    = {                                                                             \
+      &(PR_DESC##_base), (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, prSuccess, 0, 0, NULL};
 
 /**
  * Instantiate a procedure descriptor and its internal data structure.
@@ -126,7 +126,7 @@ static struct FwPrDesc (PR_DESC) = {&(PR_DESC ## _base), (PR_DESC ## _actions), 
  * nodes.
  * If there is a need to define a procedure with one or more decision
  * nodes, the <code>::FW_PR_INST</code> macro should be used.
- * 
+ *
  * The macro generates code that does the following:
  * - It defines an array of N elements of type <code>PrANode_t</code> to
  *   represent the array holding the procedure action nodes.
@@ -144,14 +144,14 @@ static struct FwPrDesc (PR_DESC) = {&(PR_DESC ## _base), (PR_DESC ## _actions), 
  *   <code>struct FwPrDesc</code> to represent the procedure descriptor.
  * .
  * All variables defined by this macro are <code>static</code>.
- * 
+ *
  * The procedure descriptor instantiated by the macro is only partially
  * initialized.
  * Full initialization is performed using function <code>::FwPrInit</code>.
- * 
+ *
  * Since the macro includes the declaration of several variables, it should be located
  * in the section of a c-file where variable declaration is legal.
- * 
+ *
  * @param PR_DESC the variable holding the procedure descriptor
  * @param N a positive integer representing the number of action nodes
  * @param NFLOWS a positive integer representing the number of control flows
@@ -159,21 +159,21 @@ static struct FwPrDesc (PR_DESC) = {&(PR_DESC ## _base), (PR_DESC ## _actions), 
  * @param NG a non-negative integer representing the number of guards (i.e. the
  * number of transition actions which are defined on the procedure)
  */
-#define FW_PR_INST_NODEC(PR_DESC, N, NFLOWS, NA, NG) \
-static PrANode_t PR_DESC ## _aNodes[(N)]; \
-static PrFlow_t PR_DESC ## _flows[(NFLOWS)]; \
-static FwPrAction_t PR_DESC ## _actions[(NA)]; \
-static FwPrGuard_t PR_DESC ## _guards[(NG)+1]; \
-static PrBaseDesc_t PR_DESC ## _base = {(PR_DESC ## _aNodes), NULL, (PR_DESC ## _flows), N, 0, NFLOWS}; \
-static struct FwPrDesc (PR_DESC) = {&(PR_DESC ## _base), (PR_DESC ## _actions), (PR_DESC ## _guards), \
-	NA, NG+1, 1, 0, prSuccess, 0, 0, NULL};
+#define FW_PR_INST_NODEC(PR_DESC, N, NFLOWS, NA, NG)                                                \
+  static PrANode_t    PR_DESC##_aNodes[(N)];                                                        \
+  static PrFlow_t     PR_DESC##_flows[(NFLOWS)];                                                    \
+  static FwPrAction_t PR_DESC##_actions[(NA)];                                                      \
+  static FwPrGuard_t  PR_DESC##_guards[(NG) + 1];                                                   \
+  static PrBaseDesc_t PR_DESC##_base = {(PR_DESC##_aNodes), NULL, (PR_DESC##_flows), N, 0, NFLOWS}; \
+  static struct FwPrDesc(PR_DESC)    = {                                                            \
+      &(PR_DESC##_base), (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, prSuccess, 0, 0, NULL};
 
 /**
  * Instantiate a descriptor for a derived procedure.
  * A derived procedure is a procedure which is created by extending
  * another procedure.
  * The procedure which is thus extended is called base procedure.
- * 
+ *
  * A procedure descriptor consists of two parts: the base descriptor and
  * the extension descriptor (see <code>FwPrPrivate.h</code>).
  * A derived procedure and its base procedure share the same base descriptor
@@ -191,23 +191,23 @@ static struct FwPrDesc (PR_DESC) = {&(PR_DESC ## _base), (PR_DESC ## _actions), 
  *   <code>struct FwPrDesc</code> to represent the procedure descriptor.
  * .
  * All variables defined by this macro are <code>static</code>.
- * 
+ *
  * The procedure descriptor instantiated by the macro is only partially
  * initialized.
  * Full initialization is performed using function <code>::FwPrInitDer</code>.
- * 
+ *
  * Since the macro includes the declaration of several variables, it should be located
  * in the section of a c-file where variable declaration is legal.
- * 
+ *
  * @param PR_DESC the variable holding the procedure descriptor
  * @param NA a non-negative integer representing the number of actions
  * @param NG a non-negative integer representing the number of guards
  */
-#define FW_PR_INST_DER(PR_DESC, NA, NG) \
-static FwPrAction_t PR_DESC ## _actions[(NA)]; \
-static FwPrGuard_t PR_DESC ## _guards[(NG)+1]; \
-static struct FwPrDesc (PR_DESC) = {NULL, (PR_DESC ## _actions), (PR_DESC ## _guards), \
-	NA, NG+1, 1, 0, prSuccess, 0, 0, NULL};
+#define FW_PR_INST_DER(PR_DESC, NA, NG)           \
+  static FwPrAction_t PR_DESC##_actions[(NA)];    \
+  static FwPrGuard_t  PR_DESC##_guards[(NG) + 1]; \
+  static struct FwPrDesc(PR_DESC) = {             \
+      NULL, (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, prSuccess, 0, 0, NULL};
 
 /**
  * Initialize a procedure descriptor to represent an unconfigured procedure
@@ -215,11 +215,11 @@ static struct FwPrDesc (PR_DESC) = {NULL, (PR_DESC ## _actions), (PR_DESC ## _gu
  * After this function has been executed, the argument procedure descriptor
  * has the same content as a procedure descriptor which has been
  * created by calling <code>::FwPrCreate</code>.
- * 
+ *
  * This function is primarily intended to be used to initialize a procedure
  * descriptor which has been statically instantiated with macro
  * <code>#FW_PR_INST</code> or <code>#FW_PR_INST_NODEC</code>.
- * 
+ *
  * If the function is called upon a procedure descriptor that had already been
  * initialized, the previous initialization values are lost.
  * In such a case, a memory leak is possible due to the potential loss of the pointers
@@ -243,7 +243,7 @@ void FwPrInit(FwPrDesc_t prDesc);
  * code to <code>#prWrongNOfActions</code>.
  * If the second constraint is not satisfied, the function sets the error
  * code to <code>#prWrongNOfGuards</code>.
- * 
+ *
  * If both constraints are satisfied, this function initializes a descriptor
  * as follows:
  * - It links it to the descriptor of the base procedure.
@@ -259,7 +259,7 @@ void FwPrInit(FwPrDesc_t prDesc);
  * Thus, the descriptor initialized by this function represents
  * exactly the same procedure as the descriptor created by calling
  * function <code>::FwPrCreateDer</code>.
- * 
+ *
  * This function is primarily intended to be used to initialize a procedure
  * descriptor which has been statically instantiated with macro
  * <code>#FW_PR_INST_DER</code>.
@@ -271,6 +271,6 @@ void FwPrInit(FwPrDesc_t prDesc);
  * @param prDesc the procedure descriptor to be initialized.
  * @param prDescBase the procedure descriptor of the base procedure.
  */
- void FwPrInitDer(FwPrDesc_t prDesc, FwPrDesc_t prDescBase);
+void FwPrInitDer(FwPrDesc_t prDesc, FwPrDesc_t prDescBase);
 
 #endif /* FWPR_SCREATE_H_ */
