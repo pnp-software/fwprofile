@@ -2,30 +2,49 @@
 # This script creates a release package for the C1 Implementation of the FW Profile.
 #====================================================================================
 
+CC=gcc
+
 OUT="./zip"
 OUT_DOCS="${OUT}/docs/"
 OUT_LOG="${OUT}/log/"
 OUT_SRC="${OUT}/src/"
 
+make clean
 rm -fr $OUT
 mkdir -p $OUT
+mkdir -p $OUT/examples
+mkdir -p $OUT/examples/src
+mkdir -p $OUT/tests
 mkdir -p $OUT_DOCS
 mkdir -p $OUT_LOG
 mkdir -p $OUT_SRC
 
+if [ "$1" == "" ] || [ "$2" == "" ]
+then
+    echo "Release.sh: missing file operand"
+    echo "Try 'Release.sh' for more information."
+    exit 1
+fi
+
+if [ "$1" == "--help" ] || [ "$1" == "-h" ]
+then
+    echo "Usage: Release.sh VERSION EXAMPLE_PATH [FWPROFILE_PATH]"
+    echo ""
+    echo "Performs release activities with examples taken from"
+    echo "EXAMPLE_PATH. FWPROFILE_PATH defaults to current directory."
+    exit 0
+fi
+
+# Path to FwProfile examples. Must be given.
+VERSION=$1
+EXAMPLE_PATH=$2
+
 # FwProfile Path
-if [ "$1" = "" ]
+if [ "$3" == "" ]
 then
     FW_PATH="."
 else
-    FW_PATH=$1
-fi
-
-if [ "$2" = "" ]
-then
-    exit 1
-else
-    EXAMPLE_PATH=$2
+    FW_PATH=$3
 fi
 
 FW_SRC_DOC="${FW_PATH}/doc"
@@ -72,11 +91,12 @@ cp ${FW_SRC_DOC}/req/latex_user_requirements.log ${OUT_LOG}
 echo "Create Doxygen Documentation"
 (cd ${FW_SRC_DOC}/doxygen &&
 	doxygen $DOXYFILE > doxygen_generation.log)
+cp -ar ${FW_SRC_DOC}/doxygen/html ${OUT_DOCS}/doxygen
 
 # ====================================================================================
 echo "Building the application and testsuite"
-#(make clean;
-# make coverage && make test && make run-test && make coverage-info)
+(make clean;
+ make coverage && make test && make run-test && make coverage-info)
 
 echo "Running valgrind..."
 valgrind --leak-check=yes ./bin/testsuite > ${OUT_LOG}/TestSuite_Valgrind_Report.txt 2>&1
@@ -132,17 +152,19 @@ echo "Create Release Package"
 echo "================================================"
 echo ""
 
-cp ${FW_SRC_DOC}/commercial/README ${OUT}
-cp ${FW_SRC_DOC}/commercial/COPYING ${OUT}
-cp ${FW_PATH}/Makefile ${OUT}
-cp -r ${FW_PATH}/src ${OUT}/src/FwProfile
-cp -r ${EXAMPLE_PATH}/src/app ${OUT}/src/FwProfile_SM_App
-cp -r ${EXAMPLE_PATH}/src/pr_tutorials ${OUT}/src/FwProfile_PR_Tutorials
-cp -r ${EXAMPLE_PATH}/src/rt_tutorials ${OUT}/src/FwProfile_RT_Tutorials
-cp -r ${EXAMPLE_PATH}/src/sm_tutorials ${OUT}/src/FwProfile_SM_Tutorials
-cp -r ${FW_PATH}/tests ${OUT}/src/FwProfile_TestSuite
-cp -r ${FW_SRC_DOC}/doxygen/html ${OUT}/docs/doxygen
+cp -a ${FW_SRC_DOC}/commercial/README ${OUT}
+cp -a ${FW_SRC_DOC}/commercial/COPYING ${OUT}
+cp -a ${FW_PATH}/Makefile ${OUT}
+cp -ar ${FW_PATH}/src ${OUT}
+cp -ar ${FW_PATH}/tests ${OUT}
+cp -ar ${EXAMPLE_PATH}/src/app ${OUT}/examples/src/app
+cp -ar ${EXAMPLE_PATH}/src/pr_tutorials ${OUT}/examples/src/pr_tutorials
+cp -ar ${EXAMPLE_PATH}/src/rt_tutorials ${OUT}/examples/src/rt_tutorials
+cp -ar ${EXAMPLE_PATH}/src/sm_tutorials ${OUT}/examples/src/sm_tutorials
+sed "2s/.*/C1_DIR = ..\/src/" ${EXAMPLE_PATH}/Makefile > ${OUT}/examples/Makefile
 
+( cd ${OUT};
+  zip -r ./FWProfile_C1_Impl_${VERSION}_LGPLv3.zip .)
 
 #END
 
