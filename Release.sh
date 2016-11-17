@@ -2,7 +2,7 @@
 # This script creates a release package for the C1 Implementation of the FW Profile.
 #====================================================================================
 
-CC=gcc
+export CC=gcc
 
 OUT="./zip"
 OUT_DOCS="${OUT}/docs/"
@@ -51,7 +51,7 @@ echo "PDF Generation - FW Profile Definition"
  pdflatex -shell-escape -interaction=nonstopmode -halt-on-error FWProfile.tex > latex_fwprofile.log &&
  pdflatex -shell-escape -interaction=nonstopmode -halt-on-error FWProfile.tex > latex_fwprofile.log)
 cp ${FW_SRC_DOC}/fwprofile/FWProfile.pdf ${OUT_DOCS}
-cp ${FW_SRC_DOC}/fwprofile/latex_fwprofile.log ${OUT_LOG}
+#cp ${FW_SRC_DOC}/fwprofile/latex_fwprofile.log ${OUT_LOG}
 
 # ====================================================================================
 echo "PDF Generation - FW Profile User Manual"
@@ -60,7 +60,7 @@ echo "PDF Generation - FW Profile User Manual"
  pdflatex -shell-escape -interaction=nonstopmode -halt-on-error UserManual.tex > latex_user_manual.log)
 
 cp ${FW_SRC_DOC}/um/UserManual.pdf ${OUT_DOCS}
-cp ${FW_SRC_DOC}/um/latex_user_manual.log ${OUT_LOG}
+#cp ${FW_SRC_DOC}/um/latex_user_manual.log ${OUT_LOG}
 
 # ====================================================================================
 echo "PDF Generation - FW Profile FAQ"
@@ -69,7 +69,7 @@ echo "PDF Generation - FW Profile FAQ"
  pdflatex -shell-escape -interaction=nonstopmode -halt-on-error FAQ.tex > latex_faq.log)
 
 cp ${FW_SRC_DOC}/faq/FAQ.pdf ${OUT_DOCS}
-cp ${FW_SRC_DOC}/faq/latex_faq.log ${OUT_LOG}	
+#cp ${FW_SRC_DOC}/faq/latex_faq.log ${OUT_LOG}	
 
 # ====================================================================================
 echo "PDF Generation - FW Profile User Requirements"
@@ -78,7 +78,7 @@ echo "PDF Generation - FW Profile User Requirements"
  pdflatex -shell-escape -interaction=nonstopmode -halt-on-error UserRequirements.tex > latex_user_requirements.log)
 
 cp ${FW_SRC_DOC}/req/UserRequirements.pdf ${OUT_DOCS}
-cp ${FW_SRC_DOC}/req/latex_user_requirements.log ${OUT_LOG}
+#cp ${FW_SRC_DOC}/req/latex_user_requirements.log ${OUT_LOG}
 
 # ====================================================================================
 echo "Create Doxygen Documentation"
@@ -109,11 +109,11 @@ echo "Compile & build the Demo Application and tutorials"
 echo "Run the Demo Application and tutorials with Valgrind"
 #echo "===================================================================================="
 valgrind --leak-check=yes ${EXAMPLE_PATH}/bin/sm_demo > ${OUT_LOG}/SmApp_Valgrind_Report.txt 2>&1
-valgrind --leak-check=yes ${EXAMPLE_PATH}/bin/PrExample1 > ${OUT_LOG}/PR_Example1_Valgrind_Report.txt 2>&1
-valgrind --leak-check=yes ${EXAMPLE_PATH}/bin/RtExample1 > ${OUT_LOG}/RT_Example1_Valgrind_Report.txt 2>&1
-valgrind --leak-check=yes ${EXAMPLE_PATH}/bin/SmExample1 > ${OUT_LOG}/SM_Example1_Valgrind_Report.txt 2>&1
-valgrind --leak-check=yes ${EXAMPLE_PATH}/bin/SmExample2 > ${OUT_LOG}/SM_Example2_Valgrind_Report.txt 2>&1
-valgrind --leak-check=yes ${EXAMPLE_PATH}/bin/SmExample3 > ${OUT_LOG}/SM_Example3_Valgrind_Report.txt 2>&1
+#valgrind --leak-check=yes ${EXAMPLE_PATH}/bin/PrExample1 > ${OUT_LOG}/PR_Example1_Valgrind_Report.txt 2>&1
+#valgrind --leak-check=yes ${EXAMPLE_PATH}/bin/RtExample1 > ${OUT_LOG}/RT_Example1_Valgrind_Report.txt 2>&1
+#valgrind --leak-check=yes ${EXAMPLE_PATH}/bin/SmExample1 > ${OUT_LOG}/SM_Example1_Valgrind_Report.txt 2>&1
+#valgrind --leak-check=yes ${EXAMPLE_PATH}/bin/SmExample2 > ${OUT_LOG}/SM_Example2_Valgrind_Report.txt 2>&1
+#valgrind --leak-check=yes ${EXAMPLE_PATH}/bin/SmExample3 > ${OUT_LOG}/SM_Example3_Valgrind_Report.txt 2>&1
 
 #echo "===================================================================================="
 echo "Add Header to Generated Test Reports"
