@@ -97,6 +97,7 @@ valgrind --leak-check=yes ./bin/testsuite > ${OUT_LOG}/TestSuite_Valgrind_Report
 #echo "===================================================================================="
 echo "Extract the non-covered parts of the C1 Implementation code"
 #echo "===================================================================================="
+rm ./FwSmAux.c.gcov
 egrep -B 6 "####| 0%" *.c.gcov >> ${OUT_LOG}/CodeCoverage_Report.txt 2>&1
 
 #echo "===================================================================================="
