@@ -19,14 +19,7 @@ mkdir -p $OUT_DOCS
 mkdir -p $OUT_LOG
 mkdir -p $OUT_SRC
 
-if [ "$1" == "" ] || [ "$2" == "" ]
-then
-    echo "Release.sh: missing file operand"
-    echo "Try 'Release.sh' for more information."
-    exit 1
-fi
-
-if [ "$1" == "--help" ] || [ "$1" == "-h" ]
+if [ "$1" == "" ] || [ "$2" == "" ] || [ "$1" == "--help" ] || [ "$1" == "-h" ]
 then
     echo "Usage: Release.sh VERSION EXAMPLE_PATH [FWPROFILE_PATH]"
     echo ""
@@ -110,7 +103,7 @@ egrep -B 6 "####| 0%" *.c.gcov >> ${OUT_LOG}/CodeCoverage_Report.txt 2>&1
 echo "Compile & build the Demo Application and tutorials"
 #echo "===================================================================================="
 ( cd ${EXAMPLE_PATH};
-  make)
+  make clean && make)
 
 #echo "===================================================================================="
 echo "Run the Demo Application and tutorials with Valgrind"
