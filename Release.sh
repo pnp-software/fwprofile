@@ -89,7 +89,8 @@ cp -ar ${FW_SRC_DOC}/doxygen/html ${OUT_DOCS}/doxygen
 # ====================================================================================
 echo "Building the application and testsuite"
 (make clean;
- make coverage && make test && make run-test && make coverage-info)
+ make coverage && make test && make run-test;
+ make coverage-info >> ${OUT_LOG}/CodeCoverage_Report.txt)
 
 echo "Running valgrind..."
 valgrind --leak-check=yes ./bin/testsuite > ${OUT_LOG}/TestSuite_Valgrind_Report.txt 2>&1
@@ -97,7 +98,6 @@ valgrind --leak-check=yes ./bin/testsuite > ${OUT_LOG}/TestSuite_Valgrind_Report
 #echo "===================================================================================="
 echo "Extract the non-covered parts of the C1 Implementation code"
 #echo "===================================================================================="
-rm ./FwSmAux.c.gcov
 egrep -B 6 "####| 0%" *.c.gcov >> ${OUT_LOG}/CodeCoverage_Report.txt 2>&1
 
 #echo "===================================================================================="

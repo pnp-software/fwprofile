@@ -190,8 +190,9 @@ coverage: dirs
 .PHONY: coverage-info
 coverage-info:
 ifeq ($(CC), gcc)
-	cp -r src/. build/coverage/
-	@gcov -o build/coverage build/coverage/*.c
+	@cp -r src/. build/coverage/
+	@rm ./build/coverage/FwSmAux.c
+	@gcov -b -o build/coverage build/coverage/*.c
 endif
 
 # Create tests
