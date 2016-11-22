@@ -1,18 +1,20 @@
 # Things to do for a release
 ## Preparation
 
-1. Update the version information of the referenced `The FW Profile` in the user manual, i.e. in file `doc/um/UserManual.tex`.
-2. Update the version information in `./README.md`
-2. Pull the latest fwprofile to your PC.
+1. Pull the latest fwprofile to your PC.
    * Change to the fwprofile directory, e.g. `~/src/fwprofile'
    * Execute `git checkout master && git pull`
-3. Pull the latest fwprofile examples to your PC.
+2. Pull the latest fwprofile examples to your PC.
    * Change to the fwprofile direcotry, e.g. `~/src/fwprofile-examples`
    * Execute 'git checkout master && git pull`
+3. Update the version information of the referenced `The FW Profile` in the user manual, i.e. in file `doc/um/UserManual.tex`.
+4. Update the version information in `./README.md`
+5. Commit all changes
+   * Execute 'git commit -a'
 
 ## Build
 
-To actually build the zip file, change to the fwprofile directory, e.g. `~/src/fwprofile` and type following command; the result will be stored in sub-folder `/zip`.
+To actually build the zip file, change to the fwprofile directory, e.g. `~/src/fwprofile` and type following command to build version 1.3.0; the result will be stored in sub-folder `/zip`.
 
 `./Release.sh 1.3.0 ~/src/fwprofile-examples/`
 
@@ -40,3 +42,4 @@ To actually build the zip file, change to the fwprofile directory, e.g. `~/src/f
    * Enter directory '/fwprofile'
    * Execute `git tag v1.3.0`
    * Execute `git push origin --tags`
+
