@@ -31,15 +31,15 @@
 * applications</strong>.
 * <p></p>
 * This implementation of the FW Profile consists of the following items:
-* - An implementation for the @ref SmMain "State Machine Concept" of the FW Profile
-* - An implementation for the @ref PrMain "Procedure Concept" of the FW Profile
-* - An implementation for the @ref RtMain "RT Container Concept" of the FW Profile
-* - A @ref TsMain "Test Suite" to validate the implementation of the State Machine and Procedure concepts
-* - A @ref DaMain "Demo Application" to demonstrate the use of the State Machine and Procedure concepts
+* - An implementation for the @subpage SmMain "State Machine Concept" of the FW Profile
+* - An implementation for the @subpage PrMain "Procedure Concept" of the FW Profile
+* - An implementation for the @subpage RtMain "RT Container Concept" of the FW Profile
+* - A @subpage TsMain "Test Suite" to validate the implementation of the State Machine and Procedure concepts
+* - A @subpage DaMain "Demo Application" to demonstrate the use of the State Machine and Procedure concepts
 * .
-* A <strong>Usage Example</strong> for the state machine implementation can be found @ref SmExample "here",
-* for the procedure implementation it can be found @ref PrExample "here", and for the RT Container implementation
-* it can be found @ref RtExample "here".
+* A <strong>Usage Example</strong> for the state machine implementation can be found @subpage SmExample "here",
+* for the procedure implementation it can be found @subpage PrExample "here", and for the RT Container implementation
+* it can be found @subpage RtExample "here".
 */
 
 

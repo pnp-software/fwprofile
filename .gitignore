@@ -3,6 +3,9 @@
 *.ko
 *.obj
 *.elf
+bin/
+build/
+zip/
 
 # Precompiled Headers
 *.gch
@@ -36,3 +39,9 @@
 # Latex files
 *.aux
 *.toc
+*.lof
+*.lol
+*.lot
+
+# EMacs backup files
+*~
