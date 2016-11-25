@@ -27,7 +27,9 @@
  *
  * The creation and the extension functions in this header file always check the
  * success of calls to <code>malloc</code>.
- * In case of failure, the caller aborts and returns a NULL pointer.
+ * In case of failure, the function aborts and returns a NULL pointer.
+ * Memory which had already been allocated at the time the function aborts,
+ * is not released.
  *
  * Applications which do not wish to use dynamic memory allocation can
  * create a procedure descriptor statically using the services offered
