@@ -134,11 +134,11 @@ H_VER="FW Profile Version: "${VERSION}"\n"
 sed -i -e "1i${H_L1}${H_ML1}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/TestSuite_Valgrind_Report.txt
 sed -i -e "1i${H_L1}${H_CC1}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/CodeCoverage_Report.txt
 sed -i -e "1i${H_L1}${H_ML2}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/SmApp_Valgrind_Report.txt
-sed -i -e "1i${H_L1}${H_ML6}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/PR_Example1_Valgrind_Report.txt
-sed -i -e "1i${H_L1}${H_ML6}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/RT_Example1_Valgrind_Report.txt
-sed -i -e "1i${H_L1}${H_ML3}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/SM_Example1_Valgrind_Report.txt
-sed -i -e "1i${H_L1}${H_ML4}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/SM_Example2_Valgrind_Report.txt
-sed -i -e "1i${H_L1}${H_ML5}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/SM_Example3_Valgrind_Report.txt
+#sed -i -e "1i${H_L1}${H_ML6}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/PR_Example1_Valgrind_Report.txt
+#sed -i -e "1i${H_L1}${H_ML6}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/RT_Example1_Valgrind_Report.txt
+#sed -i -e "1i${H_L1}${H_ML3}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/SM_Example1_Valgrind_Report.txt
+#sed -i -e "1i${H_L1}${H_ML4}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/SM_Example2_Valgrind_Report.txt
+#sed -i -e "1i${H_L1}${H_ML5}${H_DATE}${H_CP}${H_VER}${H_L1}" ${OUT_LOG}/SM_Example3_Valgrind_Report.txt
 
 # ====================================================================================
 echo "================================================"
