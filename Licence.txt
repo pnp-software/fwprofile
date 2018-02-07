@@ -1,7 +1,0 @@
- *
- * This file is part of the C1 Implementation of the FW Profile.
- * The project web site is at: www.pnp-software.com/fwprofile.
- *
- * This software is licensed to: XYZ under the
- * Licence Agreement PP-SUA-COR-xyz
- * 
