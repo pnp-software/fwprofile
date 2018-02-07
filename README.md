@@ -1,8 +1,6 @@
 # FW Profile
 [![Build Status](https://travis-ci.org/pnp-software/fwprofile.svg?branch=master)](https://travis-ci.org/pnp-software/fwprofile)
 
-The project is migrated from [https://code.google.com/p/fwprofile/](https://code.google.com/p/fwprofile/).
-
 C Implementation of an unambiguous definition of State Machines and Activity Diagrams for Safety-Critical, Real-Time and Embedded Applications.
 
 Its main features are:
@@ -35,4 +33,4 @@ A collection of examples is published by GitBook, get the online access [here](h
 The owner of the project is [P&P Software GmbH](http://pnp-software.com/).
 
 # License
-Free use of this software is granted under the terms of the GNU Lesser General Public License (LGPL) v3, see LICENSE.
+Free use of this software is granted under the terms of the Mozilla Public Licence v2 see [LICENSE](LICENSE).
