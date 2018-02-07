@@ -1,7 +1,7 @@
 # FW Profile
 [![Build Status](https://travis-ci.org/pnp-software/fwprofile.svg?branch=master)](https://travis-ci.org/pnp-software/fwprofile)
 
-C Implementation of an unambiguous definition of State Machines and Activity Diagrams for Safety-Critical, Real-Time and Embedded Applications.
+C Implementation of an unambiguous definition of State Machines and Activity Diagrams for Safety-Critical, Real-Time and Embedded Applications. See the [definition of the profile](/doc/fwprofile/FWProfile.pdf) and the [user manual](/doc/fwprofile/UserManual.pdf) of its C implementation.
 
 Its main features are:
 
@@ -26,11 +26,11 @@ The FW Profile Editor is also available for local installations at customer site
 # Examples
 A collection of examples is published by GitBook, get the online access [here](https://www.gitbook.com/book/cechticky/fw-profile-examples/details).
 
-# Releases
-* Version [1.3.0](http://www.pnp-software.com/fwprofile/releases/FWProfile_C1_Impl_1.3.0_LGPLv3.zip), LGPLv3
+# Frequently Asked Questions
+A list of FAQs is available [here](/doc/faq/FAQ.pdf).
 
 # Ownership
-The owner of the project is [P&P Software GmbH](http://pnp-software.com/).
+The owner of the project is [P&P Software GmbH](https://pnp-software.com/).
 
 # License
 Free use of this software is granted under the terms of the Mozilla Public Licence v2 see [LICENSE](LICENSE).
