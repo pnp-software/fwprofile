@@ -146,8 +146,9 @@ echo "Create Release Package"
 echo "================================================"
 echo ""
 
-cp -a ${FW_SRC_DOC}/commercial/README ${OUT}
-cp -a ${FW_SRC_DOC}/commercial/COPYING ${OUT}
+#cp -a ${FW_SRC_DOC}/commercial/README ${OUT}
+#cp -a ${FW_SRC_DOC}/commercial/COPYING ${OUT}
+cp -a ${FW_PATH}/LICENSE ${OUT}
 cp -a ${FW_PATH}/Makefile ${OUT}
 cp -ar ${FW_PATH}/src ${OUT}
 cp -ar ${FW_PATH}/tests ${OUT}
@@ -158,7 +159,7 @@ cp -ar ${EXAMPLE_PATH}/src/sm_tutorials ${OUT}/examples/src/sm_tutorials
 sed "2s/.*/C1_DIR = ..\/src/" ${EXAMPLE_PATH}/Makefile > ${OUT}/examples/Makefile
 
 ( cd ${OUT};
-  zip -r ./FWProfile_C1_Impl_${VERSION}_LGPLv3.zip .)
+  zip -r ./FWProfile_C1_Impl_${VERSION}_MPLv2.zip .)
 
 #END
 
