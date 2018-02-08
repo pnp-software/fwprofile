@@ -45,3 +45,11 @@ zip/
 
 # EMacs backup files
 *~
+/doc/faq/FAQ.log
+/doc/faq/FAQ.synctex.gz
+/doc/req/UserRequirements.log
+/doc/req/UserRequirements.synctex.gz
+/doc/um/UserManual.log
+/doc/um/UserManual.synctex.gz
+/doc/fwprofile/FWProfile.log
+/doc/fwprofile/FWProfile.synctex.gz

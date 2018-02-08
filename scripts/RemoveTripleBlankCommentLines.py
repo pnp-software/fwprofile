@@ -2,12 +2,14 @@ __author__ = 'pnp'
 
 #===============================================================================
 # This program: 
-# 1. Identifies the line in the input file where the copyright notice starts
-# 2. Replaces the copyright notice with a new text.
+# 1. Identifies situations where there are three consecutive lines like this:
+# *
+# *
+# *
+#    and it removes two of the three lines
 #
-# The program takes two arguments:
+# The program takes one argument:
 # - The name of the file to be updated
-# - The name of the file with the new copyright notice
 #
 #===============================================================================
 
@@ -23,24 +25,31 @@ tempFileName = 'temp.txt'
 
 #===============================================================================
 # Remove the old copyright notice and insert the new copyright text
-def removeCopyrightNotice(inpFileName, outFileName, licenceFileName):
+def removeTripleBlankLine(inpFileName, outFileName):
 
-    licenceFile = open(licenceFileName,'r')
     inFile = open(inpFileName,'r')
     outFile = open(outFileName,'w')
     skipLine = 0
+    line1 = ""
+    line2 = ""
+    line3 = ""
     for line in inFile:
-        if (skipLine == 0):
-            outFile.write(line)
-        if ('@copyright' in line):
-            skipLine = 1
-            # Insert content of licence file
-            for licLine in licenceFile:
-                outFile.write(licLine)
-        if ((skipLine == 1) and ('*/' in line)):
-            outFile.write(line)
-            skipLine = 0 
+        line1 = line2
+        line2 = line3
+        line3 = line
+        
+        if ((line1 == " *\n") and (line2 == " *\n") and (line3 == " *\n")):
+            outFile.write(line1)
+            skipLine = 3
+        else:   
+            if (skipLine == 0):
+                outFile.write(line1)   
+
+        if (skipLine > 0):
+            skipLine = skipLine - 1
             
+    outFile.write(line2)
+    outFile.write(line3)           
     outFile.close()
     inFile.close()
 
@@ -49,11 +58,10 @@ def removeCopyrightNotice(inpFileName, outFileName, licenceFileName):
 #===============================================================================
 def main(argv):
 
-    # Remove the old copyright notice
-    removeCopyrightNotice(sys.argv[1], tempFileName, sys.argv[2])
+    # Remove a sequence of three blank comment lines
+    removeTripleBlankLine(sys.argv[1], tempFileName)
     
-    # Replace the file with the old copyright notice with the file with the new 
-    # copyright notice
+    # Replace the input file with the output file
     cmd = 'mv ' + tempFileName + ' ' + sys.argv[1]
     os.system(cmd)
   

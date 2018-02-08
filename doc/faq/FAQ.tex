@@ -58,7 +58,7 @@
 
 \lhead{PP-FQ-COR-0001}
 \chead{}
-\rhead{Revision 1.2.0}
+\rhead{Revision 1.2.1}
 \lfoot{\textcopyright2012 P\&P Software GmbH. All Rights Reserved.} 
 \cfoot{\vspace{5mm}
 {\color{red}\verbatiminput{../commercial/LicensedTo.txt}}}
@@ -136,7 +136,7 @@
 % Title Page
 \title{\textsc{The Framework Profile} \\ \textsc{C1 Implementation} \\ \textsc{-FREQUENTLY ASKED QUESTIONS-}}
 \author{Alessandro Pasetti \& Vaclav Cechticky}
-\date{30 April 2013}
+\date{7 February 2018}
 
 \begin{document}
 \maketitle
@@ -214,7 +214,7 @@ Copyright \textcopyright 2012 P\&P Software GmbH. All Rights Reserved.
 
 \section{General}
 \subsection{What is the C1 Implementation?}
-The C1 Implementation is a C-language implementation of the modelling concepts of the FW Profile of reference ~\cite{ref:fwprofile}. It offers components to build State Machines, Procedures (activity diagrams) and RT Containers (encapsulations of threads). It is extensively documented and tested and is provided both as free software (GNU GPLv3) and on a commercial license. Its main features are:
+The C1 Implementation is a C-language implementation of the modelling concepts of the FW Profile of reference ~\cite{ref:fwprofile}. It offers components to build State Machines, Procedures (activity diagrams) and RT Containers (encapsulations of threads). It is extensively documented and tested and is provided both as free software (Mozilla Public Licence v2) and on a commercial license. Its main features are:
 
 \input{FwC1MainFeatures.tex}
 
@@ -258,7 +258,7 @@ Use of the C1 Implementation is straightforward and a GUI-based tool is hardly n
 \section{Distribution \& Installation}
 
 \subsection{How is the C1 Implementation distributed?}
-As one single zip file containing both the code and its documentation. Users who choose to use the C1 Implementation as free software in accordance with the terms of GNU's General Public Licence (GNU GPLv3) can download the delivery file from the distribution site at \url{http://code.google.com/p/fwprofile/}. Users who purchase a commercial licence receive the delivery file from the developers (\href{http://www.pnp-software.com/}{P\&P Software GmbH} of Switzerland).
+As one single zip file containing both the code and its documentation. Users who choose to use the C1 Implementation as free software in accordance with the terms of Mozilla Public Licence v2 can download the delivery file from the distribution site at \url{http://code.google.com/p/fwprofile/}. Users who purchase a commercial licence receive the delivery file from the developers (\href{http://www.pnp-software.com/}{P\&P Software GmbH} of Switzerland).
 
 \subsection{How is the C1 Implementation installed?}
 No installation is required. The distribution zip file is unzipped and the source code is ready to be included in the target application. 
@@ -268,7 +268,7 @@ Unix shell scripts provided with the distribution to build the demo application 
 Use of the RT Containers (which is optional) requires an implementation of a C Posix library to be available. On most linux systems, a standard library called \texttt{libpthread} is available.  
 
 \subsection{Do I have to use all modules of the C1 Implementation?}
-Yes. The C1 Implementation offers three modules covering: State Machines, procedures and RT Containers. These three modules are completely independent of each other and can be used either together or separately.
+No. The C1 Implementation offers three modules covering: State Machines, procedures and RT Containers. These three modules are completely independent of each other and can be used either together or separately.
 
 %===================================================================================
 \section{State Machine Definition}
