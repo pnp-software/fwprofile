@@ -1,3 +1,14 @@
+# Make file for the fwprofile project
+#
+# If you want to build the test suite program, do:
+#   make clean
+#   make release
+#   make test
+#   make run-test
+#
+# If you want to build the fwprofile as a shared library, do:
+#   make
+#
 #### PROJECT SETTINGS ####
 # Root name of the library
 LIB_NAME := fwprofile
@@ -5,7 +16,8 @@ LIB_NAME := fwprofile
 BIN_PATH ?= bin
 BIN_NAME := lib$(LIB_NAME).so
 # Compiler used
-CC ?= gcc
+CC ?= gcc		
+CC ?= g++		# Compile as C++ program
 # Extension of source files used in the project
 SRC_EXT = c
 # Path to the source directory, relative to the makefile
