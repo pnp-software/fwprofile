@@ -54,7 +54,7 @@ struct FwRtDesc rt5Desc[MAX_RT_INDEX];
  * @return always return 1
  */
 static FwRtOutcome_t npInitAction(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->npInitCounter++;
 	return 1;
 }
@@ -66,7 +66,7 @@ static FwRtOutcome_t npInitAction(FwRtDesc_t rtDesc) {
  * @return always return 1
  */
 static FwRtOutcome_t npFinalAction(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->npFinalCounter++;
 	return 1;
 }
@@ -79,7 +79,7 @@ static FwRtOutcome_t npFinalAction(FwRtDesc_t rtDesc) {
  * @return return the value of <code>::npImplNotifLogicFlag</code>
  */
 static FwRtOutcome_t npImplNotifLogic(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->npImplNotifLogicCounter++;
 	return rtData->npImplNotifLogicFlag;
 }
@@ -92,7 +92,7 @@ static FwRtOutcome_t npImplNotifLogic(FwRtDesc_t rtDesc) {
  * @return either 1 (with probability 50%) or 0 (with probability 50%)
  */
 static FwRtOutcome_t npImplNotifLogicRnd(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	if (rand()<RAND_MAX/2)
 		return 0;
 	else {
@@ -108,7 +108,7 @@ static FwRtOutcome_t npImplNotifLogicRnd(FwRtDesc_t rtDesc) {
  * @return always return 1
  */
 static FwRtOutcome_t apInitAction(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->apInitCounter++;
 	return 1;
 }
@@ -120,7 +120,7 @@ static FwRtOutcome_t apInitAction(FwRtDesc_t rtDesc) {
  * @return always return 1
  */
 static FwRtOutcome_t apFinalAction(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->apFinalCounter++;
 	return 1;
 }
@@ -132,7 +132,7 @@ static FwRtOutcome_t apFinalAction(FwRtDesc_t rtDesc) {
  * @return always return 1
  */
 static FwRtOutcome_t apSetupNotif(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->apSetupNotifCounter++;
 	return 1;
 }
@@ -145,7 +145,7 @@ static FwRtOutcome_t apSetupNotif(FwRtDesc_t rtDesc) {
  * @return return the value of <code>::apImplActivLogicFlag</code>
  */
 static FwRtOutcome_t apImplActivLogic(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->apImplActivLogicCounter++;
 	return rtData->apImplActivLogicFlag;
 }
@@ -158,7 +158,7 @@ static FwRtOutcome_t apImplActivLogic(FwRtDesc_t rtDesc) {
  * @return either 1 (with probability 50%) or 0 (with probability 50%).
  */
 static FwRtOutcome_t apImplActivLogicRnd(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->apImplActivLogicCounter++;
 	if (rand()<RAND_MAX/2)
 		return 0;
@@ -174,7 +174,7 @@ static FwRtOutcome_t apImplActivLogicRnd(FwRtDesc_t rtDesc) {
  * @return return the value of <code>::apImplActivLogicFlag</code>
  */
 static FwRtOutcome_t apImplFuncBehaviour(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->apExecFuncBehaviourCounter++;
 	return rtData->apExecFuncBehaviourFlag;
 }
@@ -188,7 +188,7 @@ static FwRtOutcome_t apImplFuncBehaviour(FwRtDesc_t rtDesc) {
  * @return return the value of <code>::apImplActivLogicFlag</code>
  */
 static FwRtOutcome_t apImplFuncBehaviourWithWait(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->apExecFuncBehaviourCounter++;
 	nanosleep(&oneMs,NULL);
 	return rtData->apExecFuncBehaviourFlag;
@@ -202,7 +202,7 @@ static FwRtOutcome_t apImplFuncBehaviourWithWait(FwRtDesc_t rtDesc) {
  * @return always return 0
  */
 static FwRtOutcome_t apImplFuncBehaviourRnd(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->apExecFuncBehaviourCounter++;
 	if (rand()<RAND_MAX/2)
 		nanosleep(&oneMs,NULL);
@@ -219,7 +219,7 @@ static FwRtOutcome_t apImplFuncBehaviourRnd(FwRtDesc_t rtDesc) {
  * @return 0 with probability 99% or else it returns 1 with probability 1%
  */
 static FwRtOutcome_t apImplFuncBehaviourRnd2(FwRtDesc_t rtDesc) {
-	struct TestRtData* rtData = FwRtGetData(rtDesc);
+	struct TestRtData* rtData = (struct TestRtData*)FwRtGetData(rtDesc);
 	rtData->apExecFuncBehaviourCounter++;
 	if (rand()<RAND_MAX/2)
 		nanosleep(&oneMs,NULL);

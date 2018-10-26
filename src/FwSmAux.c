@@ -278,64 +278,64 @@ void FwSmPrintConfigRec(FwSmDesc_t smDesc, FILE* stream) {
 char* FwSmPrintErrCode(FwSmErrCode_t errCode) {
   switch (errCode) {
   case smSuccess:
-    return "success";
+    return (char*)"success";
   case smOutOfMemory:
-    return "smOutOfMemory";
+    return (char*)"smOutOfMemory";
   case smNullPState:
-    return "smNullPState";
+    return (char*)"smNullPState";
   case smNullCState:
-    return "smNullCState";
+    return (char*)"smNullCState";
   case smNullTrans:
-    return "smNullTrans";
+    return (char*)"smNullTrans";
   case smConfigErr:
-    return "smConfigErr";
+    return (char*)"smConfigErr";
   case smIllStateId:
-    return "smIllStateId";
+    return (char*)"smIllStateId";
   case smIllChoiceId:
-    return "smIllChoiceId";
+    return (char*)"smIllChoiceId";
   case smStateIdInUse:
-    return "smStateIdInUse";
+    return (char*)"smStateIdInUse";
   case smChoiceIdInUse:
-    return "smChoiceIdInUse";
+    return (char*)"smChoiceIdInUse";
   case smUndefinedTransSrc:
-    return "smUndefinedTransSrc";
+    return (char*)"smUndefinedTransSrc";
   case smIllegalPDest:
-    return "smIllegalPDest";
+    return (char*)"smIllegalPDest";
   case smIllegalCDest:
-    return "smIllegalCDest";
+    return (char*)"smIllegalCDest";
   case smIllNOfOutTrans:
-    return "smIllNOfOutTrans";
+    return (char*)"smIllNOfOutTrans";
   case smIllTransSrc:
-    return "smIllTransSrc";
+    return (char*)"smIllTransSrc";
   case smTransErr:
-    return "smTransErr";
+    return (char*)"smTransErr";
   case smTooManyTrans:
-    return "smTooManyTrans";
+    return (char*)"smTooManyTrans";
   case smTooManyOutTrans:
-    return "smTooManyOutTrans";
+    return (char*)"smTooManyOutTrans";
   case smTooManyActions:
-    return "smTooManyActions";
+    return (char*)"smTooManyActions";
   case smTooManyGuards:
-    return "smTooManyGuards";
+    return (char*)"smTooManyGuards";
   case smTooFewActions:
-    return "smTooFewActions";
+    return (char*)"smTooFewActions";
   case smTooFewGuards:
-    return "smTooFewGuards";
+    return (char*)"smTooFewGuards";
   case smNegOutTrans:
-    return "smNegOutTrans";
+    return (char*)"smNegOutTrans";
   case smUndefAction:
-    return "smUndefAction";
+    return (char*)"smUndefAction";
   case smUndefGuard:
-    return "smUndefGuard";
+    return (char*)"smUndefGuard";
   case smNotDerivedSM:
-    return "smNotDerivedSM";
+    return (char*)"smNotDerivedSM";
   case smEsmDefined:
-    return "smEsmDefined";
+    return (char*)"smEsmDefined";
   case smWrongNOfActions:
-    return "smWrongNOfActions";
+    return (char*)"smWrongNOfActions";
   case smWrongNOfGuards:
-    return "smWrongNOfGuards";
+    return (char*)"smWrongNOfGuards";
   default:
-    return "invalid error code";
+    return (char*)"invalid error code";
   }
 }

@@ -1196,7 +1196,6 @@ FwRtTestOutcome_t FwRtTestCaseStressRun3() {
 	struct TestRtData* rtData;
 	int i, nStartStopCycles;
 	pthread_t notifThread;
-	void* status = 0;
 
 	/* Instantiate and initialize test container RT4 */
 	rtDesc = FwRtMakeTestRT4(1);
@@ -1225,7 +1224,7 @@ FwRtTestOutcome_t FwRtTestCaseStressRun3() {
 			FwRtStop(rtDesc);
 			/* Wait until the Activation and Notification Threads have terminated */
 			FwRtWaitForTermination(rtDesc);
-			pthread_join(notifThread,status);
+			pthread_join(notifThread,NULL);
 			/* Check state of counters */
 			if (rtData->npFinalCounter != nStartStopCycles)
 				return rtTestCaseFailure;
@@ -1260,7 +1259,7 @@ FwRtTestOutcome_t FwRtTestCaseStressRun3() {
 	FwRtWaitForTermination(rtDesc);
 
 	/* Wait until notification thread has terminated */
-	pthread_join(notifThread,status);
+	pthread_join(notifThread,NULL);
 
 	/* Shutdown the RT Container */
 	FwRtShutdown(rtDesc);
@@ -1278,7 +1277,6 @@ FwRtTestOutcome_t FwRtTestCaseStressRun4() {
 	struct TestRtData* rtData;
 	int i, nStartStopCycles;
 	pthread_t notifThread1, notifThread2;
-	void* status = 0;
 
 	/* Instantiate and initialize test container RT5 */
 	rtDesc = FwRtMakeTestRT5(1);
@@ -1324,8 +1322,8 @@ FwRtTestOutcome_t FwRtTestCaseStressRun4() {
 	}
 
 	/* Wait until notification threads have terminated */
-	pthread_join(notifThread1,status);
-	pthread_join(notifThread2,status);
+	pthread_join(notifThread1,NULL);
+	pthread_join(notifThread2,NULL);
 
 	/* Shutdown the RT Container */
 	FwRtShutdown(rtDesc);
@@ -1342,7 +1340,6 @@ FwRtTestOutcome_t FwRtTestCaseStressRun5() {
 	FwRtDesc_t rtDesc;
 	struct TestRtData* rtData;
 	pthread_t notifThread1, notifThread2;
-	void* status = 0;
 
 	/* Instantiate and initialize test container RT1 */
 	rtDesc = FwRtMakeTestRT1(1);
@@ -1361,8 +1358,8 @@ FwRtTestOutcome_t FwRtTestCaseStressRun5() {
 	pthread_create( &notifThread2, NULL, TestCaseStressRun_Notify2, rtDesc);
 
 	/* Wait until notification threads and Activation Thread have terminated */
-	pthread_join(notifThread1,status);
-	pthread_join(notifThread2,status);
+	pthread_join(notifThread1,NULL);
+	pthread_join(notifThread2,NULL);
 
 	/* Give time to the Activation Thread to process pending notifications */
 	sleep(3);
@@ -1420,7 +1417,6 @@ FwRtTestOutcome_t FwRtTestCaseStressRun6() {
 	struct TestRtData* rtData;
 	int i, nStartStopCycles;
 	pthread_t notifThread1, notifThread2;
-	void* status = 0;
 
 	/* Instantiate and initialize test container RT1 */
 	rtDesc = FwRtMakeTestRT1(1);
@@ -1470,8 +1466,8 @@ FwRtTestOutcome_t FwRtTestCaseStressRun6() {
 
 	/* Wait for Notification and Activation Threads termination and shutdown the RT Container */
 	FwRtWaitForTermination(rtDesc);
-	pthread_join(notifThread1,status);
-	pthread_join(notifThread2,status);
+	pthread_join(notifThread1,NULL);
+	pthread_join(notifThread2,NULL);
 	FwRtShutdown(rtDesc);
 
 	/* Check error code */
