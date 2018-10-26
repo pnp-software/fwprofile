@@ -43,6 +43,9 @@ zip/
 *.lol
 *.lot
 
+# Doxygen-generatd files
+doc/doxygen
+
 # EMacs backup files
 *~
 /doc/faq/FAQ.log
@@ -53,3 +56,7 @@ zip/
 /doc/um/UserManual.synctex.gz
 /doc/fwprofile/FWProfile.log
 /doc/fwprofile/FWProfile.synctex.gz
+/doc/faq/latex_faq.log
+/doc/fwprofile/latex_fwprofile.log
+/doc/req/latex_user_requirements.log
+/doc/um/latex_user_manual.log
