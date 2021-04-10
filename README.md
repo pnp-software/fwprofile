@@ -21,7 +21,7 @@ Its main features are:
 # Web-Based Modeling Tool and Code Generator
 The FW Profile Editor is available as a web-based tool to help design FW Profile state machines and procedures and to automate the generation of the C-code which configures them. The tool can be accessed from [here](http://pnp-software.com/fwprofile/editor/).
 
-The FW Profile Editor is also available for local installations at customer sites. Please contact the developers at this [e-mail address](mailto:pnp-software@pnp-software.com).
+The FW Profile Editor is also available for local installations at customer sites. It can be downloaded on a free and open licence from [here](https://github.com/pnp-software/fwprofile-editor-pub).
 
 # Examples
 A collection of examples is published by GitBook, get the online access [here](https://www.gitbook.com/book/cechticky/fw-profile-examples/details).
