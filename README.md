@@ -11,7 +11,7 @@ Its main features are:
 * **Excellent Scalability**: memory footprint and CPU demands are independent of number and size of state machine and procedure instances.
 * **High Reliability**: test suite with 100% code, branch, and condition coverage (excluding error branches for system calls).
 * **Formal Specification**: user requirements formally specify the implementation.
-* **Requirement Traceability**: all requirements are individually traced to their implementation and to verification evidence.
+* **Requirement Traceability**: all [requirements](/doc/um/UserRequirements.pdf) are individually traced to their implementation and to verification evidence.
 * **Documented Code**: doxygen documentation for all the source code.
 * **Demo Application**: complete application demonstrating capabilities and mode of use.
 * **Support for Extensibility**: an inheritance-like mechanism is provided through which a derived state machine or a derived procedure is created from a base state machine or base procedure by overriding some of its actions or guards.
