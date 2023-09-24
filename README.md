@@ -1,5 +1,5 @@
 # FW Profile
-[![Build Status](https://travis-ci.org/pnp-software/fwprofile.svg?branch=master)](https://travis-ci.org/pnp-software/fwprofile)
+![Build Status](https://github.com/pnp-software/fwprofile/workflows/Build/badge.svg)
 
 C Implementation of an unambiguous definition of State Machines and Activity Diagrams for Safety-Critical, Real-Time and Embedded Applications. See the [definition of the profile](/doc/fwprofile/FWProfile.pdf) and the [user manual](/doc/um/UserManual.pdf) of its C implementation.
 
