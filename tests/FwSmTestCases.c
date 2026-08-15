@@ -140,14 +140,14 @@ FwSmTestOutcome_t FwSmTestCaseStart1() {
 
 	/* Start SM and check outcome of start operation */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)){
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)){
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
 
 	/* Try re-starting the SM and check that nothing happens */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)){
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)){
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -191,7 +191,7 @@ FwSmTestOutcome_t FwSmTestCaseStart2() {
 
 	/* Start SM and check outcome of start operation */
 	FwSmStart(smDesc2);
-	if ((smData->counter_1!=0) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc2)!=0)) {
+	if ((smData->counter_1!=0) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc2)!=0) || (FwSmGetPrevState(smDesc2)!=0)) {
 		FwSmRelease(smDesc2);
 		return smTestCaseFailure;
 	}
@@ -202,7 +202,7 @@ FwSmTestOutcome_t FwSmTestCaseStart2() {
 
 	/* Start SM and check outcome of start operation */
 	FwSmStart(smDesc2);
-	if ((smData->counter_1!=1) || (smData->counter_2!=4) || (FwSmGetCurState(smDesc2)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=4) || (FwSmGetCurState(smDesc2)!=STATE_S1) || (FwSmGetPrevState(smDesc2)!=0)) {
 		FwSmRelease(smDesc2);
 		return smTestCaseFailure;
 	}
@@ -262,7 +262,7 @@ FwSmTestOutcome_t FwSmTestCaseStart3() {
 
 	/* Start SM and check outcome of start operation */
 	FwSmStart(smDesc3);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1) || (FwSmGetPrevState(smDesc3)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
@@ -305,21 +305,21 @@ FwSmTestOutcome_t FwSmTestCaseStop1() {
 
 	/* Check that stopping a SM which is already stopped has no effect */
 	FwSmStop(smDesc);
-	if ((smData->counter_1!=0) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=0)) {
+	if ((smData->counter_1!=0) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
 
 	/* Stop SM and check success */
 	FwSmStop(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -367,7 +367,7 @@ FwSmTestOutcome_t FwSmTestCaseStop2() {
 
 	/* Start SM and check outcome of start operation */
 	FwSmStart(smDesc3);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1) || (FwSmGetPrevState(smDesc3)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
@@ -380,12 +380,12 @@ FwSmTestOutcome_t FwSmTestCaseStop2() {
 	/* Stop SM and check outcome of stop operation */
 	smDesc2 = FwSmGetEmbSmCur(smDesc3);	/* get the SM embedded in the current state of smDesc3 */
 	FwSmStop(smDesc3);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=0) || (FwSmGetPrevState(smDesc3)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
 
-	if ((esmData->counter_1!=5) || (esmData->counter_2!=2) || (FwSmGetCurState(smDesc2)!=0)) {
+	if ((esmData->counter_1!=5) || (esmData->counter_2!=2) || (FwSmGetCurState(smDesc2)!=0) || (FwSmGetPrevState(smDesc2)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
@@ -433,12 +433,12 @@ FwSmTestOutcome_t FwSmTestCaseStop3() {
 
 	/* Start SM and check outcome of start operation */
 	FwSmStart(smDesc3);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1) || (FwSmGetPrevState(smDesc3)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
 
-	if ((esmData->counter_1!=0) || (esmData->counter_2!=2) || (FwSmGetCurState(FwSmGetEmbSmCur(smDesc3))!=0)) {
+	if ((esmData->counter_1!=0) || (esmData->counter_2!=2) || (FwSmGetCurState(FwSmGetEmbSmCur(smDesc3))!=0) || (FwSmGetPrevState(FwSmGetEmbSmCur(smDesc3))!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
@@ -446,12 +446,12 @@ FwSmTestOutcome_t FwSmTestCaseStop3() {
 	/* Stop SM and check outcome of stop operation */
 	smDesc2 = FwSmGetEmbSmCur(smDesc3);	/* get the SM embedded in the current state of smDesc3 */
 	FwSmStop(smDesc3);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=0) || (FwSmGetPrevState(smDesc3)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
 
-	if ((esmData->counter_1!=0) || (esmData->counter_2!=2) || (FwSmGetCurState(smDesc2)!=0)) {
+	if ((esmData->counter_1!=0) || (esmData->counter_2!=2) || (FwSmGetCurState(smDesc2)!=0) || (FwSmGetPrevState(smDesc2)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
@@ -489,7 +489,7 @@ FwSmTestOutcome_t FwSmTestCaseExecute1() {
 
 	/* Attempt executing a stopped state machine and check that nothing happens */
 	FwSmExecute(smDesc);
-	if ((smData->counter_1!=0) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=0) ||
+	if ((smData->counter_1!=0) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0) ||
 			(smData->logBase!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
@@ -497,20 +497,20 @@ FwSmTestOutcome_t FwSmTestCaseExecute1() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
 
 	/* Execute state machine twice and check success */
 	FwSmMakeTrans(smDesc, FW_TR_EXECUTE);
-	if ((smData->counter_1!=3) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=3) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
 
 	FwSmMakeTrans(smDesc, FW_TR_EXECUTE);
-	if ((smData->counter_1!=5) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=5) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
@@ -558,12 +558,12 @@ FwSmTestOutcome_t FwSmTestCaseExecute2() {
 
 	/* Start SM and check outcome of start operation */
 	FwSmStart(smDesc3);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1) || (FwSmGetPrevState(smDesc3)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
 
-	if ((esmData->counter_1!=1) || (esmData->counter_2!=2) || (FwSmGetCurState(FwSmGetEmbSmCur(smDesc3))!=STATE_S1)) {
+	if ((esmData->counter_1!=1) || (esmData->counter_2!=2) || (FwSmGetCurState(FwSmGetEmbSmCur(smDesc3))!=STATE_S1) || (FwSmGetPrevState(FwSmGetEmbSmCur(smDesc3))!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
@@ -571,23 +571,23 @@ FwSmTestOutcome_t FwSmTestCaseExecute2() {
 	/* Execute SM twice and check outcome of Execute operation */
 	smDesc2 = FwSmGetEmbSmCur(smDesc3);	/* get the SM embedded in the current state of smDesc3 */
 	FwSmMakeTrans(smDesc3, FW_TR_EXECUTE);
-	if ((smData->counter_1!=3) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1)) {
+	if ((smData->counter_1!=3) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1) || (FwSmGetPrevState(smDesc3)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
 
-	if ((esmData->counter_1!=3) || (esmData->counter_2!=2) || (FwSmGetCurState(smDesc2)!=STATE_S1)) {
+	if ((esmData->counter_1!=3) || (esmData->counter_2!=2) || (FwSmGetCurState(smDesc2)!=STATE_S1) || (FwSmGetPrevState(smDesc2)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
 
 	FwSmMakeTrans(smDesc3, FW_TR_EXECUTE);
-	if ((smData->counter_1!=5) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1)) {
+	if ((smData->counter_1!=5) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc3)!=STATE_S1) || (FwSmGetPrevState(smDesc3)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
 
-	if ((esmData->counter_1!=5) || (esmData->counter_2!=2) || (FwSmGetCurState(smDesc2)!=STATE_S1)) {
+	if ((esmData->counter_1!=5) || (esmData->counter_2!=2) || (FwSmGetCurState(smDesc2)!=STATE_S1) || (FwSmGetPrevState(smDesc2)!=0)) {
 		FwSmReleaseRec(smDesc3);
 		return smTestCaseFailure;
 	}
@@ -625,20 +625,20 @@ FwSmTestOutcome_t FwSmTestCaseExecute3() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDesc4);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc4)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc4)!=STATE_S1) || (FwSmGetPrevState(smDesc4)!=0)) {
 		FwSmRelease(smDesc4);
 		return smTestCaseFailure;
 	}
 
 	/* Execute state machine and check success */
 	FwSmMakeTrans(smDesc4, FW_TR_EXECUTE);
-	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc4)!=STATE_S2)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc4)!=STATE_S2) || (FwSmGetPrevState(smDesc4)!=STATE_S1)) {
 		FwSmRelease(smDesc4);
 		return smTestCaseFailure;
 	}
 
 	FwSmMakeTrans(smDesc4, FW_TR_EXECUTE);
-	if ((smData->counter_1!=15) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc4)!=STATE_S1)) {
+	if ((smData->counter_1!=15) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc4)!=STATE_S1) || (FwSmGetPrevState(smDesc4)!=STATE_S2)) {
 		FwSmRelease(smDesc4);
 		return smTestCaseFailure;
 	}
@@ -676,14 +676,14 @@ FwSmTestOutcome_t FwSmTestCaseSelfTrans1() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDesc4);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc4)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc4)!=STATE_S1) || (FwSmGetPrevState(smDesc4)!=0)) {
 		FwSmRelease(smDesc4);
 		return smTestCaseFailure;
 	}
 
 	/* Execute state machine to bring it to state S2 */
 	FwSmMakeTrans(smDesc4, FW_TR_EXECUTE);
-	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc4)!=STATE_S2)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc4)!=STATE_S2) || (FwSmGetPrevState(smDesc4)!=STATE_S1)) {
 		FwSmRelease(smDesc4);
 		return smTestCaseFailure;
 	}
@@ -691,7 +691,7 @@ FwSmTestOutcome_t FwSmTestCaseSelfTrans1() {
 	/* Execute self-transition */
 	fwSm_logIndex = 0;	/* reset log */
 	FwSmMakeTrans(smDesc4, TR4);
-	if ((smData->counter_1!=13) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc4)!=STATE_S2)) {
+	if ((smData->counter_1!=13) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc4)!=STATE_S2) || (FwSmGetPrevState(smDesc4)!=STATE_S2)) {
 		FwSmRelease(smDesc4);
 		return smTestCaseFailure;
 	}
@@ -732,7 +732,7 @@ FwSmTestOutcome_t FwSmTestCaseTrans1() {
 	}
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDesc5);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (FwSmGetPrevState(smDesc5)!=0)) {
 		FwSmRelease(smDesc5);
 		return smTestCaseFailure;
 	}
@@ -740,7 +740,7 @@ FwSmTestOutcome_t FwSmTestCaseTrans1() {
 	/* Send transition command TR4 to SM and check that this has no effect */
 	fwSm_logIndex = 0;
 	FwSmMakeTrans(smDesc5, TR4);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (fwSm_logIndex!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1)  || (FwSmGetPrevState(smDesc5)!=0)|| (fwSm_logIndex!=0)) {
 		FwSmRelease(smDesc5);
 		return smTestCaseFailure;
 	}
@@ -748,7 +748,7 @@ FwSmTestOutcome_t FwSmTestCaseTrans1() {
 	/* Set guard to prevent transition TR2 from S1 to S2 and then check that transition does not take place */
 	smData->flag_1 = 0;
 	FwSmMakeTrans(smDesc5, TR2);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (fwSm_logIndex!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (FwSmGetPrevState(smDesc5)!=0) || (fwSm_logIndex!=0)) {
 		FwSmRelease(smDesc5);
 		return smTestCaseFailure;
 	}
@@ -756,7 +756,7 @@ FwSmTestOutcome_t FwSmTestCaseTrans1() {
 	/* Set guard to allow transition TR2 from S1 to S2 and then check that transition does take place */
 	smData->flag_1 = 1;
 	FwSmMakeTrans(smDesc5, TR2);
-	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (fwSm_logIndex!=3)) {
+	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (FwSmGetPrevState(smDesc5)!=STATE_S1) || (fwSm_logIndex!=3)) {
 		FwSmRelease(smDesc5);
 		return smTestCaseFailure;
 	}
@@ -798,14 +798,14 @@ FwSmTestOutcome_t FwSmTestCaseTrans2() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDesc5);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (FwSmGetPrevState(smDesc5)!=0)) {
 		FwSmRelease(smDesc5);
 		return smTestCaseFailure;
 	}
 
 	/* Send transition command TR2 to SM (this brings it to state S2) */
 	FwSmMakeTrans(smDesc5, TR2);
-	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc5)!=STATE_S2)) {
+	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (FwSmGetPrevState(smDesc5)!=STATE_S1)) {
 		FwSmRelease(smDesc5);
 		return smTestCaseFailure;
 	}
@@ -815,7 +815,7 @@ FwSmTestOutcome_t FwSmTestCaseTrans2() {
 	smData->flag_2 = 0;
 	fwSm_logIndex = 0;
 	FwSmMakeTrans(smDesc5, TR6);
-	if ((smData->counter_1!=11) || (smData->counter_2!=4) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (fwSm_logIndex!=4)) {
+	if ((smData->counter_1!=11) || (smData->counter_2!=4) || (FwSmGetCurState(smDesc5)!=STATE_S1)  || (FwSmGetPrevState(smDesc5)!=STATE_S2) || (fwSm_logIndex!=4)) {
 		FwSmRelease(smDesc5);
 		return smTestCaseFailure;
 	}
@@ -830,7 +830,7 @@ FwSmTestOutcome_t FwSmTestCaseTrans2() {
 
 	/* Send transition command TR2 to SM (this brings it to state S2) */
 	FwSmMakeTrans(smDesc5, TR2);
-	if ((smData->counter_1!=16) || (smData->counter_2!=5) || (FwSmGetCurState(smDesc5)!=STATE_S2)) {
+	if ((smData->counter_1!=16) || (smData->counter_2!=5) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (FwSmGetPrevState(smDesc5)!=STATE_S1)) {
 		FwSmRelease(smDesc5);
 		return smTestCaseFailure;
 	}
@@ -840,7 +840,7 @@ FwSmTestOutcome_t FwSmTestCaseTrans2() {
 	smData->flag_2 = 1;
 	fwSm_logIndex = 0;
 	FwSmMakeTrans(smDesc5, TR6);
-	if ((smData->counter_1!=21) || (smData->counter_2!=7) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (fwSm_logIndex!=4)) {
+	if ((smData->counter_1!=21) || (smData->counter_2!=7) || (FwSmGetCurState(smDesc5)!=STATE_S2)  || (FwSmGetPrevState(smDesc5)!=STATE_S2) || (fwSm_logIndex!=4)) {
 		FwSmRelease(smDesc5);
 		return smTestCaseFailure;
 	}
@@ -896,11 +896,11 @@ FwSmTestOutcome_t FwSmTestCaseTrans3() {
 	/* Start SM and check outcome of start operation */
 	fwSm_logIndex = 0;	/* reset log */
 	FwSmStart(smDesc6);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc6)!=1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc6)!=STATE_S1) || (FwSmGetPrevState(smDesc6)!=0)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=0) || (esmData->counter_2!=0) || (FwSmGetCurState(FwSmGetEmbSm(smDesc6, STATE_S2))!=0)) {
+	if ((esmData->counter_1!=0) || (esmData->counter_2!=0) || (FwSmGetCurState(FwSmGetEmbSm(smDesc6, STATE_S2))!=0) || (FwSmGetPrevState(FwSmGetEmbSm(smDesc6, STATE_S2))!=0)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
@@ -909,17 +909,17 @@ FwSmTestOutcome_t FwSmTestCaseTrans3() {
 		return smTestCaseFailure;
 	}
 	if ((fwSm_logState[0]!=0) || (fwSm_logState[1]!=1)) {
-		FwSmReleaseRec(smDesc6);
+		FwSmReleaseRec(smDesc6);	
 		return smTestCaseFailure;
 	}
 
 	/* Execute SM (this causes a transition from S1 to S2 and the starting of the ESM) */
 	FwSmMakeTrans(smDesc6, FW_TR_EXECUTE);
-	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2) || (FwSmGetPrevState(smDesc6)!=STATE_S1)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S1)) {
+	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S1) || (FwSmGetPrevStateEmb(smDesc6)!=0)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
@@ -942,11 +942,11 @@ FwSmTestOutcome_t FwSmTestCaseTrans3() {
 
 	/* Send TR5 command to SM (this has no effect on either the SM or its ESM) */
 	FwSmMakeTrans(smDesc6, TR5);
-	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2) || (FwSmGetPrevState(smDesc6)!=STATE_S1)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S1)) {
+	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S1) || (FwSmGetPrevStateEmb(smDesc6)!=0)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
@@ -957,7 +957,7 @@ FwSmTestOutcome_t FwSmTestCaseTrans3() {
 
 	/* Send TR2 command to SM (this has no effect on the SM but causes the ESM to go from S1 to S2) */
 	FwSmMakeTrans(smDesc6, TR2);
-	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2) || (FwSmGetPrevState(smDesc6)!=STATE_S1)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
@@ -1022,22 +1022,22 @@ FwSmTestOutcome_t FwSmTestCaseExecute4() {
 	fwSm_logIndex = 0;	/* reset log */
 	FwSmStart(smDesc6);
 	FwSmExecute(smDesc6);
-	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2) || (FwSmGetPrevState(smDesc6)!=STATE_S1)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S1)) {
+	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S1) || (FwSmGetPrevStateEmb(smDesc6)!=0)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
 
 	/* Send TR2 command to SM (this has no effect on the SM but causes the ESM to go from S1 to S2) */
 	FwSmMakeTrans(smDesc6, TR2);
-	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2) || (FwSmGetPrevState(smDesc6)!=STATE_S1)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=6) || (esmData->counter_2!=2) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S2)) {
+	if ((esmData->counter_1!=6) || (esmData->counter_2!=2) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S2) || (FwSmGetPrevStateEmb(smDesc6)!=STATE_S1)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
@@ -1046,11 +1046,11 @@ FwSmTestOutcome_t FwSmTestCaseExecute4() {
 	/* Execute the SM (this causes the do-action of the S2 of both the SM and ESM to be executed and then triggers */
 	/* a transition from S2 to S1 in the SM) */
 	FwSmExecute(smDesc6);
-	if ((smData->counter_1!=15) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc6)!=STATE_S1)) {
+	if ((smData->counter_1!=15) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc6)!=STATE_S1) || (FwSmGetPrevState(smDesc6)!=STATE_S2)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=12) || (esmData->counter_2!=2) || (FwSmGetCurState(FwSmGetEmbSm(smDesc6, STATE_S2))!=0)) {
+	if ((esmData->counter_1!=12) || (esmData->counter_2!=2) || (FwSmGetCurState(FwSmGetEmbSm(smDesc6, STATE_S2))!=0) || (FwSmGetPrevState(FwSmGetEmbSm(smDesc6, STATE_S2))!=0)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
@@ -1113,22 +1113,22 @@ FwSmTestOutcome_t FwSmTestCaseTrans4() {
 	fwSm_logIndex = 0;	/* reset log */
 	FwSmStart(smDesc6);
 	FwSmExecute(smDesc6);
-	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2) || (FwSmGetPrevState(smDesc6)!=STATE_S1)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S1)) {
+	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S1) || (FwSmGetPrevStateEmb(smDesc6)!=0)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
 
 	/* Send TR2 command to SM (this has no effect on the SM but causes the ESM to go from S1 to S2) */
 	FwSmMakeTrans(smDesc6, TR2);
-	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc6)!=STATE_S2) || (FwSmGetPrevState(smDesc6)!=STATE_S1)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=6) || (esmData->counter_2!=2) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S2)) {
+	if ((esmData->counter_1!=6) || (esmData->counter_2!=2) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S2) || (FwSmGetPrevStateEmb(smDesc6)!=STATE_S1)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
@@ -1136,11 +1136,11 @@ FwSmTestOutcome_t FwSmTestCaseTrans4() {
 	/* Send TR4 command to SM (this causes a self-transition on both the SM and the ESM) */
 	fwSm_logIndex = 0;	/* reset log counter */
 	FwSmMakeTrans(smDesc6, TR4);
-	if ((smData->counter_1!=13) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc6)!=STATE_S2)) {
+	if ((smData->counter_1!=13) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc6)!=STATE_S2) || (FwSmGetPrevState(smDesc6)!=STATE_S2)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=16) || (esmData->counter_2!=4) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S1)) {
+	if ((esmData->counter_1!=16) || (esmData->counter_2!=4) || (FwSmGetCurStateEmb(smDesc6)!=STATE_S1) || (FwSmGetPrevStateEmb(smDesc6)!=0)) {
 		FwSmReleaseRec(smDesc6);
 		return smTestCaseFailure;
 	}
@@ -1197,28 +1197,28 @@ FwSmTestOutcome_t FwSmTestCaseDescDir1() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDesc5);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (FwSmGetPrevState(smDesc5)!=0)) {
 		return smTestCaseFailure;
 	}
 
 	/* Send transition command TR4 to SM and check that this has no effect */
 	fwSm_logIndex = 0;
 	FwSmMakeTrans(smDesc5, TR4);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (fwSm_logIndex!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (FwSmGetPrevState(smDesc5)!=0) || (fwSm_logIndex!=0)) {
 		return smTestCaseFailure;
 	}
 
 	/* Set guard to prevent transition TR2 from S1 to S2 and then check that transition does not take place */
 	smData->flag_1 = 0;
 	FwSmMakeTrans(smDesc5, TR2);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (fwSm_logIndex!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (FwSmGetPrevState(smDesc5)!=0) || (fwSm_logIndex!=0)) {
 		return smTestCaseFailure;
 	}
 
 	/* Set guard to allow transition TR2 from S1 to S2 and then check that transition does take place */
 	smData->flag_1 = 1;
 	FwSmMakeTrans(smDesc5, TR2);
-	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (fwSm_logIndex!=3)) {
+	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (FwSmGetPrevState(smDesc5)!=STATE_S1) || (fwSm_logIndex!=3)) {
 		return smTestCaseFailure;
 	}
 	if ((fwSm_logMarker[0]!=3) || (fwSm_logMarker[1]!=4) || (fwSm_logMarker[2]!=1)) {
@@ -1230,7 +1230,7 @@ FwSmTestOutcome_t FwSmTestCaseDescDir1() {
 	smData->flag_2 = 1;
 	fwSm_logIndex = 0;
 	FwSmMakeTrans(smDesc5, TR6);
-	if ((smData->counter_1!=11) || (smData->counter_2!=4) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (fwSm_logIndex!=4)) {
+	if ((smData->counter_1!=11) || (smData->counter_2!=4) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (FwSmGetPrevState(smDesc5)!=STATE_S2) || (fwSm_logIndex!=4)) {
 		return smTestCaseFailure;
 	}
 
@@ -1238,7 +1238,7 @@ FwSmTestOutcome_t FwSmTestCaseDescDir1() {
 	smData->flag_1 = 1;
 	fwSm_logIndex = 0;
 	FwSmMakeTrans(smDesc5, TR5);
-	if ((smData->counter_1!=15) || (smData->counter_2!=5) || (FwSmGetCurState(smDesc5)!=0) || (fwSm_logIndex!=2)) {
+	if ((smData->counter_1!=15) || (smData->counter_2!=5) || (FwSmGetCurState(smDesc5)!=0) || (FwSmGetPrevState(smDesc5)!=0) || (fwSm_logIndex!=2)) {
 		return smTestCaseFailure;
 	}
 
@@ -1272,28 +1272,28 @@ FwSmTestOutcome_t FwSmTestCaseDescStatic2() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDesc5);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (FwSmGetPrevState(smDesc5)!=0)) {
 		return smTestCaseFailure;
 	}
 
 	/* Send transition command TR4 to SM and check that this has no effect */
 	fwSm_logIndex = 0;
 	FwSmMakeTrans(smDesc5, TR4);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (fwSm_logIndex!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (FwSmGetPrevState(smDesc5)!=0) || (fwSm_logIndex!=0)) {
 		return smTestCaseFailure;
 	}
 
 	/* Set guard to prevent transition TR2 from S1 to S2 and then check that transition does not take place */
 	smData->flag_1 = 0;
 	FwSmMakeTrans(smDesc5, TR2);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (fwSm_logIndex!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc5)!=STATE_S1) || (FwSmGetPrevState(smDesc5)!=0) || (fwSm_logIndex!=0)) {
 		return smTestCaseFailure;
 	}
 
 	/* Set guard to allow transition TR2 from S1 to S2 and then check that transition does take place */
 	smData->flag_1 = 1;
 	FwSmMakeTrans(smDesc5, TR2);
-	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (fwSm_logIndex!=3)) {
+	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (FwSmGetPrevState(smDesc5)!=STATE_S1) || (fwSm_logIndex!=3)) {
 		return smTestCaseFailure;
 	}
 	if ((fwSm_logMarker[0]!=3) || (fwSm_logMarker[1]!=4) || (fwSm_logMarker[2]!=1)) {
@@ -1305,7 +1305,7 @@ FwSmTestOutcome_t FwSmTestCaseDescStatic2() {
 	smData->flag_2 = 1;
 	fwSm_logIndex = 0;
 	FwSmMakeTrans(smDesc5, TR6);
-	if ((smData->counter_1!=11) || (smData->counter_2!=4) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (fwSm_logIndex!=4)) {
+	if ((smData->counter_1!=11) || (smData->counter_2!=4) || (FwSmGetCurState(smDesc5)!=STATE_S2) || (FwSmGetPrevState(smDesc5)!=STATE_S2) || (fwSm_logIndex!=4)) {
 		return smTestCaseFailure;
 	}
 
@@ -1313,7 +1313,7 @@ FwSmTestOutcome_t FwSmTestCaseDescStatic2() {
 	smData->flag_1 = 1;
 	fwSm_logIndex = 0;
 	FwSmMakeTrans(smDesc5, TR5);
-	if ((smData->counter_1!=15) || (smData->counter_2!=5) || (FwSmGetCurState(smDesc5)!=0) || (fwSm_logIndex!=2)) {
+	if ((smData->counter_1!=15) || (smData->counter_2!=5) || (FwSmGetCurState(smDesc5)!=0) || (FwSmGetPrevState(smDesc5)!=0) || (fwSm_logIndex!=2)) {
 		return smTestCaseFailure;
 	}
 
@@ -1788,7 +1788,7 @@ FwSmTestOutcome_t FwSmTestCaseTrans5() {
 	/* Start SM (this brings it to S1 */
 	fwSm_logIndex = 0;	/* reset log */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=0) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=0) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
@@ -1884,7 +1884,7 @@ FwSmTestOutcome_t FwSmTestCaseDummySM9() {
 	/* Start SM (this brings it to S1 */
 	fwSm_logIndex = 0;	/* reset log */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
@@ -1895,8 +1895,9 @@ FwSmTestOutcome_t FwSmTestCaseDummySM9() {
 
 	/* Execute SM */
 	FwSmExecute(smDesc);
-	if ((smData->counter_1!=3) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=3) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
+		/////
 		return smTestCaseFailure;
 	}
 	if (fwSm_logIndex!=3) {
@@ -1906,7 +1907,7 @@ FwSmTestOutcome_t FwSmTestCaseDummySM9() {
 
 	/* Stop SM */
 	FwSmStop(smDesc);
-	if ((smData->counter_1!=7) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0)) {
+	if ((smData->counter_1!=7) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
@@ -1949,7 +1950,7 @@ FwSmTestOutcome_t FwSmTestCaseDummySM9Static() {
 	/* Start SM (this brings it to S1 */
 	fwSm_logIndex = 0;	/* reset log */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
@@ -1960,7 +1961,7 @@ FwSmTestOutcome_t FwSmTestCaseDummySM9Static() {
 
 	/* Execute SM */
 	FwSmExecute(smDesc);
-	if ((smData->counter_1!=3) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=3) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
@@ -1971,7 +1972,7 @@ FwSmTestOutcome_t FwSmTestCaseDummySM9Static() {
 
 	/* Stop SM */
 	FwSmStop(smDesc);
-	if ((smData->counter_1!=7) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0)) {
+	if ((smData->counter_1!=7) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
@@ -2096,33 +2097,33 @@ FwSmTestOutcome_t FwSmTestCaseTrans6() {
 	fwSm_logIndex = 0;	/* reset log */
 	FwSmStart(smDesc);
 	FwSmExecute(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=0) || (esmData->counter_2!=0) || (FwSmGetCurState(FwSmGetEmbSm(smDesc, STATE_S2))!=0)) {
+	if ((esmData->counter_1!=0) || (esmData->counter_2!=0) || (FwSmGetCurState(FwSmGetEmbSm(smDesc, STATE_S2))!=0) || (FwSmGetPrevState(FwSmGetEmbSm(smDesc, STATE_S2))!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
 
 	/* Send TR1 command to SM (this brings the embedded SM to S2 and starts the embedded SM) */
 	FwSmMakeTrans(smDesc, TR1);
-	if ((smData->counter_1!=6) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc)!=STATE_S2)) {
+	if ((smData->counter_1!=6) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc)!=STATE_S2) || (FwSmGetPrevState(smDesc)!=STATE_S1)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurStateEmb(smDesc)!=STATE_S1)) {
+	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurStateEmb(smDesc)!=STATE_S1) || (FwSmGetPrevStateEmb(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
 
 	/* Stop the embedded SM (this also stops the embedded SM) */
 	FwSmStop(smDesc);
-	if ((smData->counter_1!=10) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc)!=0)) {
+	if ((smData->counter_1!=10) || (smData->counter_2!=3) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
-	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurState(FwSmGetEmbSm(smDesc, STATE_S2))!=0)) {
+	if ((esmData->counter_1!=1) || (esmData->counter_2!=1) || (FwSmGetCurState(FwSmGetEmbSm(smDesc, STATE_S2))!=0) || (FwSmGetPrevState(FwSmGetEmbSm(smDesc, STATE_S2))!=0)) {
 		FwSmReleaseRec(smDesc);
 		return smTestCaseFailure;
 	}
@@ -2236,7 +2237,7 @@ FwSmTestOutcome_t FwSmTestCaseTransErr1() {
 	/* Start SM (this leaves it in an undefined state because both flag_1 and flag_2 are false */
 	fwSm_logIndex = 0;	/* reset log */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=0) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0)) {
+	if ((smData->counter_1!=0) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -2279,7 +2280,7 @@ FwSmTestOutcome_t FwSmTestCaseDummySM3() {
 	/* Start SM (this causes it to terminate immediately) */
 	fwSm_logIndex = 0;	/* reset log */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=0) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0)) {
+	if ((smData->counter_1!=0) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0)) {
 		return smTestCaseFailure;
 	}
 
@@ -2600,31 +2601,31 @@ FwSmTestOutcome_t FwSmTestCaseDescStatic3() {
 
 	/* Attempt executing a stopped state machine and check that nothing happens */
 	FwSmExecute(smDesc);
-	if ((smData->counter_1!=0) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=0) ||
+	if ((smData->counter_1!=0) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0) ||
 			(smData->logBase!=0)) {
 		return smTestCaseFailure;
 	}
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		return smTestCaseFailure;
 	}
 
 	/* Execute state machine twice and check success */
 	FwSmMakeTrans(smDesc, FW_TR_EXECUTE);
-	if ((smData->counter_1!=3) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=3) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		return smTestCaseFailure;
 	}
 
 	FwSmMakeTrans(smDesc, FW_TR_EXECUTE);
-	if ((smData->counter_1!=5) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=5) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		return smTestCaseFailure;
 	}
 
 	/* Stop state machine twice and check success */
 	FwSmStop(smDesc);
-	if ((smData->counter_1!=5) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0)) {
+	if ((smData->counter_1!=5) || (smData->counter_2!=1) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0)) {
 		return smTestCaseFailure;
 	}
 
@@ -2801,14 +2802,14 @@ FwSmTestOutcome_t FwSmTestCaseExecute5() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
 
 	/* Execute state machine and check success */
 	FwSmMakeTrans(smDesc, FW_TR_EXECUTE);
-	if ((smData->counter_1!=8) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=STATE_S1)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -2817,7 +2818,7 @@ FwSmTestOutcome_t FwSmTestCaseExecute5() {
 	smData->flag_2 = 1;
 
 	FwSmMakeTrans(smDesc, FW_TR_EXECUTE);
-	if ((smData->counter_1!=14) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=0)) {
+	if ((smData->counter_1!=14) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -2868,7 +2869,7 @@ FwSmTestOutcome_t FwSmTestCaseDer1() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDescDer);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmRelease(smDescBase);
 		FwSmReleaseDer(smDescDer);
 		return smTestCaseFailure;
@@ -2877,7 +2878,7 @@ FwSmTestOutcome_t FwSmTestCaseDer1() {
 	/* Send transition command TR4 to SM and check that this has no effect */
 	fwSm_logIndex = 0;
 	FwSmMakeTrans(smDescDer, TR4);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (fwSm_logIndex!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0) || (fwSm_logIndex!=0)) {
 		FwSmRelease(smDescBase);
 		FwSmReleaseDer(smDescDer);
 		return smTestCaseFailure;
@@ -2886,7 +2887,7 @@ FwSmTestOutcome_t FwSmTestCaseDer1() {
 	/* Set guard to prevent transition TR2 from S1 to S2 and then check that transition does not take place */
 	smData->flag_1 = 0;
 	FwSmMakeTrans(smDescDer, TR2);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (fwSm_logIndex!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0) || (fwSm_logIndex!=0)) {
 		FwSmRelease(smDescBase);
 		FwSmReleaseDer(smDescDer);
 		return smTestCaseFailure;
@@ -2895,7 +2896,7 @@ FwSmTestOutcome_t FwSmTestCaseDer1() {
 	/* Set guard to allow transition TR2 from S1 to S2 and then check that transition does take place */
 	smData->flag_1 = 1;
 	FwSmMakeTrans(smDescDer, TR2);
-	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDescDer)!=STATE_S2) || (fwSm_logIndex!=3)) {
+	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDescDer)!=STATE_S2) || (FwSmGetPrevState(smDescDer)!=STATE_S1) || (fwSm_logIndex!=3)) {
 		FwSmRelease(smDescBase);
 		FwSmReleaseDer(smDescDer);
 		return smTestCaseFailure;
@@ -2950,7 +2951,7 @@ FwSmTestOutcome_t FwSmTestCaseDer2() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDescDer);
-	if ((smData->counter_1!=8) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmReleaseDer(smDescDer);
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
@@ -2958,14 +2959,14 @@ FwSmTestOutcome_t FwSmTestCaseDer2() {
 
 	/* Execute state machine twice and check success */
 	FwSmMakeTrans(smDescDer, FW_TR_EXECUTE);
-	if ((smData->counter_1!=10) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1)) {
+	if ((smData->counter_1!=10) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmReleaseDer(smDescDer);
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
 	}
 
 	FwSmMakeTrans(smDescDer, FW_TR_EXECUTE);
-	if ((smData->counter_1!=12) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1)) {
+	if ((smData->counter_1!=12) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmReleaseDer(smDescDer);
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
@@ -2973,7 +2974,7 @@ FwSmTestOutcome_t FwSmTestCaseDer2() {
 
 	/* Command transition from S1 to FPS and check that nothing happens (guard is not true) */
 	FwSmMakeTrans(smDescDer, TR_S1_FPS);
-	if ((smData->counter_1!=12) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1)) {
+	if ((smData->counter_1!=12) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmReleaseDer(smDescDer);
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
@@ -2982,7 +2983,7 @@ FwSmTestOutcome_t FwSmTestCaseDer2() {
 	/* Command transition from S1 to FPS and check that transition is executed (guard is true) */
 	smData->flag_2 = 1;
 	FwSmMakeTrans(smDescDer, TR_S1_FPS);
-	if ((smData->counter_1!=12) || (smData->counter_2!=2) || (FwSmGetCurState(smDescDer)!=0)) {
+	if ((smData->counter_1!=12) || (smData->counter_2!=2) || (FwSmGetCurState(smDescDer)!=0) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmReleaseDer(smDescDer);
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
@@ -3056,13 +3057,13 @@ FwSmTestOutcome_t FwSmTestCaseDer3() {
 	fwSm_logIndex = 0;	/* reset log */
 	FwSmStart(smDescDer);
 	FwSmExecute(smDescDer);
-	if ((smDataDer->counter_1!=8) || (smDataDer->counter_2!=2) || (FwSmGetCurState(smDescDer)!=STATE_S2)) {
+	if ((smDataDer->counter_1!=8) || (smDataDer->counter_2!=2) || (FwSmGetCurState(smDescDer)!=STATE_S2) || (FwSmGetPrevState(smDescDer)!=STATE_S1)) {
 		FwSmReleaseDer(smDescDer);
 		FwSmReleaseDer(esmDescDer);
 		FwSmReleaseRec(smDescBase);
 		return smTestCaseFailure;
 	}
-	if ((esmDataDer->counter_1!=1) || (esmDataDer->counter_2!=1) || (FwSmGetCurStateEmb(smDescDer)!=STATE_S1)) {
+	if ((esmDataDer->counter_1!=1) || (esmDataDer->counter_2!=1) || (FwSmGetCurStateEmb(smDescDer)!=STATE_S1) || (FwSmGetPrevStateEmb(smDescDer)!=0)) {
 		FwSmReleaseDer(smDescDer);
 		FwSmReleaseDer(esmDescDer);
 		FwSmReleaseRec(smDescBase);
@@ -3071,13 +3072,13 @@ FwSmTestOutcome_t FwSmTestCaseDer3() {
 
 	/* Send TR2 command to SM (this has no effect on the SM but causes the ESM to go from S1 to S2) */
 	FwSmMakeTrans(smDescDer, TR2);
-	if ((smDataDer->counter_1!=8) || (smDataDer->counter_2!=2) || (FwSmGetCurState(smDescDer)!=STATE_S2)) {
+	if ((smDataDer->counter_1!=8) || (smDataDer->counter_2!=2) || (FwSmGetCurState(smDescDer)!=STATE_S2) || (FwSmGetPrevState(smDescDer)!=STATE_S1)) {
 		FwSmReleaseDer(smDescDer);
 		FwSmReleaseDer(esmDescDer);
 		FwSmReleaseRec(smDescBase);
 		return smTestCaseFailure;
 	}
-	if ((esmDataDer->counter_1!=6) || (esmDataDer->counter_2!=2) || (FwSmGetCurStateEmb(smDescDer)!=STATE_S2)) {
+	if ((esmDataDer->counter_1!=6) || (esmDataDer->counter_2!=2) || (FwSmGetCurStateEmb(smDescDer)!=STATE_S2) || (FwSmGetPrevStateEmb(smDescDer)!=STATE_S1)) {
 		FwSmReleaseDer(smDescDer);
 		FwSmReleaseDer(esmDescDer);
 		FwSmReleaseRec(smDescBase);
@@ -3088,7 +3089,7 @@ FwSmTestOutcome_t FwSmTestCaseDer3() {
 	/* Execute the SM (this causes the do-action of the S2 of both the SM and ESM to be executed and then triggers */
 	/* a transition from S2 to S1 in the SM) */
 	FwSmExecute(smDescDer);
-	if ((smDataDer->counter_1!=15) || (smDataDer->counter_2!=3) || (FwSmGetCurState(smDescDer)!=STATE_S1)) {
+	if ((smDataDer->counter_1!=15) || (smDataDer->counter_2!=3) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=STATE_S2)) {
 		FwSmReleaseDer(smDescDer);
 		FwSmReleaseDer(esmDescDer);
 		FwSmReleaseRec(smDescBase);
@@ -3316,21 +3317,21 @@ FwSmTestOutcome_t FwSmTestCaseJunction1() {
 
 	/* Start SM (this brings it to state S2) */
 	FwSmStart(smDesc);
-	if ((smData->counter_2!=2) || (FwSmGetCurState(smDesc)!=STATE_S2)) {
+	if ((smData->counter_2!=2) || (FwSmGetCurState(smDesc)!=STATE_S2) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
 
 	/* Send transition command TR1 to state machine (this has no effect) */
 	FwSmMakeTrans(smDesc, TR1);
-	if ((smData->counter_2!=2) || (FwSmGetCurState(smDesc)!=STATE_S2)) {
+	if ((smData->counter_2!=2) || (FwSmGetCurState(smDesc)!=STATE_S2) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
 
 	/* Send transition command TR2 to state machine (this terminates it) */
 	FwSmMakeTrans(smDesc, TR2);
-	if ((smData->counter_2!=4) || (FwSmGetCurState(smDesc)!=0)) {
+	if ((smData->counter_2!=4) || (FwSmGetCurState(smDesc)!=0) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -3384,7 +3385,7 @@ FwSmTestOutcome_t FwSmTestCaseDer4() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDescDer);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
 	}
@@ -3392,7 +3393,7 @@ FwSmTestOutcome_t FwSmTestCaseDer4() {
 	/* Send transition command TR4 to SM and check that this has no effect */
 	fwSm_logIndex = 0;
 	FwSmMakeTrans(smDescDer, TR4);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (fwSm_logIndex!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0) || (fwSm_logIndex!=0)) {
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
 	}
@@ -3400,7 +3401,7 @@ FwSmTestOutcome_t FwSmTestCaseDer4() {
 	/* Set guard to prevent transition TR2 from S1 to S2 and then check that transition does not take place */
 	smData->flag_1 = 0;
 	FwSmMakeTrans(smDescDer, TR2);
-	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (fwSm_logIndex!=0)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0) || (fwSm_logIndex!=0)) {
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
 	}
@@ -3408,7 +3409,7 @@ FwSmTestOutcome_t FwSmTestCaseDer4() {
 	/* Set guard to allow transition TR2 from S1 to S2 and then check that transition does take place */
 	smData->flag_1 = 1;
 	FwSmMakeTrans(smDescDer, TR2);
-	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDescDer)!=STATE_S2) || (fwSm_logIndex!=3)) {
+	if ((smData->counter_1!=6) || (smData->counter_2!=2) || (FwSmGetCurState(smDescDer)!=STATE_S2) || (FwSmGetPrevState(smDescDer)!=STATE_S1) || (fwSm_logIndex!=3)) {
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
 	}
@@ -3518,27 +3519,27 @@ FwSmTestOutcome_t FwSmTestCaseDer5() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDescDer);
-	if ((smData->counter_1!=8) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1)) {
+	if ((smData->counter_1!=8) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
 	}
 
 	/* Execute state machine twice and check success */
 	FwSmMakeTrans(smDescDer, FW_TR_EXECUTE);
-	if ((smData->counter_1!=10) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1)) {
+	if ((smData->counter_1!=10) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
 	}
 
 	FwSmMakeTrans(smDescDer, FW_TR_EXECUTE);
-	if ((smData->counter_1!=12) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1)) {
+	if ((smData->counter_1!=12) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
 	}
 
 	/* Command transition from S1 to FPS and check that nothing happens (guard is not true) */
 	FwSmMakeTrans(smDescDer, TR_S1_FPS);
-	if ((smData->counter_1!=12) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1)) {
+	if ((smData->counter_1!=12) || (smData->counter_2!=1) || (FwSmGetCurState(smDescDer)!=STATE_S1) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
 	}
@@ -3546,7 +3547,7 @@ FwSmTestOutcome_t FwSmTestCaseDer5() {
 	/* Command transition from S1 to FPS and check that transition is executed (guard is true) */
 	smData->flag_2 = 1;
 	FwSmMakeTrans(smDescDer, TR_S1_FPS);
-	if ((smData->counter_1!=12) || (smData->counter_2!=2) || (FwSmGetCurState(smDescDer)!=0)) {
+	if ((smData->counter_1!=12) || (smData->counter_2!=2) || (FwSmGetCurState(smDescDer)!=0) || (FwSmGetPrevState(smDescDer)!=0)) {
 		FwSmRelease(smDescBase);
 		return smTestCaseFailure;
 	}
@@ -3786,14 +3787,14 @@ FwSmTestOutcome_t FwSmTestCaseExecCnt1() {
 
 	/* Start SM (this brings it to state S1) */
 	FwSmStart(smDesc);
-	if ((smData->counter_1!=0) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=0) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
 
 	/* Send command TR1 and check that nothing happens */
 	FwSmMakeTrans(smDesc,TR1);
-	if ((smData->counter_1!=0) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=0) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=0)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -3804,7 +3805,7 @@ FwSmTestOutcome_t FwSmTestCaseExecCnt1() {
 
 	/* Execute SM and check that it makes a transition to S2 */
 	FwSmExecute(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S2)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S2) || (FwSmGetPrevState(smDesc)!=STATE_S1)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -3815,7 +3816,7 @@ FwSmTestOutcome_t FwSmTestCaseExecCnt1() {
 
 	/* Send command TR1 and check that nothing happens */
 	FwSmMakeTrans(smDesc,TR1);
-	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S2)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S2) || (FwSmGetPrevState(smDesc)!=STATE_S1)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -3826,7 +3827,7 @@ FwSmTestOutcome_t FwSmTestCaseExecCnt1() {
 
 	/* Execute SM and check that counters are incremented but SM remains in SM2 */
 	FwSmExecute(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S2)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S2) || (FwSmGetPrevState(smDesc)!=STATE_S1)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -3837,7 +3838,7 @@ FwSmTestOutcome_t FwSmTestCaseExecCnt1() {
 
 	/* Send command TR1 and check that nothing happens */
 	FwSmMakeTrans(smDesc,TR1);
-	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S2)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S2) || (FwSmGetPrevState(smDesc)!=STATE_S1)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -3848,7 +3849,7 @@ FwSmTestOutcome_t FwSmTestCaseExecCnt1() {
 
 	/* Execute SM and check that counters are incremented but SM remains in SM2 */
 	FwSmExecute(smDesc);
-	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S2)) {
+	if ((smData->counter_1!=1) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S2) || (FwSmGetPrevState(smDesc)!=STATE_S1)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -3859,7 +3860,7 @@ FwSmTestOutcome_t FwSmTestCaseExecCnt1() {
 
 	/* Send command TR1 and check that SM moves to S1 */
 	FwSmMakeTrans(smDesc,TR1);
-	if ((smData->counter_1!=3) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S1)) {
+	if ((smData->counter_1!=3) || (smData->counter_2!=0) || (FwSmGetCurState(smDesc)!=STATE_S1) || (FwSmGetPrevState(smDesc)!=STATE_S2)) {
 		FwSmRelease(smDesc);
 		return smTestCaseFailure;
 	}
@@ -3977,8 +3978,9 @@ FwSmTestOutcome_t FwSmTestCaseTrans7() {
 	FwSmStart(smDesc1);
 	FwSmStart(smDesc2);
 	FwSmStart(smDesc3);
-	if ((FwSmGetCurState(smDesc1)!=STATE_S1) || (FwSmGetCurState(smDesc2)!=STATE_S1) ||
-																(FwSmGetCurState(smDesc3)!=STATE_S1)){
+	if ((FwSmGetCurState(smDesc1)!=STATE_S1) || (FwSmGetPrevState(smDesc1)!=0) ||
+			(FwSmGetCurState(smDesc2)!=STATE_S1) || (FwSmGetPrevState(smDesc2)!=0) ||
+																		(FwSmGetCurState(smDesc3)!=STATE_S1) || (FwSmGetPrevState(smDesc3)!=0)){
 		FwSmRelease(smDesc1);
 		FwSmRelease(smDesc2);
 		FwSmRelease(smDesc3);
@@ -3989,8 +3991,8 @@ FwSmTestOutcome_t FwSmTestCaseTrans7() {
 	FwSmMakeTrans(smDesc1, TR1);
 	FwSmMakeTrans(smDesc2, TR1);
 	FwSmMakeTrans(smDesc3, TR1);
-	if ((FwSmGetCurState(smDesc1)!=STATE_S2) || (FwSmGetCurState(smDesc2)!=STATE_S4) ||
-																(FwSmGetCurState(smDesc3)!=STATE_S3)){
+	if ((FwSmGetCurState(smDesc1)!=STATE_S2) || (FwSmGetPrevState(smDesc1)!=STATE_S1) || (FwSmGetCurState(smDesc2)!=STATE_S4) || (FwSmGetPrevState(smDesc2)!=STATE_S1) ||
+																(FwSmGetCurState(smDesc3)!=STATE_S3) || (FwSmGetPrevState(smDesc3)!=STATE_S1)){
 		FwSmRelease(smDesc1);
 		FwSmRelease(smDesc2);
 		FwSmRelease(smDesc3);
@@ -4004,8 +4006,9 @@ FwSmTestOutcome_t FwSmTestCaseTrans7() {
 	FwSmStart(smDesc1);
 	FwSmStart(smDesc2);
 	FwSmStart(smDesc3);
-	if ((FwSmGetCurState(smDesc1)!=STATE_S1) || (FwSmGetCurState(smDesc2)!=STATE_S1) ||
-																(FwSmGetCurState(smDesc3)!=STATE_S1)){
+	if ((FwSmGetCurState(smDesc1)!=STATE_S1) || (FwSmGetPrevState(smDesc1)!=0) ||
+			(FwSmGetCurState(smDesc2)!=STATE_S1) || (FwSmGetPrevState(smDesc2)!=0) ||
+																		(FwSmGetCurState(smDesc3)!=STATE_S1) || (FwSmGetPrevState(smDesc3)!=0)){
 		FwSmRelease(smDesc1);
 		FwSmRelease(smDesc2);
 		FwSmRelease(smDesc3);
@@ -4019,8 +4022,8 @@ FwSmTestOutcome_t FwSmTestCaseTrans7() {
 	FwSmMakeTrans(smDesc1, TR1);
 	FwSmMakeTrans(smDesc2, TR1);
 	FwSmMakeTrans(smDesc3, TR1);
-	if ((FwSmGetCurState(smDesc1)!=STATE_S3) || (FwSmGetCurState(smDesc2)!=STATE_S4) ||
-																(FwSmGetCurState(smDesc3)!=STATE_S3)){
+	if ((FwSmGetCurState(smDesc1)!=STATE_S3) || (FwSmGetPrevState(smDesc1)!=STATE_S1) || (FwSmGetCurState(smDesc2)!=STATE_S4) || (FwSmGetPrevState(smDesc2)!=STATE_S1) ||
+																(FwSmGetCurState(smDesc3)!=STATE_S3) || (FwSmGetPrevState(smDesc3)!=STATE_S1)){
 		FwSmRelease(smDesc1);
 		FwSmRelease(smDesc2);
 		FwSmRelease(smDesc3);
@@ -4068,8 +4071,8 @@ FwSmTestOutcome_t FwSmTestCaseTrans8() {
 	FwSmStart(smDesc1);
 	FwSmStart(smDesc2);
 	FwSmStart(smDesc3);
-	if ((FwSmGetCurState(smDesc1)!=STATE_S1) || (FwSmGetCurState(smDesc2)!=STATE_S1) ||
-																(FwSmGetCurState(smDesc3)!=STATE_S1)){
+	if ((FwSmGetCurState(smDesc1)!=STATE_S1) || (FwSmGetPrevState(smDesc1)!=0) || (FwSmGetCurState(smDesc2)!=STATE_S1) || (FwSmGetPrevState(smDesc2)!=0) ||
+																(FwSmGetCurState(smDesc3)!=STATE_S1) || (FwSmGetPrevState(smDesc3)!=0)){
 		FwSmRelease(smDesc1);
 		FwSmRelease(smDesc2);
 		FwSmRelease(smDesc3);
@@ -4080,8 +4083,8 @@ FwSmTestOutcome_t FwSmTestCaseTrans8() {
 	FwSmMakeTrans(smDesc1, TR2);
 	FwSmMakeTrans(smDesc2, TR2);
 	FwSmMakeTrans(smDesc3, TR2);
-	if ((FwSmGetCurState(smDesc1)!=STATE_S2) || (FwSmGetCurState(smDesc2)!=STATE_S4) ||
-																(FwSmGetCurState(smDesc3)!=STATE_S3)){
+	if ((FwSmGetCurState(smDesc1)!=STATE_S2) || (FwSmGetPrevState(smDesc1)!=STATE_S1) || (FwSmGetCurState(smDesc2)!=STATE_S4) || (FwSmGetPrevState(smDesc2)!=STATE_S1) ||
+																		(FwSmGetCurState(smDesc3)!=STATE_S3) || (FwSmGetPrevState(smDesc3)!=STATE_S1)){
 		FwSmRelease(smDesc1);
 		FwSmRelease(smDesc2);
 		FwSmRelease(smDesc3);
@@ -4095,8 +4098,8 @@ FwSmTestOutcome_t FwSmTestCaseTrans8() {
 	FwSmStart(smDesc1);
 	FwSmStart(smDesc2);
 	FwSmStart(smDesc3);
-	if ((FwSmGetCurState(smDesc1)!=STATE_S1) || (FwSmGetCurState(smDesc2)!=STATE_S1) ||
-																(FwSmGetCurState(smDesc3)!=STATE_S1)){
+	if ((FwSmGetCurState(smDesc1)!=STATE_S1) || (FwSmGetPrevState(smDesc1)!=0) || (FwSmGetCurState(smDesc2)!=STATE_S1) || (FwSmGetPrevState(smDesc2)!=0) ||
+																(FwSmGetCurState(smDesc3)!=STATE_S1) || (FwSmGetPrevState(smDesc3)!=0)){
 		FwSmRelease(smDesc1);
 		FwSmRelease(smDesc2);
 		FwSmRelease(smDesc3);
@@ -4110,8 +4113,8 @@ FwSmTestOutcome_t FwSmTestCaseTrans8() {
 	FwSmMakeTrans(smDesc1, TR2);
 	FwSmMakeTrans(smDesc2, TR2);
 	FwSmMakeTrans(smDesc3, TR2);
-	if ((FwSmGetCurState(smDesc1)!=STATE_S3) || (FwSmGetCurState(smDesc2)!=STATE_S4) ||
-																(FwSmGetCurState(smDesc3)!=STATE_S3)){
+	if ((FwSmGetCurState(smDesc1)!=STATE_S3) || (FwSmGetPrevState(smDesc1)!=STATE_S1) || (FwSmGetCurState(smDesc2)!=STATE_S4) || (FwSmGetPrevState(smDesc2)!=STATE_S1) ||
+																		(FwSmGetCurState(smDesc3)!=STATE_S3) || (FwSmGetPrevState(smDesc3)!=STATE_S1)){
 		FwSmRelease(smDesc1);
 		FwSmRelease(smDesc2);
 		FwSmRelease(smDesc3);

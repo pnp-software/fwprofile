@@ -1021,16 +1021,15 @@ track of which actions are executed during a test.}
 %------------{State Machine State}
 \begin{fw_req}{State Machine State}{T}
 %----------------------------------------------------------------------------
-{It shall be possible to read the current state of a state machine.}
+{It shall be possible to read the current state of a state machine and, if available, its previous state.}
 %-----------------------------------------------------------------------------
-{Applications need to be able to check the current state of 
-a state machine.}
+{Applications need to be able to check the current state of a state machine and, if available, its previous state.}
 %-----------------------------------------------------------------------------
-{Read-only access to the state of a state machine is provided 
-by function \texttt{FwSmGetCurState}. 
-Function \texttt{FwSmIsStarted} checks whether a state machine has been started.} 
+{Read-only access to the previous state of a state machine is provided 
+by function \texttt{FwSmGetPrevState}, for current state the read-only access function is \texttt{FwSmGetCurState}. 
+Function \texttt{FwSmIsStarted} checks whether a state machine has been started.}
 %-----------------------------------------------------------------------------
-{Function \texttt{FwSmGetCurState} is used in virtually all 
+{Function \texttt{FwSmGetPrevState} and \texttt{FwSmGetCurState} are used in virtually all
 Test Cases of the Test Suite. 
 Function \texttt{FwSmIsStarted} is used in, for instance, Test Case 
 \texttt{FwSmTestCaseStart1}.}

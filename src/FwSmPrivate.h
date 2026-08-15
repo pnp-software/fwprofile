@@ -279,6 +279,9 @@ typedef struct {
  * stored in <code>curState</code>.
  * If this is equal to zero, then the state machine is stopped.
  *
+ * The identifier of the previous state is stored in <code>prevState</code>.
+ * If this is equal to 0, then the state has not been changed yet.
+ * 
  * If during the creation, configuration or execution of the state machine, an error is
  * encountered, the corresponding error code is stored in field <code>errCode</code>.
  * This field is initialized to <code>#smSuccess</code> and should nominally remain
@@ -294,7 +297,7 @@ typedef struct {
  * By convention, a derived state machine is characterized by field
  * <code>transCnt</code> being equal to zero.
  *
- * Two counters are associated to a sttae machine: the State Machine Execution Counter
+ * Two counters are associated to a state machine: the State Machine Execution Counter
  * and the State Execution Counter.
  * The State Machine Execution Counter holds the number of execution cycles since
  * the state machine was started and the State Execution Counter holds the number of cycle
@@ -317,6 +320,8 @@ struct FwSmDesc {
   FwSmCounterS1_t transCnt;
   /** the current state of the state machine */
   FwSmCounterS1_t curState;
+  /** the previous state of the state machine */
+  FwSmCounterS1_t prevState;
   /** the state machine execution counter */
   FwSmCounterU3_t smExecCnt;
   /** the state execution counter */

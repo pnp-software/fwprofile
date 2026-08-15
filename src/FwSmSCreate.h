@@ -126,6 +126,7 @@
                                      (NG) + 1,                                                                        \
                                      1,                                                                               \
                                      0,                                                                               \
+                                     0,                                                                              \
                                      0,                                                                               \
                                      0,                                                                               \
                                      smSuccess,                                                                       \
@@ -190,6 +191,7 @@
                                      0,                                                              \
                                      0,                                                              \
                                      0,                                                              \
+                                     0,                                                              \
                                      smSuccess,                                                      \
                                      NULL};
 
@@ -234,7 +236,7 @@
   static FwSmDesc_t   SM_DESC##_esm[(NS)];                                                                           \
   static struct FwSmDesc(SM_DESC) =                                                                                  \
       {                                                                                                              \
-          NULL, (SM_DESC##_actions), (SM_DESC##_guards), (SM_DESC##_esm), (NA) + 1, (NG) + 1, 1, 0, 0, 0, smSuccess, \
+          NULL, (SM_DESC##_actions), (SM_DESC##_guards), (SM_DESC##_esm), (NA) + 1, (NG) + 1, 1, 0, 0, 0, 0, smSuccess, \
           NULL};
 
 /**

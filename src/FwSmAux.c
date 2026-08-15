@@ -98,7 +98,8 @@ void FwSmPrintConfig(FwSmDesc_t smDesc, FILE* stream) {
     fprintf(stream, "%sCurrent state machine state is           : STOPPED\n", prefix);
   }
   else {
-    fprintf(stream, "%sState machine is STARTED and is in state : %d\n", prefix, FwSmGetCurState(smDesc));
+    fprintf(stream, "%sState machine is STARTED and is in state : %d, previous state: %d\n", prefix,
+            FwSmGetCurState(smDesc), FwSmGetPrevState(smDesc));
   }
   fprintf(stream, "\n");
 

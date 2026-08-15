@@ -171,6 +171,37 @@ FwSmCounterS1_t FwSmGetCurState(FwSmDesc_t smDesc);
 FwSmCounterS1_t FwSmGetCurStateEmb(FwSmDesc_t smDesc);
 
 /**
+ * Return the identifier of the previous state in a state machine (or -1
+ * if the state machine does not change the state yet).
+ * @param smDesc the descriptor of the state machine.
+ * @return the identifier of the previous state of the state machine (or -1
+ * if the state machine has not changed the state yet).
+ */
+FwSmCounterS1_t FwSmGetPrevState(FwSmDesc_t smDesc);
+
+/**
+ * Return the identifier of the previous state of the state machine
+ * embedded in the current state (the sub-state).
+ * If the current state is S and if there is a state machine embedded in this
+ * state, then this function returns the previous state of the embedded
+ * state machine.
+ * More precisely, this function implements the following logic:
+ * - If the outer state machine is stopped, then the function returns -1.
+ * - If the current state of the outer state machine has an embedded
+ *   state machine, then this function returns the previous state of the
+ *   embedded state machine (or zero if the embedded state machine is
+ *   stopped).
+ * - If the current state of the outer state machine has no embedded state
+ *   machine, then this function returns -1.
+ * .
+ * @param smDesc the descriptor of the state machine.
+ * @return the identifier of the previous state of the embedded state machine
+ * (or zero if the embedded state machine is stopped, or -1 if the current
+ * state has no embedded state machine).
+ */
+FwSmCounterS1_t FwSmGetPrevStateEmb(FwSmDesc_t smDesc);
+
+/**
  * Check whether the state machine is started.
  * @param smDesc the descriptor of the state machine.
  * @return 1 if the state machine is STARTED or 0 if it is STOPPED.

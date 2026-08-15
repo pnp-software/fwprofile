@@ -122,6 +122,7 @@ FwSmDesc_t FwSmCreate(FwSmCounterS1_t nOfStates, FwSmCounterS1_t nOfChoicePseudo
   smBase->nOfTrans     = nOfTrans;
   smDesc->smBase       = smBase;
   smDesc->curState     = 0;
+  smDesc->prevState    = 0;
   smDesc->smData       = NULL;
   smDesc->transCnt     = 1;
   smDesc->nOfActions   = (FwSmCounterS1_t)(nOfActions + 1);
@@ -186,6 +187,7 @@ FwSmDesc_t FwSmCreateDer(FwSmDesc_t smDesc) {
 
   extSmDesc->smBase       = smBase;
   extSmDesc->curState     = 0;
+  extSmDesc->prevState    = 0;
   extSmDesc->smData       = NULL;
   extSmDesc->transCnt     = 0;
   extSmDesc->nOfActions   = smDesc->nOfActions;
