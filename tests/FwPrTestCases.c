@@ -146,14 +146,14 @@ FwPrTestOutcome_t FwPrTestCaseStart1() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1 || FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
 
 	/* Try re-starting the procedure and check that nothing happens */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1 || FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -195,7 +195,7 @@ FwPrTestOutcome_t FwPrTestCaseStop1() {
 
 	/* Stop procedure and check that nothing happens */
 	FwPrStop(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=0) || (FwPrGetPrevNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -203,14 +203,14 @@ FwPrTestOutcome_t FwPrTestCaseStop1() {
 	/* Start and execute procedure and check that it reaches node N3 */
 	FwPrStart(procDesc);
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=N3) || (!FwPrIsStarted(procDesc))) {
+	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=N3) || (FwPrGetPrevNode(procDesc)!=N2) || (!FwPrIsStarted(procDesc))) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
 
 	/* Stop and check success */
 	FwPrStop(procDesc);
-	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
+	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=0) || (FwPrGetPrevNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -252,7 +252,7 @@ FwPrTestOutcome_t FwPrTestCaseExecute1() {
 
 	/* Execute procedure and check that nothing happens */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=0) || (FwPrGetPrevNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -294,14 +294,14 @@ FwPrTestOutcome_t FwPrTestCaseExecute2() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure and check that nothing happens (guard on control flow is false) */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -309,7 +309,7 @@ FwPrTestOutcome_t FwPrTestCaseExecute2() {
 	/* Make first guard true, execute procedure again, and check that procedure moves to N1 */
 	prData->flag_1 = 1;
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1)) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -355,14 +355,14 @@ FwPrTestOutcome_t FwPrTestCaseExecute3() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure and check that procedure reaches node N3 */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=N3)) {
+	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=N3) || (FwPrGetPrevNode(procDesc)!=N2)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -416,14 +416,14 @@ FwPrTestOutcome_t FwPrTestCaseExecute4() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure once and check that procedure reaches node N1 */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1)) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -440,7 +440,7 @@ FwPrTestOutcome_t FwPrTestCaseExecute4() {
 	/* Execute procedure and check that procedure executes loop twice and then terminates */
 	FwPrExecute(procDesc);
 
-	if ((prData->counter_1!=6) || (fwPrLogIndex!=5) || (FwPrGetCurNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
+	if ((prData->counter_1!=6) || (fwPrLogIndex!=5) || (FwPrGetCurNode(procDesc)!=0) || (FwPrGetPrevNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -501,13 +501,13 @@ FwPrTestOutcome_t FwPrTestCaseExecute4Static() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure once and check that procedure reaches node N1 */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1)) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		return prTestCaseFailure;
 	}
 
@@ -523,7 +523,7 @@ FwPrTestOutcome_t FwPrTestCaseExecute4Static() {
 	/* Execute procedure and check that procedure executes loop twice and then terminates */
 	FwPrExecute(procDesc);
 
-	if ((prData->counter_1!=6) || (fwPrLogIndex!=5) || (FwPrGetCurNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
+	if ((prData->counter_1!=6) || (fwPrLogIndex!=5) || (FwPrGetCurNode(procDesc)!=0) || (FwPrGetPrevNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
 		return prTestCaseFailure;
 	}
 	if ((fwPrLogMarker[0]!=1) || (fwPrLogNode[0]!=N2)) {
@@ -577,13 +577,13 @@ FwPrTestOutcome_t FwPrTestCaseExecute4Dir() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure once and check that procedure reaches node N1 */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1)) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		return prTestCaseFailure;
 	}
 
@@ -599,7 +599,7 @@ FwPrTestOutcome_t FwPrTestCaseExecute4Dir() {
 	/* Execute procedure and check that procedure executes loop twice and then terminates */
 	FwPrExecute(procDesc);
 
-	if ((prData->counter_1!=6) || (fwPrLogIndex!=5) || (FwPrGetCurNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
+	if ((prData->counter_1!=6) || (fwPrLogIndex!=5) || (FwPrGetCurNode(procDesc)!=0) || (FwPrGetPrevNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
 		return prTestCaseFailure;
 	}
 	if ((fwPrLogMarker[0]!=1) || (fwPrLogNode[0]!=N2)) {
@@ -654,23 +654,23 @@ FwPrTestOutcome_t FwPrTestCaseExecute5() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
-		return prTestCaseFailure;
+		return 5;
 	}
 
 	/* Execute procedure once and check that procedure reaches node N1 */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1)) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
-		return prTestCaseFailure;
+		return 3;
 	}
 
 	/* Execute procedure again and check that procedure remains in node N1 */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1)) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
-		return prTestCaseFailure;
+		return 4;
 	}
 
 	/* Set flags to force execution of procedure to its final node */
@@ -684,9 +684,9 @@ FwPrTestOutcome_t FwPrTestCaseExecute5() {
 	/* Execute procedure and check that procedure terminates */
 	FwPrExecute(procDesc);
 
-	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
+	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=0) || (FwPrGetPrevNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
 		FwPrRelease(procDesc);
-		return prTestCaseFailure;
+		return 6;
 	}
 	if ((fwPrLogMarker[0]!=1) || (fwPrLogNode[0]!=N1)) {
 		FwPrRelease(procDesc);
@@ -737,19 +737,19 @@ FwPrTestOutcome_t FwPrTestCaseExecute5Static() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure once and check that procedure reaches node N1 */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1)) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure again and check that procedure remains in node N1 */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1)) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		return prTestCaseFailure;
 	}
 
@@ -764,7 +764,7 @@ FwPrTestOutcome_t FwPrTestCaseExecute5Static() {
 	/* Execute procedure and check that procedure terminates */
 	FwPrExecute(procDesc);
 
-	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
+	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=0) || (FwPrGetPrevNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
 		return prTestCaseFailure;
 	}
 	if ((fwPrLogMarker[0]!=1) || (fwPrLogNode[0]!=N1)) {
@@ -995,14 +995,14 @@ FwPrTestOutcome_t FwPrTestCaseExecute6() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(prDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDesc)!=-1) || (FwPrGetPrevNode(prDesc)!=-1)) {
 		FwPrRelease(prDesc);
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure once and check that procedure increments counter and then terminates */
 	FwPrExecute(prDesc);
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(prDesc)!=0) || (FwPrIsStarted(prDesc))) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(prDesc)!=0) || (FwPrGetPrevNode(prDesc)!=0) || (FwPrIsStarted(prDesc))) {
 		FwPrRelease(prDesc);
 		return prTestCaseFailure;
 	}
@@ -1044,14 +1044,14 @@ FwPrTestOutcome_t FwPrTestCaseExecute7() {
 
 	/* Start procedure */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure and check that procedure terminates after passing through N1  */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=0)) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=0) || (FwPrGetPrevNode(procDesc)!=0)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -1068,7 +1068,7 @@ FwPrTestOutcome_t FwPrTestCaseExecute7() {
 	FwPrStart(procDesc);
 	FwPrExecute(procDesc);
 
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(procDesc)!=0) || (FwPrGetPrevNode(procDesc)!=0) || (FwPrIsStarted(procDesc))) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -1110,7 +1110,7 @@ FwPrTestOutcome_t FwPrTestCaseCheck4() {
 
 	/* Start procedure */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetPrevNode(procDesc)!=-1)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -1498,7 +1498,7 @@ FwPrTestOutcome_t FwPrTestCaseRun1() {
 
 	/* Run procedure and check that all three action nodes have been executed and the procedure is terminated */
 	FwPrRun(procDesc);
-	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=0)) {
+	if ((prData->counter_1!=3) || (fwPrLogIndex!=3) || (FwPrGetCurNode(procDesc)!=0) || (FwPrGetPrevNode(procDesc)!=0)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -1553,7 +1553,7 @@ FwPrTestOutcome_t FwPrTestCaseDer1() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(prDescDer);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1) || (FwPrGetPrevNode(prDescDer)!=-1)) {
 		FwPrRelease(prDescBase);
 		FwPrReleaseDer(prDescDer);
 		return prTestCaseFailure;
@@ -1561,7 +1561,7 @@ FwPrTestOutcome_t FwPrTestCaseDer1() {
 
 	/* Execute procedure and check that nothing happens (guard on control flow is false) */
 	FwPrExecute(prDescDer);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1) || (FwPrGetPrevNode(prDescDer)!=-1)) {
 		FwPrRelease(prDescBase);
 		FwPrReleaseDer(prDescDer);
 		return prTestCaseFailure;
@@ -1570,7 +1570,7 @@ FwPrTestOutcome_t FwPrTestCaseDer1() {
 	/* Make first guard true, execute procedure again, and check that procedure moves to N1 */
 	prData->flag_1 = 1;
 	FwPrExecute(prDescDer);
-	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(prDescDer)!=N1)) {
+	if ((prData->counter_1!=1) || (fwPrLogIndex!=1) || (FwPrGetCurNode(prDescDer)!=N1) || (FwPrGetPrevNode(prDescDer)!=-1)) {
 		FwPrRelease(prDescBase);
 		FwPrReleaseDer(prDescDer);
 		return prTestCaseFailure;
@@ -1791,7 +1791,7 @@ FwPrTestOutcome_t FwPrTestCaseDer2() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(prDescDer);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1) || (FwPrGetPrevNode(prDescDer)!=-1)) {
 		FwPrRelease(prDescBase);
 		FwPrReleaseDer(prDescDer);
 		return prTestCaseFailure;
@@ -1800,7 +1800,7 @@ FwPrTestOutcome_t FwPrTestCaseDer2() {
 	/* Execute procedure and check that nothing happens (guard on control flow out of initial
 	 * node is false) */
 	FwPrExecute(prDescDer);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1) || (FwPrGetPrevNode(prDescDer)!=-1)) {
 		FwPrRelease(prDescBase);
 		FwPrReleaseDer(prDescDer);
 		return prTestCaseFailure;
@@ -1811,7 +1811,7 @@ FwPrTestOutcome_t FwPrTestCaseDer2() {
 	prData->flag_2 = 1;
 	prData->flag_3 = 1;	/* this causes the procedure to terminate on the first execution */
 	FwPrExecute(prDescDer);
-	if ((prData->counter_1!=16) || (fwPrLogIndex!=2) || (FwPrGetCurNode(prDescDer)!=0)) {
+	if ((prData->counter_1!=16) || (fwPrLogIndex!=2) || (FwPrGetCurNode(prDescDer)!=0) || (FwPrGetPrevNode(prDescDer)!=0)) {
 		FwPrRelease(prDescBase);
 		FwPrReleaseDer(prDescDer);
 		return prTestCaseFailure;
@@ -1891,7 +1891,7 @@ FwPrTestOutcome_t FwPrTestCaseDer3() {
 
 	/* Start procedure and check outcome of start operation */
 	FwPrStart(prDescDer);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1) || (FwPrGetPrevNode(prDescDer)!=-1)) {
 		FwPrRelease(prDescBase);
 		return prTestCaseFailure;
 	}
@@ -1899,7 +1899,7 @@ FwPrTestOutcome_t FwPrTestCaseDer3() {
 	/* Execute procedure and check that nothing happens (guard on control flow out of initial
 	 * node is false) */
 	FwPrExecute(prDescDer);
-	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1)) {
+	if ((prData->counter_1!=0) || (fwPrLogIndex!=0) || (FwPrGetCurNode(prDescDer)!=-1) || (FwPrGetPrevNode(prDescDer)!=-1)) {
 		FwPrRelease(prDescBase);
 		return prTestCaseFailure;
 	}
@@ -1909,7 +1909,7 @@ FwPrTestOutcome_t FwPrTestCaseDer3() {
 	prData->flag_2 = 1;
 	prData->flag_3 = 1;	/* this causes the procedure to terminate on the first execution */
 	FwPrExecute(prDescDer);
-	if ((prData->counter_1!=16) || (fwPrLogIndex!=2) || (FwPrGetCurNode(prDescDer)!=0)) {
+	if ((prData->counter_1!=16) || (fwPrLogIndex!=2) || (FwPrGetCurNode(prDescDer)!=0) || (FwPrGetPrevNode(prDescDer)!=0)) {
 		FwPrRelease(prDescBase);
 		return prTestCaseFailure;
 	}
@@ -1973,7 +1973,7 @@ FwPrTestOutcome_t FwPrTestCaseDerCheck3() {
 	}
 
 	/* Check state of derived procedure */
-	if (FwPrGetCurNode(prDescDer)!=0) {
+	if (FwPrGetCurNode(prDescDer)!=0 || FwPrGetPrevNode(prDescDer)!=0) {
 		FwPrReleaseDer(prDescDer);
 		FwPrRelease(prDescBase);
 		return prTestCaseFailure;
@@ -2056,34 +2056,34 @@ FwPrTestOutcome_t FwPrTestCaseExecute8() {
 
 	/* Start procedure */
 	FwPrStart(procDesc);
-	if ((prData->counter_1!=0) || (FwPrGetExecCnt(procDesc)!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetNodeExecCnt(procDesc)!=0)) {
+	if ((prData->counter_1!=0) || (FwPrGetExecCnt(procDesc)!=0) || (FwPrGetCurNode(procDesc)!=-1) || (FwPrGetPrevNode(procDesc)!=-1) || (FwPrGetNodeExecCnt(procDesc)!=0)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure and check counters  */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=1) || (FwPrGetExecCnt(procDesc)!=1) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetNodeExecCnt(procDesc)!=0)) {
+	if ((prData->counter_1!=1) || (FwPrGetExecCnt(procDesc)!=1) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetPrevNode(procDesc)!=-1) || (FwPrGetNodeExecCnt(procDesc)!=0)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
 	FwPrExecute(procDesc);
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=1) || (FwPrGetExecCnt(procDesc)!=3) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetNodeExecCnt(procDesc)!=2)) {
+	if ((prData->counter_1!=1) || (FwPrGetExecCnt(procDesc)!=3) || (FwPrGetCurNode(procDesc)!=N1) || (FwPrGetPrevNode(procDesc)!=-1) || (FwPrGetNodeExecCnt(procDesc)!=2)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure again -- this should trigger transition to N2 */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=4) || (FwPrGetExecCnt(procDesc)!=4) || (FwPrGetCurNode(procDesc)!=N2) || (FwPrGetNodeExecCnt(procDesc)!=0)) {
+	if ((prData->counter_1!=4) || (FwPrGetExecCnt(procDesc)!=4) || (FwPrGetCurNode(procDesc)!=N2) || (FwPrGetPrevNode(procDesc)!=N1) || (FwPrGetNodeExecCnt(procDesc)!=0)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
 
 	/* Execute procedure again -- procedure remains in N2 */
 	FwPrExecute(procDesc);
-	if ((prData->counter_1!=4) || (FwPrGetExecCnt(procDesc)!=5) || (FwPrGetCurNode(procDesc)!=N2) || (FwPrGetNodeExecCnt(procDesc)!=1)) {
+	if ((prData->counter_1!=4) || (FwPrGetExecCnt(procDesc)!=5) || (FwPrGetCurNode(procDesc)!=N2) || (FwPrGetPrevNode(procDesc)!=N1) || (FwPrGetNodeExecCnt(procDesc)!=1)) {
 		FwPrRelease(procDesc);
 		return prTestCaseFailure;
 	}
@@ -2155,7 +2155,7 @@ FwPrTestOutcome_t FwPrTestCaseDerCheck5() {
 	}
 
 	/* Check state of derived procedure */
-	if (FwPrGetCurNode(&prDescDerStatic)!=0) {
+	if (FwPrGetCurNode(&prDescDerStatic)!=0 || FwPrGetPrevNode(&prDescDerStatic)!=0) {
 		FwPrRelease(prDescBase);
 		return prTestCaseFailure;
 	}
@@ -2208,7 +2208,9 @@ FwPrTestOutcome_t FwPrTestCaseExecute9() {
 	FwPrExecute(procDesc1);
 	FwPrExecute(procDesc2);
 	FwPrExecute(procDesc3);
-	if ((FwPrGetCurNode(procDesc1)!=N1) || (FwPrGetCurNode(procDesc2)!=N3) || (FwPrGetCurNode(procDesc3)!=N2)) {
+	if ((FwPrGetCurNode(procDesc1)!=N1) || (FwPrGetPrevNode(procDesc1)!=-1) 
+		|| (FwPrGetCurNode(procDesc2)!=N3) || (FwPrGetPrevNode(procDesc2)!=-1) 
+		|| (FwPrGetCurNode(procDesc3)!=N2) || (FwPrGetPrevNode(procDesc3)!=-1)) {
 		FwPrRelease(procDesc1);
 		FwPrRelease(procDesc2);
 		FwPrRelease(procDesc3);
@@ -2230,7 +2232,9 @@ FwPrTestOutcome_t FwPrTestCaseExecute9() {
 	FwPrExecute(procDesc1);
 	FwPrExecute(procDesc2);
 	FwPrExecute(procDesc3);
-	if ((FwPrGetCurNode(procDesc1)!=N2) || (FwPrGetCurNode(procDesc2)!=N3) || (FwPrGetCurNode(procDesc3)!=N2)) {
+	if ((FwPrGetCurNode(procDesc1)!=N2) || (FwPrGetPrevNode(procDesc1)!=-1)
+		|| (FwPrGetCurNode(procDesc2)!=N3) || (FwPrGetPrevNode(procDesc2)!=-1)
+		|| (FwPrGetCurNode(procDesc3)!=N2) || (FwPrGetPrevNode(procDesc3)!=-1)) {
 		FwPrRelease(procDesc1);
 		FwPrRelease(procDesc2);
 		FwPrRelease(procDesc3);
@@ -2309,3 +2313,122 @@ FwPrTestOutcome_t FwPrTestCaseCheck14() {
 	return prTestCaseSuccess;
 }
 
+
+/*------------------------------------------------------------------------------------------------- */
+FwPrTestOutcome_t FwPrTestCaseExecute10() {
+	struct TestPrData sPrData;
+	struct TestPrData* prData = &sPrData;
+	FwPrDesc_t procDesc;
+
+	/* reset log and initialize procedure data */
+	prData->counter_1 = 0;
+	prData->flag_1 = 1;
+	prData->flag_2 = 0;
+	prData->flag_3 = 0;
+	prData->flag_4 = 0;
+	prData->flag_5 = 0;
+	prData->flag_6 = 0;
+	prData->marker = 1;
+	fwPrLogIndex = 0;
+
+	/* Create test procedure */
+	procDesc = FwPrMakeTestPR7(prData);
+	if (procDesc == NULL)
+		return prTestCaseFailure;
+
+	/* Start procedure and check initial node values */
+	FwPrStart(procDesc);
+	if ((FwPrGetCurNode(procDesc) != -1) || (FwPrGetPrevNode(procDesc) != -1)) {
+		FwPrRelease(procDesc);
+		return prTestCaseFailure;
+	}
+
+	/* Execute procedure once and check that it reaches node N1 */
+	FwPrExecute(procDesc);
+	if ((FwPrGetCurNode(procDesc) != N1) || (FwPrGetPrevNode(procDesc) != -1)) {
+		FwPrRelease(procDesc);
+		return prTestCaseFailure;
+	}
+
+	/* Enable the transition from N1 to N2 and check the previous node */
+	prData->flag_2 = 1;
+	FwPrExecute(procDesc);
+	if ((FwPrGetCurNode(procDesc) != N2) || (FwPrGetPrevNode(procDesc) != N1)) {
+		FwPrRelease(procDesc);
+		return prTestCaseFailure;
+	}
+
+	/* Execute procedure again with a false guard and check that nodes are unchanged */
+	FwPrExecute(procDesc);
+	if ((FwPrGetCurNode(procDesc) != N2) || (FwPrGetPrevNode(procDesc) != N1)) {
+		FwPrRelease(procDesc);
+		return prTestCaseFailure;
+	}
+
+	/* Enable the transition from N2 to N3 and check the previous node */
+	prData->flag_3 = 1;
+	FwPrExecute(procDesc);
+	if ((FwPrGetCurNode(procDesc) != N3) || (FwPrGetPrevNode(procDesc) != N2)) {
+		FwPrRelease(procDesc);
+		return prTestCaseFailure;
+	}
+
+	/* Stop procedure and check stopped node values */
+	FwPrStop(procDesc);
+	if ((FwPrGetCurNode(procDesc) != 0) || (FwPrGetPrevNode(procDesc) != 0)) {
+		FwPrRelease(procDesc);
+		return prTestCaseFailure;
+	}
+
+	FwPrRelease(procDesc);
+	return prTestCaseSuccess;
+}
+
+/*------------------------------------------------------------------------------------------------- */
+FwPrTestOutcome_t FwPrTestCaseExecute11() {
+	struct TestPrData sPrData;
+	struct TestPrData* prData = &sPrData;
+	FwPrDesc_t procDesc;
+
+	/* reset log and initialize procedure data */
+	prData->counter_1 = 0;
+	prData->flag_1 = 0;
+	prData->flag_2 = 0;
+	prData->flag_3 = 0;
+	prData->flag_4 = 0;
+	prData->flag_5 = 0;
+	prData->flag_6 = 0;
+	prData->marker = 1;
+	fwPrLogIndex = 0;
+
+	/* Create test procedure */
+	procDesc = FwPrMakeTestPR8(prData);
+	if (procDesc == NULL)
+		return prTestCaseFailure;
+
+	/* Start and execute procedure once to reach node N1 */
+	FwPrStart(procDesc);
+	FwPrExecute(procDesc);
+	if ((FwPrGetCurNode(procDesc) != N1) || (FwPrGetPrevNode(procDesc) != -1)) {
+		FwPrRelease(procDesc);
+		return prTestCaseFailure;
+	}
+
+	/* Enable the self-transition and check that current and previous nodes are both N1 */
+	prData->flag_2 = 1;
+	FwPrExecute(procDesc);
+	if ((FwPrGetCurNode(procDesc) != N1) || (FwPrGetPrevNode(procDesc) != N1) || (prData->counter_1 != 2)) {
+		FwPrRelease(procDesc);
+		return prTestCaseFailure;
+	}
+
+	/* Stop procedure and check stopped node values */
+	FwPrStop(procDesc);
+	if ((FwPrGetCurNode(procDesc) != 0) || (FwPrGetPrevNode(procDesc) != 0)) {
+		FwPrRelease(procDesc);
+		return prTestCaseFailure;
+	}
+
+	FwPrRelease(procDesc);
+	return prTestCaseSuccess;
+}

@@ -107,7 +107,7 @@
   static FwPrGuard_t  PR_DESC##_guards[(NG) + 1];                                                                    \
   static PrBaseDesc_t PR_DESC##_base = {(PR_DESC##_aNodes), (PR_DESC##_dNodes), (PR_DESC##_flows), N, NDEC, NFLOWS}; \
   static struct FwPrDesc(PR_DESC)    = {                                                                             \
-      &(PR_DESC##_base), (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, prSuccess, 0, 0, NULL};
+      &(PR_DESC##_base), (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, 0, prSuccess, 0, 0, NULL};
 
 /**
  * Instantiate a procedure descriptor and its internal data structure.
@@ -157,7 +157,7 @@
   static FwPrGuard_t  PR_DESC##_guards[(NG) + 1];                                                   \
   static PrBaseDesc_t PR_DESC##_base = {(PR_DESC##_aNodes), NULL, (PR_DESC##_flows), N, 0, NFLOWS}; \
   static struct FwPrDesc(PR_DESC)    = {                                                            \
-      &(PR_DESC##_base), (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, prSuccess, 0, 0, NULL};
+      &(PR_DESC##_base), (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, 0, prSuccess, 0, 0, NULL};
 
 /**
  * Instantiate a descriptor for a derived procedure.
@@ -198,7 +198,7 @@
   static FwPrAction_t PR_DESC##_actions[(NA)];    \
   static FwPrGuard_t  PR_DESC##_guards[(NG) + 1]; \
   static struct FwPrDesc(PR_DESC) = {             \
-      NULL, (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, prSuccess, 0, 0, NULL};
+      NULL, (PR_DESC##_actions), (PR_DESC##_guards), NA, (NG) + 1, 1, 0, 0, prSuccess, 0, 0, NULL};
 
 /**
  * Initialize a procedure descriptor to represent an unconfigured procedure

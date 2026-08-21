@@ -229,6 +229,15 @@ typedef struct {
  * - A value of i (a positive integer) indicates that the procedure is in the
  *   STARTED state and i is the identifier of its current node.
  * .
+ * 
+ * The identifier of the previous node is stored in <code>prevNode</code>.
+ * The following convention is used:
+ * - A value of 0 indicates that the procedure is in the STOPPED state;
+ * - A value of -1 indicates that the procedure is in the STARTED state
+ *   and waiting in the initial node (no previous node exists yet);
+ * - A value of i (a positive integer) indicates that the procedure is in the
+ *   STARTED state and i is the identifier of its previous node.
+ * .
  *
  * If during the creation, configuration or execution of the procedure, an error is
  * encountered, the corresponding error code is stored in field <code>errCode</code>.
@@ -266,6 +275,8 @@ struct FwPrDesc {
   FwPrCounterS1_t flowCnt;
   /** the current node of the procedure */
   FwPrCounterS1_t curNode;
+  /** the previous node of the procedure */
+  FwPrCounterS1_t prevNode;
   /** either 'success' or the code of the last error encountered by the procedure */
   FwPrErrCode_t errCode;
   /** the procedure execution counter */

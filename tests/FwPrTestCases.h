@@ -312,4 +312,16 @@ FwPrTestOutcome_t FwPrTestCaseDerCheck5();
  */
 FwPrTestOutcome_t FwPrTestCaseExecute9();
 
+/**
+ * Verify how the current and previous action nodes change during execution.
+ * @return the success/failure code of the test case.
+ */
+FwPrTestOutcome_t FwPrTestCaseExecute10();
+
+/**
+ * Verify the current and previous node values for an action-node self-transition.
+ * @return the success/failure code of the test case.
+ */
+FwPrTestOutcome_t FwPrTestCaseExecute11();
+
 #endif /* FWPR_TESTCASES_H_ */
