@@ -335,8 +335,8 @@ behaviour in state STANDBY. In this case, it is convenient to proceed as follows
 \subsection{In what order are out-going transitions evaluated?}
 When a state machine receives a transition command, it checks whether any out-going transition from the current state matches the transition command 
 and has a true guard. The FW Profile specifies that if a state or choice pseudo-state has two or more matching out-going transitions with a guard which 
-evaluates to true, the transition which will be executed is the one whose guard is evaluated first. The order of evaluation of the guards is, however, 
-left undefined by the FW Profile. 
+evaluates to true, the transition which will be executed is the one whose guard is evaluated first. The guards are evaluated in the order in which
+their transitions were added to the state machine during the state machine configuration process.
 
 The C1 Implementation has made the following choice: outgoing transitions from the same state or choice pseudo-state are evaluated in the order in which 
 they were added to the state machine during the state machine configuration process.
@@ -496,8 +496,8 @@ but the self-test is device-specific, then, it is convenient to proceed as follo
 \end{fw_itemize}
 
 \subsection{In what order are control flows out of a decision node evaluated?}
-When a procedure must traverse a decision node, it evaluates the guards of all out-going control flows from the decision node and selects the first 
-one which has a true guard. The order of evaluation of the guards is left undefined by the FW Profile. 
+When a procedure must traverse a decision node, it evaluates the guards of all out-going control flows from the decision node in the order in which
+their control flows were added to the procedure during the procedure configuration process and selects the first one which has a true guard.
 
 The C1 Implementation has made the following choice: outgoing control flows from the same decision node are evaluated in the order in which they were added 
 to the procedure during the procedure configuration process.

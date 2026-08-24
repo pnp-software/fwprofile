@@ -36,12 +36,13 @@ A \emph{state transition} is characterized by the following elements:
 \item Zero or one \emph{transition trigger} (or \emph{transition command})
 \item Zero or one \emph{transition guard}
 \item Zero or more \emph{transition actions}
+\item Evaluation order
 \end{fw_itemize}
 
 The transition source and the transition target are either a state or a pseudo-state. The transition trigger is the command that triggers the execution 
 of the transition. A transition guard is a specification that evaluates either to TRUE or to FALSE and has no side effects. Absence of a guard is equivalent to a guard which always evaluates to TRUE. A transition action represents 
 behaviour which is not decomposed further within the state machine. A transition action behaviour can be defined using natural language or some formalism 
-(e.g. an action language). Transition commands may carry parameters and may return values. The parameters and return values are not defined further by the 
+(e.g. an action language). The evaluation order of transitions with the same source is the order in which they were added to the state machine during the state machine configuration process. If the guards of two or more such transitions evaluate to TRUE, the first transition in this order is selected. Transition commands may carry parameters and may return values. The parameters and return values are not defined further by the
 FW Profile. They represent parameters that are passed to the actions and values which are returned by them. 
 
 A \emph{choice pseudo-state} is characterized by the following elements:
@@ -160,6 +161,12 @@ When a state machine is stopped, the following behaviour is executed:
 \item The state machine is set to an undefined state.
 \end{fw_enumerate}
 
+When a state machine is started, its previous state is set to an invalid value. Before the
+current state is changed during execution, its value is copied to the previous state. Consequently,
+when the initial pseudo-state is left, the previous state remains invalid. For a transition to the
+same state, the previous and current states are identical. When a state machine is stopped, its
+previous state and current state are set to invalid values.
+
 The logic of the start and stop commands for state machines is shown in Figure \ref{fig:logicStartStopCmdSM} as two activity diagrams.
 
 \begin{figure}[ht]
@@ -183,8 +190,8 @@ then the transition command T is propagated to SE.
 \item If there are no transitions from the current state of S that have T as their trigger, then
 no further action is taken.
 \item If there are one or more transitions from the current state of S that have T as their
-trigger, then their guards are evaluated in sequence. The order of the evaluation is
-undefined. The absence of a guard is equivalent to a guard that returns TRUE.
+trigger, then their guards are evaluated in their defined order. The absence of a guard is
+equivalent to a guard that returns TRUE.
 \item When the first transition is found whose guard evaluates to TRUE, then that transition
 is executed.
 \end{fw_enumerate}
@@ -212,7 +219,7 @@ order in which they are listed.
 \item The transition action associated to the transition is executed. If several transition
 actions are present, they are executed in the order in which they are listed.
 \item If the target of the transition is a choice pseudo-state, then the guards of the out-going
-transitions from the choice pseudo-state are evaluated in sequence until one is found
+transitions from the choice pseudo-state are evaluated in their defined order until one is found
 that evaluates to true and that transition is executed.
 \item If the target of the transition is a final pseudo-state, then the state machine is set to an
 undefined state and no further action is taken.

@@ -932,7 +932,6 @@ has 100\% coverage of its implementation.}
 This requirement assumes that they are added in sequence and one by one.}
 %-----------------------------------------------------------------------------
 {In principle, if the guards out of a state or choice pseudo-state are mutually exclusive and do not have side effects, their order of evaluation is irrelevant. 
-For this reason, the FW Profile of \cite{ref:fwprofile} does not specify the order of evaluation of transition guards.
 However, in embedded applications with constrained CPU and memory resources, determinism in the order of evaluation may be exploited to improve run-time efficiency (for instance, by ensuring that the guard which is most likely to be true is evaluated first) and to implement "else" clauses in an efficient manner (see section 3.6 of \cite{ref:um}).}
 %-----------------------------------------------------------------------------
 {The evaluation of the guards on the transitions out of a state is done in function \texttt{FwSmMakeTrans}.
@@ -1025,11 +1024,10 @@ track of which actions are executed during a test.}
 %-----------------------------------------------------------------------------
 {Applications need to be able to check the current state of a state machine and, if available, its previous state.}
 %-----------------------------------------------------------------------------
-{Read-only access to the previous state of a state machine is provided 
-by function \texttt{FwSmGetPrevState}, for current state the read-only access function is \texttt{FwSmGetCurState}. 
-Function \texttt{FwSmIsStarted} checks whether a state machine has been started.}
+{Read-only access to the current state of a state machine is provided by function \texttt{FwSmGetCurState}, for the previous state the read-only access function is \texttt{FwSmGetPrevState}. 
+Function \texttt{FwSmIsStarted} checks whether a state machine has been started.} 
 %-----------------------------------------------------------------------------
-{Function \texttt{FwSmGetPrevState} and \texttt{FwSmGetCurState} are used in virtually all
+{Functions \texttt{FwSmGetCurState} and \texttt{FwSmGetPrevState} are used in virtually all
 Test Cases of the Test Suite. 
 Function \texttt{FwSmIsStarted} is used in, for instance, Test Case 
 \texttt{FwSmTestCaseStart1}.}
@@ -1737,8 +1735,7 @@ activity diagram of Figure \ref{fig:PrExecuting}.}
 {Control flows are "added" to a procedure during the procedure configuration process.
 This requirement assumes that they are added in sequence and one by one.}
 %-----------------------------------------------------------------------------
-{In principle, if the guards on the control flows out of a decision node are mutually exclusive and do not have side effects, their order of evaluation is irrelevant. 
-For this reason, the FW Profile of \cite{ref:fwprofile} does not specify the order of evaluation of control flow guards.
+{In principle, if the guards on the control flows out of a decision node are mutually exclusive and do not have side effects, their order of evaluation is irrelevant.
 However, in embedded applications with constrained CPU and memory resources, determinism in the order of evaluation may be exploited to improve run-time efficiency (for instance, by ensuring that the guard which is most likely to be true is evaluated first) and to implement "else" clauses in an efficient manner (see section 4.6 of \cite{ref:um}).}
 %-----------------------------------------------------------------------------
 {The evaluation of the guards on the control flows out of a decision node is done in function \texttt{FwPrExecute}.} 
@@ -1825,10 +1822,10 @@ track of which actions are executed during a test.}
 {The state of a procedure is determined by its Stopped/Started state and 
 by its current node.
 Read-only access to the current node of a procedure is provided by function 
-\texttt{FwPrGetCurNode}. 
+\texttt{FwPrGetCurNode}, for the previous node the read-only access function is \texttt{FwPrGetPrevNode}.
 Function \texttt{FwPrIsStarted} checks whether a procedure has been started.} 
 %-----------------------------------------------------------------------------
-{Function \texttt{FwPrGetCurNode} is used in virtually all Test Cases of 
+{Functions \texttt{FwPrGetCurNode} and \texttt{FwPrGetPrevNode} are used in virtually all Test Cases of
 the Test Suite. 
 Function \texttt{FwPrIsStarted} is used in, for instance, Test Case \texttt{FwPrTestCaseExecute8}.}
 %----------------------------------------------------------------------------

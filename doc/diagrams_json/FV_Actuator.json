@@ -1,0 +1,1139 @@
+{
+     "editorVersion": "6.0",
+     "states": [
+          {
+               "id": 7889,
+               "attrs": {
+                    "x": 410,
+                    "y": 209,
+                    "width": 96,
+                    "height": 54,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "EMPTY",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 7892,
+               "attrs": {
+                    "x": 411,
+                    "y": 319,
+                    "width": 94,
+                    "height": 56,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 2,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NOT_EMPTY",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 7895,
+               "attrs": {
+                    "x": 413,
+                    "y": 465,
+                    "width": 90,
+                    "height": 56,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 3,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "OVERFLOW",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 7898,
+               "attrs": {
+                    "x": 443,
+                    "y": 132,
+                    "width": 30,
+                    "height": 30,
+                    "r": 15,
+                    "rx": 15,
+                    "ry": 15,
+                    "fill": "#999999",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "init",
+                    "note": ""
+               },
+               "selected": false
+          },
+          {
+               "id": 7899,
+               "attrs": {
+                    "x": 277,
+                    "y": 415,
+                    "width": 30,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 4,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 7902,
+               "attrs": {
+                    "x": 699,
+                    "y": 203,
+                    "width": 150,
+                    "height": 66,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "INIT",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Switch On Actuator",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 7905,
+               "attrs": {
+                    "x": 726,
+                    "y": 320,
+                    "width": 96,
+                    "height": 54,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "READY",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 7908,
+               "attrs": {
+                    "x": 693,
+                    "y": 444,
+                    "width": 158,
+                    "height": 78,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "BUSY",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Pop Cmd from Buffer\nSend Cmd to Actuator",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 7911,
+               "attrs": {
+                    "x": 408,
+                    "y": 40,
+                    "width": 118,
+                    "height": 30,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#ffff99",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "stroke-dasharray": "--"
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "note",
+                    "note": "Buffer State Machine"
+               },
+               "selected": false
+          },
+          {
+               "id": 7913,
+               "attrs": {
+                    "x": 707,
+                    "y": 40,
+                    "width": 130,
+                    "height": 30,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#ffff99",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "stroke-dasharray": "--"
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "note",
+                    "note": "Actuator State Machine"
+               },
+               "selected": false
+          },
+          {
+               "id": 7915,
+               "attrs": {
+                    "x": 757,
+                    "y": 132,
+                    "width": 30,
+                    "height": 30,
+                    "r": 15,
+                    "rx": 15,
+                    "ry": 15,
+                    "fill": "#999999",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "init",
+                    "note": ""
+               },
+               "selected": false
+          },
+          {
+               "id": 7916,
+               "attrs": {
+                    "x": 979,
+                    "y": 334,
+                    "width": 26,
+                    "height": 26,
+                    "r": 13,
+                    "rx": 13,
+                    "ry": 13,
+                    "fill": "#000",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "final",
+                    "note": ""
+               },
+               "selected": false
+          },
+          {
+               "id": 7960,
+               "attrs": {
+                    "x": 360,
+                    "y": 537,
+                    "width": 544,
+                    "height": 42,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "stroke-dasharray": "--"
+               },
+               "fwprop": {
+                    "autoid": 2,
+                    "type": "note",
+                    "note": "Hardware Actuator receives Switch-On, Switch-Off and Cmd requests from the Actuator SM\nHardware Actuator sends \"Done\" signals to Actuator SM when it has finished processing Switch-On and Send requests"
+               },
+               "selected": false
+          }
+     ],
+     "connections": [
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              458,
+                              167
+                         ],
+                         [
+                              "L",
+                              458,
+                              201
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "Action1",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "N = 0",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 27,
+               "shifty": 6,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7898,
+               "stateToID": 7889,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              458,
+                              268
+                         ],
+                         [
+                              "L",
+                              458,
+                              304
+                         ],
+                         [
+                              "L",
+                              458,
+                              311
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "Pop",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "run code",
+                    "guardCode": "",
+                    "actionCode": "N = 0",
+                    "guardDesc": "N == 1",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": -54,
+               "shifty": 12,
+               "vertexes": [
+                    {
+                         "x": 458,
+                         "y": 304,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7889,
+               "stateToID": 7892,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              510,
+                              347
+                         ],
+                         [
+                              "L",
+                              553,
+                              347
+                         ],
+                         [
+                              "L",
+                              553,
+                              236
+                         ],
+                         [
+                              "L",
+                              514,
+                              236
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "Put",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "run code",
+                    "guardCode": "",
+                    "actionCode": "N = 1",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 33,
+               "shifty": 1,
+               "vertexes": [
+                    {
+                         "x": 553,
+                         "y": 347,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 553,
+                         "y": 236,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7892,
+               "stateToID": 7889,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              510,
+                              355.21052631578954
+                         ],
+                         [
+                              "L",
+                              553,
+                              362
+                         ],
+                         [
+                              "L",
+                              553,
+                              430
+                         ],
+                         [
+                              "L",
+                              458,
+                              430
+                         ],
+                         [
+                              "L",
+                              458,
+                              383
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "2",
+                    "identifier": "Pop",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "N > 1",
+                    "guardAp": false,
+                    "actionDesc": "N--",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": -33,
+               "shifty": 20,
+               "vertexes": [
+                    {
+                         "x": 553,
+                         "y": 362,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 553,
+                         "y": 430,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 458,
+                         "y": 430,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7892,
+               "stateToID": 7892,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              446.46987951807233,
+                              380
+                         ],
+                         [
+                              "L",
+                              429,
+                              430
+                         ],
+                         [
+                              "L",
+                              315,
+                              430
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "3",
+                    "identifier": "Put",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 5,
+               "shifty": 0,
+               "vertexes": [
+                    {
+                         "x": 429,
+                         "y": 430,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7892,
+               "stateToID": 7899,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              292,
+                              410
+                         ],
+                         [
+                              "L",
+                              292,
+                              347
+                         ],
+                         [
+                              "L",
+                              403,
+                              347
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "N < BufferSize",
+                    "guardAp": false,
+                    "actionDesc": "N++",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 25,
+               "shifty": -3,
+               "vertexes": [
+                    {
+                         "x": 292,
+                         "y": 347,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7899,
+               "stateToID": 7892,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              292,
+                              450
+                         ],
+                         [
+                              "L",
+                              292,
+                              493
+                         ],
+                         [
+                              "L",
+                              405,
+                              493
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "2",
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "N == BufferSize",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 26,
+               "shifty": -3,
+               "vertexes": [
+                    {
+                         "x": 292,
+                         "y": 493,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7899,
+               "stateToID": 7895,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              772.4494382022472,
+                              167
+                         ],
+                         [
+                              "L",
+                              773.0786516853932,
+                              195
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "Start Buffer SM",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 51,
+               "shifty": 7,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7915,
+               "stateToID": 7902,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              774,
+                              274
+                         ],
+                         [
+                              "L",
+                              774,
+                              312
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "Done",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 20,
+               "shifty": 12,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7902,
+               "stateToID": 7905,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              773.5294117647059,
+                              379
+                         ],
+                         [
+                              "L",
+                              772.6911764705883,
+                              436
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "Send",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 24,
+               "shifty": 15,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7905,
+               "stateToID": 7908,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              688,
+                              483
+                         ],
+                         [
+                              "L",
+                              650,
+                              483
+                         ],
+                         [
+                              "L",
+                              650,
+                              347
+                         ],
+                         [
+                              "L",
+                              650,
+                              347
+                         ],
+                         [
+                              "L",
+                              718,
+                              347
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "Done",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 27,
+               "shifty": -51,
+               "vertexes": [
+                    {
+                         "x": 650,
+                         "y": 483,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 650,
+                         "y": 347,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 650,
+                         "y": 347,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7908,
+               "stateToID": 7905,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              827,
+                              347
+                         ],
+                         [
+                              "L",
+                              971,
+                              347
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "2",
+                    "identifier": "SwitchOff",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "Stop Buffer SM;\nSwitch Off Actuator",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 5,
+               "shifty": -4,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 7905,
+               "stateToID": 7916,
+               "selected": false
+          }
+     ],
+     "globals": {
+          "paperPanX": 166,
+          "paperPanY": -42,
+          "attrs": {
+               "x": 166,
+               "y": -42,
+               "width": 1728,
+               "height": 961,
+               "r": 0,
+               "rx": 0,
+               "ry": 0,
+               "fill": "#eee",
+               "stroke": "#000",
+               "stroke-width": 0
+          },
+          "fwprop": {
+               "smName": "State Machines to Control the Hardware Actuator",
+               "editorType": "Sm",
+               "globalvar": [
+                    {
+                         "type": "int",
+                         "name": "",
+                         "value": ""
+                    }
+               ],
+               "smIncludes": "",
+               "smNotes": "",
+               "memalloc": "dynamic",
+               "displayInfo": 0,
+               "displayOrder": 1,
+               "smTags": "example"
+          }
+     }
+}

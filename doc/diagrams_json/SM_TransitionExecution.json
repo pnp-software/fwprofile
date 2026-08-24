@@ -1,0 +1,1723 @@
+{
+     "editorVersion": "6.0",
+     "states": [
+          {
+               "id": 2941,
+               "attrs": {
+                    "x": 460,
+                    "y": 142,
+                    "width": 108,
+                    "height": 30,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#ffff99",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "stroke-dasharray": "--"
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "note",
+                    "note": "Execute Transition"
+               },
+               "selected": false
+          },
+          {
+               "id": 2943,
+               "attrs": {
+                    "x": 499,
+                    "y": 208,
+                    "width": 30,
+                    "height": 30,
+                    "r": 15,
+                    "rx": 15,
+                    "ry": 15,
+                    "fill": "#999999",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "init",
+                    "note": ""
+               },
+               "selected": false
+          },
+          {
+               "id": 2944,
+               "attrs": {
+                    "x": 502,
+                    "y": 290,
+                    "width": 24,
+                    "height": 24,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "transform": "r45"
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "choice",
+                    "note": "",
+                    "identifier": "DECISION1"
+               },
+               "selected": false
+          },
+          {
+               "id": 2945,
+               "attrs": {
+                    "x": 203,
+                    "y": 354,
+                    "width": 24,
+                    "height": 24,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "transform": "r45"
+               },
+               "fwprop": {
+                    "autoid": 2,
+                    "type": "choice",
+                    "note": "",
+                    "identifier": "DECISION2"
+               },
+               "selected": false
+          },
+          {
+               "id": 2946,
+               "attrs": {
+                    "x": 158,
+                    "y": 439,
+                    "width": 114,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NODE1",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Stop ESM",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 2948,
+               "attrs": {
+                    "x": 340,
+                    "y": 439,
+                    "width": 192,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 2,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NODE2",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Execute Exit Actions of CS",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 2950,
+               "attrs": {
+                    "x": 596,
+                    "y": 439,
+                    "width": 256,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 3,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NODE3",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Execute Action Associated to Transition",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 2952,
+               "attrs": {
+                    "x": 424,
+                    "y": 571,
+                    "width": 24,
+                    "height": 24,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "transform": "r45"
+               },
+               "fwprop": {
+                    "autoid": 3,
+                    "type": "choice",
+                    "note": "",
+                    "identifier": "DECISION3"
+               },
+               "selected": false
+          },
+          {
+               "id": 2953,
+               "attrs": {
+                    "x": 175,
+                    "y": 625,
+                    "width": 182,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 4,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NODE4",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Set Previous State to CS",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 2955,
+               "attrs": {
+                    "x": 170,
+                    "y": 700,
+                    "width": 192,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 5,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NODE5",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Set CS to Transition Target",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 2957,
+               "attrs": {
+                    "x": 711,
+                    "y": 150.5,
+                    "width": 146,
+                    "height": 90,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "stroke-dasharray": "--"
+               },
+               "fwprop": {
+                    "autoid": 2,
+                    "type": "note",
+                    "note": "CS = Current State\nSM = State Machine\nESM = Embedded SM\nCPS = Choice Pseudo-State\nFPS = Final Pseudo-State\nExec = Execution"
+               },
+               "selected": false
+          },
+          {
+               "id": 2959,
+               "attrs": {
+                    "x": 172,
+                    "y": 770,
+                    "width": 188,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 6,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NODE6",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Reset State Exec Counter",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 2961,
+               "attrs": {
+                    "x": 169,
+                    "y": 843,
+                    "width": 194,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 7,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NODE7",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Execute Entry Action of CS",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 2963,
+               "attrs": {
+                    "x": 478,
+                    "y": 780,
+                    "width": 194,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 8,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NODE11",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Set SM to Undefined State",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 2965,
+               "attrs": {
+                    "x": 537,
+                    "y": 642,
+                    "width": 308,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 9,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NODE9",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Evaluate Guards of Outgoing Transitions from CPS",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 2967,
+               "attrs": {
+                    "x": 254,
+                    "y": 923,
+                    "width": 24,
+                    "height": 24,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "transform": "r45"
+               },
+               "fwprop": {
+                    "autoid": 4,
+                    "type": "choice",
+                    "note": "",
+                    "identifier": "DECISION4"
+               },
+               "selected": false
+          },
+          {
+               "id": 2968,
+               "attrs": {
+                    "x": 400,
+                    "y": 981,
+                    "width": 118,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 10,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NODE8",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Start ESM",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 2970,
+               "attrs": {
+                    "x": 560,
+                    "y": 983,
+                    "width": 26,
+                    "height": 26,
+                    "r": 13,
+                    "rx": 13,
+                    "ry": 13,
+                    "fill": "#000",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "final",
+                    "note": ""
+               },
+               "selected": false
+          },
+          {
+               "id": 2971,
+               "attrs": {
+                    "x": 478,
+                    "y": 710,
+                    "width": 426,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 11,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "NODE10",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Execute an Outgoing Transition from CPS whose Guard evaluates to TRUE",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          }
+     ],
+     "connections": [
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              514,
+                              243
+                         ],
+                         [
+                              "L",
+                              514,
+                              272
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2943,
+               "stateToID": 2944,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              487,
+                              302
+                         ],
+                         [
+                              "L",
+                              215,
+                              302
+                         ],
+                         [
+                              "L",
+                              215,
+                              336
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "Transition Source is a State",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 17,
+               "shifty": 2,
+               "vertexes": [
+                    {
+                         "x": 215,
+                         "y": 302,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2944,
+               "stateToID": 2945,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              215,
+                              393
+                         ],
+                         [
+                              "L",
+                              215,
+                              431
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 2,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "CS has an ESM",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 55,
+               "shifty": 8,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2945,
+               "stateToID": 2946,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              277,
+                              454
+                         ],
+                         [
+                              "L",
+                              332,
+                              454
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2946,
+               "stateToID": 2948,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              242,
+                              366
+                         ],
+                         [
+                              "L",
+                              436,
+                              366
+                         ],
+                         [
+                              "L",
+                              436,
+                              431
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "CS has no ESM",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": -65,
+               "shifty": -4,
+               "vertexes": [
+                    {
+                         "x": 436,
+                         "y": 366,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2945,
+               "stateToID": 2948,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              537,
+                              454
+                         ],
+                         [
+                              "L",
+                              588,
+                              454
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2948,
+               "stateToID": 2950,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              541,
+                              302
+                         ],
+                         [
+                              "L",
+                              724,
+                              302
+                         ],
+                         [
+                              "L",
+                              724,
+                              431
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "2",
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "Transition Source is a CPS",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": -55,
+               "shifty": -3,
+               "vertexes": [
+                    {
+                         "x": 724,
+                         "y": 302,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2944,
+               "stateToID": 2950,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              724,
+                              474
+                         ],
+                         [
+                              "L",
+                              724,
+                              510
+                         ],
+                         [
+                              "L",
+                              436,
+                              510
+                         ],
+                         [
+                              "L",
+                              436,
+                              553
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [
+                    {
+                         "x": 724,
+                         "y": 510,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 436,
+                         "y": 510,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2950,
+               "stateToID": 2952,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              409,
+                              583
+                         ],
+                         [
+                              "L",
+                              266,
+                              583
+                         ],
+                         [
+                              "L",
+                              266,
+                              617
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "Transition Target is a State",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 8,
+               "shifty": -2,
+               "vertexes": [
+                    {
+                         "x": 266,
+                         "y": 583,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2952,
+               "stateToID": 2953,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              266,
+                              660
+                         ],
+                         [
+                              "L",
+                              266,
+                              692
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2953,
+               "stateToID": 2955,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              266,
+                              735
+                         ],
+                         [
+                              "L",
+                              266,
+                              762
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2955,
+               "stateToID": 2959,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              266,
+                              805
+                         ],
+                         [
+                              "L",
+                              266,
+                              835
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2959,
+               "stateToID": 2961,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              436,
+                              610
+                         ],
+                         [
+                              "L",
+                              436,
+                              795
+                         ],
+                         [
+                              "L",
+                              470,
+                              795
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 3,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "Transition Target is a FPS",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 77,
+               "shifty": -92,
+               "vertexes": [
+                    {
+                         "x": 436,
+                         "y": 795,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2952,
+               "stateToID": 2963,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              463,
+                              583
+                         ],
+                         [
+                              "L",
+                              691,
+                              583
+                         ],
+                         [
+                              "L",
+                              691,
+                              634
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "2",
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "Transition Target is a CPS",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": -69,
+               "shifty": -2,
+               "vertexes": [
+                    {
+                         "x": 691,
+                         "y": 583,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2952,
+               "stateToID": 2965,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              266,
+                              878
+                         ],
+                         [
+                              "L",
+                              266,
+                              905
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2961,
+               "stateToID": 2967,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              266,
+                              962
+                         ],
+                         [
+                              "L",
+                              266,
+                              996
+                         ],
+                         [
+                              "L",
+                              392,
+                              996
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 2,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "CS has an ESM",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 16,
+               "shifty": -1,
+               "vertexes": [
+                    {
+                         "x": 266,
+                         "y": 996,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2967,
+               "stateToID": 2968,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              293,
+                              935
+                         ],
+                         [
+                              "L",
+                              504,
+                              935
+                         ],
+                         [
+                              "L",
+                              504,
+                              935
+                         ],
+                         [
+                              "L",
+                              552,
+                              977.4347826086956
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "CS has no ESM",
+                    "guardAp": false,
+                    "actionDesc": "",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": -81,
+               "shifty": -2,
+               "vertexes": [
+                    {
+                         "x": 504,
+                         "y": 935,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 504,
+                         "y": 935,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2967,
+               "stateToID": 2970,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              523,
+                              996
+                         ],
+                         [
+                              "L",
+                              552,
+                              996
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2968,
+               "stateToID": 2970,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              574.6396396396397,
+                              815
+                         ],
+                         [
+                              "L",
+                              573,
+                              906
+                         ],
+                         [
+                              "L",
+                              573,
+                              975
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [
+                    {
+                         "x": 573,
+                         "y": 906,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2963,
+               "stateToID": 2970,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              691,
+                              677
+                         ],
+                         [
+                              "L",
+                              691,
+                              702
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2965,
+               "stateToID": 2971,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              691,
+                              745
+                         ],
+                         [
+                              "L",
+                              691,
+                              996
+                         ],
+                         [
+                              "L",
+                              594,
+                              996
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [
+                    {
+                         "x": 691,
+                         "y": 996,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2971,
+               "stateToID": 2970,
+               "selected": false
+          }
+     ],
+     "globals": {
+          "paperPanX": 56,
+          "paperPanY": 134,
+          "attrs": {
+               "x": 56,
+               "y": 134,
+               "width": 1728,
+               "height": 961,
+               "r": 0,
+               "rx": 0,
+               "ry": 0,
+               "fill": "#eee",
+               "stroke": "#000",
+               "stroke-width": 0
+          },
+          "fwprop": {
+               "smName": "Logic for Executing Transitions in a State Machine",
+               "editorType": "Pr",
+               "globalvar": [
+                    {
+                         "type": "int",
+                         "name": "",
+                         "value": ""
+                    }
+               ],
+               "smIncludes": "",
+               "smNotes": "",
+               "memalloc": "dynamic",
+               "displayInfo": 0,
+               "displayOrder": 1,
+               "smTags": "example"
+          }
+     }
+}

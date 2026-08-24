@@ -507,6 +507,7 @@ is extended. This consists of:
 \item The pointer to the state machine data (the data upon which the state machine actions 
 and guards operate, see Section \ref{sec:smData})
 \item The current state of the state machine
+\item The previous state of the state machine
 \item The error code for the state machine (see Section \ref{sec:smErrorChecking})
 \item The state machine counters
 \end{fw_itemize}
@@ -675,6 +676,7 @@ is extended. This consists of:
 \item The pointer to the procedure data (the data upon which the procedure actions 
 and guards operate, see Section \ref{sec:prData})
 \item The current node of the procedure
+\item The previous node of the procedure
 \item The error code for the procedure (see Section \ref{sec:prErrorChecking})
 \item The procedure counters 
 \end{fw_itemize}
@@ -1152,6 +1154,13 @@ such a request to a state machine which has not been started is not an error - t
 State transitions are exclusively triggered by \emph{transition commands}. Each state machine reacts to a finite 
 number of transition commands. Each transition command has an identifier (a non-negative integer). 
 
+The previous state is set to an invalid value when the state machine is started. Before the current state is changed,
+the current state is copied to the previous state. Thus, the previous state remains invalid when the initial pseudo-state is
+left, and a transition to the same state makes the previous and current states equal. Stopping the state machine
+sets both states to invalid values. If several transitions with the same trigger are available, their guards are
+evaluated in the order in which the transitions were added to the state machine; the first transition with a true
+guard is selected.
+
 The range of transition command identifiers is defined by a user when a state machine is configured. The identifier 0 
 is reserved for the \emph{Execute} transition command. The Execute transition command is a transition command which 
 triggers the execution of the do-action of the current state of a state machine. The \texttt{\#define} constant 
@@ -1544,6 +1553,12 @@ can check whether a procedure has already been started with function \texttt{FwP
 After a procedure has been started, it will respond to execution requests (but note that sending 
 such a request to a procedure which has not been started is not an error - the execution request is simply ignored). 
 An execution request is sent to a procedure by means of function \texttt{FwPrExecute}. 
+
+The previous node is set to an invalid value when the procedure is started. When execution enters an action node,
+the current node is copied to the previous node before the current node is changed. Thus, the previous node remains
+invalid when the initial node is left, and a self-transition makes the previous and current nodes equal. Stopping
+the procedure sets both nodes to invalid values. If a decision node is encountered, its outgoing control flows are
+evaluated in the order in which they were added to the procedure; the first control flow with a true guard is selected.
 
 A procedure is stopped with function \texttt{FwPrStop}. Procedures can be started and stopped as many times 
 as desired.
@@ -2140,17 +2155,15 @@ in other state machines.
 
 \subsection{Order of Execution}
 The FW Profile stipulates that if a state or choice pseudo-state in a state machine has two or more out-going transitions with a guard which evaluates to true, the transition 
-which will be taken is the one whose guard is evaluated first. The order of evaluation of the guards is, however, left undefined by the FW Profile.
+which will be taken is the one whose guard is evaluated first. The guards are evaluated in the order in which their transitions were added to the state machine.
 
-The C1 Implementation has made the following choice: out-going transitions from a state 
-or choice pseudo-state are evaluated in the order in which they were added to the state machine (transitions are added to a state machine using the \texttt{FwSmAddTrans*} functions in module \texttt{FwSmConfig.h}).
+Out-going transitions from a state or choice pseudo-state are therefore evaluated in the order in which they were added to the state machine (transitions are added to a state machine using the \texttt{FwSmAddTrans*} functions in module \texttt{FwSmConfig.h}).
 
 Similarly, the FW Profile specifies that if a decision node has two or more out-going 
 control flows with a guard which evaluates to true, the control flow 
-which will be taken is the one whose guard is evaluated first. The order of evaluation of the guards is, however, left undefined by the FW Profile.
+which will be taken is the one whose guard is evaluated first. The guards are evaluated in the order in which their control flows were added to the procedure.
 
-The C1 Implementation has made the following choice: out-going control flows from a  
-decision node are evaluated in the order in which 
+Out-going control flows from a decision node are therefore evaluated in the order in which
 they were added to the procedure (control flows are added to a procedure 
 using the \texttt{FwPrAddFlow*} functions in module \texttt{FwPrConfig.h}).
 

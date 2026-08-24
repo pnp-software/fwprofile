@@ -280,7 +280,8 @@ typedef struct {
  * If this is equal to zero, then the state machine is stopped.
  *
  * The identifier of the previous state is stored in <code>prevState</code>.
- * If this is equal to 0, then the state has not been changed yet.
+ * If this is equal to 0, then the state machine is either stopped or it has
+ * been started but no state transition has yet taken place.
  * 
  * If during the creation, configuration or execution of the state machine, an error is
  * encountered, the corresponding error code is stored in field <code>errCode</code>.

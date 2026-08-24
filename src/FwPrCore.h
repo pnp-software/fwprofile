@@ -111,18 +111,17 @@ FwPrCounterS1_t FwPrGetCurNode(FwPrDesc_t prDesc);
  * Return the identifier of the previous action node in a procedure.
  * The following convention is used:
  * - If the procedure is in the STOPPED state, this function returns 0.
- * - If the procedure is in the STARTED state but has not yet executed
- *   any action (either because the procedure has not yet been executed or because it
- *   has been executed but the guard from the initial node is false),
- *   this function returns -1.
- * - If the procedure is in the STARTED state and has already left the
- *   initial node, the procedure returns the identifier of the previous node
- *   (a positive integer).
+ * - If the procedure is in the STARTED state but has not yet entered a
+ *   second action node, this function returns -1 because no previous action
+ *   node exists yet. This includes the case where the procedure has left the
+ *   initial node and entered its first action node.
+ * - If the procedure is in the STARTED state and has entered a second or
+ *   subsequent action node, this function returns the identifier of the
+ *   previous action node (a positive integer).
  * .
  * @param prDesc the descriptor of the procedure.
  * @return the identifier of the previous action node of the procedure (or 0
- * if the procedure is at the initial node, or -1 if the procedure is in the
- * STOPPED state).
+ * if the procedure is STOPPED, or -1 if no previous action node exists yet).
  */
 FwPrCounterS1_t FwPrGetPrevNode(FwPrDesc_t prDesc);
 

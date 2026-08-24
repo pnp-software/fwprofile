@@ -234,7 +234,7 @@ typedef struct {
  * The following convention is used:
  * - A value of 0 indicates that the procedure is in the STOPPED state;
  * - A value of -1 indicates that the procedure is in the STARTED state
- *   and waiting in the initial node (no previous node exists yet);
+ *   and no previous action node exists yet;
  * - A value of i (a positive integer) indicates that the procedure is in the
  *   STARTED state and i is the identifier of its previous node.
  * .

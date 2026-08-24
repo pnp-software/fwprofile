@@ -34,6 +34,7 @@ A \emph{control flow} is characterized by the following elements:
 \item One source
 \item One target (or destination)
 \item Zero or one guards
+\item Evaluation order
 \end{fw_itemize}
 
 The source and the target are either action nodes or decision nodes. Additionally, the initial
@@ -42,6 +43,9 @@ more control flows.
 
 The guard is a specification which evaluates either to TRUE or FALSE and which
 has no side effects. Absence of a guard is equivalent to a guard which always evaluates to TRUE.
+The evaluation order of control flows issuing from a decision node is the order in which they
+were added to the procedure during the procedure configuration process. If the guards of two
+or more such control flows evaluate to TRUE, the first control flow in this order is selected.
 
 A \emph{decision node} is characterized by the following elements:
 \begin{fw_itemize}
@@ -124,6 +128,13 @@ When a procedure is \emph{stopped}, the following behaviour is executed:
 node is set to an invalid value.
 \end{fw_enumerate}
 
+When a procedure starts, its previous node is set to an invalid value. During execution,
+when control flow enters an action node, the current node is copied to the previous node
+before being updated to the action node. Consequently, the previous node remains invalid
+upon leaving the initial node. For a self-transition, the previous and current nodes are
+identical. Finally, stopping a procedure resets its previous node and current node to an
+invalid value.
+
 Thus, the Stop and Start commands toggle the state of a procedure and update its current node.
 This is shown in the state diagram of figure \ref{fig:PR_StartStop}.
 
@@ -147,7 +158,7 @@ behaviour associated to T is executed, (d) the guard on the out-going control fl
 and steps 3 and 4 are (recusively) repeated;
 \item If the guard evaluates to TRUE and the target of the outgoing control flow attached to
 the current node is a decision node, then: (a) the guards of the outgoing control flows
-attached to the decision node are evaluated; (b) if the target of the outgoing control
+attached to the decision node are evaluated in their defined order; (b) if the target of the outgoing control
 flow whose guard evaluates to TRUE is another decision node, then steps (a) to (d) are
 performed upon it; (c) if the target of the outgoing control flow whose guard evaluates
 to TRUE is an action node T, then the current node is set equal to T, the behaviour

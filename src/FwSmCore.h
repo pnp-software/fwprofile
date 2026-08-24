@@ -171,11 +171,12 @@ FwSmCounterS1_t FwSmGetCurState(FwSmDesc_t smDesc);
 FwSmCounterS1_t FwSmGetCurStateEmb(FwSmDesc_t smDesc);
 
 /**
- * Return the identifier of the previous state in a state machine (or -1
- * if the state machine does not change the state yet).
+ * Return the identifier of the previous state in a state machine.
+ * A value of 0 is returned if the state machine is stopped or if it has been
+ * started but no state transition has yet taken place.
  * @param smDesc the descriptor of the state machine.
- * @return the identifier of the previous state of the state machine (or -1
- * if the state machine has not changed the state yet).
+ * @return the identifier of the previous state of the state machine, or 0 if
+ * no previous state is available.
  */
 FwSmCounterS1_t FwSmGetPrevState(FwSmDesc_t smDesc);
 
