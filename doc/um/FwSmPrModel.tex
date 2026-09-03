@@ -43,9 +43,18 @@ more control flows.
 
 The guard is a specification which evaluates either to TRUE or FALSE and which
 has no side effects. Absence of a guard is equivalent to a guard which always evaluates to TRUE.
-The evaluation order of control flows issuing from a decision node is the order in which they
-were added to the procedure during the procedure configuration process. If the guards of two
-or more such control flows evaluate to TRUE, the first control flow in this order is selected.
+For a decision node with $n$ outgoing control flows, where $n$ is a natural number, each outgoing
+control flow is assigned an evaluation-order value from the set $\{1,\ldots,n\}$
+according to the order in which the control flow was added to the procedure during the procedure
+configuration process. Thus, the first control flow added has evaluation order 1 and the last
+control flow added to the same decision node has evaluation order $n$; no two outgoing control flows
+from the same decision node have the same evaluation-order value. During procedure execution,
+the guards are evaluated in increasing evaluation order. The selected control flow is the one
+with the lowest evaluation-order value whose guard evaluates to TRUE. In the C1 Implementation,
+the outgoing control flows of each decision node occupy a contiguous segment of the control-flow
+array in the procedure descriptor. The segment is reserved when the decision node is configured,
+and calls to the appropriate \texttt{FwPrAddFlow*} function fill its slots in configuration order;
+consequently, the slot position implements the evaluation order.
 
 A \emph{decision node} is characterized by the following elements:
 \begin{fw_itemize}

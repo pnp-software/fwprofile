@@ -42,7 +42,14 @@ A \emph{state transition} is characterized by the following elements:
 The transition source and the transition target are either a state or a pseudo-state. The transition trigger is the command that triggers the execution 
 of the transition. A transition guard is a specification that evaluates either to TRUE or to FALSE and has no side effects. Absence of a guard is equivalent to a guard which always evaluates to TRUE. A transition action represents 
 behaviour which is not decomposed further within the state machine. A transition action behaviour can be defined using natural language or some formalism 
-(e.g. an action language). The evaluation order of transitions with the same source is the order in which they were added to the state machine during the state machine configuration process. If the guards of two or more such transitions evaluate to TRUE, the first transition in this order is selected. Transition commands may carry parameters and may return values. The parameters and return values are not defined further by the
+(e.g. an action language). For a source with $n$ outgoing transitions, where $n$ is a natural number, each outgoing transition is assigned an evaluation-order value
+from the set $\{1,\ldots,n\}$ according to the order in which the transition was added to the state machine during the state machine configuration process.
+Thus, the first transition added has evaluation order 1 and the last transition added to the same source has evaluation order $n$; no two outgoing transitions from the same source
+have the same evaluation-order value. When a transition command is processed, the guards of matching outgoing transitions are evaluated in increasing evaluation order.
+The selected transition is the one with the lowest evaluation-order value whose guard evaluates to TRUE. In the C1 Implementation, the outgoing transitions of each
+state or choice pseudo-state occupy a contiguous segment of the transition array in the state-machine descriptor. The segment is reserved when the source is configured,
+and calls to the appropriate \texttt{FwSmAddTrans*} function fill its slots in configuration order; consequently, the slot position implements the evaluation order.
+Transition commands may carry parameters and may return values. The parameters and return values are not defined further by the
 FW Profile. They represent parameters that are passed to the actions and values which are returned by them. 
 
 A \emph{choice pseudo-state} is characterized by the following elements:
