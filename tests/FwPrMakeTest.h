@@ -334,4 +334,40 @@ FwPrDesc_t FwPrMakeTestPRDer1(FwPrDesc_t prDescBase, struct TestPrData* prData);
  */
 FwPrDesc_t FwPrMakeTestPRDer1Static(FwPrDesc_t prDescBase, struct TestPrData* prData);
 
+/**
+ * Operation to create the test procedure PR7.
+ * This procedure has the following characteristics:
+ * - Three action nodes N1, N2 and N3.
+ * - No decision nodes.
+ * - Four control flows.
+ * - Node action increments the value of Counter_1.
+ * The control flows and their guards are defined as follows:
+ * - Control flow from initial node to N1: the guard returns the value of Flag_1.
+ * - Control flow from N1 to N2: the guard returns the value of Flag_2.
+ * - Control flow from N2 to N3: the guard returns the value of Flag_3.
+ * - Control flow from N3 to Final Node: the guard returns the value of Flag_4.
+ * .
+ * @param prData the data structure upon which the procedure operates
+ * @return the descriptor of the created procedure or NULL if the creation
+ * or configuration of the procedure failed.
+ */
+FwPrDesc_t FwPrMakeTestPR7(struct TestPrData* prData);
+
+/**
+ * Operation to create the test procedure PR8.
+ * This procedure has the following characteristics:
+ * - One action node N1.
+ * - No decision nodes.
+ * - Two control flows.
+ * - Node action increments the value of Counter_1 and sets Flag_2 to zero.
+ * The control flows and their guards are defined as follows:
+ * - Control flow from initial node to N1: no guard is attached to this control flow.
+ * - Control flow from N1 to N1: the guard returns the value of Flag_2.
+ * .
+ * @param prData the data structure upon which the procedure operates
+ * @return the descriptor of the created procedure or NULL if the creation
+ * or configuration of the procedure failed.
+ */
+FwPrDesc_t FwPrMakeTestPR8(struct TestPrData* prData);
+
 #endif /* FWPR_MAKETESTPR_H_ */

@@ -84,7 +84,8 @@ void FwSmStop(FwSmDesc_t smDesc) {
   /* execute exit action of current state */
   smDesc->smActions[pState->iExitAction](smDesc);
   /* set state of SM to "undefined" */
-  smDesc->curState = 0;
+  smDesc->curState  = 0;
+  smDesc->prevState = 0;
   return;
 }
 
@@ -156,6 +157,7 @@ static void ExecTrans(FwSmDesc_t smDesc, SmTrans_t* trans) {
   smDesc->smActions[trans->iTrAction](smDesc);
 
   if (trans->dest > 0) { /* destination is a proper state */
+    smDesc->prevState    = smDesc->curState;
     smDesc->curState     = trans->dest;
     smDesc->stateExecCnt = 0;
     pDest                = &(smBase->pStates[(trans->dest) - 1]);
@@ -176,6 +178,7 @@ static void ExecTrans(FwSmDesc_t smDesc, SmTrans_t* trans) {
         /* Execute transition from choice pseudo-state */
         smDesc->smActions[cTrans->iTrAction](smDesc);
         if (cTrans->dest > 0) { /* destination is a proper state */
+          smDesc->prevState    = smDesc->curState;
           smDesc->curState     = cTrans->dest;
           smDesc->stateExecCnt = 0;
           pDest                = &(smBase->pStates[(cTrans->dest) - 1]);
@@ -189,7 +192,8 @@ static void ExecTrans(FwSmDesc_t smDesc, SmTrans_t* trans) {
         }
 
         if (cTrans->dest == 0) { /* destination is a final state */
-          smDesc->curState = 0;
+          smDesc->curState  = 0;
+          smDesc->prevState = 0;
           return;
         }
 
@@ -199,7 +203,8 @@ static void ExecTrans(FwSmDesc_t smDesc, SmTrans_t* trans) {
     smDesc->errCode = smTransErr;
   }
   else { /* destination is a final pseudo-state */
-    smDesc->curState = 0;
+    smDesc->curState  = 0;
+    smDesc->prevState = 0;
     return;
   }
 }
@@ -231,6 +236,25 @@ FwSmCounterS1_t FwSmGetCurStateEmb(FwSmDesc_t smDesc) {
 
   if (smDesc->esmDesc[(smDesc->curState) - 1] != NULL) {
     return smDesc->esmDesc[(smDesc->curState) - 1]->curState;
+  }
+
+  return -1;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------------- */
+FwSmCounterS1_t FwSmGetPrevState(FwSmDesc_t smDesc) {
+  return smDesc->prevState;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+FwSmCounterS1_t FwSmGetPrevStateEmb(FwSmDesc_t smDesc) {
+  if (smDesc->curState == 0) {
+    return -1;
+  }
+
+  if (smDesc->esmDesc[(smDesc->curState) - 1] != NULL) {
+    return smDesc->esmDesc[(smDesc->curState) - 1]->prevState;
   }
 
   return -1;

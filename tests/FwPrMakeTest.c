@@ -173,6 +173,13 @@ struct TestPrData* GetTestPrData(FwPrDesc_t prDesc) {
 	return (struct TestPrData*)FwPrGetData(prDesc);
 }
 
+static void executeSelfTransition(FwPrDesc_t prDesc) {
+	struct TestPrData* prData = GetTestPrData(prDesc);
+
+	prData->counter_1++;
+	prData->flag_2 = 0;
+}
+
 /* ----------------------------------------------------------------------------------------------------------------- */
 FwPrDesc_t FwPrMakeTestPR1(struct TestPrData* prData) {
 	const FwPrCounterS1_t nOfANodes = 3;	/* Number of action nodes */
@@ -330,6 +337,7 @@ FwPrDesc_t FwPrMakeTestPR2Dir(struct TestPrData* prData) {
 	prBase.nOfDNodes = 2;
 	prBase.nOfFlows = 9;
 	prDesc.curNode = 0;
+	prDesc.prevNode = 0;
 	prDesc.errCode = prSuccess;
 	prDesc.flowCnt = 0;
 	prDesc.nOfActions = 1;
@@ -585,3 +593,51 @@ FwPrDesc_t FwPrMakeTestPRDer1Static(FwPrDesc_t prDescBase, struct TestPrData* pr
 	return p_pr;
 }
 
+/* ----------------------------------------------------------------------------------------------------------------- */
+FwPrDesc_t FwPrMakeTestPR7(struct TestPrData* prData) {
+	const FwPrCounterS1_t nOfANodes = 3;
+	const FwPrCounterS1_t nOfDNodes = 0;
+	const FwPrCounterS1_t nOfFlows = 4;
+	const FwPrCounterS1_t nOfActions = 1;
+	const FwPrCounterS1_t nOfGuards = 4;
+	FwPrDesc_t p_pr;
+
+	p_pr = FwPrCreate(nOfANodes, nOfDNodes, nOfFlows, nOfActions, nOfGuards);
+	FwPrSetData(p_pr, prData);
+
+	FwPrAddActionNode(p_pr, N1, &incrCnt1By1);
+	FwPrAddActionNode(p_pr, N2, &incrCnt1By1);
+	FwPrAddActionNode(p_pr, N3, &incrCnt1By1);
+
+	FwPrAddFlowIniToAct(p_pr, N1, &retFlag1);
+	FwPrAddFlowActToAct(p_pr, N1, N2, &retFlag2);
+	FwPrAddFlowActToAct(p_pr, N2, N3, &retFlag3);
+	FwPrAddFlowActToFin(p_pr, N3, &retFlag4);
+
+	if (FwPrCheck(p_pr) == prSuccess)
+		return p_pr;
+	else
+		return NULL;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+FwPrDesc_t FwPrMakeTestPR8(struct TestPrData* prData) {
+	const FwPrCounterS1_t nOfANodes = 1;
+	const FwPrCounterS1_t nOfDNodes = 0;
+	const FwPrCounterS1_t nOfFlows = 2;
+	const FwPrCounterS1_t nOfActions = 1;
+	const FwPrCounterS1_t nOfGuards = 1;
+	FwPrDesc_t p_pr;
+
+	p_pr = FwPrCreate(nOfANodes, nOfDNodes, nOfFlows, nOfActions, nOfGuards);
+	FwPrSetData(p_pr, prData);
+
+	FwPrAddActionNode(p_pr, N1, &executeSelfTransition);
+	FwPrAddFlowIniToAct(p_pr, N1, NULL);
+	FwPrAddFlowActToAct(p_pr, N1, N1, &retFlag2);
+
+	if (FwPrCheck(p_pr) == prSuccess)
+		return p_pr;
+	else
+		return NULL;
+}

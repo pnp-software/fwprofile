@@ -29,6 +29,7 @@ FwPrBool_t PrDummyGuard(FwPrDesc_t prDesc) {
 void FwPrStart(FwPrDesc_t prDesc) {
   if (prDesc->curNode == 0) {
     prDesc->curNode     = -1;
+    prDesc->prevNode    = -1;
     prDesc->prExecCnt   = 0;
     prDesc->nodeExecCnt = 0;
   }
@@ -36,7 +37,8 @@ void FwPrStart(FwPrDesc_t prDesc) {
 
 /* ----------------------------------------------------------------------------------------------------------------- */
 void FwPrStop(FwPrDesc_t prDesc) {
-  prDesc->curNode = 0;
+  prDesc->curNode  = 0;
+  prDesc->prevNode = 0;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -72,11 +74,13 @@ void FwPrExecute(FwPrDesc_t prDesc) {
   while (trueGuardFound) {
     /* Target of flow is a final node */
     if (flow->dest == 0) {
-      prDesc->curNode = 0; /* Stop procedure */
+      prDesc->curNode  = 0; /* Stop procedure */
+      prDesc->prevNode = 0;
       return;
     }
 
     if (flow->dest > 0) { /* Target of control flow is an action node */
+      prDesc->prevNode    = prDesc->curNode;
       prDesc->curNode     = flow->dest;
       prDesc->nodeExecCnt = 0;
       curNode             = &(prBase->aNodes[(prDesc->curNode) - 1]);
@@ -116,6 +120,11 @@ void FwPrRun(FwPrDesc_t prDesc) {
 /* ----------------------------------------------------------------------------------------------------------------- */
 FwPrCounterS1_t FwPrGetCurNode(FwPrDesc_t prDesc) {
   return prDesc->curNode;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+FwPrCounterS1_t FwPrGetPrevNode(FwPrDesc_t prDesc) {
+  return prDesc->prevNode;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */

@@ -457,6 +457,7 @@ FwSmDesc_t FwSmMakeTestSM5Dir(struct TestSmData* smData) {
 	smDesc.smBase = &smBase;
 	smDesc.transCnt = 0;
 	smDesc.curState = 0;
+	smDesc.prevState = 0;
 	smDesc.smData = NULL;
 	smDesc.nOfActions = 5;
 	smDesc.nOfGuards = 3;
@@ -636,6 +637,7 @@ FwSmDesc_t FwSmMakeTestSM11(struct TestSmData* smData) {
 	smDesc.transCnt = 0;
 	smDesc.smBase = &smBase;
 	smDesc.curState = 0;
+	smDesc.prevState = 0;
 	smDesc.smData = NULL;
 	smDesc.nOfActions = 2;
 	smDesc.nOfGuards = 1;

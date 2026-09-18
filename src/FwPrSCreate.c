@@ -84,6 +84,7 @@ void FwPrInitDer(FwPrDesc_t prDesc, FwPrDesc_t prDescBase) {
 
   prDesc->flowCnt     = 0;
   prDesc->curNode     = 0;
+  prDesc->prevNode    = 0;
   prDesc->nodeExecCnt = 0;
   prDesc->prExecCnt   = 0;
 

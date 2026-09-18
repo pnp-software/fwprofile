@@ -34,7 +34,7 @@
 /** The number of state machine tests in the test suite. */
 #define N_OF_SM_TESTS 67
 /** The number of procedure tests in the test suite. */
-#define N_OF_PR_TESTS 37
+#define N_OF_PR_TESTS 39
 /** The number of RT Container tests in the test suite. */
 #define N_OF_RT_TESTS 13
 
@@ -267,12 +267,16 @@ int main() {
 	prTestCases[32] = &FwPrTestCaseDerCheck5;
 	prTestNames[33] = (char*)"FwPr_Der3";
 	prTestCases[33] = &FwPrTestCaseDer3;
-	prTestNames[34] = (char*)"FwPr_Exec9";
+	prTestNames[34] = (char*)"FwPr_Execute9";
 	prTestCases[34] = &FwPrTestCaseExecute9;
 	prTestNames[35] = (char*)"FwPr_Check13";
 	prTestCases[35] = &FwPrTestCaseCheck13;
 	prTestNames[36] = (char*)"FwPr_Check14";
 	prTestCases[36] = &FwPrTestCaseCheck14;
+	prTestNames[37] = (char*)"FwPr_Execute10";
+	prTestCases[37] = &FwPrTestCaseExecute10;
+	prTestNames[38] = (char*)"FwPr_Execute11";
+	prTestCases[38] = &FwPrTestCaseExecute11;
 
 	/* Set the names of the RT tests and the functions executing the tests */
 	rtTestNames[0] = (char*)"FwRt_SetAttr1";

@@ -96,7 +96,7 @@
 
 \lhead{PP-DF-COR-0001}
 \chead{}
-\rhead{Revision 1.3.1}
+\rhead{Revision 1.4.0}
 \lfoot{\textcopyright2012 P\&P Software GmbH. All Rights Reserved.}%\vspace{10mm} {\color{red}\VerbatimInput[fontfamily=helvetica]{../commercial/LicensedTo.txt}}}
 \cfoot{}
 \rfoot{\thepage}
@@ -157,7 +157,7 @@
 \maketitle
 
 \begin{center}
-Revision 1.3.1 \\
+Revision 1.4.0 \\
 PP-DF-COR-0001
 \end{center}
 
@@ -241,6 +241,29 @@ This section lists the changes made in the current revision. Changes are classif
 \item "\textbf{C}": A feature present in the previous revision has been changed
 \item "\textbf{N}": A new feature has been introduced
 \end{fw_itemize}
+
+\begin{longtable}{|p{1.5cm}|p{1cm}|p{8cm}|}
+\caption{Changes introduced in Revision 1.4.0}  \\
+\hline
+\rowcolor{light-gray}
+\textbf{Section} & \textbf{Type} & \textbf{Description} \\
+\hline\hline
+\endfirsthead
+\rowcolor{light-gray}
+\textbf{Section} & \textbf{Type} & \textbf{Description} \\
+\hline\hline
+\endhead
+3.2 & N & Added the previous state attribute to state machines. \\
+\hline
+3.2 & N & Added the previous node attribute to procedures. \\
+\hline
+all & E & Updated the documentation. \\
+\hline
+3.2, 3.6 & L & Clarified the order used to select a transition or control flow when two or more guards evaluate to true. \\
+\hline
+all & E & Replaced the figures with their updated versions. \\
+\hline
+\end{longtable}
 
 \begin{longtable}{|p{1.5cm}|p{1cm}|p{8cm}|}
 \caption{Changes introduced in Revision 1.3.1}  \\
@@ -494,6 +517,7 @@ A \emph{control flow} is characterized by the following elements:
 \item One source
 \item One target (or destination)
 \item Zero or one guards
+\item Evaluation order
 \end{fw_itemize}
 
 The source and the target are either action nodes or decision nodes. Additionally, the initial
@@ -502,6 +526,11 @@ more control flows.
 
 The guard is a specification which evaluates either to TRUE or FALSE and which
 has no side effects. If a control flow has no guard attached to it, then this is equivalent to the control flow having a guard which always evaluates to true.
+For a decision node with $n$ outgoing control flows, where $n$ is a natural number, each outgoing control flow is assigned an evaluation-order value
+from the set $\{1,\ldots,n\}$ according to the order in which the control flow was added to the procedure during the procedure configuration process.
+Thus, the first control flow added has evaluation order 1 and the last control flow added to the same decision node has evaluation order $n$; no two outgoing control flows
+from the same decision node have the same evaluation-order value. During procedure execution, the guards are evaluated in increasing evaluation order.
+The selected control flow is the one with the lowest evaluation-order value whose guard evaluates to TRUE.
 
 A \emph{decision node} is characterized by the following elements:
 \begin{fw_itemize} 
@@ -585,11 +614,16 @@ node is set to an invalid value.
 \end{fw_enumerate}
 
 Thus, the Stop and Start commands toggle the state of a procedure and update its current node.
+When a procedure starts, its previous node is set to an invalid value. During execution, 
+when control flow enters an action node, the current node is copied to the previous node 
+before being updated to the action node. Consequently, the previous node remains invalid 
+upon leaving the initial node. For a self-transition, the previous and current nodes are identical. 
+Finally, stopping a procedure resets its previous node and current node to an invalid value.
 This is shown in the state diagram of Figure \ref{fig:PR_StartStop}.
 
 \begin{figure}[ht]
  \centering
- \includegraphics[scale=0.6,keepaspectratio=true]{../images/PR_StartStop.png}
+ \includegraphics[scale=0.45,keepaspectratio=true]{../images/PR_StartStop.png}
  \caption{Procedure Start/Stop Commands}
  \label{fig:PR_StartStop}
 \end{figure}
@@ -601,16 +635,17 @@ When a procedure is \emph{executed}, the following behaviour is executed:
 by 1 and the guard attached to the outgoing control flow of the current node is evaluated;
 \item If the guard evaluates to FALSE, then no further action is performed;
 \item If the guard evaluates to TRUE and the target of the outgoing control flow attached to
-the current node is an action node T, then: (a) the current node is set equal to T, (b) the
-node execution counter is reset, (c) the
-behaviour associated to T is executed, (d) the guard on the out-going control flow of T is evaluated
+the current node is an action node T, then: (a) the previous node is set equal to the current
+node, (b) the current node is set equal to T, (c) the node execution counter is reset, (d) the
+behaviour associated to T is executed, (e) the guard on the out-going control flow of T is evaluated
 and steps 3 and 4 are (recusively) repeated;
 \item If the guard evaluates to TRUE and the target of the outgoing control flow attached to
 the current node is a decision node, then: (a) the guards of the outgoing control flows
-attached to the decision node are evaluated; (b) if the target of the outgoing control
+attached to the decision node are evaluated in their defined order; (b) if the target of the outgoing control
 flow whose guard evaluates to TRUE is another decision node, then steps (a) to (d) are
 performed upon it; (c) if the target of the outgoing control flow whose guard evaluates
-to TRUE is an action node T, then the current node is set equal to T, the behaviour
+to TRUE is an action node T, then the previous node is set equal to the current node 
+and the current node is set equal to T, the behaviour
 associated to T is executed, the guard on the out-going control flow of T is evaluated
 and steps 3 and 4 are (recusively) repeated; (d) if the target of the
 outgoing control flow whose guard evaluates to TRUE is a final node, the state of the
@@ -637,7 +672,7 @@ Figure \ref{fig:PR_Execution}.
 
 \begin{figure}[ht]
  \centering
- \includegraphics[scale=0.4,keepaspectratio=true]{../images/PR_Execution.png}
+ \includegraphics[scale=0.38,keepaspectratio=true]{../images/PR_Execution.png}
  \caption{Procedure Execution Logic}
  \label{fig:PR_Execution}
 \end{figure}
@@ -703,7 +738,7 @@ As an example, consider the procedure in figure \ref{fig:PR_Example}. In this fi
 
 \begin{figure}[ht]
  \centering
- \includegraphics[scale=0.5,keepaspectratio=true]{../images/PR_Example.png}
+ \includegraphics[scale=0.43,keepaspectratio=true]{../images/PR_Example.png}
  \caption{Procedure Example}
  \label{fig:PR_Example}
 \end{figure}
@@ -843,11 +878,18 @@ A \emph{state transition} is characterized by the following elements:
 \item Zero or one \emph{transition trigger} (or \emph{transition command})
 \item Zero or one \emph{transition guard}
 \item Zero or more \emph{transition actions}
+\item Evaluation order
  
 \end{fw_itemize}
 
 The transition source and the transition target are either a state or a pseudo-state. The transition
 trigger is the command that triggers the execution of the transition. A transition guard is a specification that evaluates either to TRUE or to FALSE and has no side effects. A transition with no guard is equivalent to a transition with a guard which always evaluates to TRUE. A transition action represents behaviour which is not decomposed further within the state machine. A transition action behaviour can be defined using natural language or some formalism (e.g. an “action language”).
+For a source with $n$ outgoing transitions, where $n$ is a natural number, let the evaluation-order function assign to each outgoing transition a distinct value
+from the set $\{1,\ldots,n\}$ according to the order in which the transition was added to the state machine during the state machine configuration process.
+Thus, the first transition added has evaluation order 1 and the last transition added from the same source has evaluation order $n$.
+When a transition command is processed, let $M$ be the set of outgoing transitions whose trigger matches the command. The guards of the transitions in $M$
+are evaluated in increasing evaluation order. The selected transition is the transition $t$ in $M$ with the minimum evaluation-order value such that the guard of $t$
+evaluates to TRUE.
 
 Transition commands may carry parameters and may return values. The parameters and return
 values are not defined further by the FW Profile. They represent parameters that are passed to
@@ -956,7 +998,7 @@ out of its initial pseudo-state is executed. If several transition actions are p
 are executed in the order in which they are listed.
 \item If the destination of the transition out of the initial pseudo-state is a choice pseudo-
 state, then the guards of the outgoing transitions from the choice pseudo-state are
-evaluated and the actions associated to the transition with a guard evaluating to true is
+evaluated in their defined order and the actions associated to the transition with a guard evaluating to true is
 executed. If several transition actions are present, they are executed in the order in
 which they are listed.
 \item If the destination of the transition out of the initial pseudo-state is a state, then the
@@ -987,12 +1029,18 @@ are executed in the order in which they are listed.
 \item The state machine is set to an undefined state.
 \end{fw_enumerate}
 
+When a state machine is started, its previous state is set to an invalid value. Before the
+current state is changed during execution, its value is copied to the previous state. Consequently,
+when the initial pseudo-state is left, the previous state remains invalid. For a transition to the
+same state, the previous and current states are identical. When a state machine is stopped, its
+previous state and current state are set to invalid values.
+
 The logic of the start and stop commands for state machines is shown in Figure \ref{fig:SmStartStop} as two
 activity diagrams.
 
 \begin{figure}[ht]
  \centering
- \includegraphics[scale=0.45,keepaspectratio=true]{../images/SM_StartStop.png}
+ \includegraphics[scale=0.32,keepaspectratio=true]{../images/SM_StartStop.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
  \caption{Logic for the Start and Stop Commands to a State Machine}
  \label{fig:SmStartStop}
@@ -1012,8 +1060,8 @@ then the transition command T is propagated to SE.
 \item If there are no transitions from the current state of S that have T as their trigger, then
 no further action is taken.
 \item If there are one or more transitions from the current state of S that have T as their
-trigger, then their guards are evaluated in sequence. The order of the evaluation is
-undefined. The absence of a guard is equivalent to a guard that returns TRUE.
+trigger, then their guards are evaluated in their defined order. The absence of a guard is
+equivalent to a guard that returns TRUE.
 \item When the first transition is found whose guard evaluates to TRUE, then that transition
 is executed.
 \end{fw_enumerate}
@@ -1025,7 +1073,7 @@ according to which the transition is executed. This is done below (see also Figu
 
 \begin{figure}[ht]
  \centering
- \includegraphics[scale=0.55,keepaspectratio=true]{../images/SM_CmdProcessing.png}
+ \includegraphics[scale=0.40,keepaspectratio=true]{../images/SM_CmdProcessing.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
  \caption{Logic for Processing Transition Commands by a State Machine}
  \label{fig:SmCmdProcessing}
@@ -1055,7 +1103,7 @@ they are listed.
 machine, then the embedded state machine is started.
 \end{fw_enumerate}
 
-With reference to point 4, it is noted that at least one of the guards on the outgoing transitions
+With reference to point 4, it Logic for Processing Transition Commands by a State Machineis noted that at least one of the guards on the outgoing transitions
 from a choice pseudo-state is guaranteed to be true because of constraint C6 in the previous
 section.
 
@@ -1064,7 +1112,7 @@ Note that this logic is called up by the logic shown in the activity diagram of 
 
 \begin{figure}[ht]
  \centering
- \includegraphics[scale=0.45,keepaspectratio=true]{../images/SM_TransitionExecution.png}
+ \includegraphics[scale=0.35,keepaspectratio=true]{../images/SM_TransitionExecution.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
  \caption{Logic for Executing Transitions in a State Machine}
  \label{fig:SmTransitionExecution}
@@ -1145,7 +1193,7 @@ The use of the AP stereotypes is discussed in the next section.
 
 \begin{figure}[ht]
  \centering
- \includegraphics[scale=0.45,keepaspectratio=true]{../images/SM_Example.png}
+ \includegraphics[scale=0.42,keepaspectratio=true]{../images/SM_Example.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
  \caption{Example of FW-Compliant State Machine}
  \label{fig:SmExample}
@@ -1443,7 +1491,7 @@ The appeal of the approach in figure \ref{fig:FV_BasicApproach} is that it would
 
 \begin{figure}[h]
  \centering
- \includegraphics[scale=0.45,keepaspectratio=true]{../images/FV_BasicApproach.png}
+ \includegraphics[scale=0.35,keepaspectratio=true]{../images/FV_BasicApproach.png}
  \caption{Basic Approach for Model Cheking of FW Profile Models}
  \label{fig:FV_BasicApproach}
 \end{figure}
@@ -1475,7 +1523,7 @@ This section explains how a FW Profile state machine can be represented in a Pro
 
 \begin{figure}[ht]
  \centering
- \includegraphics[scale=0.47,keepaspectratio=true]{../images/FV_Buffer.png}
+ \includegraphics[scale=0.37,keepaspectratio=true]{../images/FV_Buffer.png}
  \caption{State Machine for a Buffer Control Logic}
  \label{fig:FV_Buffer}
 \end{figure}
@@ -1561,7 +1609,7 @@ This section explains how a FW Profile procedure can be represented in a Promela
 
 \begin{figure}[ht]
  \centering
- \includegraphics[scale=0.45,keepaspectratio=true]{../images/FV_ActuatorController.png}
+ \includegraphics[scale=0.4,keepaspectratio=true]{../images/FV_ActuatorController.png}
  \caption{Procedure to Control a Hardware Actuator}
  \label{fig:FV_ActuatorController}
 \end{figure}
@@ -1792,13 +1840,13 @@ In summary, this example shows that FW Profile models can be easily and systemat
 \newpage
 \begin{figure}[ht]
  \centering
- \includegraphics[scale=0.45,keepaspectratio=true]{../images/FV_Actuator.png}
+ \includegraphics[scale=0.4,keepaspectratio=true]{../images/FV_Actuator.png}
  \caption{State Machines to Control the Hardware Actuator}
  \label{fig:FV_Actuator}
 \end{figure}
 \begin{figure}[ht]
  \centering
- \includegraphics[scale=0.45,keepaspectratio=true]{../images/FV_ActuatorController.png}
+ \includegraphics[scale=0.44,keepaspectratio=true]{../images/FV_ActuatorController.png}
  \caption{Actuator Controller Procedure}
  \label{fig:FV_ActuatorController2}
 \end{figure}

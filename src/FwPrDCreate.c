@@ -117,6 +117,7 @@ FwPrDesc_t FwPrCreate(FwPrCounterS1_t nOfANodes, FwPrCounterS1_t nOfDNodes, FwPr
   prBase->nOfFlows    = nOfFlows;
   prDesc->prBase      = prBase;
   prDesc->curNode     = 0;
+  prDesc->prevNode    = 0;
   prDesc->prData      = NULL;
   prDesc->flowCnt     = 1;
   prDesc->nOfActions  = nOfActions;
@@ -160,6 +161,7 @@ FwPrDesc_t FwPrCreateDer(FwPrDesc_t prDesc) {
 
   extPrDesc->prBase      = prBase;
   extPrDesc->curNode     = 0;
+  extPrDesc->prevNode    = 0;
   extPrDesc->prData      = NULL;
   extPrDesc->flowCnt     = 0;
   extPrDesc->nOfActions  = prDesc->nOfActions;

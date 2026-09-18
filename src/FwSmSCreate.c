@@ -94,6 +94,7 @@ void FwSmInitDer(FwSmDesc_t smDesc, FwSmDesc_t smDescBase) {
   smDesc->stateExecCnt = 0;
   smDesc->transCnt     = 0;
   smDesc->curState     = 0;
+  smDesc->prevState    = 0;
 
   return;
 }

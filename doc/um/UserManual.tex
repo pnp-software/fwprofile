@@ -507,6 +507,7 @@ is extended. This consists of:
 \item The pointer to the state machine data (the data upon which the state machine actions 
 and guards operate, see Section \ref{sec:smData})
 \item The current state of the state machine
+\item The previous state of the state machine
 \item The error code for the state machine (see Section \ref{sec:smErrorChecking})
 \item The state machine counters
 \end{fw_itemize}
@@ -622,8 +623,9 @@ The error codes are listed as enumerated values in file \texttt{FwSmConstants.h}
 \subsection{Else Guards}
 An "\emph{Else}" guard is a guard in a transition out of a choice pseudo-state which is true when the guards of 
 all other out-going transitions from the same choice pseudo-state are false. "Else" guards are not directly 
-supported but their effect can be achieved as follows. The out-going transitions from a choice pseudo-state 
-are evaluated in the order in which they were added to the state machine when the state machine was configured. 
+supported but their effect can be achieved as follows. If a choice pseudo-state has $n$ outgoing transitions, where $n$ is a natural number,
+their unique evaluation-order values are members of the set $\{1,\ldots,n\}$ and are assigned according to the order in which they were added
+to the state machine when it was configured. The transitions are evaluated in increasing evaluation order.
 If the last transition to be added 
 to a choice pseudo-state is given a guard which always returns true, then this transition will behave like 
 a transition with an "\emph{Else}" guard.
@@ -675,6 +677,7 @@ is extended. This consists of:
 \item The pointer to the procedure data (the data upon which the procedure actions 
 and guards operate, see Section \ref{sec:prData})
 \item The current node of the procedure
+\item The previous node of the procedure
 \item The error code for the procedure (see Section \ref{sec:prErrorChecking})
 \item The procedure counters 
 \end{fw_itemize}
@@ -764,7 +767,8 @@ The error codes are listed as enumerated values in file \texttt{FwPrConstants.h}
 An "\emph{Else}" guard is a guard in a control fllow out of a decision node which is true when the guards of 
 all other out-going control flows from the same decision node are false. "Else" guards are not directly 
 supported but their effect can be achieved as follows. The out-going control flows from a decision node
-are evaluated in the order in which they were added to the procedure when the procedure was configured. 
+are evaluated in increasing evaluation order, where $n$ is the natural number of outgoing control flows and the evaluation-order values are assigned
+from the set $\{1,\ldots,n\}$ according to the order in which the control flows were added to the procedure when the procedure was configured.
 If the last control flow to be added 
 to a decision node is given a guard which always returns true, then this transition will behave like 
 a transition with an "\emph{Else}" guard.
@@ -997,6 +1001,7 @@ smBase.nOfTrans = 7;
 smDesc.smBase = &smBase;
 smDesc.transCnt = 0;
 smDesc.curState = 0;
+smDesc.prevState = 0;
 smDesc.smData = NULL;
 smDesc.nOfActions = 5;
 smDesc.nOfGuards = 3;
@@ -1150,6 +1155,13 @@ After a state machine has been started, it will respond to requests to perform a
 such a request to a state machine which has not been started is not an error - the request is simply ignored). 
 State transitions are exclusively triggered by \emph{transition commands}. Each state machine reacts to a finite 
 number of transition commands. Each transition command has an identifier (a non-negative integer). 
+
+The previous state is set to an invalid value when the state machine is started. Before the current state is changed,
+the current state is copied to the previous state. Thus, the previous state remains invalid when the initial pseudo-state is
+left, and a transition to the same state makes the previous and current states equal. Stopping the state machine
+sets both states to invalid values. If several transitions with the same trigger are available, their guards are
+evaluated in the order in which the transitions were added to the state machine; the first transition with a true
+guard is selected.
 
 The range of transition command identifiers is defined by a user when a state machine is configured. The identifier 0 
 is reserved for the \emph{Execute} transition command. The Execute transition command is a transition command which 
@@ -1415,6 +1427,7 @@ prBase.nOfANodes = 3;
 prBase.nOfDNodes = 2;
 prBase.nOfFlows = 9;
 prDesc.curNode = 0;
+prDesc.prevNode = 0;
 prDesc.errCode = prSuccess;
 prDesc.flowCnt = 0;
 prDesc.nOfActions = 1;
@@ -1542,6 +1555,14 @@ can check whether a procedure has already been started with function \texttt{FwP
 After a procedure has been started, it will respond to execution requests (but note that sending 
 such a request to a procedure which has not been started is not an error - the execution request is simply ignored). 
 An execution request is sent to a procedure by means of function \texttt{FwPrExecute}. 
+
+The previous node is set to an invalid value when the procedure is started. When execution enters an action node,
+the current node is copied to the previous node before the current node is changed. Thus, the previous node remains
+invalid when the initial node is left, and a self-transition makes the previous and current nodes equal. Stopping
+the procedure sets both nodes to invalid values. If a decision node with $n$ outgoing control flows is encountered, where $n$ is a natural number,
+each control flow is assigned an evaluation-order value from the set $\{1,\ldots,n\}$ according to the order in which it was added to the procedure.
+The guards are evaluated in increasing evaluation order, and the control flow with the lowest evaluation-order value whose guard evaluates to TRUE
+is selected.
 
 A procedure is stopped with function \texttt{FwPrStop}. Procedures can be started and stopped as many times 
 as desired.
@@ -2138,19 +2159,26 @@ in other state machines.
 
 \subsection{Order of Execution}
 The FW Profile stipulates that if a state or choice pseudo-state in a state machine has two or more out-going transitions with a guard which evaluates to true, the transition 
-which will be taken is the one whose guard is evaluated first. The order of evaluation of the guards is, however, left undefined by the FW Profile.
+which will be taken is the one with the lowest evaluation-order value. For a source with $n$ outgoing transitions, where $n$ is a natural number,
+the evaluation-order values are unique members of the set $\{1,\ldots,n\}$ and are assigned according to the order in which the transitions were added
+to the state machine. The guards of matching transitions are evaluated in increasing evaluation order, and the first guard which evaluates to TRUE
+determines the selected transition.
 
-The C1 Implementation has made the following choice: out-going transitions from a state 
-or choice pseudo-state are evaluated in the order in which they were added to the state machine (transitions are added to a state machine using the \texttt{FwSmAddTrans*} functions in module \texttt{FwSmConfig.h}).
+Out-going transitions from a state or choice pseudo-state are therefore evaluated in increasing evaluation order. In the C1 Implementation, the transitions
+from each source occupy a contiguous segment of the transition array in the state-machine descriptor. The segment is reserved when the source is configured,
+and the \texttt{FwSmAddTrans*} functions in module \texttt{FwSmConfig.h} fill its slots in configuration order; the slot position therefore implements
+the evaluation order.
 
 Similarly, the FW Profile specifies that if a decision node has two or more out-going 
 control flows with a guard which evaluates to true, the control flow 
-which will be taken is the one whose guard is evaluated first. The order of evaluation of the guards is, however, left undefined by the FW Profile.
+which will be taken is the one with the lowest evaluation order. For a decision node with $n$ outgoing control flows, where $n$ is a natural number,
+the evaluation-order values are unique members of the set $\{1,\ldots,n\}$, assigned according to the order in which the control flows were added
+to the procedure. The guards are evaluated in increasing evaluation order, and the first guard which evaluates to TRUE determines the selected flow.
 
-The C1 Implementation has made the following choice: out-going control flows from a  
-decision node are evaluated in the order in which 
-they were added to the procedure (control flows are added to a procedure 
-using the \texttt{FwPrAddFlow*} functions in module \texttt{FwPrConfig.h}).
+Out-going control flows from a decision node are therefore evaluated in increasing evaluation order. In the C1 Implementation, the control flows from each
+decision node occupy a contiguous segment of the control-flow array in the procedure descriptor. The segment is reserved when the decision node is configured,
+and the \texttt{FwPrAddFlow*} functions in module \texttt{FwPrConfig.h} fill its slots in configuration order; the slot position therefore implements
+the evaluation order.
 
 \subsection{User Overridable Types}
 with one exception, the C1 Implementation does not use any primitive types. Instead, \texttt{typedef} are used which are defined in \texttt{FwSmConstants.h} (for state machines), \texttt{FwPrConstants.h} (for procedures) and \texttt{FwRtConstants.h} (for RT containers). 
