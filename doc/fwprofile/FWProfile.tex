@@ -526,11 +526,10 @@ more control flows.
 
 The guard is a specification which evaluates either to TRUE or FALSE and which
 has no side effects. If a control flow has no guard attached to it, then this is equivalent to the control flow having a guard which always evaluates to true.
-For a decision node with $n$ outgoing control flows, where $n$ is a natural number, each outgoing control flow is assigned an evaluation-order value
-from the set $\{1,\ldots,n\}$ according to the order in which the control flow was added to the procedure during the procedure configuration process.
-Thus, the first control flow added has evaluation order 1 and the last control flow added to the same decision node has evaluation order $n$; no two outgoing control flows
-from the same decision node have the same evaluation-order value. During procedure execution, the guards are evaluated in increasing evaluation order.
-The selected control flow is the one with the lowest evaluation-order value whose guard evaluates to TRUE.
+For a decision node with $n$ outgoing control flows each outgoing control flow is assigned a distinct evaluation-order value
+from the set $\{1,\ldots,n\}$ such that no two outgoing control flows
+from the same decision node have the same evaluation-order. During procedure execution, guards out of a decision node are evaluated in increasing evaluation order.
+The selected control flow is the one with the lowest evaluation-order whose guard evaluates to TRUE.
 
 A \emph{decision node} is characterized by the following elements:
 \begin{fw_itemize} 
@@ -878,15 +877,13 @@ A \emph{state transition} is characterized by the following elements:
 \item Zero or one \emph{transition trigger} (or \emph{transition command})
 \item Zero or one \emph{transition guard}
 \item Zero or more \emph{transition actions}
-\item Evaluation order
+\item \emph{Evaluation order}
  
 \end{fw_itemize}
 
 The transition source and the transition target are either a state or a pseudo-state. The transition
 trigger is the command that triggers the execution of the transition. A transition guard is a specification that evaluates either to TRUE or to FALSE and has no side effects. A transition with no guard is equivalent to a transition with a guard which always evaluates to TRUE. A transition action represents behaviour which is not decomposed further within the state machine. A transition action behaviour can be defined using natural language or some formalism (e.g. an “action language”).
-For a source with $n$ outgoing transitions, where $n$ is a natural number, let the evaluation-order function assign to each outgoing transition a distinct value
-from the set $\{1,\ldots,n\}$ according to the order in which the transition was added to the state machine during the state machine configuration process.
-Thus, the first transition added has evaluation order 1 and the last transition added from the same source has evaluation order $n$.
+For a source with $n$ outgoing transitions, the evaluation order is a number in the set $\{1,\ldots,n\}$ such that no two transitions with the same source have the same evaluation order.
 When a transition command is processed, let $M$ be the set of outgoing transitions whose trigger matches the command. The guards of the transitions in $M$
 are evaluated in increasing evaluation order. The selected transition is the transition $t$ in $M$ with the minimum evaluation-order value such that the guard of $t$
 evaluates to TRUE.

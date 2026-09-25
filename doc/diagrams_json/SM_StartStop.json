@@ -2,7 +2,7 @@
      "editorVersion": "6.0",
      "states": [
           {
-               "id": 2826,
+               "id": 212,
                "attrs": {
                     "x": 208,
                     "y": 159,
@@ -24,7 +24,7 @@
                "selected": false
           },
           {
-               "id": 2827,
+               "id": 213,
                "attrs": {
                     "x": 211,
                     "y": 243,
@@ -48,7 +48,7 @@
                "selected": false
           },
           {
-               "id": 2828,
+               "id": 214,
                "attrs": {
                     "x": 406,
                     "y": 242,
@@ -70,7 +70,7 @@
                "selected": false
           },
           {
-               "id": 2829,
+               "id": 215,
                "attrs": {
                     "x": 77,
                     "y": 328,
@@ -109,11 +109,11 @@
                "selected": false
           },
           {
-               "id": 2831,
+               "id": 217,
                "attrs": {
                     "x": 96,
                     "y": 398,
-                    "width": 254,
+                    "width": 256,
                     "height": 30,
                     "r": 10,
                     "rx": 10,
@@ -148,7 +148,7 @@
                "selected": false
           },
           {
-               "id": 2833,
+               "id": 219,
                "attrs": {
                     "x": 211,
                     "y": 481,
@@ -172,12 +172,12 @@
                "selected": false
           },
           {
-               "id": 2834,
+               "id": 220,
                "attrs": {
-                    "x": 295,
-                    "y": 535,
-                    "width": 480,
-                    "height": 30,
+                    "x": 355,
+                    "y": 525,
+                    "width": 360,
+                    "height": 54,
                     "r": 10,
                     "rx": 10,
                     "ry": 10,
@@ -200,18 +200,18 @@
                     "entryCode": "",
                     "doCode": "",
                     "exitCode": "",
-                    "entryDesc": "Execute Actions Associated to a Transition out of CPS whose  Guard evaluates to TRUE",
+                    "entryDesc": "Evaluate Guards of Transitions out of the CPS, identify the\nTransition with the lowest Evaluation Order whose Guard evaluates to True, \nand then execute its action",
                     "doDesc": "",
                     "exitDesc": "",
                     "entryAp": false,
                     "doAp": false,
                     "exitAp": false,
-                    "embedSmId": "0"
+                    "embedSmId": null
                },
                "selected": false
           },
           {
-               "id": 2836,
+               "id": 222,
                "attrs": {
                     "x": 96,
                     "y": 701,
@@ -250,7 +250,7 @@
                "selected": false
           },
           {
-               "id": 2838,
+               "id": 224,
                "attrs": {
                     "x": 112,
                     "y": 774,
@@ -289,16 +289,16 @@
                "selected": false
           },
           {
-               "id": 2840,
+               "id": 226,
                "attrs": {
                     "x": 256,
-                    "y": 587.5,
+                    "y": 630,
                     "width": 182,
                     "height": 30,
                     "r": 0,
                     "rx": 0,
                     "ry": 0,
-                    "fill": "#fff",
+                    "fill": "#ccccff",
                     "stroke": "#666",
                     "stroke-width": 1,
                     "fill-opacity": 100,
@@ -312,10 +312,10 @@
                "selected": false
           },
           {
-               "id": 2842,
+               "id": 228,
                "attrs": {
                     "x": 220,
-                    "y": 599.5,
+                    "y": 642,
                     "width": 6,
                     "height": 6,
                     "r": 6,
@@ -334,16 +334,16 @@
                "selected": false
           },
           {
-               "id": 2843,
+               "id": 229,
                "attrs": {
-                    "x": 521,
-                    "y": 129,
+                    "x": 558,
+                    "y": 157,
                     "width": 146,
                     "height": 90,
                     "r": 0,
                     "rx": 0,
                     "ry": 0,
-                    "fill": "#ffffff",
+                    "fill": "#ccccff",
                     "stroke": "#666",
                     "stroke-width": 1,
                     "fill-opacity": 100,
@@ -357,10 +357,10 @@
                "selected": false
           },
           {
-               "id": 2845,
+               "id": 231,
                "attrs": {
-                    "x": 331,
-                    "y": 142,
+                    "x": 326,
+                    "y": 159,
                     "width": 112,
                     "height": 30,
                     "r": 0,
@@ -380,7 +380,7 @@
                "selected": false
           },
           {
-               "id": 2847,
+               "id": 233,
                "attrs": {
                     "x": 384,
                     "y": 774,
@@ -419,7 +419,7 @@
                "selected": false
           },
           {
-               "id": 2849,
+               "id": 235,
                "attrs": {
                     "x": 523,
                     "y": 626,
@@ -443,7 +443,7 @@
                "selected": false
           },
           {
-               "id": 2850,
+               "id": 236,
                "attrs": {
                     "x": 211,
                     "y": 851,
@@ -467,7 +467,7 @@
                "selected": false
           },
           {
-               "id": 2851,
+               "id": 237,
                "attrs": {
                     "x": 167,
                     "y": 940,
@@ -506,7 +506,7 @@
                "selected": false
           },
           {
-               "id": 2853,
+               "id": 239,
                "attrs": {
                     "x": 445,
                     "y": 942,
@@ -528,7 +528,7 @@
                "selected": false
           },
           {
-               "id": 2854,
+               "id": 240,
                "attrs": {
                     "x": 852,
                     "y": 159,
@@ -551,7 +551,7 @@
                "selected": false
           },
           {
-               "id": 2856,
+               "id": 242,
                "attrs": {
                     "x": 1099,
                     "y": 240,
@@ -573,7 +573,7 @@
                "selected": false
           },
           {
-               "id": 2857,
+               "id": 243,
                "attrs": {
                     "x": 975,
                     "y": 243,
@@ -597,7 +597,7 @@
                "selected": false
           },
           {
-               "id": 2858,
+               "id": 244,
                "attrs": {
                     "x": 851,
                     "y": 632,
@@ -619,7 +619,7 @@
                "selected": false
           },
           {
-               "id": 2859,
+               "id": 245,
                "attrs": {
                     "x": 975,
                     "y": 341,
@@ -643,7 +643,7 @@
                "selected": false
           },
           {
-               "id": 2860,
+               "id": 246,
                "attrs": {
                     "x": 931,
                     "y": 422,
@@ -682,11 +682,11 @@
                "selected": false
           },
           {
-               "id": 2862,
+               "id": 248,
                "attrs": {
                     "x": 894,
                     "y": 502,
-                    "width": 186,
+                    "width": 188,
                     "height": 30,
                     "r": 10,
                     "rx": 10,
@@ -721,7 +721,7 @@
                "selected": false
           },
           {
-               "id": 2864,
+               "id": 250,
                "attrs": {
                     "x": 889,
                     "y": 578,
@@ -756,6 +756,51 @@
                     "doAp": false,
                     "exitAp": false,
                     "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 352,
+               "attrs": {
+                    "x": 514,
+                    "y": 420.5,
+                    "width": 276,
+                    "height": 42,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#ccccff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "stroke-dasharray": "--"
+               },
+               "fwprop": {
+                    "autoid": 4,
+                    "type": "note",
+                    "note": "There must be at least one transition out of a CPS\nwith a guard which evaludated to True (see constraint D1)"
+               },
+               "selected": false
+          },
+          {
+               "id": 355,
+               "attrs": {
+                    "x": 649,
+                    "y": 525,
+                    "width": 6,
+                    "height": 6,
+                    "r": 6,
+                    "rx": 6,
+                    "ry": 6,
+                    "fill": "#000",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 2,
+                    "type": "notedot",
+                    "note": ""
                },
                "selected": false
           }
@@ -799,8 +844,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2826,
-               "stateToID": 2827,
+               "stateFromID": 212,
+               "stateToID": 213,
                "selected": false
           },
           {
@@ -846,8 +891,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2827,
-               "stateToID": 2828,
+               "stateFromID": 213,
+               "stateToID": 214,
                "selected": false
           },
           {
@@ -893,8 +938,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2827,
-               "stateToID": 2829,
+               "stateFromID": 213,
+               "stateToID": 215,
                "selected": false
           },
           {
@@ -904,12 +949,12 @@
                     "path": [
                          [
                               "M",
-                              223,
+                              223.28571428571428,
                               363
                          ],
                          [
                               "L",
-                              223,
+                              223.67142857142858,
                               390
                          ]
                     ],
@@ -935,8 +980,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2829,
-               "stateToID": 2831,
+               "stateFromID": 215,
+               "stateToID": 217,
                "selected": false
           },
           {
@@ -946,13 +991,13 @@
                     "path": [
                          [
                               "M",
-                              223,
+                              223.75,
                               433
                          ],
                          [
                               "L",
-                              223,
-                              463
+                              223.37430139249958,
+                              463.0558886000352
                          ]
                     ],
                     "stroke-width": 2,
@@ -977,8 +1022,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2831,
-               "stateToID": 2833,
+               "stateFromID": 217,
+               "stateToID": 219,
                "selected": false
           },
           {
@@ -999,7 +1044,7 @@
                          [
                               "L",
                               535,
-                              527
+                              517
                          ]
                     ],
                     "stroke-width": 2,
@@ -1035,8 +1080,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2833,
-               "stateToID": 2834,
+               "stateFromID": 219,
+               "stateToID": 220,
                "selected": false
           },
           {
@@ -1082,8 +1127,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2833,
-               "stateToID": 2836,
+               "stateFromID": 219,
+               "stateToID": 222,
                "selected": false
           },
           {
@@ -1094,12 +1139,12 @@
                          [
                               "M",
                               251,
-                              602.5
+                              645
                          ],
                          [
                               "L",
                               234,
-                              602.5
+                              645
                          ]
                     ],
                     "stroke-width": 2,
@@ -1124,8 +1169,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2840,
-               "stateToID": 2842,
+               "stateFromID": 226,
+               "stateToID": 228,
                "selected": false
           },
           {
@@ -1166,8 +1211,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2847,
-               "stateToID": 2838,
+               "stateFromID": 233,
+               "stateToID": 224,
                "selected": false
           },
           {
@@ -1208,8 +1253,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2836,
-               "stateToID": 2838,
+               "stateFromID": 222,
+               "stateToID": 224,
                "selected": false
           },
           {
@@ -1220,7 +1265,7 @@
                          [
                               "M",
                               535,
-                              570
+                              584
                          ],
                          [
                               "L",
@@ -1250,8 +1295,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2834,
-               "stateToID": 2849,
+               "stateFromID": 220,
+               "stateToID": 235,
                "selected": false
           },
           {
@@ -1290,15 +1335,15 @@
                     "actionAp": false,
                     "note": ""
                },
-               "shiftx": 107,
-               "shifty": 0,
+               "shiftx": 99,
+               "shifty": -23,
                "vertexes": [],
                "shiftxy": {
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2849,
-               "stateToID": 2847,
+               "stateFromID": 235,
+               "stateToID": 233,
                "selected": false
           },
           {
@@ -1339,8 +1384,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2838,
-               "stateToID": 2850,
+               "stateFromID": 224,
+               "stateToID": 236,
                "selected": false
           },
           {
@@ -1386,8 +1431,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2850,
-               "stateToID": 2851,
+               "stateFromID": 236,
+               "stateToID": 237,
                "selected": false
           },
           {
@@ -1464,8 +1509,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2849,
-               "stateToID": 2853,
+               "stateFromID": 235,
+               "stateToID": 239,
                "selected": false
           },
           {
@@ -1522,8 +1567,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2850,
-               "stateToID": 2853,
+               "stateFromID": 236,
+               "stateToID": 239,
                "selected": false
           },
           {
@@ -1564,8 +1609,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2851,
-               "stateToID": 2853,
+               "stateFromID": 237,
+               "stateToID": 239,
                "selected": false
           },
           {
@@ -1606,8 +1651,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2856,
-               "stateToID": 2857,
+               "stateFromID": 242,
+               "stateToID": 243,
                "selected": false
           },
           {
@@ -1674,8 +1719,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2857,
-               "stateToID": 2858,
+               "stateFromID": 243,
+               "stateToID": 244,
                "selected": false
           },
           {
@@ -1721,8 +1766,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2857,
-               "stateToID": 2859,
+               "stateFromID": 243,
+               "stateToID": 245,
                "selected": false
           },
           {
@@ -1779,8 +1824,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2859,
-               "stateToID": 2860,
+               "stateFromID": 245,
+               "stateToID": 246,
                "selected": false
           },
           {
@@ -1790,12 +1835,12 @@
                     "path": [
                          [
                               "M",
-                              987,
+                              987.25,
                               457
                          ],
                          [
                               "L",
-                              987,
+                              987.7125,
                               494
                          ]
                     ],
@@ -1821,8 +1866,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2860,
-               "stateToID": 2862,
+               "stateFromID": 246,
+               "stateToID": 248,
                "selected": false
           },
           {
@@ -1847,8 +1892,8 @@
                          ],
                          [
                               "L",
-                              1088,
-                              515.7757575757576
+                              1090,
+                              515.7560975609755
                          ]
                     ],
                     "stroke-width": 2,
@@ -1889,8 +1934,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2859,
-               "stateToID": 2862,
+               "stateFromID": 245,
+               "stateToID": 248,
                "selected": false
           },
           {
@@ -1900,12 +1945,12 @@
                     "path": [
                          [
                               "M",
-                              987,
+                              987.7368421052631,
                               537
                          ],
                          [
                               "L",
-                              987,
+                              987.3026315789474,
                               570
                          ]
                     ],
@@ -1931,8 +1976,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2862,
-               "stateToID": 2864,
+               "stateFromID": 248,
+               "stateToID": 250,
                "selected": false
           },
           {
@@ -1984,19 +2029,61 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2864,
-               "stateToID": 2858,
+               "stateFromID": 250,
+               "stateToID": 244,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              652,
+                              467.5
+                         ],
+                         [
+                              "L",
+                              652,
+                              517
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": "-"
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "function",
+                    "actionType": "function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 352,
+               "stateToID": 355,
                "selected": false
           }
      ],
      "globals": {
-          "paperPanX": 624,
-          "paperPanY": 70,
+          "paperPanX": 14,
+          "paperPanY": 314,
           "attrs": {
-               "x": 624,
-               "y": 70,
-               "width": 1728,
-               "height": 961,
+               "x": 14,
+               "y": 314,
+               "width": 1326,
+               "height": 673,
                "r": 0,
                "rx": 0,
                "ry": 0,
@@ -2005,7 +2092,7 @@
                "stroke-width": 0
           },
           "fwprop": {
-               "smName": "Logic for the Start and Stop Commands to a State Machine",
+               "smName": "SM_StartStop",
                "editorType": "Pr",
                "globalvar": [
                     {
@@ -2018,8 +2105,8 @@
                "smNotes": "",
                "memalloc": "dynamic",
                "displayInfo": 0,
-               "displayOrder": 1,
-               "smTags": "example"
+               "displayOrder": 0,
+               "smTags": "FwProfile"
           }
      }
 }

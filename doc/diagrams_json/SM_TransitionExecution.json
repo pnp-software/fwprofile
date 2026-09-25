@@ -2,10 +2,10 @@
      "editorVersion": "6.0",
      "states": [
           {
-               "id": 2941,
+               "id": 360,
                "attrs": {
                     "x": 460,
-                    "y": 142,
+                    "y": 167,
                     "width": 108,
                     "height": 30,
                     "r": 0,
@@ -25,7 +25,7 @@
                "selected": false
           },
           {
-               "id": 2943,
+               "id": 362,
                "attrs": {
                     "x": 499,
                     "y": 208,
@@ -47,7 +47,7 @@
                "selected": false
           },
           {
-               "id": 2944,
+               "id": 363,
                "attrs": {
                     "x": 502,
                     "y": 290,
@@ -71,9 +71,9 @@
                "selected": false
           },
           {
-               "id": 2945,
+               "id": 364,
                "attrs": {
-                    "x": 203,
+                    "x": 233,
                     "y": 354,
                     "width": 24,
                     "height": 24,
@@ -95,9 +95,9 @@
                "selected": false
           },
           {
-               "id": 2946,
+               "id": 365,
                "attrs": {
-                    "x": 158,
+                    "x": 188,
                     "y": 439,
                     "width": 114,
                     "height": 30,
@@ -134,7 +134,7 @@
                "selected": false
           },
           {
-               "id": 2948,
+               "id": 367,
                "attrs": {
                     "x": 340,
                     "y": 439,
@@ -173,12 +173,12 @@
                "selected": false
           },
           {
-               "id": 2950,
+               "id": 369,
                "attrs": {
-                    "x": 596,
-                    "y": 439,
-                    "width": 256,
-                    "height": 30,
+                    "x": 622,
+                    "y": 433,
+                    "width": 138,
+                    "height": 42,
                     "r": 10,
                     "rx": 10,
                     "ry": 10,
@@ -201,18 +201,18 @@
                     "entryCode": "",
                     "doCode": "",
                     "exitCode": "",
-                    "entryDesc": "Execute Action Associated to Transition",
+                    "entryDesc": "Execute Action\nAssociated to Transition",
                     "doDesc": "",
                     "exitDesc": "",
                     "entryAp": false,
                     "doAp": false,
                     "exitAp": false,
-                    "embedSmId": "0"
+                    "embedSmId": null
                },
                "selected": false
           },
           {
-               "id": 2952,
+               "id": 371,
                "attrs": {
                     "x": 424,
                     "y": 571,
@@ -236,9 +236,9 @@
                "selected": false
           },
           {
-               "id": 2953,
+               "id": 372,
                "attrs": {
-                    "x": 175,
+                    "x": 203,
                     "y": 625,
                     "width": 182,
                     "height": 30,
@@ -275,9 +275,9 @@
                "selected": false
           },
           {
-               "id": 2955,
+               "id": 374,
                "attrs": {
-                    "x": 170,
+                    "x": 198,
                     "y": 700,
                     "width": 192,
                     "height": 30,
@@ -314,16 +314,16 @@
                "selected": false
           },
           {
-               "id": 2957,
+               "id": 376,
                "attrs": {
-                    "x": 711,
-                    "y": 150.5,
+                    "x": 638,
+                    "y": 168,
                     "width": 146,
                     "height": 90,
                     "r": 0,
                     "rx": 0,
                     "ry": 0,
-                    "fill": "#fff",
+                    "fill": "#ccccff",
                     "stroke": "#666",
                     "stroke-width": 1,
                     "fill-opacity": 100,
@@ -337,9 +337,9 @@
                "selected": false
           },
           {
-               "id": 2959,
+               "id": 378,
                "attrs": {
-                    "x": 172,
+                    "x": 200,
                     "y": 770,
                     "width": 188,
                     "height": 30,
@@ -376,9 +376,9 @@
                "selected": false
           },
           {
-               "id": 2961,
+               "id": 380,
                "attrs": {
-                    "x": 169,
+                    "x": 197,
                     "y": 843,
                     "width": 194,
                     "height": 30,
@@ -415,10 +415,10 @@
                "selected": false
           },
           {
-               "id": 2963,
+               "id": 382,
                "attrs": {
-                    "x": 478,
-                    "y": 780,
+                    "x": 476,
+                    "y": 782,
                     "width": 194,
                     "height": 30,
                     "r": 10,
@@ -454,12 +454,12 @@
                "selected": false
           },
           {
-               "id": 2965,
+               "id": 384,
                "attrs": {
-                    "x": 537,
-                    "y": 642,
-                    "width": 308,
-                    "height": 30,
+                    "x": 561,
+                    "y": 625,
+                    "width": 260,
+                    "height": 54,
                     "r": 10,
                     "rx": 10,
                     "ry": 10,
@@ -482,20 +482,20 @@
                     "entryCode": "",
                     "doCode": "",
                     "exitCode": "",
-                    "entryDesc": "Evaluate Guards of Outgoing Transitions from CPS",
+                    "entryDesc": "Evaluate Guards of Outgoing Transitions\nfrom CPS and identify the Transition with the lowest\nEvaluation Order whose Guard evaluates to True",
                     "doDesc": "",
                     "exitDesc": "",
                     "entryAp": false,
                     "doAp": false,
                     "exitAp": false,
-                    "embedSmId": "0"
+                    "embedSmId": null
                },
                "selected": false
           },
           {
-               "id": 2967,
+               "id": 386,
                "attrs": {
-                    "x": 254,
+                    "x": 282,
                     "y": 923,
                     "width": 24,
                     "height": 24,
@@ -517,7 +517,7 @@
                "selected": false
           },
           {
-               "id": 2968,
+               "id": 387,
                "attrs": {
                     "x": 400,
                     "y": 981,
@@ -556,7 +556,7 @@
                "selected": false
           },
           {
-               "id": 2970,
+               "id": 389,
                "attrs": {
                     "x": 560,
                     "y": 983,
@@ -578,12 +578,12 @@
                "selected": false
           },
           {
-               "id": 2971,
+               "id": 390,
                "attrs": {
-                    "x": 478,
-                    "y": 710,
-                    "width": 426,
-                    "height": 30,
+                    "x": 577,
+                    "y": 717,
+                    "width": 228,
+                    "height": 42,
                     "r": 10,
                     "rx": 10,
                     "ry": 10,
@@ -606,13 +606,58 @@
                     "entryCode": "",
                     "doCode": "",
                     "exitCode": "",
-                    "entryDesc": "Execute an Outgoing Transition from CPS whose Guard evaluates to TRUE",
+                    "entryDesc": "Execute the Outgoing Transition \nfrom the CPS selected at previous node",
                     "doDesc": "",
                     "exitDesc": "",
                     "entryAp": false,
                     "doAp": false,
                     "exitAp": false,
-                    "embedSmId": "0"
+                    "embedSmId": null
+               },
+               "selected": false
+          },
+          {
+               "id": 481,
+               "attrs": {
+                    "x": 615,
+                    "y": 525,
+                    "width": 218,
+                    "height": 42,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#ccccff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "stroke-dasharray": "--"
+               },
+               "fwprop": {
+                    "autoid": 3,
+                    "type": "note",
+                    "note": "Constraint D1 guarantees that at least\none transition our of a CPS has a True guard"
+               },
+               "selected": false
+          },
+          {
+               "id": 484,
+               "attrs": {
+                    "x": 721,
+                    "y": 619,
+                    "width": 6,
+                    "height": 6,
+                    "r": 6,
+                    "rx": 6,
+                    "ry": 6,
+                    "fill": "#000",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "notedot",
+                    "note": ""
                },
                "selected": false
           }
@@ -656,8 +701,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2943,
-               "stateToID": 2944,
+               "stateFromID": 362,
+               "stateToID": 363,
                "selected": false
           },
           {
@@ -672,12 +717,12 @@
                          ],
                          [
                               "L",
-                              215,
+                              245,
                               302
                          ],
                          [
                               "L",
-                              215,
+                              245,
                               336
                          ]
                     ],
@@ -701,11 +746,11 @@
                     "actionAp": false,
                     "note": ""
                },
-               "shiftx": 17,
-               "shifty": 2,
+               "shiftx": 73,
+               "shifty": -2,
                "vertexes": [
                     {
-                         "x": 215,
+                         "x": 245,
                          "y": 302,
                          "hasMoved": true
                     }
@@ -714,8 +759,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2944,
-               "stateToID": 2945,
+               "stateFromID": 363,
+               "stateToID": 364,
                "selected": false
           },
           {
@@ -725,12 +770,12 @@
                     "path": [
                          [
                               "M",
-                              215,
+                              245,
                               393
                          ],
                          [
                               "L",
-                              215,
+                              245,
                               431
                          ]
                     ],
@@ -754,15 +799,15 @@
                     "actionAp": false,
                     "note": ""
                },
-               "shiftx": 55,
-               "shifty": 8,
+               "shiftx": 48,
+               "shifty": 2,
                "vertexes": [],
                "shiftxy": {
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2945,
-               "stateToID": 2946,
+               "stateFromID": 364,
+               "stateToID": 365,
                "selected": false
           },
           {
@@ -772,7 +817,7 @@
                     "path": [
                          [
                               "M",
-                              277,
+                              307,
                               454
                          ],
                          [
@@ -803,8 +848,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2946,
-               "stateToID": 2948,
+               "stateFromID": 365,
+               "stateToID": 367,
                "selected": false
           },
           {
@@ -814,7 +859,7 @@
                     "path": [
                          [
                               "M",
-                              242,
+                              272,
                               366
                          ],
                          [
@@ -861,8 +906,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2945,
-               "stateToID": 2948,
+               "stateFromID": 364,
+               "stateToID": 367,
                "selected": false
           },
           {
@@ -877,7 +922,7 @@
                          ],
                          [
                               "L",
-                              588,
+                              614,
                               454
                          ]
                     ],
@@ -903,8 +948,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2948,
-               "stateToID": 2950,
+               "stateFromID": 367,
+               "stateToID": 369,
                "selected": false
           },
           {
@@ -919,13 +964,13 @@
                          ],
                          [
                               "L",
-                              724,
+                              691,
                               302
                          ],
                          [
                               "L",
-                              724,
-                              431
+                              691,
+                              425
                          ]
                     ],
                     "stroke-width": 2,
@@ -948,11 +993,11 @@
                     "actionAp": false,
                     "note": ""
                },
-               "shiftx": -55,
+               "shiftx": -69,
                "shifty": -3,
                "vertexes": [
                     {
-                         "x": 724,
+                         "x": 691,
                          "y": 302,
                          "hasMoved": true
                     }
@@ -961,8 +1006,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2944,
-               "stateToID": 2950,
+               "stateFromID": 363,
+               "stateToID": 369,
                "selected": false
           },
           {
@@ -972,18 +1017,18 @@
                     "path": [
                          [
                               "M",
-                              724,
-                              474
+                              691,
+                              480
                          ],
                          [
                               "L",
-                              724,
-                              510
+                              691,
+                              504
                          ],
                          [
                               "L",
                               436,
-                              510
+                              504
                          ],
                          [
                               "L",
@@ -1010,13 +1055,13 @@
                "shifty": 0,
                "vertexes": [
                     {
-                         "x": 724,
-                         "y": 510,
+                         "x": 691,
+                         "y": 504,
                          "hasMoved": true
                     },
                     {
                          "x": 436,
-                         "y": 510,
+                         "y": 504,
                          "hasMoved": true
                     }
                ],
@@ -1024,8 +1069,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2950,
-               "stateToID": 2952,
+               "stateFromID": 369,
+               "stateToID": 371,
                "selected": false
           },
           {
@@ -1040,12 +1085,12 @@
                          ],
                          [
                               "L",
-                              266,
+                              294,
                               583
                          ],
                          [
                               "L",
-                              266,
+                              294,
                               617
                          ]
                     ],
@@ -1070,10 +1115,10 @@
                     "note": ""
                },
                "shiftx": 8,
-               "shifty": -2,
+               "shifty": -4,
                "vertexes": [
                     {
-                         "x": 266,
+                         "x": 294,
                          "y": 583,
                          "hasMoved": true
                     }
@@ -1082,8 +1127,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2952,
-               "stateToID": 2953,
+               "stateFromID": 371,
+               "stateToID": 372,
                "selected": false
           },
           {
@@ -1093,12 +1138,12 @@
                     "path": [
                          [
                               "M",
-                              266,
+                              294,
                               660
                          ],
                          [
                               "L",
-                              266,
+                              294,
                               692
                          ]
                     ],
@@ -1124,8 +1169,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2953,
-               "stateToID": 2955,
+               "stateFromID": 372,
+               "stateToID": 374,
                "selected": false
           },
           {
@@ -1135,12 +1180,12 @@
                     "path": [
                          [
                               "M",
-                              266,
+                              294,
                               735
                          ],
                          [
                               "L",
-                              266,
+                              294,
                               762
                          ]
                     ],
@@ -1166,8 +1211,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2955,
-               "stateToID": 2959,
+               "stateFromID": 374,
+               "stateToID": 378,
                "selected": false
           },
           {
@@ -1177,12 +1222,12 @@
                     "path": [
                          [
                               "M",
-                              266,
+                              294,
                               805
                          ],
                          [
                               "L",
-                              266,
+                              294,
                               835
                          ]
                     ],
@@ -1208,8 +1253,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2959,
-               "stateToID": 2961,
+               "stateFromID": 378,
+               "stateToID": 380,
                "selected": false
           },
           {
@@ -1229,8 +1274,8 @@
                          ],
                          [
                               "L",
-                              470,
-                              795
+                              468,
+                              795.4671532846716
                          ]
                     ],
                     "stroke-width": 2,
@@ -1253,8 +1298,8 @@
                     "actionAp": false,
                     "note": ""
                },
-               "shiftx": 77,
-               "shifty": -92,
+               "shiftx": 70,
+               "shifty": -97,
                "vertexes": [
                     {
                          "x": 436,
@@ -1266,8 +1311,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2952,
-               "stateToID": 2963,
+               "stateFromID": 371,
+               "stateToID": 382,
                "selected": false
           },
           {
@@ -1288,7 +1333,7 @@
                          [
                               "L",
                               691,
-                              634
+                              617
                          ]
                     ],
                     "stroke-width": 2,
@@ -1324,8 +1369,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2952,
-               "stateToID": 2965,
+               "stateFromID": 371,
+               "stateToID": 384,
                "selected": false
           },
           {
@@ -1335,12 +1380,12 @@
                     "path": [
                          [
                               "M",
-                              266,
+                              294,
                               878
                          ],
                          [
                               "L",
-                              266,
+                              294,
                               905
                          ]
                     ],
@@ -1366,8 +1411,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2961,
-               "stateToID": 2967,
+               "stateFromID": 380,
+               "stateToID": 386,
                "selected": false
           },
           {
@@ -1377,12 +1422,12 @@
                     "path": [
                          [
                               "M",
-                              266,
+                              294,
                               962
                          ],
                          [
                               "L",
-                              266,
+                              294,
                               996
                          ],
                          [
@@ -1415,7 +1460,7 @@
                "shifty": -1,
                "vertexes": [
                     {
-                         "x": 266,
+                         "x": 294,
                          "y": 996,
                          "hasMoved": true
                     }
@@ -1424,8 +1469,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2967,
-               "stateToID": 2968,
+               "stateFromID": 386,
+               "stateToID": 387,
                "selected": false
           },
           {
@@ -1435,23 +1480,23 @@
                     "path": [
                          [
                               "M",
-                              293,
+                              321,
                               935
                          ],
                          [
                               "L",
-                              504,
+                              532,
                               935
                          ],
                          [
                               "L",
-                              504,
+                              532,
                               935
                          ],
                          [
                               "L",
-                              552,
-                              977.4347826086956
+                              558.8852459016393,
+                              975
                          ]
                     ],
                     "stroke-width": 2,
@@ -1478,12 +1523,12 @@
                "shifty": -2,
                "vertexes": [
                     {
-                         "x": 504,
+                         "x": 532,
                          "y": 935,
                          "hasMoved": true
                     },
                     {
-                         "x": 504,
+                         "x": 532,
                          "y": 935,
                          "hasMoved": true
                     }
@@ -1492,8 +1537,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2967,
-               "stateToID": 2970,
+               "stateFromID": 386,
+               "stateToID": 389,
                "selected": false
           },
           {
@@ -1534,8 +1579,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2968,
-               "stateToID": 2970,
+               "stateFromID": 387,
+               "stateToID": 389,
                "selected": false
           },
           {
@@ -1545,13 +1590,8 @@
                     "path": [
                          [
                               "M",
-                              574.6396396396397,
-                              815
-                         ],
-                         [
-                              "L",
                               573,
-                              906
+                              817
                          ],
                          [
                               "L",
@@ -1576,19 +1616,13 @@
                },
                "shiftx": 0,
                "shifty": 0,
-               "vertexes": [
-                    {
-                         "x": 573,
-                         "y": 906,
-                         "hasMoved": true
-                    }
-               ],
+               "vertexes": [],
                "shiftxy": {
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2963,
-               "stateToID": 2970,
+               "stateFromID": 382,
+               "stateToID": 389,
                "selected": false
           },
           {
@@ -1599,12 +1633,12 @@
                          [
                               "M",
                               691,
-                              677
+                              684
                          ],
                          [
                               "L",
                               691,
-                              702
+                              709
                          ]
                     ],
                     "stroke-width": 2,
@@ -1629,8 +1663,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2965,
-               "stateToID": 2971,
+               "stateFromID": 384,
+               "stateToID": 390,
                "selected": false
           },
           {
@@ -1641,7 +1675,7 @@
                          [
                               "M",
                               691,
-                              745
+                              764
                          ],
                          [
                               "L",
@@ -1682,19 +1716,61 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 2971,
-               "stateToID": 2970,
+               "stateFromID": 390,
+               "stateToID": 389,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              724,
+                              572
+                         ],
+                         [
+                              "L",
+                              724,
+                              611
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": "-"
+               },
+               "fwprop": {
+                    "order": 1,
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "",
+                    "guardType": "function",
+                    "actionType": "function",
+                    "guardCode": "",
+                    "actionCode": ""
+               },
+               "shiftx": 0,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 481,
+               "stateToID": 484,
                "selected": false
           }
      ],
      "globals": {
           "paperPanX": 56,
-          "paperPanY": 134,
+          "paperPanY": 74,
           "attrs": {
                "x": 56,
-               "y": 134,
-               "width": 1728,
-               "height": 961,
+               "y": 74,
+               "width": 1326,
+               "height": 673,
                "r": 0,
                "rx": 0,
                "ry": 0,
@@ -1703,7 +1779,7 @@
                "stroke-width": 0
           },
           "fwprop": {
-               "smName": "Logic for Executing Transitions in a State Machine",
+               "smName": "SM_TransitionExecution",
                "editorType": "Pr",
                "globalvar": [
                     {
@@ -1716,8 +1792,8 @@
                "smNotes": "",
                "memalloc": "dynamic",
                "displayInfo": 0,
-               "displayOrder": 1,
-               "smTags": "example"
+               "displayOrder": 0,
+               "smTags": "FwProfile"
           }
      }
 }

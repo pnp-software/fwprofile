@@ -2,7 +2,7 @@
      "editorVersion": "6.0",
      "states": [
           {
-               "id": 4409,
+               "id": 550,
                "attrs": {
                     "x": 327,
                     "y": 126.5,
@@ -25,16 +25,16 @@
                "selected": false
           },
           {
-               "id": 4411,
+               "id": 552,
                "attrs": {
-                    "x": 628,
-                    "y": 114.5,
+                    "x": 525,
+                    "y": 125.5,
                     "width": 118,
                     "height": 54,
                     "r": 0,
                     "rx": 0,
                     "ry": 0,
-                    "fill": "#fff",
+                    "fill": "#ccccff",
                     "stroke": "#666",
                     "stroke-width": 1,
                     "fill-opacity": 100,
@@ -48,7 +48,7 @@
                "selected": false
           },
           {
-               "id": 4413,
+               "id": 554,
                "attrs": {
                     "x": 175,
                     "y": 204,
@@ -70,7 +70,7 @@
                "selected": false
           },
           {
-               "id": 4414,
+               "id": 555,
                "attrs": {
                     "x": 374,
                     "y": 292,
@@ -94,7 +94,7 @@
                "selected": false
           },
           {
-               "id": 4415,
+               "id": 556,
                "attrs": {
                     "x": 374,
                     "y": 207,
@@ -118,7 +118,7 @@
                "selected": false
           },
           {
-               "id": 4416,
+               "id": 557,
                "attrs": {
                     "x": 217,
                     "y": 372,
@@ -157,7 +157,7 @@
                "selected": false
           },
           {
-               "id": 4418,
+               "id": 559,
                "attrs": {
                     "x": 292,
                     "y": 443,
@@ -196,7 +196,7 @@
                "selected": false
           },
           {
-               "id": 4420,
+               "id": 561,
                "attrs": {
                     "x": 374,
                     "y": 615,
@@ -220,7 +220,7 @@
                "selected": false
           },
           {
-               "id": 4421,
+               "id": 562,
                "attrs": {
                     "x": 374,
                     "y": 520,
@@ -244,7 +244,7 @@
                "selected": false
           },
           {
-               "id": 4422,
+               "id": 563,
                "attrs": {
                     "x": 84,
                     "y": 612,
@@ -283,7 +283,7 @@
                "selected": false
           },
           {
-               "id": 4424,
+               "id": 565,
                "attrs": {
                     "x": 194,
                     "y": 711,
@@ -322,7 +322,7 @@
                "selected": false
           },
           {
-               "id": 4426,
+               "id": 567,
                "attrs": {
                     "x": 374,
                     "y": 794,
@@ -346,12 +346,12 @@
                "selected": false
           },
           {
-               "id": 4427,
+               "id": 568,
                "attrs": {
-                    "x": 234,
-                    "y": 877,
-                    "width": 304,
-                    "height": 30,
+                    "x": 249,
+                    "y": 871,
+                    "width": 274,
+                    "height": 42,
                     "r": 10,
                     "rx": 10,
                     "ry": 10,
@@ -374,18 +374,18 @@
                     "entryCode": "",
                     "doCode": "",
                     "exitCode": "",
-                    "entryDesc": "Execute Transition with Guard Evaluating to TRUE",
+                    "entryDesc": "Among Transitions with Guard evaluating\nto True, execute the one with the lowest Evauation Order",
                     "doDesc": "",
                     "exitDesc": "",
                     "entryAp": false,
                     "doAp": false,
                     "exitAp": false,
-                    "embedSmId": "0"
+                    "embedSmId": null
                },
                "selected": false
           },
           {
-               "id": 4429,
+               "id": 570,
                "attrs": {
                     "x": 628,
                     "y": 879,
@@ -446,8 +446,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4413,
-               "stateToID": 4415,
+               "stateFromID": 554,
+               "stateToID": 556,
                "selected": false
           },
           {
@@ -493,8 +493,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4415,
-               "stateToID": 4414,
+               "stateFromID": 556,
+               "stateToID": 555,
                "selected": false
           },
           {
@@ -540,8 +540,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4414,
-               "stateToID": 4416,
+               "stateFromID": 555,
+               "stateToID": 557,
                "selected": false
           },
           {
@@ -582,8 +582,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4416,
-               "stateToID": 4418,
+               "stateFromID": 557,
+               "stateToID": 559,
                "selected": false
           },
           {
@@ -660,8 +660,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4414,
-               "stateToID": 4421,
+               "stateFromID": 555,
+               "stateToID": 562,
                "selected": false
           },
           {
@@ -702,8 +702,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4418,
-               "stateToID": 4421,
+               "stateFromID": 559,
+               "stateToID": 562,
                "selected": false
           },
           {
@@ -749,8 +749,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4421,
-               "stateToID": 4420,
+               "stateFromID": 562,
+               "stateToID": 561,
                "selected": false
           },
           {
@@ -817,8 +817,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4421,
-               "stateToID": 4422,
+               "stateFromID": 562,
+               "stateToID": 563,
                "selected": false
           },
           {
@@ -859,8 +859,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4422,
-               "stateToID": 4420,
+               "stateFromID": 563,
+               "stateToID": 561,
                "selected": false
           },
           {
@@ -906,8 +906,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4420,
-               "stateToID": 4424,
+               "stateFromID": 561,
+               "stateToID": 565,
                "selected": false
           },
           {
@@ -964,8 +964,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4420,
-               "stateToID": 4429,
+               "stateFromID": 561,
+               "stateToID": 570,
                "selected": false
           },
           {
@@ -1032,8 +1032,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4415,
-               "stateToID": 4429,
+               "stateFromID": 556,
+               "stateToID": 570,
                "selected": false
           },
           {
@@ -1074,8 +1074,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4424,
-               "stateToID": 4426,
+               "stateFromID": 565,
+               "stateToID": 567,
                "selected": false
           },
           {
@@ -1091,7 +1091,7 @@
                          [
                               "L",
                               386,
-                              869
+                              863
                          ]
                     ],
                     "stroke-width": 2,
@@ -1108,21 +1108,21 @@
                     "actionType": "call function",
                     "guardCode": "",
                     "actionCode": "",
-                    "guardDesc": "One Guard Evaluates to TRUE",
+                    "guardDesc": "At least one Guard\nevaluates to TRUE",
                     "guardAp": false,
                     "actionDesc": "",
                     "actionAp": false,
                     "note": ""
                },
-               "shiftx": 85,
+               "shiftx": -56,
                "shifty": 5,
                "vertexes": [],
                "shiftxy": {
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4426,
-               "stateToID": 4427,
+               "stateFromID": 567,
+               "stateToID": 568,
                "selected": false
           },
           {
@@ -1133,6 +1133,11 @@
                          [
                               "M",
                               413,
+                              806
+                         ],
+                         [
+                              "L",
+                              485,
                               806
                          ],
                          [
@@ -1170,6 +1175,11 @@
                "shifty": -1,
                "vertexes": [
                     {
+                         "x": 485,
+                         "y": 806,
+                         "hasMoved": true
+                    },
+                    {
                          "x": 577,
                          "y": 806,
                          "hasMoved": true
@@ -1179,8 +1189,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4426,
-               "stateToID": 4429,
+               "stateFromID": 567,
+               "stateToID": 570,
                "selected": false
           },
           {
@@ -1190,7 +1200,7 @@
                     "path": [
                          [
                               "M",
-                              543,
+                              528,
                               892
                          ],
                          [
@@ -1221,19 +1231,19 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 4427,
-               "stateToID": 4429,
+               "stateFromID": 568,
+               "stateToID": 570,
                "selected": false
           }
      ],
      "globals": {
           "paperPanX": 0,
-          "paperPanY": 0,
+          "paperPanY": 420,
           "attrs": {
                "x": 0,
-               "y": 0,
-               "width": 860,
-               "height": 961,
+               "y": 420,
+               "width": 1326,
+               "height": 673,
                "r": 0,
                "rx": 0,
                "ry": 0,
@@ -1242,7 +1252,7 @@
                "stroke-width": 0
           },
           "fwprop": {
-               "smName": "Logic for Processing Transition Commands by a State Machine",
+               "smName": "SM_CmdProcessing",
                "editorType": "Pr",
                "globalvar": [
                     {
@@ -1255,8 +1265,8 @@
                "smNotes": "",
                "memalloc": "dynamic",
                "displayInfo": 0,
-               "displayOrder": 1,
-               "smTags": "example"
+               "displayOrder": 0,
+               "smTags": "FwProfile"
           }
      }
 }

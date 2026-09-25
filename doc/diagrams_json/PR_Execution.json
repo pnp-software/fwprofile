@@ -2,7 +2,7 @@
      "editorVersion": "6.0",
      "states": [
           {
-               "id": 7763,
+               "id": 1,
                "attrs": {
                     "x": 38,
                     "y": 91,
@@ -24,7 +24,7 @@
                "selected": false
           },
           {
-               "id": 7764,
+               "id": 2,
                "attrs": {
                     "x": 34,
                     "y": 186,
@@ -63,7 +63,7 @@
                "selected": false
           },
           {
-               "id": 7766,
+               "id": 4,
                "attrs": {
                     "x": 9,
                     "y": 479,
@@ -102,7 +102,7 @@
                "selected": false
           },
           {
-               "id": 7768,
+               "id": 6,
                "attrs": {
                     "x": 60,
                     "y": 261,
@@ -141,12 +141,12 @@
                "selected": false
           },
           {
-               "id": 7770,
+               "id": 8,
                "attrs": {
                     "x": 327,
-                    "y": 444,
+                    "y": 467,
                     "width": 360,
-                    "height": 30,
+                    "height": 54,
                     "r": 10,
                     "rx": 10,
                     "ry": 10,
@@ -169,18 +169,18 @@
                     "entryCode": "",
                     "doCode": "",
                     "exitCode": "",
-                    "entryDesc": "Evaluate Guards of Control Flows Issuing from Decision Node",
+                    "entryDesc": "Evaluate Guards of Control Flows Issuing from Decision Node\nand identify the Control Flow with the lowest Evaluation Order whose guard\nevaluates to True",
                     "entryAp": false,
                     "doDesc": "",
                     "doAp": false,
                     "exitDesc": "",
                     "exitAp": false,
-                    "embedSmId": "0"
+                    "embedSmId": null
                },
                "selected": false
           },
           {
-               "id": 7772,
+               "id": 10,
                "attrs": {
                     "x": 220,
                     "y": 94,
@@ -204,7 +204,7 @@
                "selected": false
           },
           {
-               "id": 7773,
+               "id": 11,
                "attrs": {
                     "x": 495,
                     "y": 264,
@@ -228,7 +228,7 @@
                "selected": false
           },
           {
-               "id": 7774,
+               "id": 12,
                "attrs": {
                     "x": 732,
                     "y": 228,
@@ -250,7 +250,7 @@
                "selected": false
           },
           {
-               "id": 7775,
+               "id": 13,
                "attrs": {
                     "x": 495,
                     "y": 366,
@@ -274,10 +274,10 @@
                "selected": false
           },
           {
-               "id": 7776,
+               "id": 14,
                "attrs": {
                     "x": -9,
-                    "y": 553,
+                    "y": 577,
                     "width": 298,
                     "height": 30,
                     "r": 10,
@@ -313,10 +313,10 @@
                "selected": false
           },
           {
-               "id": 7778,
+               "id": 16,
                "attrs": {
                     "x": 34,
-                    "y": 631,
+                    "y": 655,
                     "width": 212,
                     "height": 30,
                     "r": 10,
@@ -352,10 +352,10 @@
                "selected": false
           },
           {
-               "id": 7780,
+               "id": 18,
                "attrs": {
                     "x": 495,
-                    "y": 556,
+                    "y": 580,
                     "width": 24,
                     "height": 24,
                     "r": 0,
@@ -376,7 +376,7 @@
                "selected": false
           },
           {
-               "id": 7781,
+               "id": 19,
                "attrs": {
                     "x": 779,
                     "y": 363,
@@ -415,10 +415,10 @@
                "selected": false
           },
           {
-               "id": 7783,
+               "id": 21,
                "attrs": {
                     "x": 23,
-                    "y": 707,
+                    "y": 731,
                     "width": 234,
                     "height": 30,
                     "r": 10,
@@ -450,6 +450,29 @@
                     "exitDesc": "",
                     "exitAp": false,
                     "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 102,
+               "attrs": {
+                    "x": 524,
+                    "y": 413,
+                    "width": 264,
+                    "height": 42,
+                    "r": 0,
+                    "rx": 0,
+                    "ry": 0,
+                    "fill": "#ccccff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100,
+                    "stroke-dasharray": "--"
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "note",
+                    "note": "There must be at least one Control Flow out of a\nDecision Node with a True Guard (see Constraint D1) "
                },
                "selected": false
           }
@@ -509,8 +532,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7763,
-               "stateToID": 7772,
+               "stateFromID": 1,
+               "stateToID": 10,
                "selected": false
           },
           {
@@ -556,8 +579,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7764,
-               "stateToID": 7768,
+               "stateFromID": 2,
+               "stateToID": 6,
                "selected": false
           },
           {
@@ -603,8 +626,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7772,
-               "stateToID": 7764,
+               "stateFromID": 10,
+               "stateToID": 2,
                "selected": false
           },
           {
@@ -645,8 +668,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7768,
-               "stateToID": 7773,
+               "stateFromID": 6,
+               "stateToID": 11,
                "selected": false
           },
           {
@@ -703,8 +726,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7773,
-               "stateToID": 7774,
+               "stateFromID": 11,
+               "stateToID": 12,
                "selected": false
           },
           {
@@ -761,8 +784,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7772,
-               "stateToID": 7774,
+               "stateFromID": 10,
+               "stateToID": 12,
                "selected": false
           },
           {
@@ -808,8 +831,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7773,
-               "stateToID": 7775,
+               "stateFromID": 11,
+               "stateToID": 13,
                "selected": false
           },
           {
@@ -825,7 +848,7 @@
                          [
                               "L",
                               507,
-                              436
+                              459
                          ]
                     ],
                     "stroke-width": 2,
@@ -855,8 +878,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7775,
-               "stateToID": 7770,
+               "stateFromID": 13,
+               "stateToID": 8,
                "selected": false
           },
           {
@@ -872,7 +895,7 @@
                          [
                               "L",
                               140,
-                              545
+                              569
                          ]
                     ],
                     "stroke-width": 2,
@@ -897,8 +920,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7766,
-               "stateToID": 7776,
+               "stateFromID": 4,
+               "stateToID": 14,
                "selected": false
           },
           {
@@ -955,8 +978,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7775,
-               "stateToID": 7766,
+               "stateFromID": 13,
+               "stateToID": 4,
                "selected": false
           },
           {
@@ -967,12 +990,12 @@
                          [
                               "M",
                               140,
-                              588
+                              612
                          ],
                          [
                               "L",
                               140,
-                              623
+                              647
                          ]
                     ],
                     "stroke-width": 2,
@@ -997,8 +1020,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7776,
-               "stateToID": 7778,
+               "stateFromID": 14,
+               "stateToID": 16,
                "selected": false
           },
           {
@@ -1009,12 +1032,12 @@
                          [
                               "M",
                               507,
-                              479
+                              526
                          ],
                          [
                               "L",
                               507,
-                              538
+                              562
                          ]
                     ],
                     "stroke-width": 2,
@@ -1039,8 +1062,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7770,
-               "stateToID": 7780,
+               "stateFromID": 8,
+               "stateToID": 18,
                "selected": false
           },
           {
@@ -1051,12 +1074,12 @@
                          [
                               "M",
                               480,
-                              568
+                              592
                          ],
                          [
                               "L",
                               297,
-                              568
+                              592
                          ]
                     ],
                     "stroke-width": 2,
@@ -1073,7 +1096,7 @@
                     "actionType": "call function",
                     "guardCode": "",
                     "actionCode": "",
-                    "guardDesc": "Target of Control Flow \nwhich Evaluates to TRUE \nis an Action Node",
+                    "guardDesc": "Target of Control Flow \nselected in NODE3 \nis an Action Node",
                     "guardAp": false,
                     "actionDesc": "",
                     "actionAp": false,
@@ -1086,8 +1109,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7780,
-               "stateToID": 7776,
+               "stateFromID": 18,
+               "stateToID": 14,
                "selected": false
           },
           {
@@ -1098,22 +1121,22 @@
                          [
                               "M",
                               534,
-                              568
+                              592
                          ],
                          [
                               "L",
                               768,
-                              568
+                              592
                          ],
                          [
                               "L",
                               768,
-                              459
+                              494
                          ],
                          [
                               "L",
                               695,
-                              459
+                              494
                          ]
                     ],
                     "stroke-width": 2,
@@ -1130,7 +1153,7 @@
                     "actionType": "call function",
                     "guardCode": "",
                     "actionCode": "",
-                    "guardDesc": "Target of Control Flow which Evaluates\n to TRUE is a Decision Node",
+                    "guardDesc": "Target of Control Flow seslected\nin NODE3 is a Decision Node",
                     "guardAp": false,
                     "actionDesc": "",
                     "actionAp": false,
@@ -1141,12 +1164,12 @@
                "vertexes": [
                     {
                          "x": 768,
-                         "y": 568,
+                         "y": 592,
                          "hasMoved": true
                     },
                     {
                          "x": 768,
-                         "y": 459,
+                         "y": 494,
                          "hasMoved": true
                     }
                ],
@@ -1154,8 +1177,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7780,
-               "stateToID": 7770,
+               "stateFromID": 18,
+               "stateToID": 8,
                "selected": false
           },
           {
@@ -1201,8 +1224,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7775,
-               "stateToID": 7781,
+               "stateFromID": 13,
+               "stateToID": 19,
                "selected": false
           },
           {
@@ -1213,17 +1236,17 @@
                          [
                               "M",
                               507,
-                              595
+                              619
                          ],
                          [
                               "L",
                               507,
-                              646
+                              670
                          ],
                          [
                               "L",
                               849,
-                              646
+                              670
                          ],
                          [
                               "L",
@@ -1245,23 +1268,23 @@
                     "actionType": "call function",
                     "guardCode": "",
                     "actionCode": "",
-                    "guardDesc": "Target of Control Flow which Evaluates \nto TRUE is a Final Node",
+                    "guardDesc": "Target of Control Flow selected \nin NODE3 is a Final Node",
                     "guardAp": false,
                     "actionDesc": "",
                     "actionAp": false,
                     "note": ""
                },
-               "shiftx": -104,
-               "shifty": -9,
+               "shiftx": -122,
+               "shifty": -6,
                "vertexes": [
                     {
                          "x": 507,
-                         "y": 646,
+                         "y": 670,
                          "hasMoved": true
                     },
                     {
                          "x": 849,
-                         "y": 646,
+                         "y": 670,
                          "hasMoved": true
                     }
                ],
@@ -1269,8 +1292,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7780,
-               "stateToID": 7781,
+               "stateFromID": 18,
+               "stateToID": 19,
                "selected": false
           },
           {
@@ -1322,8 +1345,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7781,
-               "stateToID": 7774,
+               "stateFromID": 19,
+               "stateToID": 12,
                "selected": false
           },
           {
@@ -1334,17 +1357,17 @@
                          [
                               "M",
                               140,
-                              742
+                              766
                          ],
                          [
                               "L",
                               140,
-                              778
+                              802
                          ],
                          [
                               "L",
                               -31,
-                              778
+                              802
                          ],
                          [
                               "L",
@@ -1377,12 +1400,12 @@
                "vertexes": [
                     {
                          "x": 140,
-                         "y": 778,
+                         "y": 802,
                          "hasMoved": true
                     },
                     {
                          "x": -31,
-                         "y": 778,
+                         "y": 802,
                          "hasMoved": true
                     },
                     {
@@ -1395,8 +1418,8 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7783,
-               "stateToID": 7768,
+               "stateFromID": 21,
+               "stateToID": 6,
                "selected": false
           },
           {
@@ -1407,12 +1430,12 @@
                          [
                               "M",
                               140,
-                              666
+                              690
                          ],
                          [
                               "L",
                               140,
-                              699
+                              723
                          ]
                     ],
                     "stroke-width": 2,
@@ -1437,19 +1460,19 @@
                     "x": 0,
                     "y": 0
                },
-               "stateFromID": 7778,
-               "stateToID": 7783,
+               "stateFromID": 16,
+               "stateToID": 21,
                "selected": false
           }
      ],
      "globals": {
-          "paperPanX": 60,
-          "paperPanY": -12,
+          "paperPanX": -118,
+          "paperPanY": 56,
           "attrs": {
-               "x": 60,
-               "y": -12,
-               "width": 1728,
-               "height": 961,
+               "x": -118,
+               "y": 56,
+               "width": 1326,
+               "height": 673,
                "r": 0,
                "rx": 0,
                "ry": 0,
@@ -1471,13 +1494,13 @@
                     }
                ],
                "memalloc": "static",
-               "smName": "Procedure Execution Logic",
+               "smName": "PR_Execution",
                "editorType": "Pr",
                "smIncludes": "",
                "smNotes": "",
                "displayInfo": 0,
-               "displayOrder": 1,
-               "smTags": "example"
+               "displayOrder": 0,
+               "smTags": "FwProfile"
           }
      }
 }
