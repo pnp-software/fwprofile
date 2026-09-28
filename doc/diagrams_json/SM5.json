@@ -1,0 +1,624 @@
+{
+     "editorVersion": "6.0",
+     "states": [
+          {
+               "id": 2999,
+               "attrs": {
+                    "x": 340,
+                    "y": 259,
+                    "width": 30,
+                    "height": 30,
+                    "r": 15,
+                    "rx": 15,
+                    "ry": 15,
+                    "fill": "#999999",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "init",
+                    "note": ""
+               },
+               "selected": false
+          },
+          {
+               "id": 3001,
+               "attrs": {
+                    "x": 291,
+                    "y": 345,
+                    "width": 128,
+                    "height": 90,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "STATE_S1",
+                    "entryFunc": "Counter_1",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Counter_1 + 1",
+                    "doDesc": "Counter_1 + 2",
+                    "exitDesc": "Counter_1 + 4",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 3006,
+               "attrs": {
+                    "x": 665,
+                    "y": 345,
+                    "width": 128,
+                    "height": 90,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 2,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "STATE_S2",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "Counter_1 + 1",
+                    "doDesc": "Counter_1 + 2",
+                    "exitDesc": "Counter_1 + 4",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          },
+          {
+               "id": 3087,
+               "attrs": {
+                    "x": 716,
+                    "y": 509,
+                    "width": 26,
+                    "height": 26,
+                    "r": 13,
+                    "rx": 13,
+                    "ry": 13,
+                    "fill": "#000",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 1,
+                    "type": "final",
+                    "note": ""
+               },
+               "selected": false
+          },
+          {
+               "id": 3101,
+               "attrs": {
+                    "x": 507,
+                    "y": 479,
+                    "width": 30,
+                    "height": 30,
+                    "r": 10,
+                    "rx": 10,
+                    "ry": 10,
+                    "fill": "#fff",
+                    "stroke": "#666",
+                    "stroke-width": 1,
+                    "fill-opacity": 100
+               },
+               "fwprop": {
+                    "autoid": 3,
+                    "type": "state",
+                    "note": "",
+                    "identifier": "",
+                    "entryFunc": "",
+                    "doFunc": "",
+                    "exitFunc": "",
+                    "entryType": "call function",
+                    "doType": "call function",
+                    "exitType": "call function",
+                    "entryCode": "",
+                    "doCode": "",
+                    "exitCode": "",
+                    "entryDesc": "",
+                    "doDesc": "",
+                    "exitDesc": "",
+                    "entryAp": false,
+                    "doAp": false,
+                    "exitAp": false,
+                    "embedSmId": "0"
+               },
+               "selected": false
+          }
+     ],
+     "connections": [
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              355,
+                              294
+                         ],
+                         [
+                              "L",
+                              355,
+                              337
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "",
+                    "guardFunc": "",
+                    "actionFunc": "Action1",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "Counter_2 ++",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 43,
+               "shifty": 9,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 2999,
+               "stateToID": 3001,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              424,
+                              390
+                         ],
+                         [
+                              "L",
+                              657,
+                              390
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "TR2",
+                    "guardFunc": "Flag_1",
+                    "actionFunc": "Counter_2",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "Counter_2 ++",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 1,
+               "shifty": 0,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 3001,
+               "stateToID": 3006,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              798,
+                              390
+                         ],
+                         [
+                              "L",
+                              895,
+                              390
+                         ],
+                         [
+                              "L",
+                              895,
+                              325
+                         ],
+                         [
+                              "L",
+                              843,
+                              325
+                         ],
+                         [
+                              "L",
+                              729,
+                              325
+                         ],
+                         [
+                              "L",
+                              729,
+                              337
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "TR4",
+                    "guardFunc": "Flag_1",
+                    "actionFunc": "Counter_2",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "Counter_2 ++",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": -70,
+               "shifty": -2,
+               "vertexes": [
+                    {
+                         "x": 895,
+                         "y": 390,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 895,
+                         "y": 325,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 843,
+                         "y": 325,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 729,
+                         "y": 325,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 3006,
+               "stateToID": 3006,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              729,
+                              440
+                         ],
+                         [
+                              "L",
+                              729,
+                              501
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "2",
+                    "identifier": "TR5",
+                    "guardFunc": "Flag_1",
+                    "actionFunc": "Counter_2",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "Counter_2 ++",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 81,
+               "shifty": -6,
+               "vertexes": [],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 3006,
+               "stateToID": 3087,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              502,
+                              494
+                         ],
+                         [
+                              "L",
+                              356,
+                              494
+                         ],
+                         [
+                              "L",
+                              355.50961538461536,
+                              443
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "1",
+                    "identifier": "",
+                    "guardFunc": "Flag_1",
+                    "actionFunc": "Counter_2",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "Counter_2 ++",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 25,
+               "shifty": 0,
+               "vertexes": [
+                    {
+                         "x": 356,
+                         "y": 494,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 3101,
+               "stateToID": 3001,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              688.6491228070175,
+                              440
+                         ],
+                         [
+                              "L",
+                              683,
+                              447
+                         ],
+                         [
+                              "L",
+                              683,
+                              494
+                         ],
+                         [
+                              "L",
+                              545,
+                              494
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "3",
+                    "identifier": "TR6",
+                    "guardFunc": "",
+                    "actionFunc": "Counter_2",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "Counter_2 ++",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": -30,
+               "shifty": 1,
+               "vertexes": [
+                    {
+                         "x": 683,
+                         "y": 447,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 683,
+                         "y": 494,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 3006,
+               "stateToID": 3101,
+               "selected": false
+          },
+          {
+               "attrs": {
+                    "fill": "none",
+                    "stroke": "#000",
+                    "path": [
+                         [
+                              "M",
+                              522,
+                              474
+                         ],
+                         [
+                              "L",
+                              522,
+                              408
+                         ],
+                         [
+                              "L",
+                              635,
+                              408
+                         ],
+                         [
+                              "L",
+                              657,
+                              403.7872340425531
+                         ]
+                    ],
+                    "stroke-width": 2,
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-dasharray": ""
+               },
+               "fwprop": {
+                    "order": "2",
+                    "identifier": "",
+                    "guardFunc": "Flag_2",
+                    "actionFunc": "Counter_2",
+                    "guardType": "call function",
+                    "actionType": "call function",
+                    "guardCode": "",
+                    "actionCode": "",
+                    "guardDesc": "",
+                    "guardAp": false,
+                    "actionDesc": "Counter_2 ++",
+                    "actionAp": false,
+                    "note": ""
+               },
+               "shiftx": 35,
+               "shifty": 21,
+               "vertexes": [
+                    {
+                         "x": 522,
+                         "y": 408,
+                         "hasMoved": true
+                    },
+                    {
+                         "x": 635,
+                         "y": 408,
+                         "hasMoved": true
+                    }
+               ],
+               "shiftxy": {
+                    "x": 0,
+                    "y": 0
+               },
+               "stateFromID": 3101,
+               "stateToID": 3006,
+               "selected": false
+          }
+     ],
+     "globals": {
+          "paperPanX": 0,
+          "paperPanY": 0,
+          "attrs": {
+               "x": 0,
+               "y": 0,
+               "width": 1728,
+               "height": 961,
+               "r": 0,
+               "rx": 0,
+               "ry": 0,
+               "fill": "#eee",
+               "stroke": "#000",
+               "stroke-width": 0
+          },
+          "fwprop": {
+               "smName": "SM5",
+               "editorType": "Sm",
+               "globalvar": [
+                    {
+                         "type": "int",
+                         "name": "",
+                         "value": ""
+                    }
+               ],
+               "smIncludes": "",
+               "smNotes": "",
+               "memalloc": "dynamic",
+               "displayInfo": 0,
+               "displayOrder": 1,
+               "smTags": ""
+          }
+     }
+}

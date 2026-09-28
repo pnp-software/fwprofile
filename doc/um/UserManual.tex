@@ -1,161 +1,10 @@
-\documentclass[a4paper,10pt]{article}
-\usepackage[utf8x]{inputenc}
-\usepackage{array}
-\usepackage[pdftex]{graphicx}
-\usepackage{hyperref}
-\usepackage{listings}
-\usepackage{enumitem}
-\usepackage{color, colortbl}
-\usepackage{longtable}
-\usepackage{float}
-\usepackage[compact]{titlesec}		% The 'compact' argument reduces spacing before and after headings
-
-% Start ---- Fix for bug in issue 2.10.1 of titlesec package
-\usepackage{etoolbox}
-
-\makeatletter
-\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
-\patchcmd{\ttlh@hang}{\noindent}{}{}{}
-\makeatother
-% End ---- Fix for bug in issue 2.10.1 of titlesec package
-
-\usepackage{verbatim}
-\usepackage{fancyhdr}
-
-%---------------------------------------------
-% Management of Captions
-%---------------------------------------------
-\usepackage[labelfont=bf]{caption}	% The caption label for tables and figures is bolded
-\setlength{\abovecaptionskip}{0pt}	% Bring label close to figure or table
-\renewcommand{\figurename}{Fig.}	% The caption label for figures is: "Fig."
-%\captionsetup[table]{singlelinecheck=off,justification=raggedright}	% Justify the table captions to the left
-
-\pagestyle{fancy}
-
-%---------------------------------------------
-% Management of Captions
-%---------------------------------------------
-% Introduce a page break before each section
-\let\stdsection\section
-\renewcommand\section{\newpage\stdsection}  
-
-%------------------------------------------------------------------------------------------
-% Directories holding image files:
-% Figures from FW Profile Project 
-%------------------------------------------------------------------------------------------
-\graphicspath{ {../images/} }	
-
-%---------------------------------------------
-% Paragraph Layout
-%---------------------------------------------
-\setlength{\parindent}{0in}						% No indentation on first line of a new paragraph
-
-%---------------------------------------------
-% Headers and Footers
-%---------------------------------------------
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
-
-\lhead{PP-UM-COR-0001}
-\chead{}
-\rhead{Revision 1.2.3}
-\lfoot{\textcopyright2012 P\&P Software GmbH. All Rights Reserved.} 
-\cfoot{\vspace{5mm}
-{\color{red}\verbatiminput{../commercial/LicensedTo.txt}}}
-\rfoot{\thepage}
-
-%---------------------------------------------
-% Management of lists
-%---------------------------------------------
-\setlist{nolistsep}								% No extra vertical space around a list		
-\newenvironment{fw_itemize}						% Control spacing between items in a list
-{\begin{itemize}
-  \setlength{\itemsep}{1mm}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}}
-{\end{itemize}}
-
-\newenvironment{fw_enumerate}					% Control spacing between items in an enumeration
-{\begin{enumerate}
-  \setlength{\itemsep}{1mm}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}}
-{\end{enumerate}}
-
-%---------------------------------------------
-% Definition of colours
-%---------------------------------------------
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-\definecolor{lightblue}{RGB}{128,179,255}
-\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
-\definecolor{light-gray}{gray}{0.85}
- 
-%---------------------------------------------
-% Options for the code listing boxes
-%---------------------------------------------
-\lstset{ 
-  language=C,                % the language of the code
-  aboveskip=\bigskipamount,			% vertical space above listing box
-  basicstyle=\footnotesize\ttfamily,    % use small size and mono-space font
-  numbers=left,                   % where to put the line-numbers
-  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
-  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
-                                  % will be numbered
-  numbersep=5pt,                  % how far the line-numbers are from the code
-  backgroundcolor=\color{lbcolor},      % choose the background color. You must add \usepackage{color}
-  showspaces=false,               % show spaces adding particular underscores
-  showstringspaces=false,         % underline spaces within strings
-  showtabs=false,                 % show tabs within strings adding particular underscores
-  frame=single,                   % adds a frame around the code
-  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
-  tabsize=2,                      % sets default tabsize to 2 spaces
-  captionpos=b,                   % sets the caption-position to bottom
-  breaklines=true,                % sets automatic line breaking
-  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
-  title=\lstname,                   % show the filename of files included with \lstinputlisting;
-                                  % also try caption instead of title
-  keywordstyle=\color{blue},          % keyword style
-  commentstyle=\color{dkgreen},       % comment style
-  stringstyle=\color{mauve},         % string literal style
-  escapeinside={\%*}{*)},            % if you want to add a comment within your code
-  morekeywords={*,...}               % if you want to add more keywords to the set
-}
-
-%---------------------------------------------
-% Title Page
-%---------------------------------------------
-\title{\textsc{The Framework Profile} \\ \textsc{C1 Implementation} \\ \textsc{- USER MANUAL -}}
-\author{Alessandro Pasetti \& Vaclav Cechticky}
-\date{7 February 2018}
+\documentclass[manual]{../fwprofile}
+\fwdocument{PP-UM-COR-0001}{1.2.3}{1.2.2}
+        {\textsc{The Framework Profile} \\ \textsc{C1 Implementation} \\ \textsc{- USER MANUAL -}}
+        {7 February 2018}
 
 \begin{document}
-\maketitle
-
-\begin{center}
-Revision 1.2.2 \\
-PP-UM-COR-0001
-\end{center}
-
-\begin{center}
-P\&P Software GmbH \\
-High Tech Center 1 \\
-8274 T\"{a}gerwilen \\
-Switzerland \\
-\vspace{2mm}
-Web site: \url{www.pnp-software.com}\\
-E-mail: \href{mailto:pnp-software@pnp-software.com}{\nolinkurl{pnp-software@pnp-software.com}} 
-\end{center}
-
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{p{11.7cm}}
-\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
+\fwmaketitle
 \begin{abstract}
 This document is the User Manual for the C1 Implementation of the FW Profile. The FW Profile is a specification-level modelling language defined as a restriction of UML. The core modelling constructs offered by the FW Profile are State Machines, Procedures (equivalent to UML's Activity Diagrams), and RT Containers (encapsulations of threads).
 \par
@@ -164,45 +13,7 @@ high reliability.
 \par 
 The C1 Implementation is provided with a Qualification Data Package which can be used to support the certification of applications built using its components.
 \end{abstract}
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{p{11.7cm}}
-\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-%---------------------------------------------
-% Table of contents and list of figures and tables
-%---------------------------------------------
-\newpage
-\tableofcontents
-
-\newpage
-\listoffigures
-\listoftables
-\lstlistoflistings
-
-%---------------------------------------------
-% Copyright notice
-%---------------------------------------------
-\newpage
-\vspace*{\fill}
-\begin{center}
-No part of this publication may be reproduced, transmitted, transcribed, stored in any retrieval system, or translated into any language
-by any means without express prior written permission of P\&P Software GmbH.
-\end{center}
-
-\begin{center}
-Copyright \textcopyright 2013 P\&P Software GmbH. All Rights Reserved. 
-\end{center}
-\vspace*{\fill}
-
-%---------------------------------------------
-% Adjust distance between paragraphs (this cannot be done earlier or it also affects the TOC)
-%---------------------------------------------
-\setlength{\parskip}{3mm}						% Set distance between paragraphs
+\fwfrontmatter
 
 %---------------------------------------------
 % Start of document text
@@ -520,7 +331,7 @@ They therefore do need not be concerned with the internal structure of an SMD. F
 
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.6,keepaspectratio=true]{../images/SMD.png}
+ \includegraphics[width=0.55\linewidth,keepaspectratio=true]{../images/SMD.png}
  % SMD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
  \caption{Internal Structure of a State Machine Descriptor}
  \label{fig:SMD}
@@ -652,7 +463,7 @@ in header file \texttt{FwPrPrivate.h} and is represented in informal notation in
 
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.6,keepaspectratio=true]{../images/PRD.png}
+ \includegraphics[width=0.55\linewidth,keepaspectratio=true]{../images/PRD.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
  \caption{Internal Structure of a Procedure Descriptor}
  \label{fig:PRD}
@@ -861,7 +672,7 @@ The range of values of the container state is defined in type \texttt{FwRtState\
  
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.43,keepaspectratio=true]{../images/RTContainerStates.png}
+ \includegraphics[width=0.653\linewidth,keepaspectratio=true]{../images/RTContainerStates.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
  \caption{RT Container States}
  \label{fig:RTContainerStates}
@@ -905,7 +716,7 @@ Suite and it is used in a number of test cases in the test suite.
 
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.52,keepaspectratio=true]{../images/SM5.png}
+ \includegraphics[width=0.55\linewidth,keepaspectratio=true]{../images/SM5.png}
  % SMD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
  \caption{Test State Machine SM5}
  \label{fig:SM5}
@@ -1231,7 +1042,7 @@ large number of state machines are derived from the same base state machine.
 
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.52,keepaspectratio=true]{../images/SMDExtension.png}
+ \includegraphics[width=0.55\linewidth,keepaspectratio=true]{../images/SMDExtension.png}
  % SMD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
  \caption{Extension Mechanism for State Machine Descriptors}
  \label{fig:SMDExtension}
@@ -1333,7 +1144,7 @@ Suite and it is used in a number of test cases in the test suite.
 
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.52,keepaspectratio=true]{../images/PR2.png}
+ \includegraphics[width=0.55\linewidth,keepaspectratio=true]{../images/PR2.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
  \caption{Test procedure PR2}
  \label{fig:PR2}
@@ -1623,7 +1434,7 @@ large number of procedures are derived from the same base procedure.
 
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.52,keepaspectratio=true]{../images/PRDExtension.png}
+ \includegraphics[width=0.55\linewidth,keepaspectratio=true]{../images/PRDExtension.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
  \caption{Extension Mechanism for Procedure Descriptors}
  \label{fig:PRDExtension}

@@ -1,228 +1,10 @@
-\documentclass[a4paper,10pt]{article}
-\usepackage[utf8x]{inputenc}
-\usepackage{array}
-\usepackage[pdftex]{graphicx}
-\usepackage{hyperref}
-\usepackage{listings}
-\usepackage{enumitem}
-\usepackage{color, colortbl}
-\usepackage{longtable}
-\usepackage{float}
-\usepackage[compact]{titlesec}		% The 'compact' argument reduces spacing before/after headings
-
-% Start ---- Fix for bug in issue 2.10.1 of titlesec package
-\usepackage{etoolbox}
-
-\makeatletter
-\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
-\patchcmd{\ttlh@hang}{\noindent}{}{}{}
-\makeatother
-% End ---- Fix for bug in issue 2.10.1 of titlesec package
-
-\usepackage{verbatim}
-\usepackage{fancyhdr}
-\usepackage{parskip}
-\usepackage{listings}
-
-%---------------------------------------------
-% Management of Captions
-%---------------------------------------------
-\usepackage[labelfont=bf]{caption}	% The caption label for tables and figures is bolded
-\setlength{\abovecaptionskip}{0pt}	% Bring label close to figure or table
-\renewcommand{\figurename}{Fig.}	% The caption label for figures is: "Fig."
-\captionsetup[table]{singlelinecheck=off,justification=raggedright}	% Justify the table captions to the left
-
-\pagestyle{fancy}
-
-%---------------------------------------------
-% Paragraph Layout
-%---------------------------------------------
-\setlength{\parindent}{0in}						% No indentation on first line of a new paragraph
-
-%------------------------------------------------------------------------------------------
-% Management of Headings
-%------------------------------------------------------------------------------------------
-% Define spacing to the left, before and after a subsection heading
-%\titlespacing\subsubsection{8pt}{12pt plus 4pt minus 2pt}{-10pt plus 0pt minus 0pt}
-
-% Introduce a page break before each section
-\let\stdsection\section
-\renewcommand\section{\newpage\stdsection}
-
-%---------------------------------------------
-% Headers and Footers
-%---------------------------------------------
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
-
-\lhead{PP-SP-COR-0001}
-\chead{}
-\rhead{Revision 1.2.2}
-\lfoot{\textcopyright2012 P\&P Software GmbH. All Rights Reserved.} 
-\cfoot{\vspace{5mm}
-{\color{red}\verbatiminput{../commercial/LicensedTo.txt}}}
-\rfoot{\thepage}
-
-%---------------------------------------------
-% Management of lists
-%---------------------------------------------
-\setlist{nolistsep}								% No extra vertical space around a list		
-\newenvironment{fw_itemize}						% Control spacing between items in a list
-{\begin{itemize}
-  \setlength{\itemsep}{1mm}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}}
-{\end{itemize}}
-
-\newenvironment{fw_enumerate}					% Control spacing between items in an enumeration
-{\begin{enumerate}
-  \setlength{\itemsep}{1mm}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}}
-{\end{enumerate}}
-
-%---------------------------------------------
-% Paragraph Layout
-%---------------------------------------------
-\setlength{\parindent}{0in}						% No indentation on first line of a new paragraph
-
-%---------------------------------------------
-% Define Environment for Requirement Tables without Notes
-% Par #1: Requirement Title
-% Par #2: Requirement Verification Method
-% Par #3: Requirement Text
-% Par #4: Requirement Justification
-% Par #5: Requirement Implementation
-% Par #6: Requirement Verification
-%---------------------------------------------
-\newenvironment{fw_req}[6]
-{\addtocounter{subsubsection}{1}
-	\hspace{0.2cm}\textbf{FW-\arabic{section}.\arabic{subsection}.\arabic{subsubsection}/#2
-	\hspace{0.8cm} #1}
-	\vspace{-10pt}
-\begin{longtable}{p{2.7cm}P{8.5cm}}
-\hline
-\textsc{Requirement} & #3 \\
-\textsc{Justification} & #4 \\
-\textsc{Implementation} & #5  \\ 
-\textsc{Verification} & #6  \\
-\hline
-}
-{\end{longtable}}
-
-%---------------------------------------------
-% Define Environment for Requirement Tables with Notes
-% Par #1: Requirement Title
-% Par #2: Requirement Verification Method
-% Par #3: Requirement Text
-% Par #4: Requirement Notes
-% Par #5: Requirement Justification
-% Par #6: Requirement Implementation
-% Par #7: Requirement Verification
-%---------------------------------------------
-\newenvironment{fw_req_note}[7]
-{\addtocounter{subsubsection}{1}
-	\hspace{0.2cm}\textbf{FW-\arabic{section}.\arabic{subsection}.\arabic{subsubsection}/#2
-	\hspace{0.8cm} #1}
-	\vspace{-10pt}
-\begin{longtable}{p{2.7cm}P{8.5cm}}
-\hline
-\textsc{Requirement} & #3 \\
-\textsc{Note} & #4 \\
-\textsc{Justification} & #5 \\
-\textsc{Implementation} & #6  \\ 
-\textsc{Verification} & #7  \\
-\hline
-}
-{\end{longtable}}
-	
-%---------------------------------------------
-% Define table layout 
-%---------------------------------------------
-\renewcommand{\arraystretch}{1.5}	% add vertical padding
-
-\newcolumntype{P}[1]{>{%			% define column with paragraphs
-  \parskip=0.5\baselineskip%
-  \advance\parskip by 0pt plus 2pt
-  \setlength{\parfillskip}{30pt plus 1fil}}p{#1}}
-
-
-%---------------------------------------------
-% Definition of colours
-%---------------------------------------------
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-\definecolor{lightblue}{RGB}{128,179,255}
-\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
-\definecolor{light-gray}{gray}{0.85}
- 
-%---------------------------------------------
-% Options for the code listing boxes
-%---------------------------------------------
-\lstset{ 
-  language=C,                % the language of the code
-  aboveskip=\bigskipamount,			% vertical space above listing box
-  basicstyle=\footnotesize\ttfamily,    % use small size and mono-space font
-  numbers=left,                   % where to put the line-numbers
-  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
-  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
-                                  % will be numbered
-  numbersep=5pt,                  % how far the line-numbers are from the code
-  backgroundcolor=\color{lbcolor},      % choose the background color. You must add \usepackage{color}
-  showspaces=false,               % show spaces adding particular underscores
-  showstringspaces=false,         % underline spaces within strings
-  showtabs=false,                 % show tabs within strings adding particular underscores
-  frame=single,                   % adds a frame around the code
-  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
-  tabsize=2,                      % sets default tabsize to 2 spaces
-  captionpos=b,                   % sets the caption-position to bottom
-  breaklines=true,                % sets automatic line breaking
-  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
-  title=\lstname,                   % show the filename of files included with \lstinputlisting;
-                                  % also try caption instead of title
-  keywordstyle=\color{blue},          % keyword style
-  commentstyle=\color{dkgreen},       % comment style
-  stringstyle=\color{mauve},         % string literal style
-  escapeinside={\%*}{*)},            % if you want to add a comment within your code
-  morekeywords={*,...}               % if you want to add more keywords to the set
-}
- 
-%---------------------------------------------
-% Title Page
-%---------------------------------------------
-\title{\textsc{The Framework Profile} \\ \textsc{C1 Implementation} \\ \textsc{- USER REQUIREMENTS -}}
-\date{13 October 2016}
-\author{Alessandro Pasetti \& Vaclav Cechticky}
-
+\documentclass[requirements]{../fwprofile}
+\fwdocument{PP-SP-COR-0001}{1.2.2}{1.2.2}
+  {\textsc{The Framework Profile} \\ \textsc{C1 Implementation} \\ \textsc{- USER REQUIREMENTS -}}
+  {13 October 2016}
 
 \begin{document}
-\maketitle
-
-\begin{center}
-Revision 1.2.2 \\
-PP-SP-COR-0001
-\end{center}
-
-\begin{center}
-P\&P Software GmbH \\
-High Tech Center 1 \\
-8274 T\"{a}gerwilen \\
-Switzerland \\
-\vspace{2mm}
-Web site: \url{www.pnp-software.com}\\
-E-mail: \href{mailto:pnp-software@pnp-software.com}{\nolinkurl{pnp-software@pnp-software.com}} 
-\end{center}
-
-
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{p{11.7cm}}
-\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
+\fwmaketitle
 \begin{abstract}
 This document defines, justifies, and verifies the User Requirements for the C1 Implementation of the FW Profile. The FW Profile is a specification-level modelling 
 language defined as a restriction of UML. The core modelling constructs offered by the FW Profile are State Machines, Procedures (equivalent to UML's Activity Diagrams), and RT Containers (encapsulations of threads).
@@ -232,46 +14,7 @@ high reliability.
 \par 
 The C1 Implementation is provided with a Qualification Data Package which can be used to support the certification of applications built using its components.
 \end{abstract}
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{p{11.7cm}}
-\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-%---------------------------------------------
-% Table of contents and list of figures and requirements
-%---------------------------------------------
-\newpage
-\tableofcontents
-
-\newpage
-\listoffigures
-\listoftables
-\lstlistoflistings
-
-%---------------------------------------------
-% Copyright notice
-%---------------------------------------------
-
-\newpage
-\vspace*{\fill}
-\begin{center}
-No part of this publication may be reproduced, transmitted, transcribed, stored in any retrieval system, or translated into any language
-by any means without express prior written permission of P\&P Software GmbH.
-\end{center}
-
-\begin{center}
-Copyright \textcopyright 2012 P\&P Software GmbH. All Rights Reserved. 
-\end{center}
-\vspace*{\fill}
-
-%---------------------------------------------
-% Adjust distance between paragraphs (this cannot be done earlier or it also affects the TOC)
-%---------------------------------------------
-\setlength{\parskip}{3mm}						% Set distance between paragraphs
+\fwfrontmatter
 
 %---------------------------------------------
 % Start of Document Text
@@ -301,6 +44,8 @@ This section lists the changes made in successive revisions of this document. Ch
 \hline\hline
 \endhead
 n.a. & E & Corrected reference number in \cite{ref:um}\\
+\hline
+n.a. & E & Moved the copyright page before the contents and lists, and adjusted diagram sizes.\\
 \hline
 \end{longtable}
 
@@ -517,8 +262,7 @@ It is documented as part of the Doxygen documentation for the C1 Implementation 
 
 %=============================================================================
 % Introduce a page break before each sub-section
-\let\stdsubsection\subsection
-\renewcommand\subsection{\newpage\stdsubsection}
+\fwbreakbeforesubsections
 %=============================================================================
 
 
@@ -854,7 +598,7 @@ same as in the FW Profile Definition Document of \cite{ref:fwprofile}.}
 %======================================================================================
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.315,keepaspectratio=true]{../images/SM_StartStop.png}
+ \includegraphics[width=\linewidth,keepaspectratio=true]{../images/SM_StartStop.png}
  \caption{State Machine Start/Stop Behaviour}
  \label{fig:SmStartStop}
 \end{figure}
@@ -906,7 +650,7 @@ has 100\% coverage of its implementation.}
 %======================================================================================
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.55,keepaspectratio=true]{../images/SM_CmdProcessing.png}
+ \includegraphics[width=0.729\linewidth,keepaspectratio=true]{../images/SM_CmdProcessing.png}
  \caption{Logic for Processing Transition Commands by a State Machine}
  \label{fig:SmTransCmd}
 \end{figure}
@@ -915,7 +659,7 @@ has 100\% coverage of its implementation.}
 %======================================================================================
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.465,keepaspectratio=true]{../images/SM_TransitionExecution.png}
+ \includegraphics[width=0.798\linewidth,keepaspectratio=true]{../images/SM_TransitionExecution.png}
  \caption{Logic for Executing Transitions in a State Machine}
  \label{fig:SmExecutingTransCmd}
 \end{figure}
@@ -1671,7 +1415,7 @@ The Stop interface is implemented by function \texttt{FwPrStop}.}
 %======================================================================================
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.5,keepaspectratio=true]{../images/PR_StartStop.png}
+ \includegraphics[width=0.55\linewidth,keepaspectratio=true]{../images/PR_StartStop.png}
  \caption{Procedure Start/Stop Behaviour}
  \label{fig:PrStartStop}
 \end{figure}
@@ -1719,7 +1463,7 @@ activity diagram of Figure \ref{fig:PrExecuting}.}
 %======================================================================================
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.35,keepaspectratio=true]{../images/PR_Execution.png}
+ \includegraphics[width=\linewidth,keepaspectratio=true]{../images/PR_Execution.png}
  \caption{Procedure Execution Logic}
  \label{fig:PrExecuting}
 \end{figure}
@@ -2255,7 +1999,7 @@ the FW Profile definition of \cite{ref:fwprofile}.}
 
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.37,keepaspectratio=true]{../images/RTStartStop.png}
+ \includegraphics[width=0.735\linewidth,keepaspectratio=true]{../images/RTStartStop.png}
  \caption{RT Container Start/Stop Behaviour}
  \label{fig:RTStartStop}
 \end{figure}
@@ -2356,7 +2100,7 @@ while true do {
 %======================================================================================
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.3,keepaspectratio=true]{../images/RTContainer.png}
+ \includegraphics[width=\linewidth,keepaspectratio=true]{../images/RTContainer.png}
  \caption{Notification and Activation Procedures}
  \label{fig:RTContainer}
 \end{figure}
