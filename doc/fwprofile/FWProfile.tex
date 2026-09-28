@@ -434,7 +434,7 @@ framework predefines the architecture for the applications within its domain and
 
 The framework instantiation process is the process through which the reusable assets offered by the framework are used to build a specific application. This process is illustrated in figure \ref{fig:SwFwConcept}. The framework components are first adapted to meet the needs of the target application and are then assembled to build the target application.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.45,keepaspectratio=true]{../images/SwFrameworks.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -620,7 +620,7 @@ upon leaving the initial node. For a self-transition, the previous and current n
 Finally, stopping a procedure resets its previous node and current node to an invalid value.
 This is shown in the state diagram of Figure \ref{fig:PR_StartStop}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.45,keepaspectratio=true]{../images/PR_StartStop.png}
  \caption{Procedure Start/Stop Commands}
@@ -669,9 +669,9 @@ of control is advanced every time that the procedure is executed.
 The behaviour associated to the execution of a procedure is shown as an activity diagram in
 Figure \ref{fig:PR_Execution}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
- \includegraphics[scale=0.38,keepaspectratio=true]{../images/PR_Execution.png}
+ \includegraphics[scale=0.35,keepaspectratio=true]{../images/PR_Execution.png}
  \caption{Procedure Execution Logic}
  \label{fig:PR_Execution}
 \end{figure}
@@ -735,7 +735,7 @@ FW Profile procedures can be conveniently represented using standard UML Activit
 
 As an example, consider the procedure in figure \ref{fig:PR_Example}. In this figure, when an action consists of performing an operation upon a state machine or upon another procedure (see section \ref{sec:specProcActions}), the following syntax is used: “$\langle operationName \rangle$: $\langle SM\_or\_ProcName \rangle$”. Thus, for instance, if an action consists in starting procedure \texttt{Proc\_A}, the content of the action is expressed as follows: “Start: Proc\_A”.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.43,keepaspectratio=true]{../images/PR_Example.png}
  \caption{Procedure Example}
@@ -1035,7 +1035,7 @@ previous state and current state are set to invalid values.
 The logic of the start and stop commands for state machines is shown in Figure \ref{fig:SmStartStop} as two
 activity diagrams.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.32,keepaspectratio=true]{../images/SM_StartStop.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -1068,7 +1068,7 @@ Figure \ref{fig:SmCmdProcessing} as an activity diagram. Note that this logic me
 under which a transition within a state machine is executed but it does not define the logic
 according to which the transition is executed. This is done below (see also Figure \ref{fig:SmTransitionExecution}).
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.40,keepaspectratio=true]{../images/SM_CmdProcessing.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -1107,7 +1107,7 @@ section.
 The logic according to which a transition is executed is shown as an activity diagram in Figure \ref{fig:SmTransitionExecution}. 
 Note that this logic is called up by the logic shown in the activity diagram of Figure \ref{fig:SmCmdProcessing}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.35,keepaspectratio=true]{../images/SM_TransitionExecution.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -1188,7 +1188,7 @@ The state machine terminates execution when it is executed at a time when it is 
 
 The use of the AP stereotypes is discussed in the next section.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.42,keepaspectratio=true]{../images/SM_Example.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -1245,7 +1245,7 @@ The invariant properties of a state machine are therefore those which describe b
 depends on the topology of a state machine and on the sequence of transitions and actions
 performed by the state machine.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.45,keepaspectratio=true]{../images/HwDeviceWithBusyWait.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -1266,7 +1266,7 @@ explicitly in the figure). The embedded state machine can be used to endow the d
 machine with additional (application-level) properties but it cannot violate the properties
 inherited from the framework level.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.45,keepaspectratio=true]{../images/SM_Adaptation.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -1486,7 +1486,7 @@ Figure \ref{fig:FV_BasicApproach} shows the basic approach to model-checking wit
 
 The appeal of the approach in figure \ref{fig:FV_BasicApproach} is that it would allow the Promela model to be automatically generated from the FW Profile model. Building a tool to translate a model from the FW Profile to the Promela world would be straighforward and would automate the verification process. In reality, this approach would suffer from two major flaws. Firstly, in practical cases, verification is not possible on a \textit{full} model of the target application because the verification would either take too long or exhaust the memory of the computer platform on which it is carried out. Verification must be done on a \textit{reduced} version of the model which only retains the features which are relevant to the properties which are being verified. Secondly, verification of the properties of a certain application normally requires that the environment within which the application is embedded be specified. 
 
-\begin{figure}[h]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.35,keepaspectratio=true]{../images/FV_BasicApproach.png}
  \caption{Basic Approach for Model Cheking of FW Profile Models}
@@ -1497,7 +1497,7 @@ Thus, a more realistic approach to formal verification is as in figure \ref{fig:
 
 For all the above reasons, it seems more useful to define general "Promela patterns" of how FW Profile models can be transformed into Promela models rather than to provide a tool which would, at most, only automatize a small part of the transformation. Understanding of these patterns may help a designer to rapidly create Promela models which are adapted to a certain property to be verified. These Promela Patterns are introduced in the next section while section \ref{sec:promelaPatternsExample} presents a concrete example of their use. 
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.45,keepaspectratio=true]{../images/FV_RealisticApproach.png}
  \caption{Realistic Approach to Model Cheking of FW Profile Models}
@@ -1518,7 +1518,7 @@ The next three sub-sections discuss in greater detail the mapping to Promela of 
 \subsubsection{State Machines}\label{sec:smPromelaPattern}
 This section explains how a FW Profile state machine can be represented in a Promela program. The example Promela listings in this section have been built for the state machine of figure \ref{fig:FV_Buffer}. This state machine represents a buffer controller and is part of the example discussed in section \ref{sec:promelaPatternsExample}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.37,keepaspectratio=true]{../images/FV_Buffer.png}
  \caption{State Machine for a Buffer Control Logic}
@@ -1604,7 +1604,7 @@ inline BufferSM(cmd) {
 \subsubsection{Procedures}\label{sec:prPromelaPattern}
 This section explains how a FW Profile procedure can be represented in a Promela program. The example Promela listing in this section has been built for the procedure of figure \ref{fig:FV_ActuatorController}. This procedure controls a hardware actuator and is part of the example discussed in section \ref{sec:promelaPatternsExample}. 
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.4,keepaspectratio=true]{../images/FV_ActuatorController.png}
  \caption{Procedure to Control a Hardware Actuator}
@@ -1835,13 +1835,13 @@ This property is satisfied but it should be stressed that it is only satisfied b
 In summary, this example shows that FW Profile models can be easily and systematically mapped to Promela programs where formal verification of their properties can be performed using the Spin Model Checker.
 
 \newpage
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.4,keepaspectratio=true]{../images/FV_Actuator.png}
  \caption{State Machines to Control the Hardware Actuator}
  \label{fig:FV_Actuator}
 \end{figure}
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.44,keepaspectratio=true]{../images/FV_ActuatorController.png}
  \caption{Actuator Controller Procedure}

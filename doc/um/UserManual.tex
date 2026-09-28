@@ -518,7 +518,7 @@ the C1 Implementation. Thus, for instance, an application executes a state machi
 In general, applications never need to directly access the internal fields of an SMD. 
 They therefore do need not be concerned with the internal structure of an SMD. Familiarity with the internal SMD structure only becomes important when, for memory or CPU efficiency reasons, users wish to by-pass some of the functions provided by the C1 Implementation and need to directly manipulate the SMD. This is discussed further in section \ref{sec:smUsage}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.6,keepaspectratio=true]{../images/SMD.png}
  % SMD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -650,7 +650,7 @@ A PRD is a data structure which holds all the information required to describe a
 Users only manipulate pointers to PRDs. These are defined as instances of type \texttt{FwPrDesc\_t}. The internal structure of a PRD is described 
 in header file \texttt{FwPrPrivate.h} and is represented in informal notation in Figure \ref{fig:PRD}. 
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.6,keepaspectratio=true]{../images/PRD.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -859,7 +859,7 @@ Additionally, a number of error states are present. The \texttt{rtConfigErr} sta
 
 The range of values of the container state is defined in type \texttt{FwRtState\_t}. The value of the container state can be read through function \texttt{FwRtGetContState}.
  
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.43,keepaspectratio=true]{../images/RTContainerStates.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -903,7 +903,7 @@ The pseudo-code examples in this section refer to the test state machine SM5 whi
 This test state machine is built by function \texttt{FwSmMakeTestSM5} in the Test 
 Suite and it is used in a number of test cases in the test suite.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.52,keepaspectratio=true]{../images/SM5.png}
  % SMD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -1229,7 +1229,7 @@ Descriptor is duplicated whereas the Base Descriptor is shared between a state m
 (see Figure \ref{fig:SMDExtension}). This significantly reduces memory occupation in a situation where a 
 large number of state machines are derived from the same base state machine. 
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.52,keepaspectratio=true]{../images/SMDExtension.png}
  % SMD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -1331,7 +1331,7 @@ The pseudo-code examples in this section refer to the test procedure PR2 which i
 This test procedure is built by function \texttt{FwPrMakeTestPR2} in the Test 
 Suite and it is used in a number of test cases in the test suite.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.52,keepaspectratio=true]{../images/PR2.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
@@ -1621,7 +1621,7 @@ large number of procedures are derived from the same base procedure.
 
 
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.52,keepaspectratio=true]{../images/PRDExtension.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227

@@ -2,7 +2,7 @@ Three operations may be performed on a RT Container: (a) the RT Container may be
 
 A RT Container may be in two states: STOPPED or STARTED. Initially, by default, the container is in state STOPPED. When a RT Container is started, the behaviour shown in the activity diagram in the left-hand side of figure \ref{fig:RTStartStop} is executed. The Start operation only has an effect if the container is in state STOPPED when the operation causes the Activation and Notification Procedures to be started and executed once and the Activation Thread to be created and released. The Notification and Activation Procedures are started "atomically" in the sense that neither procedure can be executed or stopped before both have been started. Reference to figure \ref{fig:RTContainerProcedures} shows that the first execution of the Activation and Notification Procedures results in their initialization actions being executed and, in the case of the Activation Procedure, in the first Set-Up Notification action being executed. 
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.35,keepaspectratio=true]{../images/RTStartStop.png}
  \caption{Start and Stop Operations for RT Containers}
@@ -43,7 +43,7 @@ while true do {
 
 The thread executes a loop which starts with a check on whether there are any pending notifications (the Notification Counter holds the number of pending notifications). If there is a pending notification (i.e. if the Notification Counter is greater than zero), the thread decrements the Notification Counter and then executes the Activation Procedure (which causes the container's functional behaviour to be executed). The thread terminates when the Activation Procedure has terminated or when the RT container has been stopped. In the former case (Activation Procedure has autonomously terminated), the RT Container is put in the STOPPED state and the Notification Procedure is executed one last time before the thread exits; in the latter case (RT Container has been stopped), both procedures are executed one last time. This last execution is intended to give the procedures a chance to perform their finalization behaviour.
 
-\begin{figure}[ht]
+\begin{figure}[H]
  \centering
  \includegraphics[scale=0.3,keepaspectratio=true]{../images/RTContainer.png}
  % PRD.png: 474x227 pixel, 72dpi, 16.72x8.01 cm, bb=0 0 474 227
